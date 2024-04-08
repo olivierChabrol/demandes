@@ -380,7 +380,8 @@ if(
 		tincidents.userread,
 		tincidents.place,
 		tincidents.asset_id,
-                i2m.date_start
+        i2m.date_start,
+        i2m.om_for_guest
 		";
 		$from="tincidents";
 		$join='LEFT JOIN tstates ON tincidents.state=tstates.id LEFT JOIN dmission_order AS i2m ON tincidents.id=i2m.incident_id ';
@@ -1908,6 +1909,9 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 					{
 						while ($row=$masterquery->fetch())
 						{
+                            if($row['title'] == 'Invitation de Guy McCusker') {
+                                var_dump($row);
+                            }
 							//select name of states
 							$qry=$db->prepare("SELECT `display`,`description`,`name` FROM `tstates` WHERE `id`=:id");
 							$qry->execute(array('id' => $row['state']));
@@ -1981,9 +1985,10 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								$qry->execute(array('id' => $row['category']));
 								$resultcat=$qry->fetch();
 								$qry->closeCursor();
-								if($row['category']==0) {$resultcat['name']=T_($resultcat['name']);}
+                                if($row['om_for_guest']) {$resultcat['name']=T_('Invitation');}
+								elseif ($row['category']==0) {$resultcat['name']=T_($resultcat['name']);}
 								if(empty($resultcat['name'])) {$resultcat['name']=T_('Aucune');}
-							}
+                            }
 							if($rright['dashboard_col_subcat'])
 							{
 								//select name of subcategory
