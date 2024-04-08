@@ -1909,9 +1909,6 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 					{
 						while ($row=$masterquery->fetch())
 						{
-                            if($row['title'] == 'Invitation de Guy McCusker') {
-                                var_dump($row);
-                            }
 							//select name of states
 							$qry=$db->prepare("SELECT `display`,`description`,`name` FROM `tstates` WHERE `id`=:id");
 							$qry->execute(array('id' => $row['state']));
