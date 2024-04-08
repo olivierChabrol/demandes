@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<style>
+			.bordered {
+				border: 1px solid #CCCCCC;
+				border-radius: 6px 6px 6px 6px;
+				-moz-border-radius: 6px 6px 6px 6px;
+				-webkit-border-radius: 6px 6px 6px 6px;
+				box-shadow: 0 1px 1px #CCCCCC;
+			}
+			table {
+				border-spacing: 0;
+				width: 600px;
+				margin: 20px;
+			}        
+			.bordered th:first-child {
+				border-radius: 6px 0 0 0;
+				-moz-border-radius: 6px 0 0 0;
+				-webkit-border-radius: 6px 0 0 0;
+			}
+			.bordered th:last-child {
+				border-radius: 0 6px 0 0;
+				-moz-border-radius: 0 6px 0 0;
+				-webkit-border-radius: 0 6px 0 0;
+			}
+
+			.bordered td:first-child, .bordered th:first-child {
+				border-left: medium none;
+			}
+			.bordered th {
+				background-color: #DCE9F9;
+				background-image: -moz-linear-gradient(center top , #F8F8F8, #ECECEC);
+				background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#F8F8F8), to(#ECECEC), color-stop(.4, #F8F8F8));
+				border-top: medium none;
+				box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+				text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+			}
+			.bordered td, .bordered th {
+				border-left: 1px solid #CCCCCC;
+				border-top: 1px solid #CCCCCC;
+				padding: 5px;
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<table class="bordered">
+			<thead>
+				<tr >
+					<th style="padding:10px;" >&nbsp; #mail_object# &nbsp;</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr >
+				  <td style="padding:10px;" >
+					<p>#mail_txt#</p>
+					<table border="0">
+						<tr>
+							<td><b>#title# :</b> #ticket_title#</td>
+							<td><b>#category# :</b> #ticket_category# - #ticket_subcat#</td>
+						</tr>
+						<tr>
+							<td  width="400"><b>#user# :</b> #ticket_user#</td>
+							<td  width="400"><b>#technician# :</b> #ticket_technician#</td>
+						</tr>
+						<tr>
+							<td><b>#state# :</b> #ticket_state#</td>
+							<td><b>#date_create# :</b> #ticket_date_create#</td>	
+						</tr>
+						<tr>
+							<td  colspan="2"><b>#description# :</b><br />#ticket_description#</td>
+						</tr>
+						<tr>
+							<td  colspan="2"><b>#resolution# :</b><br /> #ticket_resolution#</td>
+						</tr>
+						<tr>
+							<td><b>#date_hope# :</b> #ticket_date_hope#</td>
+							<td><b>#date_res# :</b> #ticket_date_res#</td>
+						</tr>
+					</table>
+					<hr />
+						<p></p>#mail_txt_end#</p>
+				  </td>
+				</tr>
+			</tbody>
+		</table>
+	</body>
+</html>

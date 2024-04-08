@@ -1,0 +1,4627 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GestSup\n"
+"POT-Creation-Date: 2017-02-17 21:41+0100\n"
+"PO-Revision-Date: 2017-02-17 21:42+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _;gettext;T_\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: components\n"
+"X-Poedit-SearchPathExcluded-1: template\n"
+"X-Poedit-SearchPathExcluded-2: _SQL\n"
+"X-Poedit-SearchPathExcluded-3: js\n"
+
+#: admin.php:28 admin/backup.php:111 admin/parameters.php:277
+#: admin/update.php:86 admin/update.php:193 admin/update.php:200
+#: admin/update.php:215 admin/update.php:222 admin/update.php:238
+#: admin/update.php:249 admin/update.php:261 admin/user.php:907
+#: admin/user.php:912 core/asset.php:310 core/import_assets.php:163
+#: core/ldap.php:485 core/ping.php:111 core/ping.php:126 core/ticket.php:375
+#: core/wol.php:31 index.php:621 index.php:625 index.php:628 index.php:629
+#: index.php:630 index.php:631 index.php:632 index.php:633 index.php:634
+#: index.php:635 index.php:636 index.php:637 index.php:638 index.php:639
+#: install/index.php:134 login.php:142 login.php:195 login.php:222
+#: modify_pwd.php:37 modify_pwd.php:42 modify_pwd.php:47
+#: stats/line_assets.php:116 stats/line_tickets.php:121 ticket_print.php:141
+msgid "Erreur"
+msgstr "Error"
+
+#: admin.php:28
+msgid "Vous n'avez pas accès à cette page, contacter votre administrateur"
+msgstr "You do not have access to this page, contact your administrator"
+
+#: admin/backup.php:99
+msgid "La sauvegarde à été réalisée avec succès, une copie de l'archive se trouve dans le répertoire ./backup de votre serveur web"
+msgstr "The backup was successfully completed, a copy of the archive is located in the ./backup directory of your web server"
+
+#: admin/backup.php:113
+msgid "La sauvegarde de l'application à échoué"
+msgstr "Backing up the application failed"
+
+#: admin/backup.php:136
+msgid "Sauvegardes de GestSup"
+msgstr "GestSup Backup"
+
+#: admin/backup.php:142
+msgid "Lancer la sauvegarde"
+msgstr "Start Backup"
+
+#: admin/backup.php:146
+msgid "Administrer la base de donnée"
+msgstr "Administer the database"
+
+#: admin/group.php:91
+msgid "Gestion des groupes"
+msgstr "Group management"
+
+#: admin/group.php:94 admin/user.php:229 asset_list.php:224 dashboard.php:413
+#: procedure.php:408 stats/tables.php:89 stats/tables.php:138
+msgid "Nombre"
+msgstr "Number"
+
+#: admin/group.php:111 admin/group.php:185
+msgid "Édition d'un groupe"
+msgstr "Editing a group"
+
+#: admin/group.php:117 admin/group.php:191 admin/group.php:257
+#: admin/profile.php:43 admin/user.php:527 admin/user.php:651
+#: admin/user.php:844 asset_list.php:291 register.php:176 ticket_useradd.php:63
+#: ticket_useradd.php:117
+msgid "Nom"
+msgstr "Lastname"
+
+#: admin/group.php:123 admin/group.php:243
+msgid "Groupe d'utilisateurs"
+msgstr "User group"
+
+#: admin/group.php:129 admin/group.php:203 admin/group.php:249
+msgid "Groupe de techniciens"
+msgstr "Technician group"
+
+#: admin/group.php:133
+msgid "Ajout d'un nouveau membre"
+msgstr "Adding a new member"
+
+#: admin/group.php:149
+msgid "Membres actuels"
+msgstr "Current members"
+
+#: admin/group.php:155
+msgid "Fiche Utilisateur"
+msgstr "User card"
+
+#: admin/group.php:156
+msgid "Enlever l'utilisateur du groupe"
+msgstr "Remove user from group"
+
+#: admin/group.php:164 admin/list.php:480 admin/user.php:615 modify_pwd.php:83
+#: thread.php:128 thread.php:130 thread.php:301 ticket_catadd.php:118
+#: ticket_useradd.php:159
+msgid "Modifier"
+msgstr "Modify"
+
+#: admin/group.php:169 admin/group.php:215 admin/user.php:620
+#: admin/user.php:857 core/ldap.php:472 preview_mail.php:301 procedure.php:166
+#: procedure.php:376 register.php:240
+msgid "Retour"
+msgstr "Back"
+
+#: admin/group.php:197
+msgid "Groupe d'utilisateur"
+msgstr "User group"
+
+#: admin/group.php:210 admin/list.php:601 admin/user.php:852
+#: asset_findip.php:82 asset_findip2.php:81 event.php:241 thread.php:301
+#: ticket_catadd.php:78 ticket_useradd.php:100
+msgid "Ajouter"
+msgstr "Add"
+
+#: admin/group.php:230
+msgid "Ajouter un groupe"
+msgstr "Add a group"
+
+#: admin/group.php:258
+msgid "Membres"
+msgstr "Members"
+
+#: admin/group.php:259 admin/user.php:1052 procedure.php:434
+msgid "Actions"
+msgstr "Actions"
+
+#: admin/group.php:281 admin/list.php:688 procedure.php:459
+msgid "Éditer"
+msgstr "Edit"
+
+#: admin/group.php:284
+msgid "Désactiver"
+msgstr "Disable"
+
+#: admin/infos.php:19
+msgid "Informations sur GestSup"
+msgstr "Information about GestSup"
+
+#: admin/infos.php:24 admin/update.php:138
+msgid "Version"
+msgstr "Version"
+
+#: admin/infos.php:30
+msgid "Licence"
+msgstr "Licence"
+
+#: admin/infos.php:37
+msgid "Site Officiel"
+msgstr "Official site"
+
+#: admin/infos.php:44
+msgid "Contact"
+msgstr "Contact"
+
+#: admin/infos.php:47 ticket_useradd.php:70 ticket_useradd.php:124
+msgid "Mail"
+msgstr "Mail"
+
+#: admin/infos.php:51
+msgid "Communauté"
+msgstr "Community"
+
+#: admin/infos.php:54
+msgid "Forum"
+msgstr "Forum"
+
+#: admin/infos.php:54
+msgid "Pour toutes vos questions d'installation, de bugs, de mises à jour"
+msgstr "For all your installation questions, bugs, updates"
+
+#: admin/list.php:75
+msgid "Confirmation"
+msgstr "Confirmation"
+
+#: admin/list.php:79
+msgid "Voulez-vous supprimer cette ligne ?"
+msgstr "Do you want to delete this line?"
+
+#: admin/list.php:82 core/install_update.php:48 core/install_update.php:228
+#: core/install_update.php:243
+msgid "Continuer"
+msgstr "Continue"
+
+#: admin/list.php:84 asset_findip.php:84 asset_findip2.php:83
+#: core/install_update.php:50 core/install_update.php:67
+#: core/install_update.php:230 core/install_update.php:245 modify_pwd.php:65
+#: modify_pwd.php:85 ticket_catadd.php:80 ticket_catadd.php:120
+#: ticket_template.php:93 ticket_useradd.php:102 ticket_useradd.php:162
+msgid "Fermer"
+msgstr "Close"
+
+#: admin/list.php:123 admin/list.php:169 admin/parameters.php:131
+#: admin/parameters.php:280 core/upload.php:69 core/upload.php:92
+#: core/upload.php:115 core/upload.php:138 core/upload.php:161
+#: procedure.php:223
+msgid "Blocage de sécurité"
+msgstr "Security lock"
+
+#: admin/list.php:123 admin/list.php:169
+msgid "Type de fichier interdit"
+msgstr "Banned file type"
+
+#: admin/list.php:201
+msgid "Gestion des listes"
+msgstr "List management"
+
+#: admin/list.php:210
+msgid "Catégories"
+msgstr "Categories"
+
+#: admin/list.php:216 admin/list.php:375 admin/list.php:521 admin/user.php:449
+#: admin/user.php:828 core/export_tickets.php:63 dashboard.php:545
+#: dashboard.php:548 procedure.php:136 procedure.php:313 procedure.php:432
+#: ticket.php:411 ticket_catadd.php:74 ticket_catadd.php:113
+msgid "Sous-catégorie"
+msgstr "Sub-category"
+
+#: admin/list.php:222
+msgid "Criticités"
+msgstr "Criticality"
+
+#: admin/list.php:228
+msgid "États des tickets"
+msgstr "Ticket states"
+
+#: admin/list.php:234
+msgid "Lieux"
+msgstr "Places"
+
+#: admin/list.php:240
+msgid "Modèles des tickets"
+msgstr "Ticket templates"
+
+#: admin/list.php:246
+msgid "Priorités"
+msgstr "Priorities"
+
+#: admin/list.php:252
+msgid "Services"
+msgstr "Services"
+
+#: admin/list.php:263
+msgid "Sociétés"
+msgstr "Companies"
+
+#: admin/list.php:272
+msgid "Temps"
+msgstr "Time"
+
+#: admin/list.php:282
+msgid "Types des tickets"
+msgstr "Tickets types"
+
+#: admin/list.php:293
+msgid "Types des équipements"
+msgstr "Types of assets"
+
+#: admin/list.php:299
+msgid "Fabricants des équipements"
+msgstr "Asset manufacturer"
+
+#: admin/list.php:305
+msgid "Modèles des équipements"
+msgstr "Models of assets"
+
+#: admin/list.php:311
+msgid "États des équipements"
+msgstr "States of assets"
+
+#: admin/list.php:321
+msgid "Réseaux des équipements"
+msgstr "Networks of assets"
+
+#: admin/list.php:339
+msgid "Édition d'une entrée"
+msgstr "Editing an entry"
+
+#: admin/list.php:360 admin/list.php:509 admin/user.php:436 admin/user.php:815
+#: core/export_tickets.php:63 core/mail.php:232 dashboard.php:530
+#: dashboard.php:533 procedure.php:116 procedure.php:293 procedure.php:431
+#: ticket.php:394 ticket.php:397 ticket_catadd.php:54 ticket_catadd.php:90
+#: ticket_print.php:105
+msgid "Catégorie"
+msgstr "Category"
+
+#: admin/list.php:399 admin/list.php:530 asset.php:236 asset_list.php:323
+#: asset_stock.php:96 core/export_assets.php:63 core/export_tickets.php:63
+#: dashboard.php:515 plugins/availability/admin/parameters.php:101
+#: ticket.php:310
+msgid "Type"
+msgstr "Type"
+
+#: admin/list.php:414 admin/list.php:542 core/export_assets.php:63
+msgid "Fabriquant"
+msgstr "Manufacturer"
+
+#: admin/list.php:430 admin/list.php:558
+msgid "Image"
+msgstr "Picture"
+
+#: admin/list.php:438 admin/list.php:554 admin/parameters.php:908
+#: asset_list.php:335 asset_list.php:338 core/export_assets.php:63
+msgid "Modèle"
+msgstr "Model"
+
+#: admin/list.php:445 admin/list.php:565
+msgid "Équipement IP"
+msgstr "IP Equipment"
+
+#: admin/list.php:446 admin/list.php:450 admin/list.php:566 admin/list.php:571
+#: admin/parameters.php:892 admin/parameters.php:900 admin/user.php:391
+#: admin/user.php:768 plugins/availability/admin/parameters.php:33
+#: plugins/availability/admin/parameters.php:130
+msgid "Oui"
+msgstr "Yes"
+
+#: admin/list.php:447 admin/list.php:451 admin/list.php:568 admin/list.php:573
+#: admin/parameters.php:893 admin/parameters.php:901 admin/user.php:392
+#: admin/user.php:769 plugins/availability/admin/parameters.php:34
+#: plugins/availability/admin/parameters.php:131
+msgid "Non"
+msgstr "No"
+
+#: admin/list.php:449
+msgid "Équipement Wifi"
+msgstr "Équipement Wifi"
+
+#: admin/list.php:456 admin/list.php:578
+msgid "Nombre d'années de garantie"
+msgstr "Number of years of warranty"
+
+#: admin/list.php:499
+msgid "Ajout d'une entrée"
+msgstr "Adding an entry"
+
+#: admin/list.php:570
+msgid "Équipement WIFI"
+msgstr "WIFI Equipment"
+
+#: admin/list.php:620
+msgid "Ajouter une entrée"
+msgstr "Add an entry"
+
+#: admin/list.php:695 attachement.php:75 attachement.php:95 attachement.php:116
+#: attachement.php:136 attachement.php:155 dashboard.php:1191 procedure.php:357
+#: procedure.php:466 thread.php:132
+msgid "Supprimer"
+msgstr "Delete"
+
+#: admin/parameters.php:128 admin/parameters.php:277 procedure.php:220
+msgid "Erreur de transfert vérifier le chemin"
+msgstr "Transfer error check path"
+
+#: admin/parameters.php:131 admin/parameters.php:280 core/upload.php:69
+#: core/upload.php:92 core/upload.php:115 core/upload.php:138
+#: core/upload.php:161 procedure.php:223
+msgid "Fichier interdit"
+msgstr "Prohibited file"
+
+#: admin/parameters.php:370
+msgid "Attention"
+msgstr "Warning"
+
+#: admin/parameters.php:372
+msgid "Le dossier d'installation est toujours présent sur votre serveur, pour des raisons de sécurité veuillez supprimer le répertoire \"./install\" ."
+msgstr "The installation folder is always present on your server, for security reasons please remove \"./install\" directory."
+
+#: admin/parameters.php:380
+msgid "Paramètres de l'application"
+msgstr "Application settings"
+
+#: admin/parameters.php:389
+msgid "Général"
+msgstr "General"
+
+#: admin/parameters.php:395
+msgid "Connecteurs"
+msgstr "Connectors"
+
+#: admin/parameters.php:401
+msgid "Fonctions"
+msgstr "Plugins"
+
+#: admin/parameters.php:412 admin/user.php:568 admin/user.php:688
+#: admin/user.php:990 core/export_tickets.php:63 core/ldap.php:318
+#: ticket.php:260 ticket_useradd.php:77 ticket_useradd.php:130
+msgid "Société"
+msgstr "Company"
+
+#: admin/parameters.php:416
+msgid "Nom de l'entreprise"
+msgstr "Company name"
+
+#: admin/parameters.php:419
+msgid "Logo"
+msgstr "Logo"
+
+#: admin/parameters.php:425
+msgid "Supprimer ce logo"
+msgstr "Remove this logo"
+
+#: admin/parameters.php:439 system.php:109
+msgid "Serveur"
+msgstr "Server"
+
+#: admin/parameters.php:443
+msgid "URL d'accès au serveur"
+msgstr "Server access URL"
+
+#: admin/parameters.php:445
+msgid "URL de l'accès au serveur pour vos utilisateurs, utilisé dans l'envoi de mail (exemple: https://gestsup en LAN ou https://support.masociete.com sur Internet)"
+msgstr "URL of GestSup server  for your users, used in sending mail (example: https: // gestsup in LAN or https://support.mycompany.com on the Internet)"
+
+#: admin/parameters.php:452
+msgid "Affichage"
+msgstr "Display"
+
+#: admin/parameters.php:456
+msgid "Nombre de ligne par page"
+msgstr "Number of lines per page"
+
+#: admin/parameters.php:458
+msgid "Si cette valeur est trop grande cela peut ralentir l'application"
+msgstr "If this value is too large this may slow down the application"
+
+#: admin/parameters.php:460
+msgid "Temps d'affichage des messages d'actions"
+msgstr "Display time of action messages"
+
+#: admin/parameters.php:462
+msgid "Actualisation automatique"
+msgstr "Automatic refresh"
+
+#: admin/parameters.php:464
+msgid "Si la valeur est à 0, alors l'actualisation automatique est désactivée. Attention, cette fonction peut faire clignoter l'écran selon les navigateurs"
+msgstr "If set to 0, then auto refresh is disabled. Caution, this function can cause the screen to blink in different browsers"
+
+#: admin/parameters.php:466
+msgid "Ordre de trie des tickets"
+msgstr "Ticket sort order"
+
+#: admin/parameters.php:468
+msgid "État > Priorité > Criticité > Date de création"
+msgstr "State > Priority > Criticality > Creation date"
+
+#: admin/parameters.php:469 admin/user.php:494
+msgid "État > Priorité > Criticité > Date de résolution estimé"
+msgstr "State > Priority > Critical > Estimated Date of Resolution"
+
+#: admin/parameters.php:470
+msgid "État > Date de résolution estimé > Priorité > Criticité"
+msgstr "State  > Estimated resolution date > Priority > Criticality"
+
+#: admin/parameters.php:471
+msgid "État > Date de résolution estimé > Criticité > Priorité"
+msgstr "State > Estimated resolution date > Criticality > Priority"
+
+#: admin/parameters.php:472
+msgid "État > Criticité > Date de résolution estimé > Priorité"
+msgstr "State > Criticality > Estimated Date of Resolution > Priority"
+
+#: admin/parameters.php:473 admin/user.php:498
+msgid "Numéro de ticket"
+msgstr "Ticket number"
+
+#: admin/parameters.php:475
+msgid "Détermine l'ordre de classement des tickets dans la liste des tickets"
+msgstr "Determines the order in which tickets are ordered in the ticket list"
+
+#: admin/parameters.php:479
+msgid "Gestion du méta état \"a traiter\""
+msgstr "Management of the meta state \"to process\""
+
+#: admin/parameters.php:480
+msgid "Permet d'afficher un nouvel état regroupant les états en attente de PEC, en cours, et en attente de retour"
+msgstr "Allows to display a new state grouping the states waiting for technician, in progress, and waiting cutomer"
+
+#: admin/parameters.php:483
+msgid "Écran de supervision"
+msgstr "Monitor screen"
+
+#: admin/parameters.php:490 stat.php:95 stat_line.php:20 stats/tables.php:193
+msgid "Tickets"
+msgstr "Tickets"
+
+#: admin/parameters.php:496
+msgid "Gestion des lieux"
+msgstr "Site management"
+
+#: admin/parameters.php:497
+msgid "Permet un rattachement du ticket à une localité, une liste des lieux est éditable dans la section liste, un nouveau champ sera disponible sur le ticket"
+msgstr "Allows an attachment of the ticket to a locality, a list of places can be edited in the list section, a new field will be available on the ticket"
+
+#: admin/parameters.php:502
+msgid "Gestion des types"
+msgstr "Type management"
+
+#: admin/parameters.php:503
+msgid "Permet de définir un type à un ticket (ex: Demande, Incident...), ajoute une ligne sur le ticket, la liste des types est administrable dans Administration > Liste"
+msgstr "Allows to define a type to a ticket (ex: Request, Incident ...), adds a line on the ticket, the list of types is administrable in Administration> List"
+
+#: admin/parameters.php:511
+msgid "Son"
+msgstr "Sound"
+
+#: admin/parameters.php:517
+msgid "Activer la notification sonore pour les nouvelles demandes"
+msgstr "Enable notification for new ticket"
+
+#: admin/parameters.php:518
+msgid "Active l'avertisseur sonore pour le technicien si un utilisateur déclare un ticket (fonctionne uniquement sur Chrome, Firefox et Safari)"
+msgstr "Activates the buzzer for the technician if a user declares a ticket (works only on Chrome, Firefox and Safari)"
+
+#: admin/parameters.php:526 index.php:523 menu.php:459 stats/tables.php:188
+#: stats/tables.php:237
+msgid "Utilisateurs"
+msgstr "Users"
+
+#: admin/parameters.php:532
+msgid "Utiliser les propriétés utilisateur avancées"
+msgstr "Use advanced user properties"
+
+#: admin/parameters.php:533
+msgid "Ajoute des champs supplémentaire aux propriétés utilisateurs, Société, FAX, Adresses..."
+msgstr "Add additional fields to user properties, Company, FAX, Addresses ..."
+
+#: admin/parameters.php:538
+msgid "Les utilisateurs peuvent s'enregistrer"
+msgstr "Users can register"
+
+#: admin/parameters.php:539
+msgid "Ajoute un bouton sur la page de connexion, permettant la création de nouveaux utilisateurs"
+msgstr "Adds a button on the login page, allowing the creation of new users"
+
+#: admin/parameters.php:544
+msgid "Limite de tickets par utilisateur"
+msgstr "Ticket limit per user"
+
+#: admin/parameters.php:545
+msgid "Permet de limiter le nombre de tickets qu'un utilisateur peut ouvrir pour un période donnée, les paramètres se trouvent sur la fiche de l'utilisateur. Si aucun paramètres n'est définit la limitation ne sera pas active. Si la limite de ticket est atteinte alors la création de ticket est bloqué pour l'utilisateur"
+msgstr "Allows to limit the number of tickets that a user can open for a given period, the parameters are on the user's card. If no parameters are defined the limitation will not be active. If the ticket limit is reached then the ticket creation is blocked for the user"
+
+#: admin/parameters.php:551
+msgid "Limite de tickets par Société"
+msgstr "Ticket Limit per Company"
+
+#: admin/parameters.php:552
+msgid "Permet de limiter le nombre de tickets qu'une société peut ouvrir pour un période donnée, les paramètres se trouvent Administration > Listes > Société . Si aucun paramètres n'est définit la limitation ne sera pas active. Si la limite de ticket est atteinte alors la création de ticket est bloqué pour l'ensemble des utilisateurs associés à cette société"
+msgstr "Allows to limit the number of tickets that a company can open for a given period, the parameters are Administration> Lists> Company. If no parameters are defined the limitation will not be active. If the ticket limit is reached then the ticket creation is blocked for all the users associated with this company"
+
+#: admin/parameters.php:558
+msgid "Les utilisateurs peuvent voir tous les tickets de leur société"
+msgstr "Users can see all tickets from their company"
+
+#: admin/parameters.php:559
+msgid "Ajoute une nouvelle vue pour les utilisateurs, afin de visualiser tous les tickets déclarés par l'ensemble des utilisateurs associés à une société. (Le droit \"side_company\" est nécessaire pour disposer de l'accès, le droit de modification de société \"user_profil_company\" est à désactiver pour les utilisateurs"
+msgstr "Adds a new view for users to view all tickets declared by all users associated with a company. (The right \"side_company\" is necessary to have access, the right to modify company \"user_profil_company\" is to be disabled for users"
+
+#: admin/parameters.php:568
+msgid "Messages"
+msgstr "Mails"
+
+#: admin/parameters.php:574
+msgid "Envoi de mail automatique à l'utilisateur lors de l'ouverture ou fermeture d'un ticket par un technicien"
+msgstr "Sending automatic mail to the user when opening or closing a ticket by a technician"
+
+#: admin/parameters.php:579
+msgid "Envoi de mail automatique à l'utilisateur lors de l'ajout ou la modification de la résolution d'un ticket par un technicien"
+msgstr "Sending automatic mail to the user when adding or changing the resolution of a ticket by a technician"
+
+#: admin/parameters.php:584
+msgid "Envoi de mail automatique au technicien lors de la modification d'un ticket par un utilisateur"
+msgstr "Sending automatic mail to the technician when a user changes a ticket"
+
+#: admin/parameters.php:589
+msgid "Envoi de mail automatique à l'administrateur lors de l'ouverture d'un ticket par un utilisateur"
+msgstr "Sending automatic mail to the administrator when a user open a ticket"
+
+#: admin/parameters.php:596 admin/user.php:1005 register.php:200
+#: register.php:210
+msgid "Adresse Mail"
+msgstr "Mail"
+
+#: admin/parameters.php:602
+msgid "Texte début du mail"
+msgstr "Text start of mail"
+
+#: admin/parameters.php:603
+msgid "Vous pouvez utiliser du code HTML (Exemple: <br />, <b></b>...)"
+msgstr "You can use HTML code (Example: <br />, <b> </ b> ...)"
+
+#: admin/parameters.php:605
+msgid "Adresse en copie"
+msgstr "Copy Address"
+
+#: admin/parameters.php:607
+msgid "Intitulé de l'émetteur"
+msgstr "Name of sender"
+
+#: admin/parameters.php:609
+msgid "Adresse de l'émetteur"
+msgstr "Address of sender"
+
+#: admin/parameters.php:610
+msgid "Adresse d'envoi de tous les messages de l'application, si ce paramètre est vide les messages seront envoyés avec l'adresse mail de l'utilisateur connecté. Certains serveurs SMTP peuvent exiger que l'émetteur soit le même que le compte de connexion"
+msgstr "address of sending of all the messages of the application, if this parameter is empty the messages will be sent with the e-mail address of the connected user. Some SMTP servers may require that the sender be the same as the connection account"
+
+#: admin/parameters.php:614
+msgid "Intégrer un lien vers GestSup"
+msgstr "Embed a link to GestSup"
+
+#: admin/parameters.php:617
+msgid "Couleur du titre"
+msgstr "Color of title"
+
+#: admin/parameters.php:619
+msgid "Couleur du fond"
+msgstr "Background color"
+
+#: admin/parameters.php:621
+msgid "Couleur du texte"
+msgstr "Text color"
+
+#: admin/parameters.php:628
+msgid "Debug"
+msgstr "Debug"
+
+#: admin/parameters.php:634
+msgid "Activer le mode de débogage"
+msgstr "Enable debug mode"
+
+#: admin/parameters.php:635
+msgid "Active le mode débogage afin d'afficher les éléments de résolution de problèmes"
+msgstr "Enables debug mode to display problem-solving elements"
+
+#: admin/parameters.php:645 admin/parameters.php:846 admin/parameters.php:931
+msgid "Valider"
+msgstr "Validate"
+
+#: admin/parameters.php:664
+msgid "Activer la liaison SMTP"
+msgstr "Enable SMTP connector"
+
+#: admin/parameters.php:665
+msgid "Connecteur permettant l'envoi de mails depuis GestSup vers un serveur de messagerie, afin que les mails puissent être envoyés"
+msgstr "A connector for sending mail from GestSup to a mail server so that mails can be sent"
+
+#: admin/parameters.php:673
+msgid "Serveur SMTP"
+msgstr "SMTP Server"
+
+#: admin/parameters.php:675
+msgid "Adresse IP ou Nom de votre serveur de messagerie (Exemple: 192.168.0.1 ou SRVMSG ou smtp.free.fr ou auth.smtp.1and1.fr ou SSL0.OVH.NET)"
+msgstr "IP address or Name of your mail server (Example: 192.168.0.1 or SRVMSG or smtp.free.fr or auth.smtp.1and1.fr or SSL0.OVH.NET)"
+
+#: admin/parameters.php:677
+msgid "Port SMTP"
+msgstr "SMTP Port"
+
+#: admin/parameters.php:683
+msgid "Port du serveur de messagerie par défaut le port 25 est utilisé, pour les connexions sécurisées les ports 465 et 587 sont utilisés. (exemple: OVH port 587 1&1 port 587)"
+msgstr "Default port for mail server is 25 , for secure connections ports 465 and 587 can be used. (Example: OVH port 587 1&1 port 587)"
+
+#: admin/parameters.php:685
+msgid "Préfixe SMTP"
+msgstr "SMTP Prefix"
+
+#: admin/parameters.php:687 admin/parameters.php:823 asset.php:333
+#: asset.php:497 asset.php:512 asset_findip.php:63 asset_findip2.php:63
+#: locale/local_sql_data.php:35 preview_mail.php:82 preview_mail.php:91
+msgid "Aucun"
+msgstr "None"
+
+#: admin/parameters.php:692
+msgid "Attention l'extension php_openssl doit être activée"
+msgstr "Please note that the php_openssl extension must be enabled"
+
+#: admin/parameters.php:695
+msgid "Classe SMTP"
+msgstr "SMTP Class"
+
+#: admin/parameters.php:697
+msgid "Défaut"
+msgstr "Default"
+
+#: admin/parameters.php:700
+msgid "Classe PHPMailer, par défaut utiliser isSMTP(), certains hébergements n'autorisent que le isSendMail() (exemple: 1&1 utilise isSendMail() )"
+msgstr "PHPMailer CLASS, by default use isSMTP (), some hosting only allow isSendMail() (example: 1 & 1 uses isSendMail())"
+
+#: admin/parameters.php:704
+msgid "Serveur SMTP Authentifié"
+msgstr "Authenticated SMTP server "
+
+#: admin/parameters.php:705
+msgid "Cochez cette case si votre serveur de messagerie nécessite un identifiant et mot de passe pour envoyer des messages. (exemple: 1&1 exige un SMTP authentifié)"
+msgstr "Check this box if your mail server requires an ID and password to send messages. (Example: 1&1 requires an authenticated SMTP)"
+
+#: admin/parameters.php:712 admin/profile.php:45 admin/user.php:383
+#: admin/user.php:760 asset.php:320 asset_list.php:305 asset_list.php:308
+#: core/export_assets.php:63 core/ldap.php:195 core/ldap.php:206
+#: core/ldap.php:397 core/ldap.php:415 core/ldap.php:437
+msgid "Utilisateur"
+msgstr "User"
+
+#: admin/parameters.php:714 admin/parameters.php:772 admin/parameters.php:831
+#: admin/user.php:536 admin/user.php:657 login.php:302 register.php:188
+msgid "Mot de passe"
+msgstr "Password"
+
+#: admin/parameters.php:730
+msgid "Activer la liaison LDAP"
+msgstr "Enable LDAP connector"
+
+#: admin/parameters.php:731
+msgid "Connecteur permettant la synchronisation entre l'annuaire d'entreprise (Active Directory ou OpenLDAP) et GestSup"
+msgstr "Connector for synchronization between the enterprise directory (Active Directory or OpenLDAP) and GestSup"
+
+#: admin/parameters.php:739
+msgid "Activer l'authentification GestSup avec LDAP"
+msgstr "Enable GestSup authentication with LDAP"
+
+#: admin/parameters.php:740
+msgid "Active l'authentification des utilisateurs dans Gestsup, avec les identifiants présents dans l'annuaire LDAP. Cela ne désactive pas l'authentification avec la base utilisateurs de GestSup"
+msgstr "Enables user authentication in Gestsup, with identifiers in the LDAP directory. This does not disable authentication with the GestSup user database"
+
+#: admin/parameters.php:743
+msgid "Type de serveur LDAP"
+msgstr "LDAP Server Type"
+
+#: admin/parameters.php:748
+msgid "Sélectionner si votre serveur d'annuaire est Windows Active Directory ou OpenLDAP"
+msgstr "Select whether your directory server is Windows Active Directory or OpenLDAP"
+
+#: admin/parameters.php:750
+msgid "Nom du serveur LDAP"
+msgstr "LDAP Server Name"
+
+#: admin/parameters.php:752
+msgid "Adresse IP ou nom netbios du serveur d'annuaire, sans suffixe DNS (Exemple: 192.168.0.1 ou SVRAD)"
+msgstr "IP address or netbios name of the directory server, without a DNS suffix (Example: 192.168.0.1 or SVRAD)"
+
+#: admin/parameters.php:754
+msgid "Port LDAP"
+msgstr "LDAP port"
+
+#: admin/parameters.php:759
+msgid "Le port par défaut est 389 si vous utilisez un serveur LDAPS (sécurisé) le port est 636"
+msgstr "The default port is 389 if you are using an LDAPS (secure) server the port is 636"
+
+#: admin/parameters.php:761
+msgid "Domaine"
+msgstr "Domain"
+
+#: admin/parameters.php:763
+msgid "Nom du domaine FQDN (Exemple: exemple.local)"
+msgstr "Domain name FQDN (Example: example.local)"
+
+#: admin/parameters.php:765
+msgid "Emplacement des utilisateurs"
+msgstr "Location of users"
+
+#: admin/parameters.php:767
+msgid "Emplacement dans l'annuaire des utilisateurs. Par défaut pour Active Directory cn=users, si vous utilisez plusieurs unités d'organisation séparer avec un point virgule (ou=France,ou=utilisateurs;ou=Belgique,ou=utilisateurs) Attention il ne doit pas être suffixé du domaine"
+msgstr "Location in the user directory. Default for Active Directory cn = users, if you use multiple organizational units separated with a semicolon (ou = France, ou = users; ou = Belgium, ou = users) Caution it must not be suffixed from domain"
+
+#: admin/parameters.php:770
+msgid "Utilisateur présent dans l'annuaire LDAP, pour OpenLDAP l'utilisateur doit être à la racine et de type CN"
+msgstr "User present in the LDAP directory, for OpenLDAP the user must be at the root and of type CN"
+
+#: admin/parameters.php:777
+msgid "Test du connecteur LDAP"
+msgstr "Testing the LDAP Connector"
+
+#: admin/parameters.php:799
+msgid "Activer la liaison IMAP"
+msgstr "Enable IMAP connector"
+
+#: admin/parameters.php:800
+msgid "Connecteur permettant de créer des tickets automatiquement en interrogeant une boite mail. Une fois le mail converti en ticket le message passe en lu dans la boite de messagerie. Attention une tâche planifiée doit être crée afin d'interroger de manière régulière la boite mail (cf FAQ)"
+msgstr "Connector to create tickets automatically by querying a mailbox. Once the mail is converted into a ticket, the message is read in the mailbox. Note that a scheduled task must be created in order to regularly query the mailbox (see FAQ)"
+
+#: admin/parameters.php:807
+msgid "Serveur de Messagerie"
+msgstr "Mail server"
+
+#: admin/parameters.php:809
+msgid "Adresse IP ou nom netbios ou nom FQDN du serveur POP ou IMAP de messagerie (ex: imap.free.fr, imap.gmail.com)"
+msgstr "IP address or netbios name or FQDN name of the POP or IMAP mail server (ex: imap.free.fr, imap.gmail.com)"
+
+#: admin/parameters.php:811
+msgid "Protocole"
+msgstr "Protocol"
+
+#: admin/parameters.php:818
+msgid "Protocole utilisé sur le serveur POP ou IMAP sécurisé ou non (ex: pour free.fr sélectionner IMAP, pour gmail utiliser IMAP sécurisé)"
+msgstr "Protocol used on POP or IMAP server secure or not (eg for free.fr select IMAP, for gmail use secure IMAP)"
+
+#: admin/parameters.php:820
+msgid "Dossier racine"
+msgstr "Root directory"
+
+#: admin/parameters.php:825
+msgid "Dossier racine ou se trouve les messages entrants (par défaut INBOX, pour gmail INBOX)"
+msgstr "The root folder containing the incoming messages (by default INBOX, for gmail INBOX)"
+
+#: admin/parameters.php:827
+msgid "Adresse de messagerie"
+msgstr "E-mail"
+
+#: admin/parameters.php:829
+msgid "Adresse de la boite de messagerie à relever"
+msgstr "Address of the mailbox"
+
+#: admin/parameters.php:836
+msgid "Lancer la récupération de messages"
+msgstr "Start messages import"
+
+#: admin/parameters.php:862 index.php:513 menu.php:419
+msgid "Calendrier"
+msgstr "Calendar"
+
+#: admin/parameters.php:867
+msgid "Activer la fonction Calendrier"
+msgstr "Enable calendar plugin"
+
+#: admin/parameters.php:868
+msgid "Active la gestion de planning, nouvel onglet et gestion dans les tickets"
+msgstr "Enables planning, new tab management and ticket management"
+
+#: admin/parameters.php:876
+msgid "Équipement"
+msgstr "Asset"
+
+#: admin/parameters.php:881
+msgid "Activer la fonction gestion des équipements"
+msgstr "Activate the assets management function"
+
+#: admin/parameters.php:882
+msgid "Active la gestion des équipements, affiche un nouvel item dans le menu de gauche"
+msgstr "Activates asset management, displays a new item in the menu on the left"
+
+#: admin/parameters.php:890
+msgid "Gestion des adresses IP"
+msgstr "IP address management"
+
+#: admin/parameters.php:895
+msgid "Permet d'afficher dans la listes des équipements une colonne adresse IP, active les également des champs additionnels sur les fiches des équipements"
+msgstr "Allows to display in the equipment list an IP address column, also activates additional fields on the equipment records"
+
+#: admin/parameters.php:898
+msgid "Gestion des garanties"
+msgstr "Warranty management"
+
+#: admin/parameters.php:903
+msgid "Affiche un nouvel item dans le menu des équipements, permettant de visualiser les équipements en fin de garantie"
+msgstr "Displays a new item in the asset menu, allowing you to view the equipment at the end of the warranty"
+
+#: admin/parameters.php:906
+msgid "Importer des équipements"
+msgstr "Import assets"
+
+#: admin/parameters.php:908
+msgid "Télécharger le modèle CSV pour ensuite pouvoir lancer l'import"
+msgstr "Download the CSV template to start importing"
+
+#: admin/parameters.php:909
+msgid "Permet d'importer des équipements en lot depuis un fichier CSV"
+msgstr "Allows you to import batch asset from a CSV file"
+
+#: admin/parameters.php:918 index.php:512 procedure.php:368
+msgid "Procédure"
+msgstr "Procedure"
+
+#: admin/parameters.php:923
+msgid "Activer la fonction procédure"
+msgstr "Enable procedure plugin"
+
+#: admin/parameters.php:924
+msgid "Active la gestion des procédures"
+msgstr "Enable procedure management"
+
+#: admin/profile.php:34
+msgid "Gestion des droits"
+msgstr "Rights management"
+
+#: admin/profile.php:44 asset.php:456 asset_list.php:350 asset_list.php:353
+#: core/auto_mail.php:102 core/export_assets.php:63 core/mail.php:254
+#: ticket.php:494 ticket_print.php:120
+msgid "Description"
+msgstr "Description"
+
+#: admin/profile.php:46 admin/user.php:378 admin/user.php:755
+msgid "Utilisateur avec pouvoir"
+msgstr "Power user"
+
+#: admin/profile.php:47 admin/user.php:373 admin/user.php:750
+msgid "Superviseur"
+msgstr "Supervisor"
+
+#: admin/profile.php:48 admin/user.php:368 admin/user.php:745
+#: core/export_assets.php:63 core/export_tickets.php:63 dashboard.php:477
+#: planning.php:142 ticket.php:350 ticket_print.php:83
+msgid "Technicien"
+msgstr "Technician"
+
+#: admin/profile.php:49 admin/user.php:363 admin/user.php:740
+msgid "Administrateur"
+msgstr "Administrator"
+
+#: admin/system.php:15
+msgid "État du système"
+msgstr "System status"
+
+#: admin/system.php:23
+msgid "Tous les paramètres PHP"
+msgstr "All PHP parameters"
+
+#: admin/update.php:52
+msgid "Mise à jour de GestSup"
+msgstr "GestSup Update"
+
+#: admin/update.php:88
+msgid "Le serveur de mises à jour"
+msgstr "The update server"
+
+#: admin/update.php:88
+msgid "est inaccessible, vérifier votre accès Internet ou l'ouverture de votre firewall sur le port 21"
+msgstr "Is inaccessible, check your Internet access or the opening of your firewall on port 21"
+
+#: admin/update.php:138
+msgid "avec patch"
+msgstr "with patch"
+
+#: admin/update.php:142
+msgid "Serveur de mise à jour"
+msgstr "Update server"
+
+#: admin/update.php:142
+msgid "est disponible"
+msgstr "is available"
+
+#: admin/update.php:153 admin/update.php:158 admin/update.php:230
+msgid "Votre version"
+msgstr "Your version"
+
+#: admin/update.php:153
+msgid "est à jour"
+msgstr "is up to date"
+
+#: admin/update.php:158
+msgid "est supérieur à la dernière version disponible, vous devez avoir changé de canal de mises à jour"
+msgstr "is greater than the latest version available, you must have changed channel updates"
+
+#: admin/update.php:166
+msgid "Un nouveau patch"
+msgstr "A new patch"
+
+#: admin/update.php:166
+msgid "pour votre version"
+msgstr "for your version"
+
+#: admin/update.php:166
+msgid "est disponible en téléchargement"
+msgstr "is available for download"
+
+#: admin/update.php:172 admin/update.php:204
+msgid "La version"
+msgstr "The version"
+
+#: admin/update.php:172
+msgid "est disponible au téléchargement"
+msgstr "Is available for download"
+
+#: admin/update.php:193
+msgid "Le téléchargement de la dernière version à échoué, vérifiez les droits d'écriture sur le répertoire ./download de votre serveur web"
+msgstr "Downloading the latest version failed, check the write permissions on the ./download directory of your web server"
+
+#: admin/update.php:200
+msgid "Le téléchargement de la dernière version à échoué"
+msgstr "Downloading the latest version failed"
+
+#: admin/update.php:204
+msgid "à été téléchargée dans le répertoire \"./download\" du serveur web"
+msgstr "Has been downloaded to the \"./download\" directory of the web server"
+
+#: admin/update.php:215
+msgid "Le téléchargement du dernier patch à échoué. (connexion impossible)"
+msgstr "The last patch failed to download. (Connection not possible)"
+
+#: admin/update.php:222
+msgid "Le téléchargement du dernier patch à échoué. (Téléchargement impossible)"
+msgstr "The last patch failed to download. (Download impossible)"
+
+#: admin/update.php:226
+msgid "Le patch"
+msgstr "The patch"
+
+#: admin/update.php:226
+msgid "à été téléchargé dans le répertoire"
+msgstr "sas been uploaded to the directory"
+
+#: admin/update.php:226
+msgid "du serveur web"
+msgstr "of the web server"
+
+#: admin/update.php:230
+msgid "est à jour, pas de téléchargement nécessaire"
+msgstr "is up to date, no download required"
+
+#: admin/update.php:238
+msgid "Installation impossible votre version est à jour"
+msgstr "Can not install your version is up to date"
+
+#: admin/update.php:245 admin/update.php:257
+msgid "Installation du fichier"
+msgstr "Installing the file"
+
+#: admin/update.php:245 admin/update.php:257
+msgid "en cours..."
+msgstr "In progress..."
+
+#: admin/update.php:249
+msgid "Vous devez d'abord télécharger la dernière version"
+msgstr "You must first download the latest version"
+
+#: admin/update.php:261
+msgid "Vous devez d'abord télécharger le dernier patch"
+msgstr "You must first download the latest patch"
+
+#: admin/update.php:267
+msgid "Serveur de mise à jour GestSup indisponible, ou vous avez un problème de connection internet ou vous n'avez pas autorisé le port 21 sur votre firewall"
+msgstr "GestSup update server unavailable, or you have an internet connection problem or you have not authorized port 21 on your firewall"
+
+#: admin/update.php:274
+msgid "Version actuelle"
+msgstr "Current version"
+
+#: admin/update.php:280
+msgid "Canal"
+msgstr "Channel"
+
+#: admin/update.php:285
+msgid "Stable"
+msgstr "Stable"
+
+#: admin/update.php:286
+msgid "Bêta"
+msgstr "Beta"
+
+#: admin/update.php:293
+msgid "Serveur de MAJ"
+msgstr "Update server"
+
+#: admin/update.php:305
+msgid "Vérifie sur le serveur FTP de GestSup si une version plus récente existe"
+msgstr "Checks on the GestSup FTP server if a newer version exists"
+
+#: admin/update.php:307
+msgid "Vérifier"
+msgstr "Check"
+
+#: admin/update.php:309
+msgid "Lance le téléchargement depuis le serveur FTP de GestSup si une version plus récente existe"
+msgstr "Starts the download from the GestSup FTP server if a newer version exists"
+
+#: admin/update.php:311
+msgid "Télécharger"
+msgstr "Download"
+
+#: admin/update.php:313
+msgid "Lance l'installation de la version téléchargée"
+msgstr "Starts installation of the downloaded version"
+
+#: admin/update.php:315
+msgid "Installation semi-automatique"
+msgstr "Semi-automatic installation"
+
+#: admin/update.php:319 admin/update.php:323
+msgid "Lance le site web dans la section documentation"
+msgstr "Launches the website in the documentation section"
+
+#: admin/update.php:321
+msgid "Installation manuelle"
+msgstr "Manual installation"
+
+#: admin/update.php:325
+msgid "Installation automatique"
+msgstr "Automatic installation"
+
+#: admin/update.php:327
+msgid "Redirige vers la section sauvegarde de l'application"
+msgstr "Redirects to the application backup section"
+
+#: admin/update.php:329 core/install_update.php:37
+msgid "Réaliser une sauvegarde"
+msgstr "Make a backup"
+
+#: admin/user.php:226
+msgid "Gestion des utilisateurs"
+msgstr "User management"
+
+#: admin/user.php:229
+msgid "Activés et"
+msgstr "Enabled and"
+
+#: admin/user.php:229
+msgid "Désactivés"
+msgstr "Disabled"
+
+#: admin/user.php:248 index.php:515
+msgid "Fiche utilisateur"
+msgstr "User card"
+
+#: admin/user.php:265 index.php:530 menu.php:501
+msgid "Informations"
+msgstr "Informations"
+
+#: admin/user.php:271 index.php:522 menu.php:453
+msgid "Paramètres"
+msgstr "Parameters"
+
+#: admin/user.php:280
+msgid "Rattachement à des utilisateurs"
+msgstr "Attachment to users"
+
+#: admin/user.php:281
+msgid "Permet d'attribuer automatiquement un technicien lors de la création de ticket par un utilisateur"
+msgstr "Allows you to automatically assign a technician when creating a ticket by a user"
+
+#: admin/user.php:289
+msgid "Associer des utilisateurs à ce technicien"
+msgstr "Associate users with this technician"
+
+#: admin/user.php:304
+msgid "Liste des utilisateurs associés à ce technicien"
+msgstr "List of users associated with this technician"
+
+#: admin/user.php:322
+msgid "Langue"
+msgstr "Language"
+
+#: admin/user.php:325
+msgid "Français (France)"
+msgstr "French (France)"
+
+#: admin/user.php:326
+msgid "Anglais (États Unis)"
+msgstr "English (United States)"
+
+#: admin/user.php:327
+msgid "Allemand (Allemagne)"
+msgstr "German (Germany)"
+
+#: admin/user.php:328
+msgid "Espagnol (Espagne)"
+msgstr "Spanish (Spain)"
+
+#: admin/user.php:331 admin/user.php:723
+msgid "Thème"
+msgstr "Theme"
+
+#: admin/user.php:334 admin/user.php:725
+msgid "Bleu (Défaut)"
+msgstr "Blue (Default)"
+
+#: admin/user.php:335 admin/user.php:726
+msgid "Noir"
+msgstr "Black"
+
+#: admin/user.php:336 admin/user.php:727
+msgid "Rose"
+msgstr "Pink"
+
+#: admin/user.php:337 admin/user.php:728
+msgid "Gris"
+msgstr "Grey"
+
+#: admin/user.php:347
+msgid "Membre des groupes"
+msgstr "Member of groups"
+
+#: admin/user.php:359 admin/user.php:736 admin/user.php:1028 index.php:446
+msgid "Profil"
+msgstr "Profile"
+
+#: admin/user.php:388 admin/user.php:765
+msgid "Forcer le changement du mot de passe"
+msgstr "Force to change password"
+
+#: admin/user.php:405 admin/user.php:783
+msgid "Vues personnelles"
+msgstr "Personal views"
+
+#: admin/user.php:406 admin/user.php:783
+msgid "associe des catégories à l'utilisateur"
+msgstr "associates categories to the user"
+
+#: admin/user.php:428 admin/user.php:807
+msgid "Supprimer cette vue"
+msgstr "Delete this view"
+
+#: admin/user.php:469
+msgid "État personnel par défaut"
+msgstr "Default Personal State"
+
+#: admin/user.php:470
+msgid "État qui est directement affiché, lors de la connexion à l'application, si ce paramètre n'est pas renseigner, alors l'état par défaut est (Attente de prise en charge)"
+msgstr "Status that is directly displayed, when connecting to the application, if this parameter is not set, then the default state is (Waiting for technician)"
+
+#: admin/user.php:473 admin/user.php:492
+msgid "Aucun (Géré par l'administrateur)"
+msgstr "None (Managed by Administrator)"
+
+#: admin/user.php:474 index.php:325 menu.php:204 menu.php:274
+msgid "A traiter"
+msgstr "To do"
+
+#: admin/user.php:488
+msgid "Ordre de trie personnel par défaut"
+msgstr "Default personal sort order"
+
+#: admin/user.php:489
+msgid "Modifie l'ordre de trie des tickets dans la liste des tickets, si ce paramètre n'est pas renseigné, c'est le réglage par défaut dans la section administration qui est prit en compte"
+msgstr "Modifies the sort order of the tickets in the ticket list, if this parameter is not specified, the default setting in the administration section is taken into account"
+
+#: admin/user.php:493
+msgid "État  > Priorité > Criticité > Date de création"
+msgstr "Status> Priority> Critical> Creation date"
+
+#: admin/user.php:495 core/export_tickets.php:63 core/mail.php:260
+#: dashboard.php:617
+msgid "Date de résolution estimé"
+msgstr "Expected date of resolution"
+
+#: admin/user.php:496 core/export_tickets.php:63 dashboard.php:671
+#: dashboard.php:673 dashboard.php:1157 stats/tables.php:84 ticket.php:680
+msgid "Priorité"
+msgstr "Priority"
+
+#: admin/user.php:497 core/export_tickets.php:63 dashboard.php:692
+#: dashboard.php:694 dashboard.php:1165
+#: plugins/availability/admin/parameters.php:102 stats/tables.php:133
+#: ticket.php:725
+msgid "Criticité"
+msgstr "Criticality"
+
+#: admin/user.php:508
+msgid "Limite de tickets"
+msgstr "Ticket limit"
+
+#: admin/user.php:509
+msgid "Permet de limiter un utilisateur a un nombre de ticket définit, passer la limite l'ouverture de nouveau ticket n'est plus possible"
+msgstr "Allows to limit a user to a number of ticket defined, to pass the limit the opening of new ticket is no longer possible"
+
+#: admin/user.php:511
+msgid "Nombre limite de ticket"
+msgstr "Ticket limit"
+
+#: admin/user.php:514
+msgid "Durée de validé jours"
+msgstr "Duration of days"
+
+#: admin/user.php:517
+msgid "Date de début de validité (YYYY-MM-DD)"
+msgstr "Start date of validity (YYYY-MM-DD)"
+
+#: admin/user.php:524 admin/user.php:648 register.php:170 ticket_useradd.php:60
+#: ticket_useradd.php:114
+msgid "Prénom"
+msgstr "Firstname"
+
+#: admin/user.php:533 admin/user.php:654 admin/user.php:962 register.php:182
+msgid "Identifiant"
+msgstr "Login"
+
+#: admin/user.php:539 admin/user.php:660
+msgid "Adresse mail"
+msgstr "Mail"
+
+#: admin/user.php:542 admin/user.php:663 admin/user.php:1016
+msgid "Téléphone"
+msgstr "Phone"
+
+#: admin/user.php:545 admin/user.php:666
+msgid "Fax"
+msgstr "Fax"
+
+#: admin/user.php:548 admin/user.php:669 asset.php:343 asset_list.php:365
+#: asset_list.php:368 core/export_assets.php:63 core/export_tickets.php:63
+#: core/ldap.php:368 ticket.php:253
+msgid "Service"
+msgstr "Service"
+
+#: admin/user.php:560 admin/user.php:680 ticket.php:247
+msgid "Fonction"
+msgstr "Function"
+
+#: admin/user.php:586 admin/user.php:589 admin/user.php:701 admin/user.php:704
+msgid "Adresse"
+msgstr "Address"
+
+#: admin/user.php:592 admin/user.php:707
+msgid "Ville"
+msgstr "City"
+
+#: admin/user.php:595 admin/user.php:710
+msgid "Code Postal"
+msgstr "ZIP"
+
+#: admin/user.php:598 admin/user.php:601 admin/user.php:713 admin/user.php:716
+msgid "Champ personnalisé"
+msgstr "Custom field"
+
+#: admin/user.php:637
+msgid "Ajout d'un utilisateur"
+msgstr "Adding a user"
+
+#: admin/user.php:639 admin/user.php:923 ticket.php:216
+msgid "Ajouter un utilisateur"
+msgstr "Add user"
+
+#: admin/user.php:907
+msgid "Vous n'avez pas le droit d'accéder au profile d'un autre utilisateur"
+msgstr "You do not have the right to access the profile of another user"
+
+#: admin/user.php:912
+msgid "Vous n'avez pas le droit d'ajouter des utilisateurs"
+msgstr "You do not have the right to add users"
+
+#: admin/user.php:930
+msgid "Afficher les utilisateurs désactivés"
+msgstr "Show disabled users"
+
+#: admin/user.php:936
+msgid "Afficher les utilisateurs activés"
+msgstr "Show active users"
+
+#: admin/user.php:945 index.php:536
+msgid "Synchronisation LDAP"
+msgstr "LDAP Synchronization"
+
+#: admin/user.php:974
+msgid "Nom Prénom"
+msgstr "Last name First Name"
+
+#: admin/user.php:1040
+msgid "Dernière connexion"
+msgstr "Last connection"
+
+#: admin/user.php:1108
+msgid "Désactiver l'utilisateur"
+msgstr "Disable user"
+
+#: admin/user.php:1115
+msgid "Activer l'utilisateur"
+msgstr "Enable user"
+
+#: admin/user.php:1121
+msgid "Éditer l'utilisateur"
+msgstr "Edit user"
+
+#: asset.php:150
+msgid "Ajout d'un équipement"
+msgstr "Add asset"
+
+#: asset.php:158
+msgid "Édition de l'équipement"
+msgstr "Modify asset"
+
+#: asset.php:165
+msgid "L'équipement n'a jamais répondu sur réseau"
+msgstr "The equipment never responded on network"
+
+#: asset.php:171 asset.php:173
+msgid "Dernier ping réussi le"
+msgstr "Last ping succeeded"
+
+#: asset.php:191 asset.php:199
+msgid "Ping de cet équipement sur l'adresse"
+msgstr "Ping this equipment on address"
+
+#: asset.php:208
+msgid "Allumer cet équipement"
+msgstr "Turn on this equipment"
+
+#: asset.php:212
+msgid "Supprimer cet équipement"
+msgstr "Remove this equipment"
+
+#: asset.php:213 procedure.php:171 procedure.php:384 ticket.php:167
+msgid "Sauvegarder"
+msgstr "Save"
+
+#: asset.php:214 ticket.php:169
+msgid "Sauvegarder et quitter"
+msgstr "Save and quit"
+
+#: asset.php:225 asset_list.php:254
+msgid "Identifiant de l'équipement"
+msgstr "Equipment identifier"
+
+#: asset.php:310 core/export_assets.php:63
+msgid "Nom de l'équipement"
+msgstr "Asset name"
+
+#: asset.php:372
+msgid "Adresse IP LAN"
+msgstr "LAN IP Address"
+
+#: asset.php:375 asset.php:411
+msgid "Trouver une adresse IP"
+msgstr "Find an IP address"
+
+#: asset.php:392 core/export_assets.php:63
+msgid "Adresse MAC LAN"
+msgstr "MAC LAN Address"
+
+#: asset.php:394 asset.php:428
+msgid "Noter sans séparateurs : ou - "
+msgstr "Note without separators : or -"
+
+#: asset.php:408
+msgid "Adresse IP WIFI"
+msgstr "WIFI IP Address"
+
+#: asset.php:426
+msgid "Adresse MAC WLAN"
+msgstr "WIFI MAC Address"
+
+#: asset.php:438
+msgid "Numéro de série fabricant"
+msgstr "Manufacturer serial number"
+
+#: asset.php:447 core/export_assets.php:63
+msgid "Numéro de commande"
+msgstr "Order number"
+
+#: asset.php:469 core/export_assets.php:63
+msgid "Numéro de prise"
+msgstr "Plug number"
+
+#: asset.php:482
+msgid "Sélectionner un technicien"
+msgstr "Select a technician"
+
+#: asset.php:483
+msgid "Installateur"
+msgstr "staller"
+
+#: asset.php:507
+msgid "Maintenance"
+msgstr "Maintenance"
+
+#: asset.php:531 asset_list.php:380
+msgid "Date d'achat"
+msgstr "Date of purchase"
+
+#: asset.php:542
+msgid "Date d'installation"
+msgstr "Installation date"
+
+#: asset.php:567
+msgid "La date d'achat n'est pas renseignée"
+msgstr "The date of purchase is not filled"
+
+#: asset.php:569
+msgid "Équipement sous garantie"
+msgstr "Warranty equipment"
+
+#: asset.php:573
+msgid "Équipement hors garantie"
+msgstr "Out of warranty"
+
+#: asset.php:580 asset_list.php:399
+msgid "Date de fin de garantie"
+msgstr "End of warranty date"
+
+#: asset.php:595
+msgid "Date de standbye"
+msgstr "Standby date"
+
+#: asset.php:611 core/export_assets.php:63
+msgid "Date de recyclage"
+msgstr "Recycling date"
+
+#: asset.php:624 asset_list.php:417 asset_list.php:420
+#: core/export_assets.php:63 core/export_tickets.php:63 core/mail.php:249
+#: dashboard.php:651 dashboard.php:654 ticket.php:774
+msgid "État"
+msgstr "State"
+
+#: asset.php:669
+msgid "Accédez à l'interface web de cet équipement"
+msgstr "Access the web interface of this equipment"
+
+#: asset.php:681 asset_stock.php:189 ticket.php:898
+msgid "Enregistrer"
+msgstr "Save"
+
+#: asset.php:686 ticket.php:909
+msgid "Enregistrer et Fermer"
+msgstr "Save and close"
+
+#: asset.php:691 asset_stock.php:194 event.php:243 ticket.php:953
+msgid "Annuler"
+msgstr "Cancel"
+
+#: asset.php:718 asset_stock.php:221 ticket.php:992
+msgid "<Préc"
+msgstr "<Prev"
+
+#: asset.php:719 asset_stock.php:222 ticket.php:993
+msgid "Suiv>"
+msgstr "Next>"
+
+#: asset.php:721 asset_stat.php:74 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:79
+msgid "Janvier"
+msgstr "January"
+
+#: asset.php:721 asset_stat.php:75 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:80
+msgid "Février"
+msgstr "February"
+
+#: asset.php:721 asset_stat.php:76 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:81
+msgid "Mars"
+msgstr "March"
+
+#: asset.php:721 asset_stat.php:77 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:82
+msgid "Avril"
+msgstr "April"
+
+#: asset.php:721 asset_stat.php:78 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:83
+msgid "Mai"
+msgstr "May"
+
+#: asset.php:721 asset_stat.php:79 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:84
+msgid "Juin"
+msgstr "June"
+
+#: asset.php:721 asset_stat.php:80 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:85
+msgid "Juillet"
+msgstr "July"
+
+#: asset.php:721 asset_stock.php:224 planning.php:93 ticket.php:995
+msgid "Août"
+msgstr "August"
+
+#: asset.php:721 asset_stat.php:82 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:87
+msgid "Septembre"
+msgstr "September"
+
+#: asset.php:721 asset_stat.php:83 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:88
+msgid "Octobre"
+msgstr "October"
+
+#: asset.php:721 asset_stat.php:84 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:89
+msgid "Novembre"
+msgstr "November"
+
+#: asset.php:721 asset_stat.php:85 asset_stock.php:224 planning.php:93
+#: stat.php:49 ticket.php:995 ticket_stat.php:90
+msgid "Décembre"
+msgstr "December"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Di"
+msgstr "Su"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Lu"
+msgstr "Mo"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Ma"
+msgstr "Tu"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Me"
+msgstr "We"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Je"
+msgstr "Th"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Ve"
+msgstr "Fr"
+
+#: asset.php:726 asset_stock.php:229 ticket.php:1000
+msgid "Sa"
+msgstr "Sa"
+
+#: asset_findip.php:56 asset_findip2.php:56
+msgid "Recherche d'adresse IP"
+msgstr "IP address search"
+
+#: asset_findip.php:60 asset_findip2.php:60
+msgid "Réseau"
+msgstr "Network"
+
+#: asset_list.php:191
+msgid "Un seul équipement trouvé, ouverture de l'équipement en cours..."
+msgstr "A single equipment found, opening of equipment in progress ..."
+
+#: asset_list.php:209
+msgid "Liste des équipements"
+msgstr "List of assets"
+
+#: asset_list.php:219
+msgid " du service"
+msgstr " of service"
+
+#: asset_list.php:256 dashboard.php:458 procedure.php:430
+msgid "Numéro"
+msgstr "Number"
+
+#: asset_list.php:272 asset_list.php:274
+msgid "Adresse IP"
+msgstr "IP adress"
+
+#: asset_list.php:289
+msgid "Nom Netbios"
+msgstr "Name Netbios"
+
+#: asset_list.php:383
+msgid "Date achat"
+msgstr "Purchase date"
+
+#: asset_list.php:401
+msgid "Date fin garantie"
+msgstr "Guaranteed end date"
+
+#: asset_list.php:726 dashboard.php:1218
+msgid "Page précédente"
+msgstr "Previous page"
+
+#: asset_list.php:730 dashboard.php:1222
+msgid "Première page"
+msgstr "First page"
+
+#: asset_list.php:739 asset_list.php:749 dashboard.php:1231 dashboard.php:1241
+msgid "Pages masqués"
+msgstr "Hidden pages"
+
+#: asset_list.php:746 dashboard.php:1238
+msgid "Page"
+msgstr "Page"
+
+#: asset_list.php:759 dashboard.php:1251
+msgid "Dernière page"
+msgstr "Last page"
+
+#: asset_list.php:764 dashboard.php:1256
+msgid "Page suivante"
+msgstr "Next page"
+
+#: asset_stat.php:19 ticket_stat.php:16
+msgid "Filtre global"
+msgstr "Global filter"
+
+#: asset_stat.php:30 ticket_stat.php:19
+msgid "Tous les techniciens"
+msgstr "All technicians"
+
+#: asset_stat.php:42 ticket_stat.php:30
+msgid "Tous les services"
+msgstr "All services"
+
+#: asset_stat.php:55 ticket_stat.php:44
+msgid "Tous les types"
+msgstr "All types"
+
+#: asset_stat.php:68
+msgid "Tous les modèles"
+msgstr "All models"
+
+#: asset_stat.php:73 ticket_stat.php:78
+msgid "Tous les mois"
+msgstr "All months"
+
+#: asset_stat.php:81 stat.php:49 ticket_stat.php:86
+msgid "Aout"
+msgstr "August"
+
+#: asset_stat.php:99 ticket_stat.php:94
+msgid "Toutes les années"
+msgstr "All years"
+
+#: asset_stock.php:83
+msgid "Entrées en stock"
+msgstr "Entries in stock"
+
+#: asset_stock.php:167
+msgid "N° de commande"
+msgstr "Order number"
+
+#: asset_stock.php:176
+msgid "Numéros de séries"
+msgstr "Series numbers"
+
+#: attachement.php:57
+msgid "Charger le fichier"
+msgstr "Upload file"
+
+#: core/asset.php:87
+msgid "Équipement supprimé"
+msgstr "Equipment removed"
+
+#: core/asset.php:191
+msgid "Un autre équipement possède déjà cet identifiant"
+msgstr "Other equipment already has this identifier"
+
+#: core/asset.php:202
+msgid "Un autre équipement possède déjà cette l'adresse IP"
+msgstr "Another device already has this IP address"
+
+#: core/asset.php:208
+msgid "Un autre équipement possède déjà ce numéro de série fabriquant"
+msgstr "Other equipment already has this serial number"
+
+#: core/asset.php:211
+msgid "L'adresse MAC LAN doit faire 12 caractères"
+msgstr "The MAC LAN address must be 12 characters long"
+
+#: core/asset.php:212
+msgid "L'adresse MAC WLAN doit faire 12 caractères"
+msgstr "MAC WLAN address must be 12 characters long"
+
+#: core/asset.php:307
+msgid "Équipement sauvegardé"
+msgstr "Saved equipment"
+
+#: core/asset.php:345 core/ticket.php:442
+msgid "Annulation pas de modification"
+msgstr "Cancellation no change"
+
+#: core/auto_mail.php:95
+msgid "Un nouveau ticket à été déclaré par "
+msgstr "A new ticket was declared"
+
+#: core/auto_mail.php:97 core/auto_mail.php:142
+msgid "Le ticket"
+msgstr "ticket"
+
+#: core/auto_mail.php:97
+msgid "à été déclaré par l'utilisateur"
+msgstr "was declared by the user"
+
+#: core/auto_mail.php:99 core/auto_mail.php:144 preview_mail.php:205
+msgid "Objet"
+msgstr "Object"
+
+#: core/auto_mail.php:105 core/auto_mail.php:150
+msgid "Pour plus d'informations vous pouvez consulter le ticket sur"
+msgstr "For more information you can consult the ticket on"
+
+#: core/auto_mail.php:137
+msgid "Votre ticket"
+msgstr "Your ticket"
+
+#: core/auto_mail.php:137
+msgid "à été modifié par"
+msgstr "Was amended by"
+
+#: core/auto_mail.php:142
+msgid "à été modifié par l'utilisateur"
+msgstr "Has been modified by the user"
+
+#: core/auto_mail.php:147
+msgid "Ajout du commentaire"
+msgstr "Add comment"
+
+#: core/export_assets.php:63
+msgid "Numéro de l'équipement"
+msgstr "Asset number"
+
+#: core/export_assets.php:63
+msgid "Numéro de série constructeur"
+msgstr "Manufacturer's serial number"
+
+#: core/export_assets.php:63
+msgid "IP LAN"
+msgstr "IP LAN"
+
+#: core/export_assets.php:63
+msgid "IP Wifi"
+msgstr "IP Wifi"
+
+#: core/export_assets.php:63
+msgid "Adresse MAC WIFI"
+msgstr "MAC WIFI Address"
+
+#: core/export_assets.php:63
+msgid "Date installation"
+msgstr "Installation date"
+
+#: core/export_assets.php:63
+msgid "Date fin de garantie"
+msgstr "End of warranty date"
+
+#: core/export_assets.php:63
+msgid "Date stock"
+msgstr "Stock date"
+
+#: core/export_assets.php:63
+msgid "Date de Standbye"
+msgstr "Date of Standbye"
+
+#: core/export_assets.php:63
+msgid "Date du dernier ping"
+msgstr "Date of last ping"
+
+#: core/export_assets.php:63
+msgid "Service de maintenance"
+msgstr "Maintenance service"
+
+#: core/export_assets.php:115 core/export_tickets.php:164
+msgid "Accès à cette page interdite, contactez votre administrateur"
+msgstr "Access to this page prohibited, contact your administrator"
+
+#: core/export_tickets.php:63 dashboard.php:456
+msgid "Numéro du ticket"
+msgstr "Ticket number"
+
+#: core/export_tickets.php:63 core/mail.php:238 core/mail.php:240
+#: dashboard.php:496 ticket.php:180 ticket_print.php:65
+msgid "Demandeur"
+msgstr "User"
+
+#: core/export_tickets.php:63
+msgid "Créateur"
+msgstr "Creator"
+
+#: core/export_tickets.php:63 core/mail.php:231 dashboard.php:580
+#: ticket.php:486 ticket_print.php:117
+msgid "Titre"
+msgstr "Title"
+
+#: core/export_tickets.php:63 ticket.php:620
+msgid "Temps passé"
+msgstr "Time spent"
+
+#: core/export_tickets.php:63 dashboard.php:598
+msgid "Date de création"
+msgstr "Creation date"
+
+#: core/export_tickets.php:63
+msgid "Date de clôture"
+msgstr "Closing Date"
+
+#: core/import_assets.php:161
+msgid "Import de"
+msgstr "Import of"
+
+#: core/import_assets.php:161
+msgid "équipements effectué avec succès."
+msgstr "asset successfully completed."
+
+#: core/import_assets.php:163
+msgid "Le fichier d'import des équipements n'existe pas"
+msgstr "The asset import file does not exist"
+
+#: core/install_update.php:42
+msgid "Il est recommandé de réaliser une sauvegarde avant lancer la mise à jour (base de donnée et fichiers)"
+msgstr "It is recommended to perform a backup before launching the update (database and files)"
+
+#: core/install_update.php:45
+msgid "Plus d'informations"
+msgstr "More information"
+
+#: core/install_update.php:57
+msgid "Lancement de l'installation"
+msgstr "Launching the installation"
+
+#: core/install_update.php:62
+msgid "Voulez-vous lancer l'installation de "
+msgstr "Do you want to start install "
+
+#: core/install_update.php:65
+msgid "Lancer"
+msgstr "Launch"
+
+#: core/install_update.php:86 core/install_update.php:89
+msgid "Extraction des fichiers"
+msgstr "Extracting files"
+
+#: core/install_update.php:137 core/install_update.php:140
+#: core/install_update.php:159 core/install_update.php:162
+msgid "Modification base de données"
+msgstr "Modification of database"
+
+#: core/install_update.php:191
+msgid "Copie des nouveaux fichiers"
+msgstr "Copying new files"
+
+#: core/install_update.php:214
+msgid "Nettoyage de l'installation"
+msgstr "Cleaning the installation"
+
+#: core/install_update.php:219 core/install_update.php:235
+msgid "Rapport d'installation"
+msgstr "Installation Report"
+
+#: core/install_update.php:223
+msgid "L'installation c'est correctement déroulée"
+msgstr "The installation is correctly carried out"
+
+#: core/install_update.php:225
+msgid "Afin de finaliser la procédure, déconnectez vous, videz le cache de votre navigateur, et relancer l'application"
+msgstr "To finalize the procedure, disconnect, empty the cache of your browser, and restart the application"
+
+#: core/install_update.php:239
+msgid "Une erreur est survenue pendant l'installation, il est recommandé de restaurer votre base de données et vos fichiers, puis de lancer la procédure manuellement"
+msgstr "An error occurred during the installation, it is recommended that you restore your database and files, and then run the procedure manually"
+
+#: core/ldap.php:72
+msgid "Synchronisation"
+msgstr "Synchronization"
+
+#: core/ldap.php:85
+msgid "Connecteur opérationnel"
+msgstr "Connector ready"
+
+#: core/ldap.php:85
+msgid "Le connecteur ne fonctionne pas vérifier vos paramètres"
+msgstr "Connector does not work check your settings"
+
+#: core/ldap.php:112
+msgid "Vérification des Annuaires"
+msgstr "Check Directories"
+
+#: core/ldap.php:113
+msgid "Nombre d'utilisateurs trouvés dans l'annuaire"
+msgstr "Number of users found in the directory"
+
+#: core/ldap.php:114
+msgid "Nombre d'utilisateurs actif trouvés dans GestSup"
+msgstr "Number of active users found in GestSup"
+
+#: core/ldap.php:115
+msgid "Modifications à apporter dans GestSup"
+msgstr "Changes to GestSup"
+
+#: core/ldap.php:195 core/ldap.php:437
+msgid "désactivé"
+msgstr "disabled"
+
+#: core/ldap.php:198 core/ldap.php:440
+msgid "Désactivation de l'utilisateur"
+msgstr "Disabling the user"
+
+#: core/ldap.php:198 core/ldap.php:440
+msgid "Raison"
+msgstr "Reason"
+
+#: core/ldap.php:198
+msgid "Utilisateur désactivé dans l'annuaire LDAP"
+msgstr "User disabled in the LDAP directory"
+
+#: core/ldap.php:206
+msgid "activé"
+msgstr "Enabled"
+
+#: core/ldap.php:209
+msgid "Activation de l'utilisateur"
+msgstr "User activation"
+
+#: core/ldap.php:217
+msgid "du prénom"
+msgstr "of the first name"
+
+#: core/ldap.php:225
+msgid "du nom"
+msgstr "of the last name"
+
+#: core/ldap.php:233
+msgid "de l'adresse mail"
+msgstr "of mail address"
+
+#: core/ldap.php:240
+msgid "du numéro de téléphone"
+msgstr "of phone number"
+
+#: core/ldap.php:247
+msgid "de l'adresse"
+msgstr "of address"
+
+#: core/ldap.php:255
+msgid "du code postal"
+msgstr "of the postal code"
+
+#: core/ldap.php:262
+msgid "de la ville"
+msgstr "from the city"
+
+#: core/ldap.php:270
+msgid "du FAX"
+msgstr "of the FAX"
+
+#: core/ldap.php:277
+msgid "de la fonction"
+msgstr "of function"
+
+#: core/ldap.php:291
+msgid "de la Société"
+msgstr "of the company"
+
+#: core/ldap.php:318 core/ldap.php:368
+msgid "crée"
+msgstr "creates"
+
+#: core/ldap.php:341
+msgid "Création de la Société"
+msgstr "Company creation"
+
+#: core/ldap.php:349
+msgid "du Service"
+msgstr "of the Service"
+
+#: core/ldap.php:390
+msgid "Création du service"
+msgstr "Creation of the service"
+
+#: core/ldap.php:397
+msgid "mis à jour"
+msgstr "update"
+
+#: core/ldap.php:399 index.php:528 menu.php:489
+msgid "Mise à jour"
+msgstr "Update"
+
+#: core/ldap.php:399 planning.php:108
+msgid "pour"
+msgstr "for"
+
+#: core/ldap.php:415
+msgid "à été crée"
+msgstr "has been created"
+
+#: core/ldap.php:418
+msgid "Création de l'utilisateur"
+msgstr "Creating the user"
+
+#: core/ldap.php:440
+msgid "Utilisateur non présent dans l'annuaire LDAP"
+msgstr "User not present in the LDAP directory"
+
+#: core/ldap.php:446
+msgid "Aucune modification à apporter, les annuaires sont à jour"
+msgstr "No changes required, directories are up-to-date"
+
+#: core/ldap.php:449
+msgid "Nombre de d'utilisateurs à créer dans GestSup"
+msgstr "Number of users to create in GestSup"
+
+#: core/ldap.php:450
+msgid "Nombre de d'utilisateurs à mettre à jour dans GestSup"
+msgstr "Number of users to update in GestSup"
+
+#: core/ldap.php:451
+msgid "Nombre de d'utilisateurs à désactiver dans GestSup"
+msgstr "Number of users to disable in GestSup"
+
+#: core/ldap.php:452
+msgid "Nombre de d'utilisateurs à activer dans GestSup"
+msgstr "Number of users to activate in GestSup"
+
+#: core/ldap.php:454
+msgid "Informations de Synchronisation"
+msgstr "Synchronization Information"
+
+#: core/ldap.php:455
+msgid "La jointure inter-annuaires est réalisée sur le login, les comptes existant dans GestSup qui possèdent un login doivent être existant dans l'annuaire LDAP"
+msgstr "The inter-directory join is done on the login, the accounts existing in GestSup that have a login must exist in the LDAP directory"
+
+#: core/ldap.php:464
+msgid "Lancer une simulation"
+msgstr "Start a simulation"
+
+#: core/ldap.php:468
+msgid "Lancer la synchronisation"
+msgstr "Start synchronization"
+
+#: core/ldap.php:487
+msgid "La connection LDAP n'est pas disponible, vérifier si votre serveur LDAP est joignable ou vérifier vos paramètres de connection"
+msgstr "The LDAP connection is not available, check if your LDAP server can be reached or check your connection settings"
+
+#: core/mail.php:87 dashboard.php:564 ticket.php:453
+msgid "Lieu"
+msgstr "Place"
+
+#: core/mail.php:132
+msgid "Attribution du ticket au groupe"
+msgstr "Ticket assigned to the group"
+
+#: core/mail.php:137
+msgid "Attribution du ticket à"
+msgstr "Attribution of the ticket to"
+
+#: core/mail.php:151
+msgid "Transfert du ticket du groupe"
+msgstr "Ticket transfert from group"
+
+#: core/mail.php:151
+msgid "au groupe "
+msgstr "to group"
+
+#: core/mail.php:173 core/mail.php:181
+msgid "Transfert du ticket de"
+msgstr "Transfer of ticket to"
+
+#: core/mail.php:173
+msgid "à "
+msgstr "to"
+
+#: core/mail.php:197
+msgid "pour le ticket"
+msgstr "for ticket"
+
+#: core/mail.php:207
+msgid "ou consultez votre ticket sur ce lien"
+msgstr "or consult your ticket on this link"
+
+#: core/mail.php:211 mail2ticket.php:164
+msgid "Vous pouvez répondre à ce ticket via ce mail, écrivez au dessus de cette ligne"
+msgstr "You can reply to this ticket via this mail, write above this line"
+
+#: core/mail.php:243
+msgid "Groupe de technicien en charge"
+msgstr "Technician group in charge"
+
+#: core/mail.php:245
+msgid "Technicien en charge"
+msgstr "Technician in charge"
+
+#: core/mail.php:250 ticket.php:561
+msgid "Date de la demande"
+msgstr "Creation date"
+
+#: core/mail.php:257 ticket.php:523 ticket_print.php:123
+msgid "Résolution"
+msgstr "Resolution"
+
+#: core/mail.php:261 dashboard.php:636 ticket.php:612
+msgid "Date de résolution"
+msgstr "Solved date"
+
+#: core/mail.php:269
+msgid "Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre"
+msgstr "For further information about your ticket, you can reach"
+
+#: core/mail.php:269 index.php:368 planning.php:123
+msgid "au"
+msgstr "at"
+
+#: core/mail.php:271
+msgid "Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien:"
+msgstr "You can follow the progress of your ticket on this link:"
+
+#: core/mail.php:280 mail2ticket.php:163
+msgid "Vous pouvez répondre à ce ticket via ce mail, écrivez au dessus du ticket"
+msgstr "You can reply to this ticket via this mail, write above the ticket"
+
+#: core/message.php:38
+msgid "Message non envoyé, vérifier la configuration de votre serveur de messagerie"
+msgstr "Message not send, check SMTP connector configuration "
+
+#: core/ping.php:105 core/ping.php:111 core/ping.php:120 core/ping.php:126
+msgid "PING de"
+msgstr "PING"
+
+#: core/ticket.php:48
+msgid "Ticket supprimé"
+msgstr "Ticket deleted"
+
+#: core/ticket.php:106
+msgid "Date de résolution estimé vide"
+msgstr "Estimated resolution date blank"
+
+#: core/ticket.php:107
+msgid "La priorité est vide"
+msgstr "The priority is empty"
+
+#: core/ticket.php:108
+msgid "La criticité vide"
+msgstr "Empty criticality"
+
+#: core/ticket.php:134
+msgid "Votre limite de ticket est atteinte, prenez contact avec votre administrateur pour créditer votre compte"
+msgstr "Your ticket limit is reached, contact your administrator to credit your account"
+
+#: core/ticket.php:166
+msgid "La limite de ticket attribué pour votre société est atteinte, prenez contact avec votre administrateur pour créditer votre compte."
+msgstr "The ticket limit for your company is reached, contact your administrator to credit your account."
+
+#: core/ticket.php:372
+msgid "Ticket sauvegardé"
+msgstr "Ticket saved"
+
+#: core/ticket.php:427
+msgid "Ticket clôturé"
+msgstr "Closed ticket"
+
+#: core/upload.php:67 core/upload.php:90 core/upload.php:113
+#: core/upload.php:136 core/upload.php:159
+msgid "Erreur de transfert vérifier le chemin "
+msgstr "Transfer error check path"
+
+#: core/wol.php:28
+msgid "Allumage de"
+msgstr "Ignition of"
+
+#: core/wol.php:31
+msgid "Vérifier le wake on lan est bien installé (LINUX: apt-get install wakeonlan)"
+msgstr "Check wake on lan is installed (LINUX: apt-get install wakeonlan)"
+
+#: dashboard.php:335 dashboard.php:338 plugins/availability/index.php:121
+#: plugins/availability/index.php:141 plugins/availability/index.php:165
+#: plugins/availability/index.php:185 plugins/availability/index.php:266
+#: plugins/availability/index.php:287 plugins/availability/index.php:312
+#: plugins/availability/index.php:333
+msgid "Ticket"
+msgstr "Ticket"
+
+#: dashboard.php:335
+msgid "supprimé"
+msgstr "deleted"
+
+#: dashboard.php:338
+msgid "modifié"
+msgstr "amended"
+
+#: dashboard.php:369
+msgid "Recherche de ticket"
+msgstr "Search ticket"
+
+#: dashboard.php:377
+msgid "tickets non lus"
+msgstr "tickets unread"
+
+#: dashboard.php:378
+msgid "tickets à traiter"
+msgstr "tickets to do"
+
+#: dashboard.php:384
+msgid "tickets de la vue"
+msgstr "view tickets"
+
+#: dashboard.php:385
+msgid "Tickets de la vue"
+msgstr "View Tickets"
+
+#: dashboard.php:389 menu.php:240
+msgid "Tous les tickets"
+msgstr "All tickets"
+
+#: dashboard.php:389
+msgid "Tous les"
+msgstr "All"
+
+#: dashboard.php:393
+msgid "Tous les tickets de ma société"
+msgstr "All tickets of my company"
+
+#: dashboard.php:393
+msgid "de ma société"
+msgstr "of my company"
+
+#: dashboard.php:397
+msgid "Tous vos tickets"
+msgstr "All your tickets"
+
+#: dashboard.php:397
+msgid "Vos"
+msgstr "Your"
+
+#: dashboard.php:405
+msgid "Vos tickets du groupe"
+msgstr "Your group tickets"
+
+#: dashboard.php:407
+msgid "Tous les tickets non attribués"
+msgstr "All ticket without assignement"
+
+#: dashboard.php:408 monitor.php:96 monitor.php:102
+msgid "du jour"
+msgstr "today"
+
+#: dashboard.php:475
+msgid "Technicien en charge du ticket"
+msgstr "Technician in charge of the ticket"
+
+#: dashboard.php:494
+msgid "Demandeur associé au ticket"
+msgstr "User associated with ticket"
+
+#: dashboard.php:513
+msgid "Type de ticket"
+msgstr "Ticket type"
+
+#: dashboard.php:561
+msgid "Emplacement du ticket"
+msgstr "Location of ticket"
+
+#: dashboard.php:577
+msgid "Titre du ticket"
+msgstr "Ticket title"
+
+#: dashboard.php:596
+msgid "Date de création du ticket"
+msgstr "Ticket creation date"
+
+#: dashboard.php:615
+msgid "Date de résolution estimé du ticket"
+msgstr "Estimated ticket resolution date"
+
+#: dashboard.php:634
+msgid "Date de résolution du ticket"
+msgstr "Ticket resolution date"
+
+#: dashboard.php:1099 ticket_useradd.php:66 ticket_useradd.php:120
+msgid "Tel"
+msgstr "Phone"
+
+#: dashboard.php:1186
+msgid "Effectue des actions pour les tickets sélectionnés dans la liste des tickets"
+msgstr "Performs actions for selected tickets in the ticket list"
+
+#: dashboard.php:1187
+msgid "Sélectionner tout"
+msgstr "Select all"
+
+#: dashboard.php:1188
+msgid "Pour la selection"
+msgstr "For selection"
+
+#: dashboard.php:1197
+msgid "Marquer comme"
+msgstr "Mark as"
+
+#: event.php:113
+msgid "Ajouter un rappel"
+msgstr "Add reminder"
+
+#: event.php:116
+msgid "Date"
+msgstr "Date"
+
+#: event.php:120
+msgid "Heure"
+msgstr "Hour"
+
+#: event.php:147
+msgid "Demain"
+msgstr "Tomorrow"
+
+#: event.php:148
+msgid "Après demain"
+msgstr "After tomorrow"
+
+#: event.php:149
+msgid "Dans une semaine"
+msgstr "Within a week"
+
+#: event.php:150
+msgid "Dans un mois"
+msgstr "In a month"
+
+#: event.php:151
+msgid "Dans un an"
+msgstr "In a year"
+
+#: event.php:154
+msgid "Planifier une intervention"
+msgstr "Planning an Intervention"
+
+#: event.php:157
+msgid "Date début"
+msgstr "Start date"
+
+#: event.php:161
+msgid "Heure début"
+msgstr "Start time"
+
+#: event.php:188
+msgid "Date de fin"
+msgstr "End date"
+
+#: event.php:191
+msgid "Heure de fin"
+msgstr "End time"
+
+# title page
+#: index.php:160 monitor.php:64
+msgid "Gestion de Support"
+msgstr "Helpdesk Software"
+
+#: index.php:290
+msgid "Ticket en attente d'attribution"
+msgstr "Ticket awaiting attribution"
+
+#: index.php:300
+msgid "Tickets en attente de lecture"
+msgstr "Unread ticket"
+
+#: index.php:308
+msgid "Tickets crées ou fermés ce jour"
+msgstr "Ticket open and close today"
+
+#: index.php:311
+msgid "Ce jour"
+msgstr "Today"
+
+#: index.php:321 index.php:329
+msgid "Vos tickets en attente de prise en charge, en cours et en attente de retour"
+msgstr "Your tickets in wait and in progress state"
+
+#: index.php:326
+msgid "Vos tickets en attente de prise en charge et en cours"
+msgstr "Your tickets waiting for support and in progress"
+
+#: index.php:333
+msgid "Nombre d'heures de travail estimé dans vos tickets ouverts"
+msgstr "Estimated hours of work in your open tickets"
+
+#: index.php:336
+msgid "Charge"
+msgstr "Load"
+
+#: index.php:368 index.php:407
+msgid "Nombre de tickets restants disponible, valable du"
+msgstr "Number of remaining tickets available, valid from"
+
+#: index.php:370 index.php:409
+msgid "Tickets disponible"
+msgstr "Ticket remaining"
+
+#: index.php:407
+msgid "jusqu'au"
+msgstr "to"
+
+#: index.php:418
+msgid "Vos tickets résolus"
+msgstr "Your tickets resolved"
+
+#: index.php:421 monitor.php:87
+msgid "Résolus"
+msgstr "Resolved"
+
+#: index.php:437
+msgid "Bienvenue"
+msgstr "Welcome"
+
+#: index.php:453
+msgid "Déconnexion"
+msgstr "Logout"
+
+#: index.php:490 index.php:507
+msgid "Retour à la liste"
+msgstr "Back to tickets list"
+
+#: index.php:514 menu.php:437 stat.php:60
+msgid "Statistiques"
+msgstr "Statistics"
+
+#: index.php:516 menu.php:428 plugins/availability/admin/parameters.php:20
+#: stat_bar_stacked.php:27 stat_bar_stacked.php:76
+msgid "Disponibilité"
+msgstr "Availability"
+
+#: index.php:517 menu.php:446
+msgid "Administration"
+msgstr "Administration"
+
+#: index.php:518
+msgid "Vues"
+msgstr "Views"
+
+#: index.php:519 menu.php:345 stat.php:106 stat_line.php:15
+#: stats/pie_assets_service.php:19 stats/pie_assets_type.php:19
+msgid "Équipements"
+msgstr "Assets"
+
+#: index.php:520
+msgid "Entrée en stock"
+msgstr "Entries into stock"
+
+#: index.php:524 menu.php:465
+msgid "Groupes"
+msgstr "Groups"
+
+#: index.php:525 menu.php:471
+msgid "Droits"
+msgstr "Rights"
+
+#: index.php:526 menu.php:477
+msgid "Listes"
+msgstr "Lists"
+
+#: index.php:527 menu.php:483
+msgid "Sauvegardes"
+msgstr "Backup"
+
+#: index.php:529 menu.php:495
+msgid "Système"
+msgstr "System"
+
+#: index.php:531 index.php:534 monitor.php:85
+msgid "Nouveau"
+msgstr "New"
+
+#: index.php:532 index.php:533
+msgid "Édition"
+msgstr "Modify"
+
+#: index.php:537 thread.php:231 thread.php:233
+msgid "Envoi de mail"
+msgstr "Send mail"
+
+#: index.php:538
+msgid "Changelog"
+msgstr "Changelog"
+
+#: index.php:561
+msgid "Recherche util..."
+msgstr "Search user"
+
+#: index.php:563
+msgid "Recherche équipe..."
+msgstr "Asset search..."
+
+#: index.php:565
+msgid "Recherche ticket..."
+msgstr "Ticket search..."
+
+#: index.php:621
+msgid "Vous n'avez pas les droits de consulter ce ticket, contacter votre administrateur"
+msgstr "You do not have the right to consult this ticket, contact your administrator"
+
+#: index.php:625
+msgid "Vous n'avez pas les droits d'accès a cette page, contacter votre administrateur"
+msgstr "You do not have access rights to this page, contact your administrator"
+
+#: index.php:628
+msgid "Vous n'avez pas les droits d'accès aux procédures, contacter votre administrateur"
+msgstr "You do not have access to procedures, contact your administrator"
+
+#: index.php:629
+msgid "Vous n'avez pas les droits d'accès aux modèles de tickets, contacter votre administrateur"
+msgstr "You do not have access to ticket templates, contact your administrator"
+
+#: index.php:630
+msgid "Vous n'avez pas les droits d'accès à la prévisualisation des mails, contacter votre administrateur"
+msgstr "You do not have the right to access the email preview, contact your administrator"
+
+#: index.php:631 index.php:632 index.php:634
+msgid "Vous n'avez pas les droits d'accès aux équipements, contacter votre administrateur"
+msgstr "You do not have access rights to the equipment, contact your administrator"
+
+#: index.php:633
+msgid "Vous n'avez pas les droits d'accès à la fiche de cet équipement, contacter votre administrateur"
+msgstr "You do not have access rights to the card of this equipment, contact your administrator"
+
+#: index.php:635
+msgid "Vous n'avez pas les droits d'accès aux calendrier, contacter votre administrateur"
+msgstr "You do not have access to calendar, contact your administrator"
+
+#: index.php:636
+msgid "Vous n'avez pas les droits d'accès à l'administration du logiciel, contacter votre administrateur"
+msgstr "You do not have access to the administration of the software, contact your administrator"
+
+#: index.php:637
+msgid "Vous n'avez pas les droits d'accès aux statistiques du logiciel, contacter votre administrateur"
+msgstr "You do not have access rights to the software statistics, contact your administrator"
+
+#: index.php:638
+msgid "Vous n'avez pas les droits d'accès à cette page, contacter votre administrateur"
+msgstr "You do not have access rights to this page, contact your administrator"
+
+#: index.php:639
+msgid "Vous n'avez pas les droits d'accès au module de disponibilité, contacter votre administrateur"
+msgstr "You do not have access rights to the availability module, contact your administrator"
+
+# use on ticket page for date in resolution part
+#: index.php:685
+msgid "à"
+msgstr "at"
+
+#: install/index.php:134
+msgid "Vérifier vos paramètres de connexion à la base de donnée"
+msgstr "Check your connection settings to the database"
+
+#: install/index.php:148
+msgid "Installation"
+msgstr "Installation"
+
+#: install/index.php:177
+msgid "Installation de l'application"
+msgstr "Installing the application"
+
+#: install/index.php:185
+msgid "Base de données"
+msgstr "Database"
+
+#: install/index.php:189 install/index.php:266
+msgid "Vérification de la configuration serveur"
+msgstr "Verifying server configuration"
+
+#: install/index.php:193
+msgid "Fin"
+msgstr "End"
+
+#: install/index.php:208
+msgid "Entrer les paramètres de connexion à votre base de données"
+msgstr "Enter your connection settings to your database"
+
+#: install/index.php:212
+msgid "Serveur de base données"
+msgstr "Database server"
+
+#: install/index.php:219
+msgid "Nom netbios ou adresse IP du serveur de base de données"
+msgstr "Netbios name or IP address of the database server"
+
+#: install/index.php:222
+msgid "Nom de la base données"
+msgstr "Name of the database"
+
+#: install/index.php:231
+msgid "Port de la base données"
+msgstr "Data Base Port"
+
+#: install/index.php:238
+msgid "Pour MySQL 3306 pour MariaDB 3307"
+msgstr "For MySQL 3306 for MariaDB 3307"
+
+#: install/index.php:241
+msgid "Utilisateur de la base données"
+msgstr "Database user"
+
+#: install/index.php:251
+msgid "Mot de passe de la base données"
+msgstr "Database Password"
+
+#: install/index.php:258
+msgid "Pour WAMP laisser vide"
+msgstr "To WAMP leave blank"
+
+#: install/index.php:275
+msgid "Installation terminée"
+msgstr "Installation completed"
+
+#: install/index.php:286
+msgid "L'application à été installée avec succès"
+msgstr "The application has been successfully installed"
+
+#: install/index.php:287
+msgid "Les identifiants initiaux sont"
+msgstr "The initial identifiers are"
+
+#: install/index.php:288
+msgid "Vous pouvez vous connecter via l'url"
+msgstr "You can log in via url"
+
+#: install/index.php:289
+msgid "Attention pour des raisons de sécurité nous vous conseillons de supprimer le répertoire /install, et de modifier les mots de passes des utilisateurs existants"
+msgstr "Caution for security reasons we recommend that you delete the / install directory, and change the passwords of existing users"
+
+#: install/index.php:302
+msgid "Actualiser"
+msgstr "Refresh"
+
+#: install/index.php:309
+msgid "Suivant"
+msgstr "Next"
+
+#: locale/local_sql_data.php:14
+msgid "Attente PEC"
+msgstr "Wait technician"
+
+#: locale/local_sql_data.php:15
+msgid "En cours"
+msgstr "In progress"
+
+#: locale/local_sql_data.php:16
+msgid "Attente Retour"
+msgstr "Wait user"
+
+#: locale/local_sql_data.php:17
+msgid "Non attribué"
+msgstr "Not assigned"
+
+#: locale/local_sql_data.php:18 monitor.php:87
+msgid "Résolu"
+msgstr "Solved"
+
+#: locale/local_sql_data.php:19
+msgid "Rejeté"
+msgstr "Rejected"
+
+#: locale/local_sql_data.php:20
+msgid "En cours "
+msgstr "In Progess "
+
+#: locale/local_sql_data.php:22
+msgid "tickets en attente de prise en charge"
+msgstr "tickets wait technician"
+
+#: locale/local_sql_data.php:23
+msgid "tickets en cours de traitement"
+msgstr "tickets in progress by techncian"
+
+#: locale/local_sql_data.php:24
+msgid "tickets résolus"
+msgstr "tickets solved"
+
+#: locale/local_sql_data.php:25
+msgid "tickets rejetés"
+msgstr "tickets rejected"
+
+#: locale/local_sql_data.php:26
+msgid "tickets pas encore associés à un technicien"
+msgstr "tickets not assigned to technician"
+
+#: locale/local_sql_data.php:27
+msgid "tickets en attente d'éléments de la part du demandeur"
+msgstr "wait elements  from user"
+
+#: locale/local_sql_data.php:29
+msgid "Notification d'ouverture"
+msgstr "Opening notification"
+
+#: locale/local_sql_data.php:30
+msgid "Notification de clôture"
+msgstr "Solved notification"
+
+#: locale/local_sql_data.php:31
+msgid "Notification de rejet"
+msgstr "Reject notification"
+
+#: locale/local_sql_data.php:32
+msgid "Notification de déclaration"
+msgstr "Declare notification"
+
+#: locale/local_sql_data.php:33
+msgid "Notification d'attente de retour"
+msgstr "Wait customer notification"
+
+#: locale/local_sql_data.php:36
+msgid " Aucun"
+msgstr "None"
+
+#: locale/local_sql_data.php:37
+msgid "Aucune"
+msgstr "None"
+
+#: locale/local_sql_data.php:38
+msgid " Aucune"
+msgstr "None"
+
+#: locale/local_sql_data.php:39
+msgid "Urgent"
+msgstr "Emergency"
+
+#: locale/local_sql_data.php:40
+msgid "Très haute"
+msgstr "Very high"
+
+#: locale/local_sql_data.php:41
+msgid "Haute"
+msgstr "High"
+
+#: locale/local_sql_data.php:42 locale/local_sql_data.php:47
+msgid "Moyenne"
+msgstr "Medium"
+
+#: locale/local_sql_data.php:43 locale/local_sql_data.php:48
+msgid "Basse"
+msgstr "Low"
+
+#: locale/local_sql_data.php:44
+msgid "Très basse"
+msgstr "Very low"
+
+#: locale/local_sql_data.php:45
+msgid "Critique"
+msgstr "Critical"
+
+#: locale/local_sql_data.php:46
+msgid "Grave"
+msgstr "High"
+
+#: locale/local_sql_data.php:50
+msgid "Demande"
+msgstr "Request"
+
+#: locale/local_sql_data.php:51
+msgid "Incident"
+msgstr "Incident"
+
+#: locale/local_sql_data.php:53 locale/local_sql_data.php:171
+msgid "Bonjour, <br />Vous avez fait la demande suivante auprès du support:"
+msgstr "Hello, <br />You made the following request to the support:"
+
+#: locale/local_sql_data.php:55
+msgid "Affiche le champ de recherche"
+msgstr "Display the search field"
+
+#: locale/local_sql_data.php:56
+msgid "Autorise les actions sur la sélection de plusieurs tickets, dans la liste des tickets"
+msgstr "Allows actions on the selection of several tickets, in the ticket list"
+
+#: locale/local_sql_data.php:57
+msgid "Affiche le menu procédure"
+msgstr "Displays the procedure menu"
+
+#: locale/local_sql_data.php:58
+msgid "Affiche le menu Statistiques"
+msgstr "Displays the Statistics menu"
+
+#: locale/local_sql_data.php:59
+msgid "Affiche le menu Planning"
+msgstr "Displays planning menu"
+
+#: locale/local_sql_data.php:60
+msgid "Affiche le menu Disponibilité"
+msgstr "Displays the Availability menu"
+
+#: locale/local_sql_data.php:61
+msgid "Affiche le menu équipement"
+msgstr "Display asset menu"
+
+#: locale/local_sql_data.php:62
+msgid "Affiche uniquement les équipements du service auquel est rattaché l'utilisateur."
+msgstr "Displays only the assets of the service to which the user is attached."
+
+#: locale/local_sql_data.php:63
+msgid "Affiche uniquement la liste des équipements, sans droit d'éditer une fiche."
+msgstr "Displays only the list of assets, without the right to edit a form."
+
+#: locale/local_sql_data.php:64
+msgid "Affiche le menu Administration"
+msgstr "Displays the Administration menu"
+
+#: locale/local_sql_data.php:65
+msgid "Droit de modification de profil des utilisateurs"
+msgstr "Right to modify user profiles"
+
+#: locale/local_sql_data.php:66
+msgid "Droit de modification des vues des utilisateurs"
+msgstr "Right to modify user views"
+
+#: locale/local_sql_data.php:67
+msgid "Affiche la colonne type dans la liste des tickets."
+msgstr "Displays the type column in the ticket list."
+
+#: locale/local_sql_data.php:68
+msgid "Affiche la colonne criticité dans la liste des tickets."
+msgstr "Displays the criticality column in the ticket list."
+
+#: locale/local_sql_data.php:69
+msgid "Affiche la colonne priorité dans la liste des tickets."
+msgstr "Displays the priority column in the ticket list."
+
+#: locale/local_sql_data.php:70
+msgid "Affiche la colonne date de création dans la liste des tickets"
+msgstr "Displays the creation date column in the ticket list"
+
+#: locale/local_sql_data.php:71
+msgid "Affiche la colonne date de résolution estimé dans la liste des tickets."
+msgstr "Displays the estimated resolution date column in the ticket list."
+
+#: locale/local_sql_data.php:72
+msgid "Affiche la colonne date de résolution dans la liste des tickets"
+msgstr "Displays the resolution date column in the ticket list"
+
+#: locale/local_sql_data.php:73
+msgid "Affiche les propriétés étendue de la barre utilisateur"
+msgstr "Displays the extended properties of the user bar"
+
+#: locale/local_sql_data.php:74
+msgid "Affiche la colonne de gauche"
+msgstr "Displays the left column"
+
+#: locale/local_sql_data.php:75
+msgid "Affiche le bouton Ouvrir un nouveau ticket"
+msgstr "Displays the Open New Ticket button"
+
+#: locale/local_sql_data.php:76
+msgid "Affiche le bouton ajouter équipement"
+msgstr "Displays the add asset button"
+
+#: locale/local_sql_data.php:77
+msgid "Affiche tous les états des équipements dans le menu de gauche"
+msgstr "Displays all assets states in the left menu"
+
+#: locale/local_sql_data.php:78
+msgid "Affiche la section vos demandes"
+msgstr "Shows your requests"
+
+#: locale/local_sql_data.php:79
+msgid "Affiche vos demande non lu"
+msgstr "Displays your unread request"
+
+#: locale/local_sql_data.php:80 locale/local_sql_data.php:157
+msgid "Affiche vos demande non attribué"
+msgstr "Affiche vos demande non attribué"
+
+#: locale/local_sql_data.php:81
+msgid "Affiche le meta état à traiter personnel"
+msgstr "Displays the meta state to be processed"
+
+#: locale/local_sql_data.php:82
+msgid "Affiche les tickets associés à un groupe de technicien dans lequel vous êtes présent."
+msgstr "Displays tickets associated with a technician group in which you are present."
+
+#: locale/local_sql_data.php:83
+msgid "Affiche la section toutes les demandes"
+msgstr "Show all requests section"
+
+#: locale/local_sql_data.php:84
+msgid "Affiche la vue Nouvelles demandes dans toutes les demandes"
+msgstr "Displays the New requests view in all requests"
+
+#: locale/local_sql_data.php:85
+msgid "Affiche le meta état à traiter pour tous les techniciens"
+msgstr "Displays the meta state to be processed for all technicians"
+
+#: locale/local_sql_data.php:86
+msgid "Affiche la section tous les tickets de ma société"
+msgstr "Displays the section of all my company tickets"
+
+#: locale/local_sql_data.php:87
+msgid "Affiche les vues personnelles"
+msgstr "Displays personal views"
+
+#: locale/local_sql_data.php:88
+msgid "Affiche les flèches ticket suivant et précédent"
+msgstr "Displays the next and previous ticket arrows"
+
+#: locale/local_sql_data.php:89
+msgid "Impression des tickets"
+msgstr "Printing tickets"
+
+#: locale/local_sql_data.php:90
+msgid "Affiche le bouton modèle de ticket"
+msgstr "Displays the ticket template button"
+
+#: locale/local_sql_data.php:91
+msgid "Planifier un ticket"
+msgstr "Plan a ticket"
+
+#: locale/local_sql_data.php:92
+msgid "Créer un rappel de ticket"
+msgstr "Create a ticket reminder"
+
+#: locale/local_sql_data.php:93
+msgid "Sauvegarde de ticket"
+msgstr "Ticket Backup"
+
+#: locale/local_sql_data.php:94
+msgid "Modification du type dans le ticket"
+msgstr "Changing the type in the ticket"
+
+#: locale/local_sql_data.php:95
+msgid "Affiche le champ type dans le ticket"
+msgstr "Displays the type field in the ticket"
+
+#: locale/local_sql_data.php:96
+msgid "Modification du demandeur"
+msgstr "Amendment of Applicant"
+
+#: locale/local_sql_data.php:97
+msgid "Affiche le champ utilisateur dans le ticket"
+msgstr "Displays the user field in the ticket"
+
+#: locale/local_sql_data.php:98
+msgid "Affiche les boutons actions pour le demandeur"
+msgstr "Displays the action buttons for the requestor"
+
+#: locale/local_sql_data.php:99
+msgid "Modification du technicien"
+msgstr "Modification of technician"
+
+#: locale/local_sql_data.php:100
+msgid "Affiche le champ technicien dans le ticket"
+msgstr "Displays the technician field in the ticket"
+
+#: locale/local_sql_data.php:101
+msgid "Modification des catégories"
+msgstr "Changing categories"
+
+#: locale/local_sql_data.php:102
+msgid "Affiche le champ catégorie dans le ticket"
+msgstr "Displays the category field in the ticket"
+
+#: locale/local_sql_data.php:103
+msgid "Affiche les boutons actions pour les catégories"
+msgstr "Displays action buttons for categories"
+
+#: locale/local_sql_data.php:104
+msgid "Modification du lieu"
+msgstr "Change of location"
+
+#: locale/local_sql_data.php:105
+msgid "Modification du titre dans le ticket"
+msgstr "Changing the title in the ticket"
+
+#: locale/local_sql_data.php:106
+msgid "Affiche le champ titre dans le ticket"
+msgstr "Displays the title field in the ticket"
+
+#: locale/local_sql_data.php:107
+msgid "Modification de la description"
+msgstr "Changing the description"
+
+#: locale/local_sql_data.php:108
+msgid "Affiche le champ description dans le ticket"
+msgstr "Changing the description"
+
+#: locale/local_sql_data.php:109
+msgid "Affiche le champ resolution dans le ticket"
+msgstr "Displays the resolution field in the ticket"
+
+#: locale/local_sql_data.php:110
+msgid "Ajouter des pièces jointes"
+msgstr "Add Attachments"
+
+#: locale/local_sql_data.php:111
+msgid "Modification de la date de création"
+msgstr "Changing the creation date"
+
+#: locale/local_sql_data.php:112
+msgid "Affiche le champ date de création dans le ticket"
+msgstr "Displays the creation date field in the ticket"
+
+#: locale/local_sql_data.php:113
+msgid "Modification de la date de résolution estimée"
+msgstr "Changing the Estimated Resolution Date"
+
+#: locale/local_sql_data.php:114
+msgid "Affiche le champ date de de résolution estimé dans le ticket"
+msgstr "Displays the estimated resolution date field in the ticket"
+
+#: locale/local_sql_data.php:115
+msgid "Oblige la saisie du champ date de résolution estimé"
+msgstr "Requires the input of the estimated resolution date field"
+
+#: locale/local_sql_data.php:116
+msgid "Modification de la date de résolution dans le ticket"
+msgstr "Changing the date of resolution in the ticket"
+
+#: locale/local_sql_data.php:117
+msgid "Affiche le champ date de résolution dans le ticket"
+msgstr "Displays the resolution date field in the ticket"
+
+#: locale/local_sql_data.php:118
+msgid "Modification du temps passé par ticket"
+msgstr "Changing the time spent per ticket"
+
+#: locale/local_sql_data.php:119
+msgid "Affiche le champ temps passé dans le ticket"
+msgstr "Displays the time field in the ticket"
+
+#: locale/local_sql_data.php:120
+msgid "Modification du temps estimÃ© passÃ© par ticket"
+msgstr "Modification of the estimated time spent per ticket"
+
+#: locale/local_sql_data.php:121
+msgid "Affiche le champ temps estimé dans le ticket"
+msgstr "Displays the estimated time field in the ticket"
+
+#: locale/local_sql_data.php:122
+msgid "Modification de la priorité dans le ticket"
+msgstr "Changing Ticket Priority"
+
+#: locale/local_sql_data.php:123
+msgid "Affiche le champ priorité dans le ticket"
+msgstr "Displays the priority field in the ticket"
+
+#: locale/local_sql_data.php:124
+msgid "Oblige la saisie du champ priorité"
+msgstr "Requires the input of the priority field"
+
+#: locale/local_sql_data.php:125
+msgid "Modification de la criticité dans le ticket"
+msgstr "Modification of the criticality in the ticket"
+
+#: locale/local_sql_data.php:126
+msgid "Affiche le champ criticité dans le ticket"
+msgstr "Displays the criticality field in the ticket"
+
+#: locale/local_sql_data.php:127
+msgid "Oblige la saisie du champ criticité"
+msgstr "Displays the criticality field in the ticket..."
+
+#: locale/local_sql_data.php:128
+msgid "Modification du champ état dans le ticket"
+msgstr "Changing the status field in the ticket"
+
+#: locale/local_sql_data.php:129
+msgid "Affiche le champ état dans le ticket"
+msgstr "Displays the status field in the ticket"
+
+#: locale/local_sql_data.php:130
+msgid "Modification de la partie disponibilité"
+msgstr "Changing the availability part"
+
+#: locale/local_sql_data.php:131
+msgid "Affiche la partie disponibilité"
+msgstr "Display availability function"
+
+#: locale/local_sql_data.php:132
+msgid "Droit de suppression de tickets"
+msgstr "Right to cancel tickets"
+
+#: locale/local_sql_data.php:133
+msgid "Affiche le bouton de clôture dans le ticket"
+msgstr "Displays the closing button in the ticket"
+
+#: locale/local_sql_data.php:134
+msgid "Ajouter des réponses"
+msgstr "Add replies"
+
+#: locale/local_sql_data.php:135
+msgid "Suppression d'une résolution"
+msgstr "Deleting a resolution"
+
+#: locale/local_sql_data.php:136
+msgid "Modification de ses résolutions"
+msgstr "Amendments to its resolutions"
+
+#: locale/local_sql_data.php:137
+msgid "Modification de toutes les résolutions"
+msgstr "Modification of all resolutions"
+
+#: locale/local_sql_data.php:138
+msgid "Droit de répondre dans les tickets"
+msgstr "Right to reply in tickets"
+
+#: locale/local_sql_data.php:139
+msgid "Autorise à passer le message en privé"
+msgstr "Allows to pass the message privately"
+
+#: locale/local_sql_data.php:140
+msgid "Affiche un bouton pour ajouter un message en privé"
+msgstr "Displays a button to add a private message"
+
+#: locale/local_sql_data.php:141
+msgid "Affiche le bouton enregistrer et fermer dans le ticket"
+msgstr "Displays the save and close button in the ticket"
+
+#: locale/local_sql_data.php:142
+msgid "Affiche le bouton envoyer un mail dans le ticket"
+msgstr "Displays the Send Mail button in the ticket"
+
+#: locale/local_sql_data.php:143
+msgid "Affiche le bouton annuler dans le ticket"
+msgstr "Displays the cancel button in the ticket"
+
+#: locale/local_sql_data.php:144
+msgid "Modification du type pour les nouveaux tickets"
+msgstr "Changing the Type for New Tickets"
+
+#: locale/local_sql_data.php:145
+msgid "Affiche le champ type pour les nouveaux tickets"
+msgstr "Displays the type field for new tickets"
+
+#: locale/local_sql_data.php:146
+msgid "Modification du demandeur pour les nouveaux tickets"
+msgstr "Changing the Applicant for New Tickets"
+
+#: locale/local_sql_data.php:147
+msgid "Affiche le champ demandeur pour les nouveaux tickets"
+msgstr "Displays the request field for new tickets"
+
+#: locale/local_sql_data.php:148
+msgid "Affiche le champ technicien pour les nouveaux tickets"
+msgstr "Displays the technician field for new tickets"
+
+#: locale/local_sql_data.php:149
+msgid "Modification de la catégorie pour les nouveaux tickets"
+msgstr "Changing the category for new tickets"
+
+#: locale/local_sql_data.php:150
+msgid "Affiche le champ catégorie pour les nouveaux tickets"
+msgstr "Displays the category field for new tickets"
+
+#: locale/local_sql_data.php:151
+msgid "Affiche le champ résolution pour les nouveaux tickets"
+msgstr "Displays the resolution field for new tickets"
+
+#: locale/local_sql_data.php:152
+msgid "Affiche le bouton envoyer pour les nouveaux tickets"
+msgstr "Displays the send button for new tickets"
+
+#: locale/local_sql_data.php:153
+msgid "Affiche le bouton sauvegarder sur les nouveaux tickets"
+msgstr "Displays the save button on new tickets"
+
+#: locale/local_sql_data.php:154
+msgid "Modification de la société sur la fiche utilisateur"
+msgstr "Changing the company on the user record"
+
+#: locale/local_sql_data.php:155
+msgid "Affiche la colonne date de résolution dans la liste des tickets."
+msgstr "Displays the resolution date column in the ticket list."
+
+#: locale/local_sql_data.php:156
+msgid "Affiche la colonne date de création dans la liste des tickets."
+msgstr "Displays the creation date column in the ticket list."
+
+#: locale/local_sql_data.php:158
+msgid "Modification du temps estimé passé par ticket"
+msgstr "Modification of the estimated time spent per ticket"
+
+#: locale/local_sql_data.php:159
+msgid "Droit d\\'ajouter des procédures"
+msgstr "Right to add procedures"
+
+#: locale/local_sql_data.php:160
+msgid "Droit de supprimer des procédures"
+msgstr "Right to remove procedures"
+
+#: locale/local_sql_data.php:162
+msgid "Stock"
+msgstr "Stock"
+
+#: locale/local_sql_data.php:163
+msgid "Installé"
+msgstr "Installed"
+
+#: locale/local_sql_data.php:164
+msgid "Standbye"
+msgstr "Standbye"
+
+#: locale/local_sql_data.php:165
+msgid "Recyclé"
+msgstr "Recycled"
+
+#: locale/local_sql_data.php:166
+msgid "Équipement en stock"
+msgstr "Equipment in stock"
+
+#: locale/local_sql_data.php:167
+msgid "Équipement installé en production"
+msgstr "Equipment installed in production"
+
+#: locale/local_sql_data.php:168
+msgid "Équipement de coté"
+msgstr "Side equipment"
+
+#: locale/local_sql_data.php:169
+msgid "Équipement recyclé, jeté"
+msgstr "Recycled, Disposable Equipment"
+
+#: login.php:144
+msgid "Votre compte est inexistant dans ce logiciel."
+msgstr "Your account is not present in this software"
+
+#: login.php:197 login.php:224
+msgid "Votre nom d'utilisateur ou mot de passe, n'est pas correct."
+msgstr "Wrong login or password"
+
+#: login.php:247
+msgid "Vous pouvez utiliser votre identifiant et mot de passe"
+msgstr "You can use the same credentials as"
+
+#: login.php:287
+msgid "Saisissez vos identifiants"
+msgstr "Enter your credentials"
+
+#: login.php:296
+msgid "Nom d'utilisateur"
+msgstr "Login"
+
+#: login.php:310
+msgid "Connexion"
+msgstr "Logon"
+
+#: login.php:330 register.php:229
+msgid "S'enregistrer"
+msgstr "Register"
+
+#: menu.php:34 menu.php:36
+msgid "Nouvelle demande"
+msgstr "New ticket"
+
+#: menu.php:47 menu.php:49
+msgid "Nouvel équipement"
+msgstr "New asset"
+
+#: menu.php:60
+msgid "Permet l'ajout de plusieurs équipements à la fois"
+msgstr "Allow add multiple asset in one time"
+
+#: menu.php:62
+msgid "Ajouter un lot"
+msgstr "Add lot"
+
+#: menu.php:82
+msgid "Vos tickets"
+msgstr "Your tickets"
+
+#: menu.php:83 menu.php:116
+msgid "Tickets non lus sont en attente"
+msgstr "Unread tickets are waiting"
+
+#: menu.php:94 menu.php:192 menu.php:250
+msgid "Tous les états"
+msgstr "All states"
+
+#: menu.php:104
+msgid "Meta-état regroupant les états: Attente de PEC, En cours, et Attente de retour."
+msgstr "Meta-state group multi states; Wait technician, In progress, Wait custumer"
+
+#: menu.php:106
+msgid "A traiter "
+msgstr "To do"
+
+#: menu.php:116
+msgid "Non lus"
+msgstr "Not read"
+
+#: menu.php:184
+msgid "Ma société"
+msgstr "My Company"
+
+#: menu.php:259 monitor.php:85
+msgid "Nouveaux"
+msgstr "New"
+
+#: menu.php:259
+msgid "Des nouveaux tickets sont à attribués"
+msgstr "New tickets are awarded"
+
+#: menu.php:272
+msgid "Meta-état regroupant les états: Attente de PEC, En cours, et Attente de retour"
+msgstr "Meta-state grouping states: Waiting techncian, In progress and Waiting user"
+
+#: menu.php:311
+msgid "Vos vues"
+msgstr "Your views"
+
+#: menu.php:357
+msgid "Tous les équipements"
+msgstr "All assets"
+
+#: menu.php:359 planning.php:155
+msgid "Tous"
+msgstr "All"
+
+#: menu.php:392
+msgid "Liste des équipements en fonction de leurs garanties"
+msgstr "List of assets according to their guarantees"
+
+#: menu.php:394
+msgid "Garanties"
+msgstr "Warranties"
+
+#: menu.php:409 procedure.php:405
+msgid "Procédures"
+msgstr "Procedure"
+
+#: modify_pwd.php:37
+msgid "Veuillez remplir tous les champs"
+msgstr "Please fill in all fields"
+
+#: modify_pwd.php:42
+msgid "Votre ancien mot de passe est erroné"
+msgstr "Your old password is wrong"
+
+#: modify_pwd.php:47
+msgid "Les deux nouveaux mot de passes sont différents"
+msgstr "The two new passwords are different"
+
+#: modify_pwd.php:63 modify_pwd.php:82
+msgid "Modification du mot de passe"
+msgstr "Changing the Password"
+
+#: modify_pwd.php:64
+msgid "Votre mot de passe à été changé avec succès"
+msgstr "Your password has been successfully changed"
+
+#: modify_pwd.php:73
+msgid "Ancien mot de passe"
+msgstr "old password"
+
+#: modify_pwd.php:75 modify_pwd.php:77
+msgid "Nouveau mot de passe"
+msgstr "New Password"
+
+#: monitor.php:86
+msgid "Ouverts"
+msgstr "Open"
+
+#: monitor.php:86
+msgid "Ouvert"
+msgstr "Open"
+
+#: planning.php:92
+msgid "Lundi"
+msgstr "Monday"
+
+#: planning.php:92
+msgid "Mardi"
+msgstr "Tuesday"
+
+#: planning.php:92
+msgid "Mercredi"
+msgstr "Wednesday"
+
+#: planning.php:92
+msgid "Jeudi"
+msgstr "Thursday"
+
+#: planning.php:92
+msgid "Vendredi"
+msgstr "Friday"
+
+#: planning.php:92
+msgid "Samedi"
+msgstr "Saturday"
+
+#: planning.php:92
+msgid "Dimanche"
+msgstr "Sunday"
+
+#: planning.php:113
+msgid "de tous les techniciens"
+msgstr "of all technicians"
+
+#: planning.php:122 planning.php:123
+msgid "Planning"
+msgstr "Planning"
+
+#: planning.php:122
+msgid "du"
+msgstr "from"
+
+#: planning.php:123
+msgid "depuis"
+msgstr "since"
+
+#: planning.php:129
+msgid "Semaine précédente"
+msgstr "Previous week"
+
+#: planning.php:132
+msgid "Semaine suivante"
+msgstr "Next week"
+
+#: planning.php:136 planning.php:164
+msgid "Semaine"
+msgstr "Week"
+
+#: planning.php:268 planning.php:286 planning.php:303 planning.php:320
+#: planning.php:338 planning.php:356 planning.php:374
+msgid "Voir le ticket"
+msgstr "Open ticket"
+
+#: planning.php:269 planning.php:287 planning.php:304 planning.php:321
+#: planning.php:339 planning.php:357 planning.php:375
+msgid "Supprimer cet évènement"
+msgstr "Delete this event"
+
+#: plugins/availability/admin/parameters.php:24
+msgid "Activer la fonction Disponibilité"
+msgstr "Enable Availability plugin"
+
+#: plugins/availability/admin/parameters.php:25
+msgid "Active le suivi des catégories afin de produire des statistiques de disponibilité "
+msgstr "Enables tracking of categories to produce availability statistics"
+
+#: plugins/availability/admin/parameters.php:31
+msgid "Surveiller toutes les catégories"
+msgstr "Monitor all categories"
+
+#: plugins/availability/admin/parameters.php:42
+msgid "Sélection des catégories ou sous-catégories à surveiller"
+msgstr "Selection of categories or sub-categories to be monitored"
+
+#: plugins/availability/admin/parameters.php:58
+#: plugins/availability/admin/parameters.php:156
+msgid "Supprimer cette catégorie"
+msgstr "Remove this category"
+
+#: plugins/availability/admin/parameters.php:66
+#: plugins/availability/admin/parameters.php:164
+msgid "Ajouter la catégorie"
+msgstr "Add category"
+
+#: plugins/availability/admin/parameters.php:76
+#: plugins/availability/admin/parameters.php:174
+msgid "et la Sous-Catégorie"
+msgstr "And the Sub-Category"
+
+#: plugins/availability/admin/parameters.php:98
+msgid "Condition de prise en compte d'un ticket"
+msgstr "Condition of taking a ticket"
+
+#: plugins/availability/admin/parameters.php:128
+msgid "Dépendances"
+msgstr "dependency"
+
+#: plugins/availability/admin/parameters.php:133
+msgid "Permet de définir des sous-catégories qui seront comptabilisées dans toutes les statistiques si elles possèdent la même condition. (ex: un ticket réseau critique, entraine une indisponibilité d'une application)"
+msgstr "Allows you to define subcategories that will be counted in all statistics if they have the same condition. (Eg a critical network ticket, leads to an unavailability of an application)"
+
+#: plugins/availability/admin/parameters.php:140
+msgid "Liste des sous-catégories impactant toutes les catégories surveillées"
+msgstr "List of sub-categories impacting all categories monitored"
+
+#: plugins/availability/admin/parameters.php:196
+msgid "Définition des taux de disponibilités cible par années, par sous-catégories"
+msgstr "Definition of target availability rates by years, by subcategories"
+
+#: plugins/availability/admin/parameters.php:197
+msgid "Permet de fixer des objectifs de disponibilité, pour chaque sous catégorie, qui peuvent fluctuer chaque année"
+msgstr "Allows to set availability targets, for each sub-category, that can fluctuate each year"
+
+#: plugins/availability/admin/parameters.php:217
+msgid "taux de disponibilité cible"
+msgstr "Target availability rate"
+
+#: plugins/availability/index.php:33
+msgid "Disponibilité du Système d'information"
+msgstr "Availability of the Information System"
+
+#: plugins/availability/index.php:51
+msgid "Imprimer"
+msgstr "Print"
+
+#: plugins/availability/index.php:64
+msgid "Pour l'année"
+msgstr "For the year"
+
+#: plugins/availability/index.php:67
+msgid "Médiane des taux de disponibilité cible des applications"
+msgstr "Median of application target availability rates"
+
+#: plugins/availability/index.php:68 plugins/availability/index.php:69
+msgid "Médiane du taux de disponibilité constaté"
+msgstr "Median of the availability rate observed"
+
+#: plugins/availability/index.php:93 plugins/availability/index.php:237
+#: plugins/availability/index.php:351
+msgid "Pour"
+msgstr "For"
+
+#: plugins/availability/index.php:93 plugins/availability/index.php:96
+#: plugins/availability/index.php:97 plugins/availability/index.php:241
+#: plugins/availability/index.php:242 plugins/availability/index.php:351
+msgid "sur"
+msgstr "on"
+
+#: plugins/availability/index.php:96
+msgid "Taux de disponibilité constaté pour l'année"
+msgstr "Availability rate for the year"
+
+#: plugins/availability/index.php:96 plugins/availability/index.php:97
+#: plugins/availability/index.php:241 plugins/availability/index.php:242
+#: plugins/availability/index.php:351
+msgid "attendu"
+msgstr "expected"
+
+#: plugins/availability/index.php:97 plugins/availability/index.php:242
+msgid "Taux de disponibilité hors interventions planifiées pour l'année"
+msgstr "Availability rate excluding planned interventions for the year"
+
+#: plugins/availability/index.php:99
+msgid "Durée d'indisponibilité pour l'année"
+msgstr "Unavailability for the year"
+
+#: plugins/availability/index.php:101 plugins/availability/index.php:246
+msgid "Liste des arrêts planifiés pour"
+msgstr "List of planned stops for"
+
+#: plugins/availability/index.php:104 plugins/availability/index.php:249
+msgid "Maintenance de"
+msgstr "Maintenance of"
+
+#: plugins/availability/index.php:121 plugins/availability/index.php:141
+#: plugins/availability/index.php:165 plugins/availability/index.php:185
+#: plugins/availability/index.php:266 plugins/availability/index.php:287
+#: plugins/availability/index.php:312 plugins/availability/index.php:333
+msgid "le"
+msgstr "the"
+
+#: plugins/availability/index.php:124 plugins/availability/index.php:270
+msgid "Autres maintenances"
+msgstr "Other maintenance"
+
+#: plugins/availability/index.php:145 plugins/availability/index.php:292
+msgid "Liste des arrêts non planifiés pour"
+msgstr "List of unplanned stops for"
+
+#: plugins/availability/index.php:148 plugins/availability/index.php:295
+msgid "Problèmes de"
+msgstr "Problems"
+
+#: plugins/availability/index.php:168 plugins/availability/index.php:316
+msgid "Autres problème"
+msgstr "Other Issues"
+
+#: plugins/availability/index.php:204
+msgid "Détails par trimestres"
+msgstr "Details by quarters"
+
+#: plugins/availability/index.php:209
+msgid "Janvier à Mars"
+msgstr "January to March"
+
+#: plugins/availability/index.php:210
+msgid "Avril à Juin"
+msgstr "April to June"
+
+#: plugins/availability/index.php:211
+msgid "Juillet à Septembre"
+msgstr "July to September"
+
+#: plugins/availability/index.php:212
+msgid "Octobre à Décembre"
+msgstr "October to December"
+
+#: plugins/availability/index.php:215
+msgid "Pour le trimestre"
+msgstr "For the quarter"
+
+#: plugins/availability/index.php:215 plugins/availability/index.php:237
+#: plugins/availability/index.php:241 plugins/availability/index.php:244
+#: plugins/availability/index.php:351
+msgid "de l'année"
+msgstr "of the year"
+
+#: plugins/availability/index.php:215
+msgid "Période de"
+msgstr "Period of"
+
+#: plugins/availability/index.php:237 plugins/availability/index.php:351
+msgid "sur le trimestre"
+msgstr "on the quarter"
+
+#: plugins/availability/index.php:241
+msgid "Taux de disponibilité constaté pour le trimestre"
+msgstr "Availability rate for the quarter"
+
+#: plugins/availability/index.php:244
+msgid "Durée d'indisponibilité pour le trimestre"
+msgstr "Term of unavailability for the quarter"
+
+#: plugins/availability/index.php:351
+msgid "le taux de disponibilité constaté est"
+msgstr "the availability rate is"
+
+#: preview_mail.php:56
+msgid "Paramètres du message"
+msgstr "Mail settings"
+
+#: preview_mail.php:59 preview_mail.php:296
+msgid "Envoyer le mail"
+msgstr "Send mail"
+
+#: preview_mail.php:66
+msgid "Émetteur"
+msgstr "Transmitter"
+
+#: preview_mail.php:72
+msgid "Destinataire"
+msgstr "Recipient"
+
+#: preview_mail.php:94
+msgid "Le destinataire ne possède pas d'adresse mail"
+msgstr "The recipient does not have an email address"
+
+#: preview_mail.php:101
+msgid "Copie"
+msgstr "Copy"
+
+#: preview_mail.php:211
+msgid "Message"
+msgstr "Mail"
+
+#: preview_mail.php:220
+msgid "Pièce jointe"
+msgstr "Attachment"
+
+#: preview_mail.php:224
+msgid "Avec Pièces jointes"
+msgstr "With attachment"
+
+#: preview_mail.php:225
+msgid "Sans Pièces jointes"
+msgstr "Without attachment"
+
+#: procedure.php:32
+msgid "Procédure supprimée"
+msgstr "Procedure removed"
+
+#: procedure.php:52
+msgid "Fichier supprimé"
+msgstr "File deleted"
+
+#: procedure.php:86
+msgid "La procédure à été sauvegardée"
+msgstr "The procedure has been saved"
+
+#: procedure.php:106
+msgid "Ajout d'une procédure"
+msgstr "Adding a procedure"
+
+#: procedure.php:112 procedure.php:289 procedure.php:433
+msgid "Nom de la procédure"
+msgstr "Procedure name"
+
+#: procedure.php:237
+msgid "La procédure"
+msgstr "Procedure"
+
+#: procedure.php:241
+msgid "à été sauvegardée"
+msgstr "has been saved"
+
+#: procedure.php:283
+msgid "Édition de la procédure"
+msgstr "Editing the procedure"
+
+#: procedure.php:341
+msgid "Joindre un fichier"
+msgstr "Attach a file"
+
+#: procedure.php:355
+msgid "Télécharger le fichier"
+msgstr "Download file"
+
+#: procedure.php:419
+msgid "Ajouter une procédure"
+msgstr "Add a procedure"
+
+#: register.php:161
+msgid "Inscription"
+msgstr "Registration"
+
+#: register.php:194
+msgid "Re-taper votre mot de passe"
+msgstr "Re-type password"
+
+#: register.php:211
+msgid "Votre Société"
+msgstr "Your Company"
+
+#: stat.php:68
+msgid "Télécharge un fichier au format CSV avec l'ensemble des équipements"
+msgstr "Download a CSV file with all the equipment"
+
+#: stat.php:71
+msgid "Export de la liste des équipements en CSV"
+msgstr "Export of list of CSV assets"
+
+#: stat.php:77
+msgid "Télécharge un fichier au format CSV avec l'ensemble des tickets"
+msgstr "Download a CSV file with all tickets"
+
+#: stat.php:80
+msgid "Export de la liste des tickets en CSV"
+msgstr "Export ticket list in CSV"
+
+#: stat_bar_stacked.php:31
+msgid "Pourcentage de disponibilité"
+msgstr "Percentage of availability"
+
+#: stat_bar_stacked.php:72
+msgid "Indisponibilité"
+msgstr "Unavailability"
+
+#: stat_histo.php:29
+msgid "Nombre d\\'heures de travail restantes dans les tickets ouverts"
+msgstr "Number of hours remaining in open tickets"
+
+#: stat_histo.php:46
+msgid "Nombre d\\'heures"
+msgstr "Number of hours"
+
+#: stat_histo.php:74
+msgid "Charge de travail en heures"
+msgstr "Workload in hours"
+
+#: stat_line.php:16
+msgid "installés"
+msgstr "installed"
+
+#: stat_line.php:17
+msgid "recyclés"
+msgstr "recycled"
+
+#: stat_line.php:21
+msgid "ouverts"
+msgstr "open"
+
+#: stat_line.php:22
+msgid "fermés"
+msgstr "closed"
+
+#: stat_line.php:23
+msgid "Total en cours"
+msgstr "Total in progress"
+
+#: stat_line.php:44
+msgid "Total"
+msgstr "Total"
+
+#: stat_line.php:44
+msgid "Total depuis le début"
+msgstr "Total since inception"
+
+#: stat_pie.php:70
+msgid "Répartition"
+msgstr "Division"
+
+#: stats/histo_load.php:17
+msgid "Charge de travail actuelle par technicien"
+msgstr "Current workload per technician"
+
+#: stats/line_assets.php:40
+msgid "Évolution des équipements installés et recyclés sur"
+msgstr "Development of installed and recycled asset"
+
+#: stats/line_assets.php:67 stats/line_tickets.php:72
+msgid "de toutes les années"
+msgstr "of all years"
+
+#: stats/line_assets.php:68
+msgid "Évolution des équipements installés et recyclés pour le mois de"
+msgstr "Development of installed and recycled assets for the month of"
+
+#: stats/line_assets.php:93
+msgid "Évolution des équipements installés et recyclés sur toutes les années"
+msgstr "Evolution of asset installed and recycled over all years"
+
+#: stats/line_assets.php:111
+msgid "Nombre d\\'équipements"
+msgstr "Number of asset"
+
+#: stats/line_assets.php:116
+msgid "Aucun équipements installé ou recyclé dans la plage indiqué"
+msgstr "No asset installed or recycled within specified range"
+
+#: stats/line_tickets.php:46
+msgid "Évolution des tickets ouverts et fermés sur"
+msgstr "Evolution of open and closed tickets"
+
+#: stats/line_tickets.php:73
+msgid "Évolution des tickets ouverts et fermés pour le mois de"
+msgstr "Evolution of open and closed tickets for the month of"
+
+#: stats/line_tickets.php:98
+msgid "Évolution des tickets ouverts et fermés sur toutes les années"
+msgstr "Evolution of open and closed tickets for all years"
+
+#: stats/line_tickets.php:116
+msgid "Nombre de tickets"
+msgstr "Number of tickets"
+
+#: stats/line_tickets.php:121
+msgid "Aucun ticket ouvert et fermé dans la plage indiqué"
+msgstr "No open and closed ticket in the indicated range"
+
+#: stats/pie_assets_service.php:18
+msgid "Répartition du nombre d\\'équipements par services"
+msgstr "Distribution of assets by services"
+
+#: stats/pie_assets_type.php:18
+msgid "Répartition du nombre d\\'équipements par type"
+msgstr "Distribution of assets by type"
+
+#: stats/pie_cat.php:18
+msgid "Répartition du nombre de tickets par catégories"
+msgstr "Distribution of tickets by categories"
+
+#: stats/pie_company.php:18
+msgid "Répartition du nombre de tickets par sociétés"
+msgstr "Distribution of the number of tickets per company"
+
+#: stats/pie_company.php:19 stats/pie_services.php:19 stats/pie_states.php:19
+#: stats/pie_tickets_tech.php:16
+msgid "tickets"
+msgstr "tickets"
+
+#: stats/pie_load.php:15
+msgid "Répartition de la charge de travail par catégories sur les tickets ouverts"
+msgstr "Workload by categories on open tickets"
+
+#: stats/pie_services.php:18
+msgid "Répartition du nombre de tickets par services"
+msgstr "Distribution of tickets by services"
+
+#: stats/pie_states.php:18
+msgid "Tickets par états"
+msgstr "Tickets by states"
+
+#: stats/pie_tickets_tech.php:15
+msgid "Tickets par techniciens"
+msgstr "Tickets by technicians"
+
+#: stats/tables.php:19
+msgid "Délais moyen de résolution"
+msgstr "Average resolution time"
+
+#: stats/tables.php:29
+msgid "Techniciens"
+msgstr "Technicians"
+
+#: stats/tables.php:33
+msgid "jours"
+msgstr "days"
+
+#: stats/tables.php:74
+msgid "Demandes par priorité"
+msgstr "Tickets by priority"
+
+#: stats/tables.php:123
+msgid "Demandes par criticité"
+msgstr "Tickets by criticality "
+
+#: stats/tables.php:178
+msgid "Top 10 des demandeurs"
+msgstr "Top 10 applicants"
+
+#: stats/tables.php:227
+msgid "TOP 10 demandeurs de temps"
+msgstr "TOP 10 time seekers"
+
+#: stats/tables.php:242
+msgid "Heures"
+msgstr "Hours"
+
+#: system.php:114
+msgid "nom de la base"
+msgstr "Database name"
+
+#: system.php:116
+msgid "Clé privée"
+msgstr "Private key"
+
+#: system.php:121
+msgid "Composants"
+msgstr "Components"
+
+#: system.php:133
+msgid "Paramètres PHP"
+msgstr "PHP parameters"
+
+#: system.php:137
+msgid "Activé"
+msgstr "Enabled"
+
+#: system.php:137
+msgid "Désactivé"
+msgstr "Disabled"
+
+#: system.php:137
+msgid "Le chargement de fichiers sera impossible"
+msgstr "Uploading files will be impossible"
+
+#: system.php:138
+msgid "Il est conseillé d'allouer plus de mémoire pour PHP > 256MB (éditer votre fichier php.ini)"
+msgstr "It is advisable to allocate more memory for PHP> 256MB (edit your php.ini file)"
+
+#: system.php:139 system.php:140
+msgid "Il est préconisé d'avoir une valeur supérieur ou égale à 10Mo, afin d'attacher des pièces jointes volumineuses"
+msgstr "It is recommended to have a value greater than or equal to 10Mo, in order to attach attachments voluminous"
+
+#: system.php:141
+msgid "Valeur conseillé 240s, modifier votre php.ini relancer apache et actualiser cette page"
+msgstr "Recommended value 240s, modify your php.ini relancer apache and refresh this page"
+
+#: system.php:142
+msgid "Il est préconisé de modifier la valeur date.timezone du fichier php.ini, et mettre \"Europe/Paris\" afin de ne pas avoir de problème d'horloge"
+msgstr "It is recommended to change the date.timezone value of the php.ini file, and put \"Europe / Paris\" in order not to have a clock problem"
+
+#: system.php:148
+msgid "Extensions PHP"
+msgstr "PHP Extensions"
+
+#: system.php:164 system.php:166 system.php:168 system.php:170 system.php:172
+#: system.php:174
+msgid "Activée"
+msgstr "Enabled"
+
+#: system.php:164
+msgid "Désactivée, l'interconnexion de base de données ne pourra être disponible"
+msgstr "Disabled, database interconnection will not be available"
+
+#: system.php:166
+msgid "Désactivée, si vous utilisé un serveur SMTP sécurisé les mails ne seront pas envoyés. (Installation Linux: apt-get install openssl)"
+msgstr "Disabled, if you used a secure SMTP server the mails will not be sent. (Linux installation: apt-get install openssl)"
+
+#: system.php:168
+msgid "Désactivée, aucune synchronisation ni authentification via un serveur LDAP ne sera possible (Installation Linux: apt-get install php5-ldap, sous wamp copier libsasl.dll dans apache\\bin)"
+msgstr "Disabled, no synchronization or authentication via an LDAP server will be possible (Linux installation: apt-get install php5-ldap, under wamp copy libsasl.dll in apache \\ bin)"
+
+#: system.php:170
+msgid "Désactivée, la fonction de mise à jour automatique ne sera pas possible"
+msgstr "Disabled, the automatic update function will not be possible"
+
+#: system.php:172
+msgid "Désactivée, la fonction Mail2Ticket ne fonctionnera pas (Installation Linux: apt-get install php5-imap)"
+msgstr "Disabled, the Mail2Ticket function will not work (Linux installation: apt-get install php5-imap)"
+
+#: system.php:174
+msgid "Désactivée, aucune mise à jour du logiciel ne sera possible (dé-commenter la ligne extension=php_ftp votre php.ini)"
+msgstr "Disabled, no software upgrade will be possible (de-comment the extension line = php_ftp your php.ini)"
+
+#: thread.php:55 thread.php:57
+msgid "Ouverture"
+msgstr "Opening"
+
+#: thread.php:57 thread.php:181 thread.php:209
+msgid "du ticket"
+msgstr "of ticket"
+
+#: thread.php:57 thread.php:181 thread.php:209 thread.php:233 thread.php:252
+#: thread.php:271
+msgid "Effectué par"
+msgstr "Performed by"
+
+#: thread.php:111
+msgid "Réduire"
+msgstr "Reduce"
+
+#: thread.php:120
+msgid "Message non visible pour le demandeur"
+msgstr "Message not visible to the requester"
+
+#: thread.php:122
+msgid "Message visible pour le demandeur"
+msgstr "Message visible to the applicant"
+
+#: thread.php:159
+msgid "au groupe"
+msgstr "to the group"
+
+#: thread.php:167 thread.php:169
+msgid "au technicien "
+msgstr "to technician"
+
+#: thread.php:179 thread.php:181
+msgid "Attribution"
+msgstr "Assignment"
+
+#: thread.php:205
+msgid "de"
+msgstr "from"
+
+#: thread.php:205
+msgid "vers"
+msgstr "to"
+
+#: thread.php:209
+msgid "Transfert"
+msgstr "Transfert"
+
+#: thread.php:250 thread.php:252
+msgid "Clôture"
+msgstr "Close"
+
+#: thread.php:269
+msgid "Modif. état"
+msgstr "Changes state"
+
+#: thread.php:271
+msgid "Changement d'état"
+msgstr "Change of state"
+
+#: ticket.php:121
+msgid "Ouverture du ticket"
+msgstr "Open ticket"
+
+#: ticket.php:121
+msgid "Édition du ticket"
+msgstr "Modify ticket"
+
+#: ticket.php:125
+msgid "Alarme activée le"
+msgstr "Alarm on"
+
+#: ticket.php:132
+msgid "Ticket précédent de cet état"
+msgstr "Previous ticket in this state"
+
+#: ticket.php:133
+msgid "Ticket suivant de cet état"
+msgstr "Next ticket in this state"
+
+#: ticket.php:142
+msgid "Imprimer ce ticket"
+msgstr "Print this ticket"
+
+#: ticket.php:147
+msgid "Modèle de tickets"
+msgstr "Ticket template"
+
+#: ticket.php:152
+msgid "Créer un rappel pour ce ticket"
+msgstr "Create a reminder for this ticket"
+
+#: ticket.php:157
+msgid "Planifier une intervention dans le calendrier"
+msgstr "Plan task for this ticket in planning"
+
+#: ticket.php:162
+msgid "Supprimer ce ticket"
+msgstr "Delete this ticket"
+
+#: ticket.php:179
+msgid "Sélectionner un demandeur"
+msgstr "Select user"
+
+#: ticket.php:219
+msgid "Modifier le groupe"
+msgstr "Modify group"
+
+#: ticket.php:224
+msgid "Modifier un utilisateur"
+msgstr "Modify user"
+
+#: ticket.php:245
+msgid "Téléphoner au"
+msgstr ""
+
+#: ticket.php:246
+msgid "Envoyer un mail à l'adresse"
+msgstr ""
+
+#: ticket.php:265
+msgid "Équipement associé"
+msgstr "Related Equipment"
+
+#: ticket.php:283
+msgid "Autres tickets de cet utilisateur"
+msgstr "Other tickets for this user"
+
+#: ticket.php:308
+msgid "Sélectionner un type"
+msgstr "Select type"
+
+#: ticket.php:349
+msgid "Aucun technicien associé à ce ticket"
+msgstr "No technician associated with this ticket"
+
+#: ticket.php:384
+msgid "Ouvert par"
+msgstr "Open by"
+
+#: ticket.php:393
+msgid "Aucune catégorie associée"
+msgstr "No category selected"
+
+#: ticket.php:439
+msgid "Ajouter une catégorie"
+msgstr "Add category"
+
+#: ticket.php:440
+msgid "Modifier une catégorie"
+msgstr "Modify category"
+
+#: ticket.php:536
+msgid "Fichier joint"
+msgstr "Attached file"
+
+#: ticket.php:584
+msgid "Date de résolution estimée"
+msgstr "Estimated resolution date"
+
+#: ticket.php:648
+msgid "Temps estimé"
+msgstr "Estimated time"
+
+#: ticket.php:919
+msgid "Envoyer"
+msgstr "Submit"
+
+#: ticket.php:931
+msgid "Clôturer le ticket"
+msgstr "Close this ticket"
+
+#: ticket.php:942
+msgid "Envoyer un mail"
+msgstr "Send mail"
+
+#: ticket_catadd.php:50
+msgid "Ajout d'une sous-catégorie"
+msgstr "Adding a subcategory"
+
+#: ticket_catadd.php:86
+msgid "Modification sous-catégorie"
+msgstr "Modify sub-category"
+
+#: ticket_print.php:62
+msgid "Impression du ticket"
+msgstr "Printing ticket"
+
+#: ticket_print.php:141
+msgid "Vous n'avez pas les droits d'accès à cette page. Contacter votre administrateur"
+msgstr "You do not have access rights to this page. Contact your administrator"
+
+#: ticket_stat.php:44
+msgid "Tous les type"
+msgstr "All types"
+
+#: ticket_stat.php:57
+msgid "Toutes les criticités"
+msgstr "All criticalities"
+
+#: ticket_stat.php:68
+msgid "Toutes les catégories"
+msgstr "All categories"
+
+#: ticket_template.php:62
+msgid "Le modèle à été appliqué au ticket en cours"
+msgstr "The model has been applied to the current ticket"
+
+#: ticket_template.php:90
+msgid "Liste des modèles"
+msgstr "List of models"
+
+#: ticket_template.php:91
+msgid "Utiliser"
+msgstr "Use"
+
+#: ticket_useradd.php:56
+msgid "Ajouter un nouvel utilisateur"
+msgstr "Add new user"
+
+#: ticket_useradd.php:92 ticket_useradd.php:150
+msgid "Ajouter une société"
+msgstr "Add company"
+
+#: ticket_useradd.php:96 ticket_useradd.php:155
+msgid "Plus de champs"
+msgstr "More fields"
+
+#: ticket_useradd.php:107
+msgid "Modification d'un utilisateur"
+msgstr "Editing a user"
+
+#: wysiwyg.php:62 wysiwyg.php:106 wysiwyg.php:140 wysiwyg.php:184
+msgid "Police"
+msgstr "Font"
+
+#: wysiwyg.php:68 wysiwyg.php:112 wysiwyg.php:146 wysiwyg.php:190
+msgid "Taille"
+msgstr "Size"
+
+#: wysiwyg.php:72 wysiwyg.php:116 wysiwyg.php:150 wysiwyg.php:194
+msgid "Gras"
+msgstr "Bold"
+
+#: wysiwyg.php:73 wysiwyg.php:117 wysiwyg.php:151 wysiwyg.php:195
+msgid "Italique"
+msgstr "Italic"
+
+#: wysiwyg.php:74 wysiwyg.php:118 wysiwyg.php:152 wysiwyg.php:196
+msgid "Souligner"
+msgstr "Underline"
+
+#: wysiwyg.php:76 wysiwyg.php:154
+msgid "Liste à puces"
+msgstr "Bullet list"
+
+#: wysiwyg.php:77 wysiwyg.php:155
+msgid "Liste numéroté"
+msgstr "Numbered list"
+
+#: wysiwyg.php:78 wysiwyg.php:156
+msgid "Augmenter le retrait"
+msgstr "Increase shrinkage"
+
+#: wysiwyg.php:79 wysiwyg.php:157
+msgid "Diminuer le retrait"
+msgstr "Decrease shrinkage"
+
+#: wysiwyg.php:81 wysiwyg.php:159
+msgid "Aligner à gauche"
+msgstr "Align left"
+
+#: wysiwyg.php:82 wysiwyg.php:160
+msgid "Centrer"
+msgstr "Center"
+
+#: wysiwyg.php:83 wysiwyg.php:161
+msgid "Aligner à droite"
+msgstr "Align right"
+
+#: wysiwyg.php:84 wysiwyg.php:162
+msgid "Justifier"
+msgstr "Justify "
+
+#: wysiwyg.php:88 wysiwyg.php:89 wysiwyg.php:94 wysiwyg.php:166 wysiwyg.php:167
+#: wysiwyg.php:172
+msgid "Insérer une image"
+msgstr "Insert picture"
+
+#: wysiwyg.php:92 wysiwyg.php:170
+msgid "Sélectionner une image"
+msgstr "Select picture"
+
+#: wysiwyg.php:97 wysiwyg.php:175
+msgid "Couleur"
+msgstr "Color"
+
+#: wysiwyg.php:99 wysiwyg.php:177
+msgid "Annuler la modification"
+msgstr "Undo"
+
+#: wysiwyg.php:100 wysiwyg.php:178
+msgid "Rétablir"
+msgstr "redo"
+
+#~ msgid "Warning"
+#~ msgstr "Warning"
+
+#~ msgid "Équipements associé"
+#~ msgstr "Related asset"
+
+#~ msgid ""
+#~ "Vous n'avez pas les droits d'accès à l'administration du logiciel, "
+#~ "contacter votre administrateur."
+#~ msgstr ""
+#~ "Access denied to administration part of this software, please contact "
+#~ "your administrator."
+
+#~ msgid "Groupe de Technicien"
+#~ msgstr "Technician Group"
+
+#~ msgid "Droit de modification de profile des utilisateurs"
+#~ msgstr "User profile modification rights"
+
+#~ msgid "Nombre d'heures de travail restantes dans les tickets ouverts"
+#~ msgstr "Number of hours remaining in open tickets"
+
+#~ msgid "Nombre d'heures"
+#~ msgstr "Number of hours"
+
+#~ msgid "Affiche le menu matériel"
+#~ msgstr "Displays the assets menu"
+
+#~ msgid ""
+#~ "Affiche uniquement les matériels du service auquel est rattaché "
+#~ "l'utilisateur."
+#~ msgstr ""
+#~ "Displays only the hardware of the service to which the user is attached."
+
+#~ msgid ""
+#~ "Affiche uniquement la liste des matériels, sans droit d'éditer une fiche."
+#~ msgstr ""
+#~ "Displays only the list of hardware, without the right to edit a form."
+
+#~ msgid "Affiche le bouton ajouter matériel"
+#~ msgstr "Displays the add hardware button"
+
+#~ msgid "Affiche tous les états des matériels dans le menu de gauche"
+#~ msgstr "Displays all hardware states in the left menu"
+
+#~ msgid "Types des matériels"
+#~ msgstr "Asset types"
+
+#~ msgid "Fabricants des matériels"
+#~ msgstr "Assets manufacturers "
+
+#~ msgid "Modèles des matériels"
+#~ msgstr "Assets models"
+
+#~ msgid "États des matériels"
+#~ msgstr "Assets states"
+
+#~ msgid "Réseaux des matériels"
+#~ msgstr "Assets networks"
+
+#~ msgid "Matériels"
+#~ msgstr "Assets"
+
+#~ msgid ""
+#~ "Active la gestion des matériels, affiche un nouvel item dans le menu de "
+#~ "gauche"
+#~ msgstr "Enables assets management, displays a new item in the left menu"
+
+#~ msgid ""
+#~ "Affiche un nouvel item dans le menu des matériels, permettant de "
+#~ "visualiser les équipements en fin de garantie"
+#~ msgstr ""
+#~ "Displays a new item in the hardware menu, allowing you to view the "
+#~ "equipment at the end of the warranty"
+
+#~ msgid "Importer des matériels"
+#~ msgstr "Import assets"
+
+#~ msgid "Permet d'importer des matériels en lot depuis un fichier CSV"
+#~ msgstr "Allows you to import batch material from a CSV file"
+
+#~ msgid "Commentaires"
+#~ msgstr "Reviews"
+
+#~ msgid "Liste des matériels"
+#~ msgstr "Assets list"
+
+#~ msgid "Identifiant du matériel"
+#~ msgstr "Hardware ID"
+
+#~ msgid "Numéro du matériel"
+#~ msgstr "Asset identifier"
+
+#~ msgid "matériels effectué avec succès."
+#~ msgstr "successfully completed."
+
+#~ msgid "Le fichier d'import des matériel n'existe pas"
+#~ msgstr "The asset import file does not exist"
+
+#~ msgid "Nouveau matériel"
+#~ msgstr "New asset"
+
+#~ msgid "Liste des matériels en fonction de leurs garanties"
+#~ msgstr "Assets list according to their guarantees"
+
+#~ msgid "Export de la liste des matériels en CSV"
+#~ msgstr "Export of assets list in CSV"
+
+#~ msgid "Évolution des matériels installés et recyclés sur"
+#~ msgstr "Evolution of installed and recycled equipment"
+
+#~ msgid "Évolution des matériels installés et recyclés pour le mois de"
+#~ msgstr "Evolution of installed and recycled materials for the month of"
+
+#~ msgid "Évolution des matériels installés et recyclés sur toutes les années"
+#~ msgstr "Evolution of equipment installed and recycled over all years"
+
+#~ msgid "Nombre de matériels"
+#~ msgstr "Number of assets"
+
+#~ msgid "Aucun matériel installé ou recyclé dans la plage indiqué"
+#~ msgstr "No asset installed or recycled within specified range"
+
+#~ msgid "Répartition du nombre de matériels par services"
+#~ msgstr "Distribution of assets by services"
+
+#~ msgid "Répartition du nombre de matériels par type"
+#~ msgstr "Distribution of the number of assets by type"
+
+#~ msgid "Matériel"
+#~ msgstr "Asset"
+
+#~ msgid "Matériel associé"
+#~ msgstr "Asset associated to this user"
+
+#~ msgid "Répartition de la charge de travail par catégories"
+#~ msgstr "Distribution of workload by categories"
+
+#~ msgid "du service"
+#~ msgstr "of service"
+
+#~ msgid ""
+#~ "Cette clé privée est nécessaire à la création d'une tâche planifié pour "
+#~ "l'installation automatique des mises à jour, pour plus d'informations "
+#~ "consulter la documentation rubrique Mise à jour"
+#~ msgstr ""
+#~ "This private key is required to create a scheduled task for the automatic "
+#~ "installation of updates, for more information see the documentation Update"
+
+#~ msgid "Attention clé à ne pas divulguer"
+#~ msgstr "Key Warning not to be disclosed"
+
+#~ msgid ""
+#~ "Autorise les actions sur en selectionnant plusieurs tickets dans les "
+#~ "tâches"
+#~ msgstr "Allows actions on by selecting multiple tickets in tasks"
+
+#~ msgid "Affiche le meta etat à traiter personnel"
+#~ msgstr "Displays the meta state to treat personal"
+
+#~ msgid "Affiche le meta etat à traiter pour tous les techniciens"
+#~ msgstr "Displays the meta state to process for all technicians"
+
+#~ msgid "Affiche les vues personelles"
+#~ msgstr "Show personal views"
+
+#~ msgid "Affiche les flèches ticket suivant et prècedent"
+#~ msgstr "Displays next and previous ticket arrows"
+
+#~ msgid "Modfication du demandeur"
+#~ msgstr "Amendment of Applicant"
+
+#~ msgid "Modification du champ etat dans le ticket"
+#~ msgstr "Changing the status field in the ticket"
+
+#~ msgid "Modifiction de la partie disponibilité"
+#~ msgstr "Changing the availability part"
+
+#~ msgid "Affiche le bouton de cloture dans le ticket"
+#~ msgstr "Displays the closing button in the ticket"
+
+#~ msgid "Equipement en stock"
+#~ msgstr "Equipment in stock"
+
+#~ msgid "Equipement installé en production"
+#~ msgstr "Equipment installed in production"
+
+#~ msgid "Equipement de coté"
+#~ msgstr "Standby equipment"
+
+#~ msgid "Equipement recyclé, jeté"
+#~ msgstr "Recycled equipment, discarded"
+
+#~ msgid "Évolution des tickets ouverts et fermés sur "
+#~ msgstr "Evolution of open and closed tickets "
+
+#~ msgid "Évolution des matériels installés et recyclés pour l'année"
+#~ msgstr "Evolution of installed and recycled assets for the year"
+
+#~ msgid "Évolution des tickets ouverts et fermés pour l'année "
+#~ msgstr "Evolution of open and closed tickets for the year"
+
+#~ msgid "Nom netbios"
+#~ msgstr "Netbios name"
+
+#~ msgid "\tModification de la société sur la fiche utilisateur"
+#~ msgstr "Changing the company on the user record"
+
+#~ msgid "Disponilbité"
+#~ msgstr "Availability"
+
+#~ msgid ""
+#~ "Active le suivi des catégories afin de produire des statistiques de "
+#~ "disponibilité (ex: 98.00% de disponibilité d'une application)"
+#~ msgstr "Enables tracking of categories to produce availability statistics "
+
+#~ msgid ""
+#~ "Active l'authentification des utilisateurs dans GesStup, avec les "
+#~ "identifiants présents dans l'annuaire LDAP. Cela ne désactive pas "
+#~ "l'authentification avec la base utilisateurs de GestSup"
+#~ msgstr " "
+
+#~ msgid "Évolution des matériels installés et recyclés pour le mois de "
+#~ msgstr "Evolution of installed and recycled assets for the month of"
+
+#~ msgid "supprimée"
+#~ msgstr "deleted"
+
+#~ msgid "Des tickets non lus sont en attente"
+#~ msgstr "Unread tickets are waiting"
+
+#~ msgid "Vous avez fait la demande suivante auprès du support"
+#~ msgstr "You made the following request to the support"
+
+#~ msgid "cours"
+#~ msgstr "sss"
+
+#~ msgid "Attente de Retour"
+#~ msgstr "Wait custumer"
+
+#~ msgid "Votre nom d'utilisateur ou mot de passe, n'est pas correct"
+#~ msgstr "Wrong login or password"
+
+#~ msgid "ceci est un text en français"
+#~ msgstr "this is english text"
+
+#~ msgid "ceci est un text en francais"
+#~ msgstr "this a text in english"
+
+#~ msgid ""
+#~ "test page francais.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "test page anglais.\n"
+#~ "\n"
+
+#~ msgid "Bienvenue dans mon application PHP"
+#~ msgstr "Welcome in my PHP app"
+
+#~ msgid "Passez une bonne journée"
+#~ msgstr "Have good day"
+
+#~ msgid "text to translate"
+#~ msgstr "text to translate"
+
+#~ msgid "another paragraph"
+#~ msgstr "another paragraph"
+
+#~ msgid "A string to be translated would go here"
+#~ msgstr "A string to be translated would go here"
+
+#~ msgid "une chaine à traduire"
+#~ msgstr "string to translate"
+
+#~ msgid "test de page en français."
+#~ msgstr "Page test in English"
+
+#~ msgid "test de page en francais."
+#~ msgstr "Page test in English."
+
+#~ msgid "Ma Page"
+#~ msgstr "My Page"
+
+#~ msgid "mon paragraphe"
+#~ msgstr "My paragraph"

@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>GestSup mail notification</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style type="text/css">
+			/* Fonts and Content */
+			body, td { font-family: Arial; font-size:14px; }
+			body { background-color: #438eb9; margin: 0; padding: 0; -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+			h2{padding-top:0px; color:#0E7693; font-size:18px; }
+			span.title{color:#0E7693; font-size:14px; padding-bottom:2px;}
+			td.header{background-color: #F2F0F0}
+			td.footer{background-color: #c7c7c7;}
+			p.min{font-size:12px; text-align:center;}
+		</style>
+	</head>
+	<body style="margin:0px; padding:0px; -webkit-text-size-adjust:none;">
+		<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:rgb(42, 55, 78)" >
+			<tbody>
+				<tr>
+					<td align="center" bgcolor="#438eb9">
+						<table  cellpadding="0" cellspacing="0" border="0">
+							<tbody>    
+								<!-- header -->
+								<tr>
+									<td width="640" height="10"></td>
+								</tr>
+								<tr>
+									<td width="640" class="header">
+										<table width="640" cellpadding="0" cellspacing="0" border="0">
+											<tbody>
+												<tr>
+													<td width="30"></td>
+													<td width="580" valign="middle" align="left">
+														<h2>
+															<br />
+															<img height="30" alt="logo" src="#company_logo#" /> #mail_object#
+															<br />
+															<br />
+														</h2>
+													</td> 
+													<td width="30"></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td width="640" height="1" bgcolor="#d7d6d6"></td>
+								</tr>
+								 <!-- content -->
+								<tr class="content">
+									<td  width="640" bgcolor="#ffffff">
+										<table  width="640" cellpadding="0" cellspacing="0" border="0">
+											<tbody>
+												<tr>
+													<td width="30"></td>
+													<td class="w580"  width="580">
+														<br />
+														<p style="padding-top:12px;">#mail_txt#</p>                                            
+														<table class="w580"  width="580" cellspacing="0" cellpadding="0" border="0">
+															<tbody>
+																<tr>
+																	<td width="275" valign="top">
+																	   <span class="title">#title# :</span> #ticket_title#
+																	</td>
+																	<td width="30" ></td>
+																	<td width="275" valign="top">
+																	   <span class="title">#category# :</span> #ticket_category# - #ticket_subcat#
+																	</td>
+																</tr>
+																 <tr>
+																	<td width="275" valign="top">
+																	   <span class="title">#user# :</span> #ticket_user#
+																	</td>
+																	<td width="30" ></td>
+																	<td width="275" valign="top">
+																	   <span class="title">#technician# :</span> #ticket_technician#
+																	</td>
+																</tr>
+																<tr>
+																	<td width="275" valign="top">
+																	   <span class="title">#state# :</span> #ticket_state#
+																	</td>
+																	<td width="30" ></td>
+																	<td width="275" valign="top">
+																	   <span class="title">#date_create# :</span> #ticket_date_create#
+																	</td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580" height="5" ></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580" height="1" bgcolor="#c7c5c5"></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580" height="5" ></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580">
+																		<span class="title">#description# :</span> <p>#ticket_description#</p>
+																	</td>
+																</tr>
+																 <tr>
+																	<td colspan="3" class="w580" height="1" bgcolor="#c7c5c5"></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580" height="5" ></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580">
+																		<span class="title">#resolution# :</span> <p>#ticket_resolution#</p>
+																	</td>
+																</tr>
+																 <tr>
+																	<td colspan="3" class="w580" height="1" bgcolor="#c7c5c5"></td>
+																</tr>
+																<tr>
+																	<td colspan="3" class="w580" height="5" ></td>
+																</tr>
+																<tr>
+																	<td width="275" valign="top">
+																	   <span class="title">#date_hope# :</span> #ticket_date_hope#
+																	</td>
+																	<td width="30" ></td>
+																	<td width="275" valign="top">
+																	   <span class="title">#date_res# :</span> #ticket_date_res#
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</td>
+													<td width="30"></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td  width="640" height="15" bgcolor="#ffffff"></td>
+								</tr>
+								<!-- footer -->
+								<tr >
+									<td width="640" class="footer">
+										<table  width="640" cellpadding="0" cellspacing="0" border="0" >
+											<tbody>
+												<tr>
+													<td colspan="5" height="10"></td>
+												</tr>
+												<tr>
+													<td width="30"></td>
+													<td class="w580"  width="580" valign="top">
+														<p class="min" >#mail_txt_end#</p>
+														
+													</td>
+													<td width="30"></td>
+												</tr>
+												<tr>
+													<td colspan="5" height="10"></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td  width="640" height="60"></td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				<tr>  <td bgcolor="#438eb9"><p style="font-size:9px; margin: 5px;" align="right"><a href="https://gestsup.fr">GestSup.fr</a></p></td></tr>
+			</tbody>
+		</table>
+	</body>
+</html>

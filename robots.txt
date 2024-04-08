@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap:https://demandes.i2m.univ-amu.fr/sitemap.xml

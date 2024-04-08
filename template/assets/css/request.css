@@ -1,0 +1,181 @@
+/* CSS for new request page */
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#request-type .card-body {
+    text-align: center;
+}
+
+.request .mission-order-group, .request .purchase-order-group, .request .ticket-group {
+    display: none;
+}
+
+.request .select2 {
+    width: 100% !important;
+}
+
+.sidebar .caret {
+    margin-right: 0.5rem;
+}
+
+.user-list {
+    display: block;
+}
+
+.button-table {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.button-table a, .button-mail a {
+    display: block;
+    color: white;
+    border-radius: .175rem;
+}
+
+.button-table a {
+    min-width: 50%;
+    padding: 5px 15px;
+    margin: 5px auto;
+}
+
+.button-mail a {
+    min-width: 25%;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 0px;
+}
+
+.button-mail a.button-reject, .button-table a.button-reject {
+    background-color: #dd6a57;
+}
+
+.button-mail a.button-reject:hover, .button-table a.button-reject:hover {
+    background-color: #e15b5b;
+}
+
+.button-mail a.button-modify, .button-table a.button-modify {
+    background-color: #fec630;
+}
+
+.button-mail a.button-modify:hover, .button-table a.button-modify:hover {
+    background-color: #efae43;
+}
+
+.button-mail a.button-valid, .button-table a.button-valid {
+    background-color: #73bd73;
+}
+
+.button-mail a.button-valid:hover, .button-table a.button-valid:hover {
+    background-color: #64b364;
+}
+
+.cannot-validate {
+    font-size: 12px;
+    font-style: italic;
+    color: #b7b7b7;
+}
+
+.bootstrap-wysiwyg-editor[contenteditable=false] {
+    background-color: #eeeeee;
+}
+
+.request-list .select2-container--default .select2-selection--single {
+    border: 1px solid #d5d5d5;
+    border-radius: 0px;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+}
+
+.request-list .select2-container--default.select2-container--focus .select2-selection--single,
+.request-list .select2-container--default.select2-container--open .select2-selection--single {
+    box-shadow: 0 0 0 2px rgba(245,153,66,.2);
+    color: #696969;
+    border-color: #f59942;
+    background-color: #fff;
+    outline: 0;
+}
+
+.model-view {
+    float: right;
+}
+
+.preview-mode .navbar, .preview-mode #sidebar, .preview-mode .pb-1 {
+    display: none;
+}
+
+.select-validator {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.select-validator a {
+    background-color: #4da4cb;
+    display: block;
+    color: white;
+    padding: 15px;
+    min-width: 20%;
+    margin: 5px auto;
+    border-radius: .175rem;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.select-validator a:hover {
+    background-color: #1f7fab;
+}
+
+.ui-dialog {
+    padding: 0 !important;
+}
+
+#modify-comment {
+    display: none;
+    padding: 0;
+}
+
+#form-modify-comment {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+#form-modify-comment textarea {
+    height: 140px;
+}
+
+.modify-title {
+    background-color: #4da4cb;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.modify-title h2 {
+    text-align: center;
+    width: 95%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.modify-title i {
+    width: 5%;
+    font-size: 20px;
+}
+
+.modify-title i:hover {
+    cursor: pointer;
+    color: #1e7e34;
+}
