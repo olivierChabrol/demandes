@@ -1106,6 +1106,25 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				</div>
 				<a id="down"></a>
 				<!-- END resolution part -->
+                <!-- START document part -->
+                <?php
+                if($globalrow['state']==9) {
+                    echo '<div class="form-group row">
+                            <div class="col-sm-2 col-form-label text-sm-right pr-0">
+								<label class="mb-0" for="attachment">'.T_('Documents à remplir').' :</label>
+							</div>
+							<div class="col-sm-5">
+								<table border="1" style="border:1px solid #D8D8D8; min-width:265px;" >
+									<tr>
+									    <td style="padding:15px;">';
+                                            include "./fillable_documents.php";
+									        echo '
+									    </td>
+									</tr>
+								</table>
+							</div>
+						 </div>';
+                }?>
 				<!-- START attachement part -->
 				<?php
 				if($rright['ticket_attachment'])
@@ -1470,7 +1489,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 							if($_POST['state'])
 							{
 								$qry=$db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
-								$qry->execute(array('id' => $_POST['state']));
+                                $qry->execute(array('id' => $_POST['state']));
 								$row=$qry->fetch();
 								$qry->closeCursor();
 								echo '<option value="'.$_POST['state'].'" selected >'.T_($row['name']).'</option>';
