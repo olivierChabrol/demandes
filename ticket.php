@@ -143,7 +143,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 	if(!isset($globalrow['technician'])) {$globalrow['technician']='';}
 	if($globalrow['user']==0) {$globalrow['user']=$_SESSION['user_id'];}
 }
-
 ?>
 <div class="card bcard shadow mt-2 ticket-group" id="card-1" draggable="false">
 	<form class="form-horizontal" name="myform" id="myform" enctype="multipart/form-data" method="post" action="" onsubmit="loadVal();" >
@@ -240,6 +239,28 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 		</div>
 		<div class="card-body p-0">
 			<div class="p-3">
+                <!-- START state part -->
+                <div class="form-group row">
+                    <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                        <label class="mb-0" for="state">
+                            <?php echo T_('État') . ' :'; ?>
+                        </label>
+                    </div>
+                    <div class="col-sm-5 col-form-label">
+                        <?php
+                            $qry = $db->prepare("SELECT `name`,`display`,`description` FROM `tstates` WHERE `id`=:id");
+                            $qry->execute(array('id' => $globalrow['state']));
+                            $row = $qry->fetch();
+                            $qry->closeCursor();
+                            if (!$row) {}
+                            else {
+                                $title = $row['title'];
+                                echo '&nbsp;<span class="' . $row['display'] . '" title="' . T_($row['description']) . '">' . $row['name'] . '</span>';
+                            }
+                        ?>
+                    </div>
+                </div>
+                <!-- END state part -->
 				<!-- START sender part -->
 				<div class="form-group row <?php if((!$rright['ticket_user_disp'] && $_GET['action']!='new') || (!$rright['ticket_new_user_disp'] && $_GET['action']=='new')) {echo 'd-none';} ?>" >
 					<div class="col-sm-2 col-form-label text-sm-right pr-0">
@@ -1477,61 +1498,74 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				</div>
 -->
 				<!-- END criticality part -->
-				<!-- START state part -->
-				<div class="form-group row <?php if($rright['ticket_state_disp']==0) echo 'd-none';?>">
-					<div class="col-sm-2 col-form-label text-sm-right pr-0">
-						<label class="mb-0" for="state"><?php echo T_('État'); ?> :</label>
-					</div>
-					<div class="col-sm-5">
-						<select class="form-control <?php if($mobile){echo 'col-7';} else {echo 'col-5';} ?> d-inline-block" id="state"  name="state" <?php if($rright['ticket_state']==0 || $lock_tech==1) echo 'disabled';?> >
-							<?php
-							//selected value
-							if($_POST['state'])
-							{
-								$qry=$db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
-                                $qry->execute(array('id' => $_POST['state']));
-								$row=$qry->fetch();
-								$qry->closeCursor();
-								echo '<option value="'.$_POST['state'].'" selected >'.T_($row['name']).'</option>';
-								$selected_state=$_POST['state'];
-							} else {
-								$qry=$db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
-								$qry->execute(array('id' => $globalrow['state']));
-								$row=$qry->fetch();
-								$qry->closeCursor();
-								if(!$row) {
-  								echo '<option value="'.$globalrow['state'].'" selected >'.T_($row['name']).'</option>';
-								}
-								$selected_state=$globalrow['state'];
-							}
-							$qry=$db->prepare("SELECT `id`,`name` FROM `tstates` WHERE `id`!=:id1 AND `id`!=:id2 ORDER BY `number`");
-							$qry->execute(array('id1' => $_POST['state'],'id2' => $globalrow['state']));
-							while($row=$qry->fetch())
-							{
-								if($_SESSION['profile_id']==2 && $row['id']==3){}  //special case to hide resolve state for user only
-								else {echo '<option value="'.$row['id'].'">'.T_($row['name']).'</option>';}
-							}
-							$qry->closeCursor();
-							?>
-						</select>
-						<?php
-						//send value in lock select case
-						if($rright['ticket_state']==0 || $lock_tech==1) {echo '<input type="hidden" name="state" value="'.$selected_state.'" />';}
+				<!-- START edit state part -->
+                <?php
+                if ($_SESSION['profile_id'] == 1 || $_SESSION['profile_id'] == 2) {
+                } else { ?>
+                    <div class="form-group row <?php if ($rright['ticket_state_disp'] == 0) echo 'd-none'; ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="state"><?php echo T_('Modifier l\'état'); ?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <select class="form-control <?php if ($mobile) {
+                                echo 'col-7';
+                            } else {
+                                echo 'col-5';
+                            } ?> d-inline-block" id="state"
+                                    name="state" <?php if ($rright['ticket_state'] == 0 || $lock_tech == 1) echo 'disabled'; ?> >
+                                <?php
+                                //selected value
+                                if ($_POST['state']) {
+                                    $qry = $db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
+                                    $qry->execute(array('id' => $_POST['state']));
+                                    $row = $qry->fetch();
+                                    $qry->closeCursor();
+                                    echo '<option value="' . $_POST['state'] . '" selected >' . T_($row['name']) . '</option>';
+                                    $selected_state = $_POST['state'];
+                                } else {
+                                    $qry = $db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
+                                    $qry->execute(array('id' => $globalrow['state']));
+                                    $row = $qry->fetch();
+                                    $qry->closeCursor();
+                                    if ($row) {
+                                        echo '<option value="' . $globalrow['state'] . '" selected >' . T_($row['name']) . '</option>';
+                                    }
+                                    $selected_state = $globalrow['state'];
+                                }
+                                $qry = $db->prepare("SELECT `id`,`name` FROM `tstates` WHERE `id`!=:id1 AND `id`!=:id2 ORDER BY `number`");
+                                $qry->execute(array('id1' => $_POST['state'], 'id2' => $globalrow['state']));
+                                while ($row = $qry->fetch()) {
+                                    if ($_SESSION['profile_id'] == 2 && $row['id'] == 3) {
+                                    }  //special case to hide resolve state for user only
+                                    else {
+                                        echo '<option value="' . $row['id'] . '">' . T_($row['name']) . '</option>';
+                                    }
+                                }
+                                $qry->closeCursor();
+                                ?>
+                            </select>
+                            <?php
+                            //send value in lock select case
+                            if ($rright['ticket_state'] == 0 || $lock_tech == 1) {
+                                echo '<input type="hidden" name="state" value="' . $selected_state . '" />';
+                            }
 
-						//display state icon
-						$qry=$db->prepare("SELECT `display`,`description` FROM `tstates` WHERE `id`=:id");
-						$qry->execute(array('id' => $globalrow['state']));
-						$row=$qry->fetch();
-						$qry->closeCursor();
-						if (!$row) {
+                            //display state icon
+                            $qry = $db->prepare("SELECT `display`,`description` FROM `tstates` WHERE `id`=:id");
+                            $qry->execute(array('id' => $globalrow['state']));
+                            $row = $qry->fetch();
+                            $qry->closeCursor();
+                            if (!$row) {
 
-						}
-						else {
-                                                    echo '&nbsp;<span class="'.$row['display'].'" title="'.T_($row['description']).'">&nbsp;</span>';
-						}
-						?>
-					</div>
-				</div>
+                            } else {
+                                echo '&nbsp;<span class="' . $row['display'] . '" title="' . T_($row['description']) . '">&nbsp;</span>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
 				<!-- END state part -->
 				<!-- START availability part -->
 				<?php
