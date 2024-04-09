@@ -136,6 +136,7 @@ if($_SESSION['profile_id']==0 || $_SESSION['profile_id']==4)
 if(($_POST['user']=='%' || $_POST['user']=='%25') && $_POST['technician']!=$_SESSION['user_id']&& !$rright['side_all']&&!$_GET['companyview']&&!$_GET['techgroup']) {$_POST['user']=$_SESSION['user_id'];}
 
 if($_POST['date_create']=='') $_POST['date_create']= '%';
+if($_POST['date_start']=='') $_POST['date_start']= '%';
 if($_POST['time']=='') $_POST['time']= '%';
 if($_POST['date_res']=='') $_POST['date_res']= '%';
 if($_POST['sender_service']=='') $_POST['sender_service']= '%';
@@ -308,6 +309,17 @@ if(
 			if(isset($date_create[2]) && isset($date_create[1]) && isset($date_create[0])){$_POST['date_create']="$date_create[2]-$date_create[1]-$date_create[0]";}
 		}
 	}
+    if($_POST['date_start']!='%')
+    {
+        $date_start = $_POST['date_start'];
+        $find='/';
+        $find= strpos($date_start, $find);
+        if($find!=false)
+        {
+            $date_start=explode("/",$date_start);
+            if(isset($date_start[2]) && isset($date_start[1]) && isset($date_start[0])){$_POST['date_start']="$date_start[2]-$date_start[1]-$date_start[0]";}
+        }
+    }
 	if($_POST['date_hope']!='%')
 	{
 		$date_hope=$_POST['date_hope'];
@@ -504,7 +516,7 @@ if(
 				$join='';
 				$where.="AND tincidents.id=tthreads.ticket AND tincidents.state=tstates.id ";
 				$where.="AND (tincidents.date_create LIKE '$_POST[date_create]%' OR tincidents.date_res LIKE '$_POST[date_create]%' OR (tthreads.date LIKE '$_POST[date_create]%' AND tthreads.type=0))";
-			}
+            }
 			//case company col
 			if($rright['dashboard_col_company'])
 			{
@@ -520,7 +532,9 @@ if(
 			}
 		} else {
 			$where.="AND tincidents.date_create LIKE '$_POST[date_create]%' AND tincidents.date_res LIKE '$_POST[date_res]%'";
-		}
+            $where .= "AND i2m.date_start LIKE '%$_POST[date_start]%'";
+
+        }
 		//special case to filter technician group is send
 		if($rright['side_your_tech_group'] && $_GET['techgroup'])
 		{
@@ -1295,15 +1309,15 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 ?>
 <?php
  echo '
-                                                  <th';if ($_GET['order']=='start_date') echo 'class="active"'; echo '>
+                                                  <th ';if ($_GET['order']=='date_start') echo 'class="active"'; echo '>
                                                     <center>
-                                                      <a title="'.T_('Date début').'"  href="./index.php?page=dashboard&'.$url_post_parameters.'&amp;order=start_date&amp;way='.$arrow_way.'">
-                                                                                        <i class="icon-building"></i><br />
+                                                      <a class="text-primary-m2" title="'.T_('Date début').'"  href="./index.php?page=dashboard&'.$url_post_parameters.'&amp;order=date_start&amp;way='.$arrow_way.'">
+                                                                                        <i class="fa fa-hourglass-start text-primary-m2"></i><br />
                                                                                         '.T_('Date début');
                                                                                         //Display arrows
-                                                                                        if ($_GET['order']=='start_date'){
-                                                                                                if ($_GET['way']=='ASC') {echo ' <i class="icon-sort-up"></i>';}
-                                                                                                if ($_GET['way']=='DESC') {echo ' <i class="icon-sort-down"></i>';}
+                                                                                        if(preg_match("#date_start#i", "'.$_GET[order].'")){
+                                                                                            if($_GET['way']=='ASC') {echo ' <i class="fa fa-sort-up"></i>';}
+                                                                                            if($_GET['way']=='DESC') {echo ' <i class="fa fa-sort-down"></i>';}
                                                                                         }
                                                                                         echo'
                                                       </a>
@@ -1820,7 +1834,27 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 									</td>
 									';
 								}
-							?>
+                                //display filter of start date column
+                                if ($_POST['date_start'] != '%' && $_POST['date_start'] && $_POST['date_start'] != 'current') {
+                                    //format date if detect
+                                    if (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $_POST['date_start'])) {
+                                        //convert date format to display format
+                                        $_POST['date_start'] = DateTime::createFromFormat('Y-m-d', $_POST['date_start']);
+                                        $_POST['date_start'] = $_POST['date_start']->format('d/m/Y');
+                                    }
+                                }
+                                echo '
+                                        <td>
+                                            <center>
+                                                <input class="form-control" title="' . T_('La date doit être au format JJ/MM/AAAA') . '" name="date_start" style="max-width:130px;" onchange="submit();" type="text"  value="';
+                                                if ($_POST['date_start'] != '%' && !$_GET['view']) {
+                                                    echo $_POST['date_start'];
+                                                }
+                                echo '" />
+                                            </center>
+                                        </td>
+                                ';
+                            ?>
 							<td align="center">
 								<select class="form-control" style="width:50px" id="state" name="state" onchange="submit()" >
 									<option value=""></option>
@@ -1902,6 +1936,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 				<tbody>
 <?php
 //var_dump($masterquery);
+//var_dump($_POST);
 ?>
 				<form name="actionlist" method="POST">
 					<?php
