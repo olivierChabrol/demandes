@@ -1,7 +1,8 @@
-upload/ticket/
-upload/mission-order/
-upload/purchase-order/
-upload/tmp/
-upload/logo/
-sql/
-connect.php
+/upload/ticket/
+/upload/mission-order/
+/upload/purchase-order/
+/upload/tmp/
+/upload/logo/
+/sql/
+/connect.php
+*.log
