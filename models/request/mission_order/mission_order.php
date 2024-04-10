@@ -338,13 +338,13 @@ class MissionOrder extends BaseRequest
 
     public function setInvitationToken( string $invitationToken): self
     {
-	$this->invitation_token=$invitationToken;
-	return $this;
+	    $this->invitation_token=$invitationToken;
+	    return $this;
     }
 
     public function getInvitationToken(): self
     {
-	return $this->invitation_token;
+	    return $this->invitation_token;
     }
 
     public function setMissionType( int $missionType): self
