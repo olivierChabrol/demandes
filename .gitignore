@@ -4,4 +4,4 @@ upload/purchase-order/
 upload/tmp/
 upload/logo/
 sql/
-./connect.php
+connect.php
