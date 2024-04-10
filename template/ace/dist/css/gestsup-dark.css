@@ -1,0 +1,144 @@
+/*!
+ * Description : GestSup dark theme
+ * Author : Flox
+ * version : 3.2.1
+ * create : 15/05/2020
+ * update : 15/05/2020
+*/
+ 
+/* all */
+body {
+	color: #99a0a5 !important;
+}
+.mb-0 {
+	color: #99a0a5 !important;
+}
+.td {
+	color: #99a0a5 !important;
+}
+.text-primary-m2 {
+	color: #59b1e7 !important;
+}
+.form-control {
+	background-color: #33414a !important;
+	color: #99a0a5 !important;
+}
+input[type='checkbox']{
+	background-color: #33414a !important;
+}
+.bgc-h-default-l3 {
+	background-color: #33414a !important;
+}
+.table-hover tbody tr:hover {
+	color: #99a0a5;
+	background-color: #505559 !important;
+}
+thead tr{
+	color: #59b1e7;
+	background-color: #29343b !important;
+}
+tbody tr{
+	color: #99a0a5;
+	background-color: #33414a !important;
+}
+.page-item.active .page-link {
+	z-index: 3;
+	color: #99a0a5;
+	background-color: #33414a;
+	border-color: #33414a;
+}
+.page-item .page-link {
+	z-index: 3;
+	color: #99a0a5;
+	background-color: #29343b;
+	border-color: #33414a;
+}
+.dropdown-menu {
+	color: #2caccb !important;
+	background-color: #29343b;
+}
+input[type='radio']{
+	background-color: #33414a !important;
+}
+.text-secondary-d2 {
+	color: #99a0a5 !important;
+}
+.tab-content {
+	background-color: #33414a !important;
+}
+/* nav bar */
+.nav-tabs .nav-link:not([class*="btn-"]) {
+	color: #2caccb !important;
+	background-color: #29343b;
+}
+.nav-tabs .nav-link:not([class*="btn-"]):hover {
+	color: #2caccb !important;
+	background-color: #505559;
+}
+.nav-tabs .nav-link:not([class*="btn-"]).active {
+	color: #2caccb !important;
+	background-color: #33414a;
+}
+.nav-tabs.nav-tabs-color-blue {
+	background-color: #33414a;
+}
+/* thread */
+.bgc-primary-l5, .bgc-h-primary-l5:hover {
+	background-color: #29343b !important;
+}
+.text-dark-m2 {
+	color: #99a0a5 !important;
+}
+.btn-lighter-purple {
+	background-color: #29343b !important;
+}
+.btn-lighter-pink {
+	background-color: #29343b !important;
+}
+.btn-lighter-info {
+	background-color: #29343b !important;
+}
+.btn-lighter-warning {
+	background-color: #29343b !important;
+}
+.btn-lighter-grey {
+	background-color: #29343b !important;
+}
+.btn-lighter-success {
+	background-color: #29343b !important;
+}
+.bgc-white {
+	background-color: #565f68 !important;
+}
+/* chosen */
+.chosen-container ul {
+	background-color: #33414a;
+	color: #99a0a5 !important;
+}
+.chosen-container .chosen-drop, .chosen-container-single .chosen-single {
+	background-color: #33414a;
+	color: #999999;
+}
+/* bootstrap */
+.bootstrap-wysiwyg-editor {
+	color: #99a0a5 !important;
+}
+.bsw-toolbar-style-2 {
+	background-color: #29343b !important;
+}
+.btn-a-light-primary{
+	background-color: #29343b !important;
+}
+/* cards */
+.card {
+	background-color: #33414a !important;
+}
+.card-header {
+	background-color: #29343b !important;
+}
+.card-title {
+	color: #59b1e7 !important;
+}
+.bgc-secondary-l3 {
+	background-color: #29343b !important;
+}

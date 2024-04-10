@@ -13,10 +13,10 @@
 //database connection parameters
 $host='localhost'; //SQL server name
 $port='3306'; //SQL server port
-$db_name=''; //database name
+$db_name='demandes'; //database name
 $charset='utf8'; //database charset default utf8
-$user=''; //database user name
-$password=''; //database password
+$user='demandes'; //database user name
+$password='password'; //database password
 
 //database connection
 try {$db = new PDO("mysql:host=$host;port=$port;dbname=$db_name;charset=$charset", "$user", "$password" , array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));}
