@@ -389,6 +389,11 @@ if($_GET['state']=='') $_GET['state'] = '%';
 																'.T_('Connexion').'
 															</button>
 														</div>
+														<div class="form-group col-md-8 offset-md-2 mt-0 pt-0 text-center">
+																<a href="index.php?page=guest" class="text-primary-m2 text-95">
+																	'.T_('Vous êtes invité').' ?
+																</a>
+														</div>
 													</form>
 													';
 													if($rparameters['user_register'])

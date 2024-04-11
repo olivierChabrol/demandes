@@ -134,7 +134,12 @@ if($_GET['action']!='new') //case for edit ticket not new ticket
 															//edit thread button
 															if($row['author']==$_SESSION['user_id']) 
 															{
-																if($rright['ticket_thread_edit']) {echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&threadedit='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';}
+																if($rright['ticket_thread_edit']) {
+																	$href = isset($_GET['token']) ?
+																	"./index.php?token=".$_GET['token']."&threadedit=".$row['id'] :
+																	"./index.php?page=ticket&id=".$_GET['id']."&threadedit=".$row['id']."&userid=".$_GET['userid']."&state=".$_GET['state']."&category=".$_GET['category']."&subcat=".$_GET['subcat']."&viewid=".$_GET['viewid']."#down";
+																	echo '<a href="'.$href.'"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';
+																}
 															}else{
 																if($rright['ticket_thread_edit_all']) {echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&threadedit='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';}
 															}
