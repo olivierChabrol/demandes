@@ -356,7 +356,7 @@ if($rparameters['mail_txt_end'])
 	if(($techrow['lastname']!='Aucun') && ($techrow['phone']!='')) //case technician phone
 	{$mail_text_end=T_('Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre').' '.$techrow['firstname'].' '.$techrow['lastname'].' '.T_('au').' '.$techrow['phone'].' '.$link;}
 	elseif($rparameters['mail_link']==1) //case technician no phone
-	{$mail_text_end=T_("Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien : ").'<a href="'.$_SERVER['SERVER_NAME'] .'/index.php?page=ticket&id='.$_GET['id'].'">'.$_SERVER['SERVER_NAME'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';}
+	{$mail_text_end=T_("Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien : ").'<a href="https://'.$_SERVER['SERVER_NAME'] .'/index.php?page=ticket&id='.$_GET['id'].'">https://'.$_SERVER['SERVER_NAME'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';}
 }
 
 //add tag in mail to split fonction of imap connector
