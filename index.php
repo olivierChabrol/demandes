@@ -52,10 +52,7 @@ if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|c
 {$mobile=1;} else {$mobile=0;}
 
 
-if($_SESSION['user_id'] == $guestid){
-    session_destroy();
-    session_start();
-}
+
 
 //initialize variables
 if(!isset($_SESSION['user_id'])) $_SESSION['user_id'] = '';
@@ -67,6 +64,11 @@ if(!isset($_POST['rightkeywords'])) $_POST['rightkeywords'] = '';
 if(!isset($_POST['procedurekeywords'])) $_POST['procedurekeywords'] = '';
 if(!isset($keywords)) $keywords = '';
 if(!isset($ruser['skin'])) $ruser['skin'] = '';
+
+if($_SESSION['user_id'] == $guestid){
+    session_destroy();
+    session_start();
+}
 
 //default values
 if(empty($_GET['page'])) $_GET['page'] = 'dashboard';

@@ -80,6 +80,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 			$qry = $db->prepare("SELECT * FROM `tusers` WHERE id=:id");
 			$qry->execute(array('id' => $_SESSION['user_id']));
 			$ruser=$qry->fetch();
+			if(!$ruser['language']) {$ruser['language']='fr-FR';}
 			$qry->closeCursor();
 			if($ruser['default_ticket_state']) {$redirectstate=$ruser['default_ticket_state'];} else {$redirectstate=$rparameters['login_state'];}
 			//check right side all

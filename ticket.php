@@ -254,7 +254,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             $qry->closeCursor();
                             if (!$row) {}
                             else {
-                                $title = $row['title'];
+                                 $title = $row['name'];
                                 echo '&nbsp;<span class="' . $row['display'] . '" title="' . T_($row['description']) . '">' . $row['name'] . '</span>';
                             }
                         ?>

@@ -64,14 +64,10 @@ class BudgetData
         $budgetDatas = [];
         $sql = Sql::getInstance();
 
-        $query = "SELECT `id`,`name`,`cat` 
-            FROM `tsubcat`
-            ORDER BY `name` ASC";
-        $params = [
-            'cat' => 1
-        ];
+        $query = "SELECT `id`,`name`,`cat` FROM `tsubcat` ORDER BY `name` ASC";
 
-        $results = $sql->query($query, $params);
+
+        $results = $sql->query($query);
 
         foreach ($results as $row) {
             $budgetData = new BudgetData();
