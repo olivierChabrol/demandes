@@ -93,13 +93,14 @@ if(!isset($_POST['u_agency]'])) $_POST['u_agency]'] = '';
 if(!isset($_POST['sender_service'])) $_POST['sender_service'] = '';
 if(!isset($_POST['addcalendar'])) $_POST['addcalendar'] = '';
 if(!isset($_POST['addevent'])) $_POST['addevent'] = '';
+if(!isset($hide_button)) $hide_button = 0;
 
 $db_id=strip_tags($db->quote($_GET['id']));
 $db_lock_thread=strip_tags($db->quote($_GET['lock_thread']));
 $db_unlock_thread=strip_tags($db->quote($_GET['unlock_thread']));
 $db_threadedit=strip_tags($db->quote($_GET['threadedit']));
 
-$hide_button=0;
+
 
 if(!isset($globalrow['technician'])) $globalrow['technician'] = '';
 if(!isset($globalrow['time'])) $globalrow['time'] = '';
@@ -859,7 +860,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				<!-- END category part -->
 
                 <!-- START observer part -->
-                <?php if($_GET['token'] == '') {
+                <?php if(!isset($rright['guest_rights'])) {
                     echo '
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
@@ -1648,7 +1649,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				<!-- START buttons -->
 				<div class="border-t-1 brc-secondary-l1 bgc-secondary-l3 py-3 text-center">
 					<?php
-					if(!$hide_button && $_GET['token'] == '')
+					if(!$hide_button)
 					{
 						if(($rright['ticket_save']!=0 && $_GET['action']!='new') || ($rright['ticket_new_save']!=0 && $_GET['action']=='new'))
 						{

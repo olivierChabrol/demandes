@@ -298,7 +298,17 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest">
+                            <label class="mb-0" for="guest-birthdate">
+                                <?php echo T_('Date de naissance de l\'invité'); ?> :
+                            </label>
+                        </div>
+                        <div class="col-sm-9 mt-2">
+                            <input id="guest-birthdate" type="date" name="guest-birthdate" value="<?php if ($missionOrder->getGuestBirthDate()) echo $missionOrder->getGuestBirthDate()->format('Y-m-d') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest-mail">
                                 <?php echo T_('Mail de l\'invité'); ?> :
                             </label>
                         </div>

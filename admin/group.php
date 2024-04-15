@@ -60,7 +60,7 @@ if(
 		//redirect
 		$www = "./index.php?page=admin&subpage=group";
 		echo '<script language="Javascript">
-		<!--
+		// <!--
 		document.location.replace("'.$www.'");
 		// -->
 		</script>';
@@ -70,7 +70,7 @@ if(
 		//redirect to group list
 		$www = "./index.php?page=admin&subpage=group";
 		echo '<script language="Javascript">
-		<!--
+		// <!--
 		document.location.replace("'.$www.'");
 		// -->
 		</script>';
@@ -108,7 +108,7 @@ if(
 	
 	//count group
 	$qry=$db->prepare("SELECT COUNT(id) AS counter FROM `tgroups` WHERE disable='0'");
-	$qry->execute(array('id' => $_GET['id']));
+	$qry->execute();
 	$row=$qry->fetch();
 	$qry->closeCursor();
 	

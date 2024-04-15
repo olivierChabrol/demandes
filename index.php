@@ -206,12 +206,13 @@ else {
         if ($qry->rowCount()) {
             $_GET['id'] = $qry->fetch()['incident_id'];
             $_SESSION['user_id'] = $guestid;
+            $hide_button = true;
 
             $qry = $db->prepare("SELECT * FROM `trights` WHERE profile=:profile");
             $qry->execute(array('profile' => 1));
             $rright = $qry->fetch();
+            $rright['guest_rights'] = true;
             $qry->closeCursor();
-
             //set role of profile
             if ($_SESSION['profile_id'] == 0) {
                 $profile = "technician";

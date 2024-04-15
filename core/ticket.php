@@ -802,7 +802,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
     if(!$error && !$_POST['addcalendar'] && !$_POST['addevent'])
     {
 		//global redirect on current ticket
-		if(!isset($_GET['token']))
+		if($_GET['token'] == '')
 			$url="./index.php?page=ticket&id=$_GET[id]&action=$_POST[action]&edituser=$_POST[edituser]&cat=$_POST[category]&editcat=$_POST[subcat]&$url_get_parameters$down";
 		else
 			$url="./index.php?token=".$_GET['token'];

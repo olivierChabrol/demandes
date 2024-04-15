@@ -192,6 +192,10 @@ if($request->getGuestName()!=NULL){
         "value" => $request->getGuestName()
     ];
     $rows[] = [
+        "title" => 'Date de naissance de l\'invité',
+        "value" => $request->getGuestBirthDate()->format('d/m/Y')
+    ];
+    $rows[] = [
         "title" => 'Mail de l\'invité',
         "value" => $request->getGuestMail()
     ];
