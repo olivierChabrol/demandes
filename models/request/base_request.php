@@ -21,38 +21,102 @@ use Models\Request\Ticket\Ticket;
 use Models\Tool\Mailer;
 use Models\Tool\Parameters;
 
+/**
+ * Class BaseRequest
+ *
+ * Cette classe représente une requête de base.
+ *
+ * @package Models\Request
+ */
 class BaseRequest
 {
+    /** @var int Le statut de la requête en attente de validation. */
     const STATUS_WAITING_VALIDATION = 1;
+
+    /** @var int Le statut de la requête en cours de modification. */
     const STATUS_MODIFY = 2;
+
+    /** @var int Le statut de la requête refusée. */
     const STATUS_REJECT = 3;
+
+    /** @var int Le statut de la requête validée. */
     const STATUS_VALID = 4;
+
+    /** @var int Le statut de la requête annulée. */
     const STATUS_CANCEL = 5;
+
+    /** @var string Le chemin du template de mail pour une nouvelle requête. */
     const TEMPLATE_MAIL_NEW = "template/request/mail/new_request.php";
+
+    /** @var string Le chemin du template de mail pour une requête modifiée. */
     const TEMPLATE_MAIL_MODIFY = "template/request/mail/request_modify.php";
+
+    /** @var string Le chemin du template de mail pour une requête modifiée terminée. */
     const TEMPLATE_MAIL_MODIFY_DONE = "template/request/mail/request_modify_done.php";
+
+    /** @var string Le chemin du template de mail pour une requête refusée. */
     const TEMPLATE_MAIL_REJECTED = "template/request/mail/request_rejected.php";
+
+    /** @var string Le chemin du template de mail pour une requête validée. */
     const TEMPLATE_MAIL_VALIDATED = "template/request/mail/request_validated.php";
 
+    /** @var string Le chemin du template de mail pour une notification à un invité. */
+    const TEMPLATE_MAIL_GUEST = "template/request/mail/guest_notification.php";
+
+    /** @var int|null L'identifiant de la requête. */
     private $id;
+
+    /** @var string Le titre de la requête. */
     private $title;
+
+    /** @var string|null Les informations budgétaires supplémentaires de la requête. */
     private $additionalBudgetInformation;
+
+    /** @var string|null Le commentaire de la requête. */
     private $comment;
+
+    /** @var User L'utilisateur propriétaire de la requête. */
     private $owner;
+
+    /** @var BudgetData Les données budgétaires de la requête. */
     private $budgetData;
-    private $currentUser;
-    private $validators;
-    private $service;
-    private $date;
-    private $datealerte;
-    private $models;
+
+    /** @var bool|null Indique si la requête est un modèle. */
     private $isModel;
+
+    /** @var Service Le service associé à la requête. */
+    private $service;
+
+    /** @var User[] Les validateurs de la requête. */
+    private $validators;
+
+    /** @var string La date de la requête. */
+    private $date;
+
+    /** @var string La date d'alerte de la requête. */
+    private $datealerte;
+
+    /** @var Model[] Les modèles associés à la requête. */
+    private $models;
+
+    /** @var int|null Le statut précédent de la requête. */
     private $statusOld;
+
+    /** @var int Le statut actuel de la requête. */
     private $status;
+
+    /** @var Mailer Le service de messagerie pour envoyer des e-mails. */
     private $mailer;
-    private $parameters;
+
+    /** @var Parameters Les paramètres de l'application. */
+    protected $parameters;
+
+    /** @var Sql Le gestionnaire de base de données. */
     protected $sql;
 
+    /**
+     * Constructeur de la classe BaseRequest.
+     */
     public function __construct()
     {
         $this->owner = new User();
@@ -507,13 +571,15 @@ class BaseRequest
                 ->setSubject($subject)
                 ->setBody($body)
                 ->send();
+
+            $this->mailer->mailer->clearAddresses();
         }
         
 
         return $this;
     }
 
-    private function getMailTemplate(string $template, array $extraDatas = []): string
+    protected function getMailTemplate(string $template, array $extraDatas = []): string
     {
         ob_start();
 

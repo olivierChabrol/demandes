@@ -390,10 +390,12 @@ if($_GET['state']=='') $_GET['state'] = '%';
 																'.T_('Connexion').'
 															</button>
 														</div>
+													</form>
+													<form method="get" action="index.php" class="form-row">
 														<div class="form-group col-md-8 offset-md-2 mt-0 pt-0 text-center">
-																<a href="index.php?page=guest" class="text-primary-m2 text-95">
-																	'.T_('Vous êtes invité').' ?
-																</a>
+															<label class="text-dark-tp3 text-100">'.T_('Jeton invité :').'</label>
+															<input name="token" id="token">
+															<button type="submit">Valider</button>
 														</div>
 													</form>
 													';

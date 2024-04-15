@@ -303,7 +303,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                             </label>
                         </div>
                         <div class="col-sm-9 mt-2">
-                            <input id="guest-age" type="text" name="guest-age" value="<?php echo $missionOrder->getGuestAge() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                            <input id="guest-mail" type="text" name="guest-mail" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                         </div>
                     </div>
                     <div class="form-group row">

@@ -193,7 +193,7 @@ if($request->getGuestName()!=NULL){
     ];
     $rows[] = [
         "title" => 'Mail de l\'invité',
-        "value" => $request->getGuestAge()
+        "value" => $request->getGuestMail()
     ];
     $rows[] = [
         "title" => 'Labo de l\'invité',

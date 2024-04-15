@@ -366,7 +366,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 					if($rright['ticket_service_disp']!=0)
 					{
 						echo'
-						<div class="form-group row '; if($rright['ticket_new_service_disp']==0 && $_GET['action']=='new') {echo 'd-none';} echo '" >
+						<div class="form-group row '; if($_GET['token'] || ($rright['ticket_new_service_disp']==0 && $_GET['action']=='new')) {echo 'd-none';} echo '" >
 							<div class="col-sm-2 col-form-label text-sm-right pr-0">
 								<label class="mb-0" for="u_service">'.T_('Equipe/Service').' :</label>
 							</div>
@@ -859,28 +859,29 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				<!-- END category part -->
 
                 <!-- START observer part -->
-                <div class="form-group row">
-                    <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="category">
-                            <?php echo T_('Observateur').' :'; ?>
-                        </label>
-                    </div>
-                    <div class="col-sm-5">
-                        <select <?php if($mobile) {echo 'style="max-width:105px;"';}else{echo 'style="width:auto;"';}?> class="form-control d-inline-block mb-1 mb-md-0 select2" title="<?php echo T_('Observateurs'); ?>" id="observer" name="observer[]" multiple>
-                            <option><?php echo T_('Aucun'); ?></option>
-                            <?php
-                            foreach ($users as $observer) {
-                                $isSelected = $ticket->hasObserver($observer->getId());
-                                ?>
-                                <option value="<?php echo $observer->getId() ?>" <?php if ($isSelected) {
-                                    echo 'selected';
-                                } ?> ><?php echo $observer->getFullName()." (".$observer->getLabo().")" ?></option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
+                <?php if($_GET['token'] == '') {
+                    echo '
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="category">'.
+                        T_('Observateur').' :
+                            </label>
+                        </div>   
+                        <div class="col-sm-5">
+                        <select ';
+                    if($mobile) {echo 'style="max-width:105px;"';}else{echo 'style="width:auto;"';}
+                    echo ' class="form-control d-inline-block mb-1 mb-md-0 select2" title="'.T_('Observateurs').'" id="observer" name="observer[]" multiple>
+                            <option>'.T_('Aucun').'</option>';
+                    foreach ($users as $observer) {
+                        $isSelected = $ticket->hasObserver($observer->getId());
+                        echo '<option value="'.$observer->getId().'"';
+                        if ($isSelected) {
+                            echo 'selected';
+                        }
+                        echo '>'.$observer->getFullName().' ('.$observer->getLabo().')</option>';
+                    }
+                    echo '</select></div></div>';
+                } ?>
                 <!-- END observer part -->
 
 				<!-- START agency part -->
@@ -1647,7 +1648,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				<!-- START buttons -->
 				<div class="border-t-1 brc-secondary-l1 bgc-secondary-l3 py-3 text-center">
 					<?php
-					if(!$hide_button)
+					if(!$hide_button && $_GET['token'] == '')
 					{
 						if(($rright['ticket_save']!=0 && $_GET['action']!='new') || ($rright['ticket_new_save']!=0 && $_GET['action']=='new'))
 						{
