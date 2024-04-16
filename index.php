@@ -200,11 +200,12 @@ if($_SESSION['user_id'])
 }
 // user not connected
 else {
-    if ($_GET["token"]) {
+    if ($_GET['token']) {
         $qry = $db->prepare("SELECT `incident_id` FROM `dmission_order` WHERE `invitation_token` =:token");
         $qry->execute(array('token' => $_GET["token"]));
         if ($qry->rowCount()) {
-            $_GET['id'] = $qry->fetch()['incident_id'];
+            $missionData = $qry->fetch();
+            $_GET['id'] = $missionData['incident_id'];
             $_SESSION['user_id'] = $guestid;
             $hide_button = true;
 
@@ -228,7 +229,7 @@ else {
 
             require "invitation.php";
             exit;
-        };
+        }
     }
 }
 
