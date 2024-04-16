@@ -78,15 +78,28 @@ class MissionOrder extends BaseRequest
     /** @var int $typeMission The type of the mission.*/
     private $typeMission;
 
+    /** @var string $careOrganization The care organization.*/
     private $careOrganization;
 
     private $guardianShip;
+
+    /** @var string $reasonForMission The reason for the mission.*/
     private $reasonForMission;
     private $standingMissionOrder;
+
+    /** @var \DateTime $dateStart The date and time of the start of the mission.*/
     private $dateStart;
+
+    /** @var string $placeStart The place of the start of the mission.*/
     private $placeStart;
+
+    /** @var \DateTime $dateReturn The date and time of the return of the mission.*/
     private $dateReturn;
+
+    /** @var bool $placeReturnDifferent Indicates if the place of return is different.*/
     private $placeReturnDifferent;
+
+    /** @var string $placeReturn The place of the return of the mission.*/
     private $placeReturn;
     private $cityStay;
     private $countryStay;
