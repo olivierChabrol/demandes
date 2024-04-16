@@ -803,12 +803,12 @@ class MissionOrder extends BaseRequest
         $this
             ->setFirstMissionRequest($firstMissionRequest)
             ->setOmForGuest($omForGuest)
-            ->setGuestName($datas['guest-name'])//TEST
-            ->setGuestMail($datas['guest-mail'])//TEST
+            ->setGuestName($datas['guest-name'])
+            ->setGuestMail($datas['guest-mail'])
             ->setGuestBirthDate($datas['guest-birthdate'])
-            ->setGuestPhoneNumber($datas['guest-phonenumber'])//TEST
-            ->setGuestLabo($datas['guest-labo'])//TEST
-            ->setGuestCountry($datas['guest-country'])//TEST
+            ->setGuestPhoneNumber($datas['guest-phonenumber'])
+            ->setGuestLabo($datas['guest-labo'])
+            ->setGuestCountry($datas['guest-country'])
             ->setCollectiveMission($collectiveMission)
             ->setListPeopleInvolvedAssignment($datas['list-people-involved-assignment'])
             ->setTypeMission($datas['type-mission'])
@@ -1524,10 +1524,10 @@ class MissionOrder extends BaseRequest
 
     public function canNotification(array $extraDatas = []): BaseRequest
     {
+        parent::canNotification($extraDatas);
         if($this->getStatus() == self::STATUS_VALID) $this->sendNotificationToGuestIfItExists();
         return $this;
     }
-
 
     /**
      * Sends a notification email to the guest if a guest email was specified.
