@@ -391,11 +391,25 @@ if($_GET['state']=='') $_GET['state'] = '%';
 															</button>
 														</div>
 													</form>
-													<form method="get" action="index.php" class="form-row">
-														<div class="form-group col-md-8 offset-md-2 mt-0 pt-0 text-center">
-															<label class="text-dark-tp3 text-100">'.T_('Jeton invité :').'</label>
-															<input name="token" id="token">
-															<button type="submit">Valider</button>
+													<div class="d-lg-block col-md-8 offset-md-2 mt-lg-2 px-0">
+														<h4 class="text-dark-tp4 border-b-1 brc-grey-l1 pb-1 text-130">
+															<i class="fa fa-user text-success-m2 mr-1"></i>
+															'.T_('Vous êtes invité ?').'
+														</h4>
+													</div>
+													<form method="get" action="index.php" class="form-row mt-4">
+														<div class="form-group col-md-8 offset-md-2">
+															<div class="d-flex align-items-center input-floating-label text-blue-m1 brc-blue-m2">
+																<input type="text" class="form-control form-control-lg pr-4 shadow-none" id="token" name="token" />
+																<i class="fa fa-user text-grey-m2 ml-n4"></i>
+																<label class="floating-label text-grey-l1 text-100 ml-n3" for="token">'.T_("Jeton Invité").'</label>
+															</div>
+														</div>
+														<div class="form-group col-md-4 offset-md-4">
+															<button type="submit" class="btn btn-primary btn-block px-4 btn-bold mt-2 mb-2">
+																<i class="fa fa-door-open"></i>
+																'.T_('Valider').'
+															</button>
 														</div>
 													</form>
 													';
