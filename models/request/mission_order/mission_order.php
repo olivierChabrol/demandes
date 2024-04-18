@@ -1200,7 +1200,7 @@ class MissionOrder extends BaseRequest
             'om_for_guest' => $this->isOmForGuest(),
             'guest_name' => $this->getGuestName(),//TEST
             'guest_mail' => $this->getGuestMail(),//TEST
-            'guest_birthdate' => $this->getGuestBirthDate()->format('Y-m-d'),
+            'guest_birthdate' => ($this->getGuestBirthDate()==null?null:$this->getGuestBirthDate()->format('Y-m-d')),
             'guest_phonenumber' => $this->getGuestPhoneNumber(),
             'guest_labo' => $this->getGuestLabo(),//TEST
             'guest_country' => $this->getGuestCountry(),//TEST
