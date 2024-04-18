@@ -1363,7 +1363,7 @@ class MissionOrder extends BaseRequest
             'guest_name' => $this->getGuestName(),//TEST
             'guest_mail' => $this->getGuestMail(),//TEST
             'guest_phonenumber' => $this->getGuestPhoneNumber(),
-            'guest_birthdate' => $this->getGuestBirthDate()->format('Y-m-d'),
+            'guest_birthdate' => ($this->getGuestBirthDate()==null?null:$this->getGuestBirthDate()->format('Y-m-d')),
             'guest_labo' => $this->getGuestLabo(),//TEST
             'guest_country' => $this->getGuestCountry(),//TEST
             'collective_mission' => $this->isCollectiveMission(),
