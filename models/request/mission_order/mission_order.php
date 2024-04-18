@@ -198,7 +198,7 @@ class MissionOrder extends BaseRequest
         return $this->guestBirthDate;
     }
 
-    public function setGuestBirthDate(string $guestBirthDate, string $format = 'Y-m-d'): self
+    public function setGuestBirthDate(?string $guestBirthDate, string $format = 'Y-m-d'): self
     {
         if($guestBirthDate != null) $this->guestBirthDate = \DateTime::createFromFormat($format,$guestBirthDate);
         else $this->guestBirthDate = null;
@@ -222,7 +222,7 @@ class MissionOrder extends BaseRequest
         return $this->guestPhoneNumber;
     }
 
-    public function setGuestPhoneNumber(string $guestPhoneNumber): self
+    public function setGuestPhoneNumber(?string $guestPhoneNumber): self
     {
         $this->guestPhoneNumber = $guestPhoneNumber;
         return $this;
