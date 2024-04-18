@@ -20,7 +20,7 @@ use Models\Tool\Sql;
 use Models\Tool\Mailer;
 
 //initialize variables
-if(!isset($guestid)) $guestid = 529;
+if(!isset($guestid)) $guestid = 535;
 if(!isset($currentpage)) $currentpage = '';
 if(!isset($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 if(!isset($_COOKIE['token'])) $_COOKIE['token'] = '';
@@ -263,6 +263,11 @@ if($_GET['download_backup'] && $rright['admin'] && $_SESSION['user_id']) {header
 
 //download attachment file
 if($_GET['download'] && $_SESSION['user_id']) {require('core/download.php'); exit;}
+
+if($_SESSION['user_id'] && isset($_POST['query'])){
+    require 'download_dashboard.php';
+    exit;
+}
 ?>
 <!doctype html>
 <html lang="fr" style="--scrollbar-width:17px; --moz-scrollbar-thin:17px; font-size: 0.925rem;">

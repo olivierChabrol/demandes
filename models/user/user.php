@@ -74,7 +74,7 @@ class User
         return $this->labo;
     }
 
-    public function setLabo(string $labo): self
+    public function setLabo(?string $labo): self
     {
         $this->labo = $labo;
         return $this;

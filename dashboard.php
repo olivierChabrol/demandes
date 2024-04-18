@@ -573,17 +573,20 @@ if(
 	}
 	if($reload==0) //avoid double query for reload parameters in url optimization for large database
 	{
-		$masterquery = $db->query("
+        $queryForDownload="
 		SELECT SQL_CALC_FOUND_ROWS $select
 		FROM $from
 		$join
 		WHERE $where
 		ORDER BY $db_order $db_way
+		";
+		$masterquery = $db->query("
+		$queryForDownload
 		LIMIT $db_cursor,
 		$rparameters[maxline]
 		");
 	} else {$masterquery='';}
-	$query=$db->query("SELECT FOUND_ROWS();");
+    $query=$db->query("SELECT FOUND_ROWS();");
 	$resultcount=$query->fetch();
 	$query->closeCursor();
 
@@ -996,7 +999,8 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 						//*/
 						//display user column
 						//!\ old - if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
-						/*/!\AJOUTER PAR NOS SOINS*/if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==1 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
+						/*/!\AJOUTER PAR NOS SOINS*/
+                        if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==1 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
 						{
 							echo '
 								<th '; if($_GET['order']=='user') echo 'class="active"'; echo '>
@@ -2448,6 +2452,10 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 	}
 	echo "</form>"; //end form for task_checkbox
 	echo '
+       <form action="/" method="post">
+               <input type="hidden" name="query" value="'.$queryForDownload.'">          
+               <button type="submit" class="btn btn-outline-success btn-sm mt-4" name="download" value="download">Télécharger</button>
+       </form>
 </div> <!-- end row -->';
 	//multi-pages link
 	if($resultcount[0]>$rparameters['maxline'])
