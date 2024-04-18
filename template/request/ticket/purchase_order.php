@@ -36,7 +36,7 @@ $purchaseCard = ($request->isPurchaseCard()) ? T_('Oui') : T_('Non');
     </tr>
     <tr>
         <td style="vertical-align: top;">
-            <b><?php echo T_('Valideurs') ?> :</b> <?php echo $request->getValidatorHasString() ?>
+            <b><?php echo T_('Valideurs') ?> :</b> <?php echo $request->getValidatorAsString() ?>
         </td>
         <td style="vertical-align: top;">
             <b><?php echo T_('Contact du fournisseur') ?> :</b> <?php echo $request->getSupplierContact() ?>

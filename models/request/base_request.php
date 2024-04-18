@@ -21,38 +21,102 @@ use Models\Request\Ticket\Ticket;
 use Models\Tool\Mailer;
 use Models\Tool\Parameters;
 
+/**
+ * Class BaseRequest
+ *
+ * This class represents a base request.
+ *
+ * @package Models\Request
+ */
 class BaseRequest
 {
+    /** @var int The status of the request waiting for validation. */
     const STATUS_WAITING_VALIDATION = 1;
+
+    /** @var int The status of the request being modified. */
     const STATUS_MODIFY = 2;
+
+    /** @var int The status of the rejected request. */
     const STATUS_REJECT = 3;
+
+    /** @var int The status of the validated request. */
     const STATUS_VALID = 4;
+
+    /** @var int The status of the cancelled request. */
     const STATUS_CANCEL = 5;
+
+    /** @var string The path of the mail template for a new request. */
     const TEMPLATE_MAIL_NEW = "template/request/mail/new_request.php";
+
+    /** @var string The path of the mail template for a modified request. */
     const TEMPLATE_MAIL_MODIFY = "template/request/mail/request_modify.php";
+
+    /** @var string The path of the mail template for a finished modified request. */
     const TEMPLATE_MAIL_MODIFY_DONE = "template/request/mail/request_modify_done.php";
+
+    /** @var string The path of the mail template for a rejected request. */
     const TEMPLATE_MAIL_REJECTED = "template/request/mail/request_rejected.php";
+
+    /** @var string The path of the mail template for a validated request. */
     const TEMPLATE_MAIL_VALIDATED = "template/request/mail/request_validated.php";
 
+    /** @var string The path of the mail template for a guest notification. */
+    const TEMPLATE_MAIL_GUEST = "template/request/mail/guest_notification.php";
+
+    /** @var int|null The identifier of the request. */
     private $id;
+
+    /** @var string The title of the request. */
     private $title;
+
+    /** @var string|null The additional budget information of the request. */
     private $additionalBudgetInformation;
+
+    /** @var string|null The comment of the request. */
     private $comment;
+
+    /** @var User The user owner of the request. */
     private $owner;
+
+    /** @var BudgetData The budget data of the request. */
     private $budgetData;
-    private $currentUser;
-    private $validators;
-    private $service;
-    private $date;
-    private $datealerte;
-    private $models;
+
+    /** @var bool|null Indicates if the request is a model. */
     private $isModel;
+
+    /** @var Service The service associated with the request. */
+    private $service;
+
+    /** @var User[] The validators of the request. */
+    private $validators;
+
+    /** @var string The date of the request. */
+    private $date;
+
+    /** @var string The alert date of the request. */
+    private $datealerte;
+
+    /** @var Model[] The models associated with the request. */
+    private $models;
+
+    /** @var int|null The previous status of the request. */
     private $statusOld;
+
+    /** @var int The current status of the request. */
     private $status;
+
+    /** @var Mailer The mail service to send emails. */
     private $mailer;
-    private $parameters;
+
+    /** @var Parameters The parameters of the application. */
+    protected $parameters;
+
+    /** @var Sql The database manager. */
     protected $sql;
 
+    /**
+     * Constructor of the BaseRequest class.
+     */
     public function __construct()
     {
         $this->owner = new User();
@@ -70,99 +134,199 @@ class BaseRequest
         $this->parameters = Parameters::getInstance();
     }
 
+    /**
+     * Get the identifier of the request.
+     *
+     * @return int|null The identifier of the request.
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Set the identifier of the request.
+     *
+     * @param int|null $id The identifier of the request.
+     * @return self
+     */
     public function setId(?int $id): self
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * Get the title of the request.
+     *
+     * @return string The title of the request.
+     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
+    /**
+     * Set the title of the request.
+     *
+     * @param string $title The title of the request.
+     * @return self
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
         return $this;
     }
 
+    /**
+     * Get the comment of the request.
+     *
+     * @return string|null The comment of the request.
+     */
     public function getComment(): ?string
     {
         return $this->comment;
     }
 
+    /**
+     * Set the comment of the request.
+     *
+     * @param string|null $comment The comment of the request.
+     * @return self
+     */
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
         return $this;
     }
 
+    /**
+     * Get the additional budget information of the request.
+     *
+     * @return string|null The additional budget information of the request.
+     */
     public function getAdditionalBudgetInformation(): ?string
     {
         return $this->additionalBudgetInformation;
     }
 
+    /**
+     * Set the additional budget information of the request.
+     *
+     * @param string|null $additionalBudgetInformation The additional budget information of the request.
+     * @return self
+     */
     public function setAdditionalBudgetInformation(?string $additionalBudgetInformation)
     {
         $this->additionalBudgetInformation = $additionalBudgetInformation;
         return $this;
     }
 
+    /**
+     * Get the budget data of the request.
+     *
+     * @return BudgetData The budget data of the request.
+     */
     public function getBudgetData(): BudgetData
     {
         return $this->budgetData;
     }
 
+    /**
+     * Set the budget data of the request.
+     *
+     * @param BudgetData $budgetData The budget data of the request.
+     * @return self
+     */
     public function setBudgetData(BudgetData $budgetData): self
     {
         $this->budgetData = $budgetData;
         return $this;
     }
 
+    /**
+     * Get the user owner of the request.
+     *
+     * @return User The user owner of the request.
+     */
     public function getOwner(): User
     {
         return $this->owner;
     }
 
+    /**
+     * Set the user owner of the request.
+     *
+     * @param User $owner The user owner of the request.
+     * @return self
+     */
     public function setOwner(User $owner): self
     {
         $this->owner = $owner;
         return $this;
     }
 
+    /**
+     * Check if the user is the owner of the request.
+     *
+     * @param int $idUser The identifier of the user to check.
+     * @return bool True if the user is the owner of the request, false otherwise.
+     */
     public function isOwner(int $idUser): bool
     {
         return $this->getOwner()->getId() == $idUser;
     }
 
+    /**
+     * Get the current user identifier.
+     *
+     * @return int The current user identifier.
+     */
     public function getCurrentUser(): int
     {
         return $this->currentUser;
     }
 
+    /**
+     * Set the current user identifier.
+     *
+     * @param int $currentUser The current user identifier.
+     * @return self
+     */
     public function setCurrentUser(int $currentUser): self
     {
         $this->currentUser = $currentUser;
         return $this;
     }
 
+    /**
+     * Get the validators of the request.
+     *
+     * @return User[] The validators of the request.
+     */
     public function getValidators(): array
     {
         return $this->validators;
     }
 
+    /**
+     * Set the validators of the request.
+     *
+     * @param User[] $validators The validators of the request.
+     * @return self
+     */
     public function setValidators(array $validators): self
     {
         $this->validators = $validators;
         return $this;
     }
 
+    /**
+     * Add a validator to the request.
+     *
+     * @param User $validator The validator to add.
+     * @return self
+     */
     public function addValidator(User $validator): self
     {
         $this->validators[] = $validator;
@@ -170,6 +334,12 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Check if the request has a specific validator.
+     *
+     * @param int $idValidatorToCheck The identifier of the validator to check.
+     * @return bool True if the request has the validator, false otherwise.
+     */
     public function hasValidator(int $idValidatorToCheck): bool
     {
         foreach ($this->getValidators() as $validator) {
@@ -181,7 +351,13 @@ class BaseRequest
         return false;
     }
 
-    public function getValidatorHasString(string $separator = ';'): string
+    /**
+     * Get the validators of the request as a string.
+     *
+     * @param string $separator The separator to use between validators.
+     * @return string The validators of the request as a string.
+     */
+    public function getValidatorAsString(string $separator = ';'): string
     {
         $validatorsString = '';
 
@@ -195,56 +371,112 @@ class BaseRequest
         return $validatorsString;
     }
 
+    /**
+     * Get the service associated with the request.
+     *
+     * @return Service The service associated with the request.
+     */
     public function getService(): Service
     {
         return $this->service;
     }
 
+    /**
+     * Set the service associated with the request.
+     *
+     * @param Service $service The service associated with the request.
+     * @return self
+     */
     public function setService(Service $service): self
     {
         $this->service = $service;
         return $this;
     }
 
+    /**
+     * Get the date of the request.
+     *
+     * @return string The date of the request.
+     */
     public function getDate(): string
     {
         return $this->date;
     }
 
+    /**
+     * Set the date of the request.
+     *
+     * @param string $date The date of the request.
+     * @return self
+     */
     public function setDate(string $date): self
     {
         $this->date = $date;
         return $this;
     }
 
+    /**
+     * Get the alert date of the request.
+     *
+     * @return string The alert date of the request.
+     */
     public function getDateAlerte(): string
     {
         return $this->datealerte;
     }
 
+    /**
+     * Set the alert date of the request.
+     *
+     * @param string $date The alert date of the request.
+     * @return self
+     */
     public function setDateAlerte(string $date): self
     {
         $this->datealerte = $date;
         return $this;
     }
 
+    /**
+     * Get the models associated with the request.
+     *
+     * @return Model[] The models associated with the request.
+     */
     public function getModels(): array
     {
         return $this->models;
     }
 
+    /**
+     * Set the models associated with the request.
+     *
+     * @param Model[] $models The models associated with the request.
+     * @return self
+     */
     public function setModels(array $models): self
     {
         $this->models = $models;
         return $this;
     }
 
+    /**
+     * Add a model to the request.
+     *
+     * @param Model $modelToAdd The model to add.
+     * @return self
+     */
     public function addModel(Model $modelToAdd): self
     {
         $this->models[] = $modelToAdd;
         return $this;
     }
 
+    /**
+     * Remove a model from the request.
+     *
+     * @param Model $modelToRemove The model to remove.
+     * @return self
+     */
     public function removeModel(Model $modelToRemove): self
     {
         $models = [];
@@ -261,6 +493,12 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Check if the request has a specific model.
+     *
+     * @param int|null $idModelToCheck The identifier of the model to check.
+     * @return Model|null The model if the request has it, null otherwise.
+     */
     public function hasModel(?int $idModelToCheck): ?Model
     {
         foreach ($this->getModels() as $model) {
@@ -280,27 +518,55 @@ class BaseRequest
         return $this->isModel;
     }
 
+    /**
+     * Set if the request is a model.
+     *
+     * @param bool|null $isModel If the request is a model.
+     * @return self
+     */
     public function setIsModel(?bool $isModel): self
     {
         $this->isModel = $isModel;
         return $this;
     }
 
+    /**
+     * Get the previous status of the request.
+     *
+     * @return int|null The previous status of the request.
+     */
     public function getStatusOld()
     {
         return $this->statusOld;
     }
 
+    /**
+     * Set the previous status of the request.
+     *
+     * @param int|null $statusOld The previous status of the request.
+     */
     public function setStatusOld($statusOld): void
     {
         $this->statusOld = $statusOld;
     }
 
+    /**
+     * Get the current status of the request.
+     *
+     * @return int The current status of the request.
+     */
     public function getStatus(): int
     {
         return $this->status;
     }
 
+    /**
+     * Set the current status of the request.
+     *
+     * @param int $status The current status of the request.
+     * @param bool $updateStatusOld If the old status should be updated.
+     * @return self
+     */
     public function setStatus(int $status, bool $updateStatusOld = false): self
     {
         if ($updateStatusOld) {
@@ -311,21 +577,42 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Check if the request is a purchase order.
+     *
+     * @return bool True if the request is a purchase order, false otherwise.
+     */
     public function isPurchaseOrder()
     {
         return $this instanceof PurchaseOrder;
     }
 
+    /**
+     * Check if the request is a mission order.
+     *
+     * @return bool True if the request is a mission order, false otherwise.
+     */
     public function isMissionOrder()
     {
         return $this instanceof MissionOrder;
     }
 
+    /**
+     * Check if the request is a ticket.
+     *
+     * @return bool True if the request is a ticket, false otherwise.
+     */
     public function isTicket()
     {
         return $this instanceof Ticket;
     }
 
+    /**
+     * Check if a notification can be sent for the request and send it if applicable.
+     *
+     * @param array $extraDatas Additional data for the notification (optional).
+     * @return self Returns the instance of the class.
+     */
     public function canNotification(array $extraDatas = []): self
     {
         if ($this->hasValidator($this->getOwner()->getId()) && $this->getStatus() != self::STATUS_VALID) {
@@ -351,6 +638,11 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send a notification for a new request.
+     *
+     * @return self Returns the instance of the class.
+     */
     private function sendNotificationNew(): self
     {
         $toList = [];
@@ -376,6 +668,11 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send a reminder notification for a request awaiting validation.
+     *
+     * @return self Returns the instance of the class.
+     */
     public function sendNotificationRappel(): self
     {
         $toList = [];
@@ -403,6 +700,12 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send a notification for a request that has been modified.
+     *
+     * @param array $extraDatas Additional data for the notification (optional).
+     * @return self Returns the instance of the class.
+     */
     private function sendNotificationModify(array $extraDatas = []): self
     {
         $title = '';
@@ -419,6 +722,7 @@ class BaseRequest
 
         return $this;
     }
+
 
     private function sendNotificationModifyDone(array $extraDatas = []): self
     {
@@ -445,6 +749,11 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send a notification for a request that has been rejected.
+     *
+     * @return self Returns the instance of the class.
+     */
     private function sendNotificationRejected(): self
     {
         $title = '';
@@ -462,6 +771,11 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send a notification for a request that has been validated.
+     *
+     * @return self Returns the instance of the class.
+     */
     private function sendNotificationValidated(): self
     {
         $toList = [];
@@ -490,6 +804,15 @@ class BaseRequest
         return $this;
     }
 
+    /**
+     * Send an email.
+     *
+     * @param string $from The sender's email address.
+     * @param array $toList An array of recipient email addresses.
+     * @param string $subject The email subject.
+     * @param string $body The email body.
+     * @return self Returns the instance of the class.
+     */
     public function sendMail(string $from, array $toList, string $subject, string $body): self
     {
         if($body!=""){
@@ -507,13 +830,22 @@ class BaseRequest
                 ->setSubject($subject)
                 ->setBody($body)
                 ->send();
+
+            $this->mailer->mailer->clearAddresses();
         }
         
 
         return $this;
     }
 
-    private function getMailTemplate(string $template, array $extraDatas = []): string
+    /**
+     * Get the HTML content of an email template.
+     *
+     * @param string $template The path to the email template file.
+     * @param array $extraDatas Additional data for the template (optional).
+     * @return string The HTML content of the email template.
+     */
+    protected function getMailTemplate(string $template, array $extraDatas = []): string
     {
         ob_start();
 
@@ -537,6 +869,10 @@ class BaseRequest
         return true;
     }
 
+    /**
+     * Check if the request can be saved.
+     * @return bool
+     */
     public function canSave()
     {
         $statusCanSave = [self::STATUS_WAITING_VALIDATION, self::STATUS_MODIFY];

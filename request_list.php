@@ -87,7 +87,6 @@ if ($_GET['action'] && $_GET['action-id'] && $_GET['action-type']) {
             $requestToModify
                 ->update()
                 ->canNotification($extraDatas);
-
             echo DisplayMessage('success', $msgSuccess);
         } catch (Exception $e) {
             echo DisplayMessage('error', $e->getMessage());

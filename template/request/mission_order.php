@@ -298,12 +298,32 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest">
+                            <label class="mb-0" for="guest-birthdate">
+                                <?php echo T_('Date de naissance de l\'invité'); ?> :
+                            </label>
+                        </div>
+                        <div class="col-sm-9 mt-2">
+                            <input id="guest-birthdate" type="date" name="guest-birthdate" value="<?php if ($missionOrder->getGuestBirthDate()) echo $missionOrder->getGuestBirthDate()->format('Y-m-d') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest-phonenumber">
+                                <?php echo T_('Numéro de téléphone de l\'invité'); ?> :
+                            </label>
+                        </div>
+                        <div class="col-sm-9 mt-2">
+                            <input id="guest-phonenumber" type="tel" name="guest-phonenumber" value="<?php echo $missionOrder->getGuestPhoneNumber() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest-mail">
                                 <?php echo T_('Mail de l\'invité'); ?> :
                             </label>
                         </div>
                         <div class="col-sm-9 mt-2">
-                            <input id="guest-age" type="text" name="guest-age" value="<?php echo $missionOrder->getGuestAge() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                            <input id="guest-mail" type="text" name="guest-mail" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -718,7 +738,9 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     }
                     ?>
                 </div>
-
+<?php
+  } // first part of the non-invitation part
+?>
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
                         <label class="mb-0" for="user">
@@ -752,7 +774,9 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         />
                     </div>
                 </div>
-
+<?php
+    if ($invitation == 0) {
+?>
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
                         <label class="mb-0" for="user">

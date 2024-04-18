@@ -80,6 +80,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 			$qry = $db->prepare("SELECT * FROM `tusers` WHERE id=:id");
 			$qry->execute(array('id' => $_SESSION['user_id']));
 			$ruser=$qry->fetch();
+			if(!$ruser['language']) {$ruser['language']='fr-FR';}
 			$qry->closeCursor();
 			if($ruser['default_ticket_state']) {$redirectstate=$ruser['default_ticket_state'];} else {$redirectstate=$rparameters['login_state'];}
 			//check right side all
@@ -388,6 +389,13 @@ if($_GET['state']=='') $_GET['state'] = '%';
 																<i class="fa fa-sign-in-alt"></i>
 																'.T_('Connexion').'
 															</button>
+														</div>
+													</form>
+													<form method="get" action="index.php" class="form-row">
+														<div class="form-group col-md-8 offset-md-2 mt-0 pt-0 text-center">
+															<label class="text-dark-tp3 text-100">'.T_('Jeton invité :').'</label>
+															<input name="token" id="token">
+															<button type="submit">Valider</button>
 														</div>
 													</form>
 													';

@@ -14,6 +14,8 @@
 //define current language
 require "localization.php";
 
+//$rright = array('ticket_resolution_disp' => true,'ticket_description' => true,'ticket_thread_add' => true);
+
 //put keywords in variable
 if($_POST['keywords']||$_GET['keywords']) {
 	$keywords="$_GET[keywords]$_POST[keywords]";
@@ -87,7 +89,7 @@ if($_POST['procedurekeywords']||$_GET['procedurekeywords']) {
         <script type="text/javascript" src="./template/assets/js/request-common.js"></script>
 	</head>
 	<?php
-	   require('main.php');
+	   require('guest_main.php');
 		//loading js scripts
 		echo'
 		  <script type="text/javascript" src="./components/popper-js/dist/umd/popper.min.js"></script>
@@ -96,7 +98,7 @@ if($_POST['procedurekeywords']||$_GET['procedurekeywords']) {
 		  <script type="text/javascript" src="./template/assets/js/select2/select2.min.js"></script>
 		';
 		//include specific script for page
-		include ('./wysiwyg.php');
+        include ('./wysiwyg.php');
 
 				echo '
 				<script type="text/javascript" src="./components/chosen/chosen.jquery.min.js"></script>

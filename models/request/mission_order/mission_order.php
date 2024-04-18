@@ -18,32 +18,88 @@ use Models\Request\BaseRequest;
 use Models\Request\Ticket\Ticket;
 use Models\User\User;
 
+/**
+ * Class MissionOrder
+ *
+ * This class represents a mission order in the system. It extends the BaseRequest class and
+ * contains properties and methods specific to a mission order.
+ *
+ * @package Models\Request\MissionOrder
+ */
 class MissionOrder extends BaseRequest
 {
+    /** @var int Represents a mission order with fees. */
     const TYPE_MISSION_WITH_FEES = 1;
+
+    /** @var int Represents a mission order without fees. */
     const TYPE_MISSION_WITHOUT_FEES = 2;
+
+    /** @var int Represents a standing mission order. */
     const TYPE_MISSION_STANDING_MISSION_ORDER = 3;
+
+    /** @var int Represents the choice of personal vehicle for transport. */
     const TRANSPORT_CHOICE_PERSONAL_VEHICLE = 3;
+
+    /** @var int Represents the choice of administrative vehicle for transport. */
     const TRANSPORT_CHOICE_ADMINISTRATIVE_VEHICLE = 5;
 
+    /** @var bool $firstMissionRequest Indicates if this is the first mission request.*/
     private $firstMissionRequest;
+
+    /** @var bool $omForGuest Indicates if the mission order is for a guest.*/
     private $omForGuest;
-    private $guestName;//TEST
-    private $guestAge;//TEST
-    private $guestLabo;//TEST
-    private $guestCountry;//TEST
+
+    /** @var string $guestName The name of the guest.*/
+    private $guestName;
+
+    /** @var string $guestMail The mail of the guest.*/
+    private $guestMail;
+
+    /** @var string $guestPhoneNumber The phone number of the guest.*/
+    private $guestPhoneNumber;
+
+    /** @var \DateTime $guestBirthDate The birthdate of the guest.*/
+    private $guestBirthDate;
+
+    /** @var string $guestLabo The labo of the guest.*/
+    private $guestLabo;
+
+    /** @var string $guestCountry The country of the guest.*/
+    private $guestCountry;
+
+    /** @var bool $collectiveMission Indicates if the mission is collective.*/
     private $collectiveMission;
+
     private $listPeopleInvolvedAssignment;
+
+    /** @var array $ribAndSupplementarySheet The rib and supplementary sheet files.*/
     private $ribAndSupplementarySheet;
+
+    /** @var int $typeMission The type of the mission.*/
     private $typeMission;
+
+    /** @var string $careOrganization The care organization.*/
     private $careOrganization;
+
     private $guardianShip;
+
+    /** @var string $reasonForMission The reason for the mission.*/
     private $reasonForMission;
     private $standingMissionOrder;
+
+    /** @var \DateTime $dateStart The date and time of the start of the mission.*/
     private $dateStart;
+
+    /** @var string $placeStart The place of the start of the mission.*/
     private $placeStart;
+
+    /** @var \DateTime $dateReturn The date and time of the return of the mission.*/
     private $dateReturn;
+
+    /** @var bool $placeReturnDifferent Indicates if the place of return is different.*/
     private $placeReturnDifferent;
+
+    /** @var string $placeReturn The place of the return of the mission.*/
     private $placeReturn;
     private $cityStay;
     private $countryStay;
@@ -81,11 +137,11 @@ class MissionOrder extends BaseRequest
         $this->transportMarket = true;
         $this->transportChoices = [];
         $this->ticket = new Ticket();
-	$this->fileType = "rib-and-supplementary-sheet";
-	$this->amountMax = 0.0;
-	$this->estimatedAmount = 0.0;
-	$this->realAmount = 0.0;
-	$this->missionType = 0;
+	    $this->fileType = "rib-and-supplementary-sheet";
+	    $this->amountMax = 0.0;
+	    $this->estimatedAmount = 0.0;
+	    $this->realAmount = 0.0;
+	    $this->missionType = 0;
         parent::__construct();
     }
 
@@ -137,16 +193,41 @@ class MissionOrder extends BaseRequest
         return $this;
     }
 
-    public function getGuestAge(): ?string//TEST
+    public function getGuestBirthDate(): ?\DateTime
     {
-        return $this->guestAge;
+        return $this->guestBirthDate;
     }
 
-    public function setGuestAge(?string $guestAge): self//TEST
+    public function setGuestBirthDate(?string $guestBirthDate, string $format = 'Y-m-d'): self
     {
-        $this->guestAge = $guestAge;
+        if($guestBirthDate != null) $this->guestBirthDate = \DateTime::createFromFormat($format,$guestBirthDate);
+        else $this->guestBirthDate = null;
         return $this;
     }
+
+
+    public function getGuestMail(): ?string//TEST
+    {
+        return $this->guestMail;
+    }
+
+    public function setGuestMail(?string $guestMail): self//TEST
+    {
+        $this->guestMail = $guestMail;
+        return $this;
+    }
+
+    public function getGuestPhoneNumber(): ?string
+    {
+        return $this->guestPhoneNumber;
+    }
+
+    public function setGuestPhoneNumber(?string $guestPhoneNumber): self
+    {
+        $this->guestPhoneNumber = $guestPhoneNumber;
+        return $this;
+    }
+
 
     public function getGuestLabo(): ?string//TEST
     {
@@ -342,7 +423,7 @@ class MissionOrder extends BaseRequest
 	    return $this;
     }
 
-    public function getInvitationToken(): self
+    public function getInvitationToken(): string
     {
 	    return $this->invitation_token;
     }
@@ -735,23 +816,25 @@ class MissionOrder extends BaseRequest
         $this
             ->setFirstMissionRequest($firstMissionRequest)
             ->setOmForGuest($omForGuest)
-            ->setGuestName($datas['guest-name'])//TEST
-            ->setGuestAge($datas['guest-age'])//TEST
-            ->setGuestLabo($datas['guest-labo'])//TEST
-            ->setGuestCountry($datas['guest-country'])//TEST
+            ->setGuestName($datas['guest-name'])
+            ->setGuestMail($datas['guest-mail'])
+            ->setGuestBirthDate($datas['guest-birthdate'])
+            ->setGuestPhoneNumber($datas['guest-phonenumber'])
+            ->setGuestLabo($datas['guest-labo'])
+            ->setGuestCountry($datas['guest-country'])
             ->setCollectiveMission($collectiveMission)
             ->setListPeopleInvolvedAssignment($datas['list-people-involved-assignment'])
             ->setTypeMission($datas['type-mission'])
             ->setCareOrganization($datas['care-organization'])
             ->setReasonForMission($datas['reason-for-mission'])
             ->setDateStart($datas['date-start'], 'd/m/Y H:i:s')
-	    ->setMissionType($datas['mission_type'])
+            ->setDateReturn($datas['date-return'], 'd/m/Y H:i:s')
+            ->setMissionType($datas['mission_type'])
             ->setAmountMax($datas['amount_max'])
             ->setEstimatedAmount($datas['amount_estimated'])
             ->setRealAmount($datas['amount_real']);
 	if ($omForGuest == null) {
 		$this->setPlaceStart($datas['place-start-input'])
-		->setDateReturn($datas['date-return'], 'd/m/Y H:i:s')
                 ->setPlaceReturnDifferent($placeReturnDifferent)
                 ->setPlaceReturn($datas['place-return-input'])
 		->setCityStay($datas['city-stay'])
@@ -789,7 +872,6 @@ class MissionOrder extends BaseRequest
 	}
 	else {
 		$this->setPlaceStart("");
-		$this->setDateReturn($datas['date-start'], 'd/m/Y H:i:s');
 		$this->setCityStay("Marseille");
 		$this->setCountryStay("France");
 	}
@@ -847,7 +929,7 @@ class MissionOrder extends BaseRequest
 
             WHERE dm.id=:id";*/
             /*TEST*/$query = "
-            SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`guest_name`, dm.`guest_age`, dm.`guest_labo`, dm.`guest_country`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`, dm.`amount_max`, dm.`incident_id`, dm.`amount_real`, dm.`amount_estimated`, dm.`mission_type`,
+            SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`guest_name`, dm.`guest_mail`, dm.`guest_birthdate`, dm.`guest_phone_number`, dm.`guest_labo`, dm.`guest_country`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`, dm.`amount_max`, dm.`incident_id`, dm.`amount_real`, dm.`amount_estimated`, dm.`mission_type`,
                 dm.`care_organization`, dm.`guardianship`, dm.`budget_data`, dm.additional_budget_information, dm.`reason_for_mission`,
                 dm.`date_start`, dm.`place_start`, dm.`date_return`, dm.`place_return_different`, dm.`place_return`, dm.`city_stay`, dm.`country_stay`, dm.`private_stay`,
                 dm.`private_stay_date_begin`, dm.`private_stay_date_end`, dm.`private_stay_place`, dm.`off_market_accomodation`, dm.`advance_request`, dm.`transport_market`,
@@ -856,7 +938,7 @@ class MissionOrder extends BaseRequest
                 ts.`name` as name_service, tscat.`name` as name_budget_data, tscat.`cat` as category_budget_data,
                 dav.`name` as name_administrative_vehicle, dav.`numberplate` as numberplate_administrative_vehicle,
                 dm.`id_owner`, tu1.`firstname` as firstname_owner, tu1.`lastname` as lastname_owner, tu1.`mail` as mail_owner, tu1.`custom1` as custom1_owner,
-                dmv.`id_validator`, tu2.`firstname` as firstname_validator, tu2.`lastname` as lastname_validator, tu2.`mail` as email_validator
+                dmv.`id_validator`, tu2.`firstname` as firstname_validator, tu2.`lastname` as lastname_validator, tu2.`mail` as email_validator, dm.`invitation_token` as invitation_token
             FROM `dmission_order` dm
             LEFT JOIN `dmission_order_validators` dmv ON dm.id = dmv.id_mission_order
             LEFT JOIN `tservices` ts ON ts.id = dm.id_service
@@ -917,9 +999,12 @@ class MissionOrder extends BaseRequest
                 ->setFirstMissionRequest($row['first_mission_request'])
                 ->setOmForGuest($row['om_for_guest'])
                 ->setGuestName($row['guest_name'])//TEST
-                ->setGuestAge($row['guest_age'])//TEST
+                ->setGuestMail($row['guest_mail'])//TEST
+                ->setGuestBirthDate($row['guest_birthdate'])
+                ->setGuestPhoneNumber($row['guest_phone_number'])
                 ->setGuestLabo($row['guest_labo'])//TEST
                 ->setGuestCountry($row['guest_country'])//TEST
+                ->setInvitationToken($row['invitation_token'])
                 ->setCollectiveMission($row['collective_mission'])
                 ->setListPeopleInvolvedAssignment($row['list_people_involved_assignment'])
                 ->setTypeMission($row['type_mission'])
@@ -1093,14 +1178,14 @@ class MissionOrder extends BaseRequest
             )";*/
             /*TEST*/$query = "
                 INSERT INTO `dmission_order` (
-                `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `guest_name`, `guest_age`, `guest_labo`, `guest_country`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
+                `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `guest_name`, `guest_mail`,`guest_birthdate`, `guest_phone_number`, `guest_labo`, `guest_country`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
                 `date_start`, `place_start`, `date_return`, `place_return_different`, `place_return`, `city_stay`, `country_stay`, `private_stay`, `private_stay_date_begin`, `private_stay_date_end`,
                 `private_stay_place`, `off_market_accomodation`, `advance_request`, `transport_market`, `transport_market_justification`, `id_administrative_vehicle`,
                 `personal_vehicle_numberplate`, `personal_vehicle_horsepower`, `personal_vehicle_trip_mileage`, `other_fees`,
                 `colloquiums`, `colloquiums_registration_fees`, `colloquiums_purchasing_card`, `comment`, `status`, `amount_max`, `amount_estimated`, `amount_real`, `mission_type`, `incident_id`
             )
             VALUES (
-                :id_owner, :title, :id_service, :first_mission_request, :om_for_guest, :guest_name, :guest_age, :guest_labo, :guest_country, :collective_mission, :list_people_involved_assignment, :type_mission, :care_organization, :guardianship, :budget_data, :additional_budget_information, :reason_for_mission, :date_start, :place_start,
+                :id_owner, :title, :id_service, :first_mission_request, :om_for_guest, :guest_name, :guest_mail, :guest_birthdate, :guest_phonenumber, :guest_labo, :guest_country, :collective_mission, :list_people_involved_assignment, :type_mission, :care_organization, :guardianship, :budget_data, :additional_budget_information, :reason_for_mission, :date_start, :place_start,
                 :date_return, :place_return_different, :place_return, :city_stay, :country_stay, :private_stay, :private_stay_date_begin, :private_stay_date_end, :private_stay_place,
                 :off_market_accomodation, :advance_request, :transport_market, :transport_market_justification, :id_administrative_vehicle,
                 :personal_vehicle_numberplate, :personal_vehicle_horsepower, :personal_vehicle_trip_mileage, :other_fees, :colloquiums, :colloquiums_registration_fees, :colloquiums_purchasing_card, :comment,
@@ -1114,7 +1199,9 @@ class MissionOrder extends BaseRequest
             'first_mission_request' => $this->isFirstMissionRequest(),
             'om_for_guest' => $this->isOmForGuest(),
             'guest_name' => $this->getGuestName(),//TEST
-            'guest_age' => $this->getGuestAge(),//TEST
+            'guest_mail' => $this->getGuestMail(),//TEST
+            'guest_birthdate' => $this->getGuestBirthDate()->format('Y-m-d'),
+            'guest_phonenumber' => $this->getGuestPhoneNumber(),
             'guest_labo' => $this->getGuestLabo(),//TEST
             'guest_country' => $this->getGuestCountry(),//TEST
             'collective_mission' => $this->isCollectiveMission(),
@@ -1148,12 +1235,12 @@ class MissionOrder extends BaseRequest
             'colloquiums' => $this->getColloquiums()->getIsColloquiums(),
             'colloquiums_registration_fees' => $this->getColloquiums()->getRegistrationFees(),
             'colloquiums_purchasing_card' => $this->getColloquiums()->isPurchasingCard(),
-	    'comment' => $this->getComment(),
-	    'amount_max' => $this->getAmountMax(),
-	    'amount_estimated' => $this->getEstimatedAmount(),
-	    'amount_real' => $this->getRealAmount(),
-	    'mission_type' => $this->getMissionType(),
-	    'incident_id' => $this->getIncidentId(),
+	        'comment' => $this->getComment(),
+	        'amount_max' => $this->getAmountMax(),
+	        'amount_estimated' => $this->getEstimatedAmount(),
+	        'amount_real' => $this->getRealAmount(),
+	        'mission_type' => $this->getMissionType(),
+	        'incident_id' => $this->getIncidentId(),
             'status' => $this->getStatus()
         ];
 
@@ -1226,9 +1313,11 @@ class MissionOrder extends BaseRequest
                 `first_mission_request`=:first_mission_request,
                 `om_for_guest`=:om_for_guest,
                 `guest_name`=:guest_name,
-                `guest_age`=:guest_age,
+                `guest_mail`=:guest_mail,
+                `guest_phone_number`=:guest_phonenumber,
                 `guest_labo`=:guest_labo,
-                `guest_age`=:guest_age,
+                `guest_mail`=:guest_mail,
+                `guest_birthdate`=:guest_birthdate,
                 `collective_mission`=:collective_mission,
                 `list_people_involved_assignment`=:list_people_involved_assignment,
                 `type_mission`=:type_mission,
@@ -1272,7 +1361,9 @@ class MissionOrder extends BaseRequest
             'first_mission_request' => $this->isFirstMissionRequest(),
             'om_for_guest' => $this->isOmForGuest(),
             'guest_name' => $this->getGuestName(),//TEST
-            'guest_age' => $this->getGuestAge(),//TEST
+            'guest_mail' => $this->getGuestMail(),//TEST
+            'guest_phonenumber' => $this->getGuestPhoneNumber(),
+            'guest_birthdate' => $this->getGuestBirthDate()->format('Y-m-d'),
             'guest_labo' => $this->getGuestLabo(),//TEST
             'guest_country' => $this->getGuestCountry(),//TEST
             'collective_mission' => $this->isCollectiveMission(),
@@ -1439,6 +1530,33 @@ class MissionOrder extends BaseRequest
             $program
                 ->setIdMissionOrder($this->getId())
                 ->add();
+        }
+
+        return $this;
+    }
+
+    public function canNotification(array $extraDatas = []): BaseRequest
+    {
+        parent::canNotification($extraDatas);
+        if($this->getStatus() == self::STATUS_VALID) $this->sendNotificationToGuestIfItExists();
+        return $this;
+    }
+
+    /**
+     * Sends a notification email to the guest if a guest email was specified.
+     *
+     * @return self The current instance of the MissionOrder object.
+     */
+    private function sendNotificationToGuestIfItExists(): self
+    {
+        if($this->getGuestMail()) {
+            $toList = [$this->getGuestMail()];
+            $title = T_("Invitation à une mission");
+            $title .= ' - ';
+            $title .= $this->getTitle();
+            $title .= ' - ';
+            $title .= $this->getOwner()->getFullName();
+            $this->sendMail($this->parameters->getMailFromAddress(), $toList, $title, $this->getMailTemplate(self::TEMPLATE_MAIL_GUEST));
         }
 
         return $this;

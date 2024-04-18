@@ -132,7 +132,7 @@ if ($request->getTypeMission() == MissionOrder::TYPE_MISSION_STANDING_MISSION_OR
 }
 $rows[] = [
     "title" => 'Valideurs',
-    "value" => $request->getValidatorHasString()
+    "value" => $request->getValidatorAsString()
 ];
 $rows[] = [
     "title" => 'Motif de la mission',
@@ -192,8 +192,16 @@ if($request->getGuestName()!=NULL){
         "value" => $request->getGuestName()
     ];
     $rows[] = [
+        "title" => 'Date de naissance de l\'invité',
+        "value" => $request->getGuestBirthDate()->format('d/m/Y')
+    ];
+    $rows[] = [
         "title" => 'Mail de l\'invité',
-        "value" => $request->getGuestAge()
+        "value" => $request->getGuestMail()
+    ];
+    $rows[] = [
+        "title" => 'Numéro de téléphone de l\'invité',
+        "value" => $request->getGuestPhoneNumber()
     ];
     $rows[] = [
         "title" => 'Labo de l\'invité',
