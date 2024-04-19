@@ -23,6 +23,7 @@ class Ticket extends BaseRequest
     const SUBCATEGORY_NO_ATTRIBUTE = 0;
     const CATEGORY_PURCHASE_ORDER = 1;
     const CATEGORY_MISSION_ORDER = 2;
+    const CATEGORY_INVITATION = 4;
     const TEMPLATE_HTML_PURCHASE_ORDER = "template/request/ticket/purchase_order.php";
     const TEMPLATE_HTML_MISSION_ORDER = "template/request/ticket/mission_order.php";
 
@@ -32,6 +33,7 @@ class Ticket extends BaseRequest
     private $category;
     private $subCategory;
     private $dateCreate;
+    private $dateStart;
     private $creator;
     private $files;
     private $observers;
@@ -112,6 +114,19 @@ class Ticket extends BaseRequest
         return $this;
     }
 
+
+    public function getDateStart()
+    {
+        return $this->dateStart;
+    }
+
+    public function setDateStart($dateStart): self
+    {
+        $this->dateStart = $dateStart;
+        return $this;
+    }
+
+
     public function getCreator(): User
     {
         return $this->creator;
@@ -190,9 +205,13 @@ class Ticket extends BaseRequest
         $this
             ->setDescription($html)
             ->setCategory(self::CATEGORY_PURCHASE_ORDER)
-            ->setSubCategory($purchaseOrder->getBudgetData()->getId());
+            ->setSubCategory($purchaseOrder->getBudgetData()->getId())
+            ->setDateStart(new \DateTime());
 
         $this->insert();
+
+        $purchaseOrder->setIncidentId($this->getId());
+        $purchaseOrder->save();
 
         if ($purchaseOrder->getQuote()) {
             // copy and save quote
@@ -220,10 +239,14 @@ class Ticket extends BaseRequest
 
         $html = $this->buildHtml($missionOrder);
 
+        if($missionOrder->isOmForGuest())
+            $this->setCategory(self::CATEGORY_INVITATION);
+        else
+            $this->setCategory(self::CATEGORY_MISSION_ORDER);
         $this
-            ->setCategory(self::CATEGORY_MISSION_ORDER)
             ->setSubCategory($subCategory)
             ->setDescription($html)
+            ->setDateStart($missionOrder->getDateStart())
 	    ->insert();
 	$missionOrder->setIncidentId($this->getId());
 	$missionOrder->save();
@@ -378,12 +401,13 @@ class Ticket extends BaseRequest
         $query = "
             INSERT INTO `tincidents` (
                 `user`,`technician`,`title`,`description`,`state`,`u_service`,`category`,
-                `subcat`,`date_create`,`creator`,`criticality`,`techread`
+                `subcat`,`date_create`,`creator`,`criticality`,`techread`,`date_start`
             )
             VALUES (
                 :user, :technician, :title, :description, '5', :service, :category,
-                :subcat, :date_create,:creator, '0', '0'
+                :subcat, :date_create,:creator, '0', '0', :date_start
             )";
+        $datestart = $this->getDateStart() ? $this->getDateStart()->format('Y-m-d') : null;
         $params = [
             'user' => $this->getUser()->getId(),
             'technician' => $this->getTechnician()->getId(),
@@ -393,7 +417,8 @@ class Ticket extends BaseRequest
             'category' => $this->getCategory(),
             'subcat' => $this->getSubCategory(),
             'date_create' => $this->getDateCreate()->format('Y-m-d H-i-s'),
-            'creator' => $this->getCreator()->getId()
+            'creator' => $this->getCreator()->getId(),
+            'date_start' => $datestart
         ];
 
         $this->sql->query($query, $params, false, true);

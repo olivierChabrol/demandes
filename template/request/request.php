@@ -98,9 +98,9 @@ if (
 		    </div>
 -->
                     <div class="button-element p-2">
-                        <!-- <button class='btn btn-primary <?php echo $ticketSelected ? 'active' : ''  ?>' id="ticket" name="ticket" data-link="<?php echo $urlAction.'&type-form=ticket'.$urlTicket ?>"><?php echo T_('Demande d’achat diverse pour les membres de l\'I2M'); ?></button> -->
-                        <button class='btn btn-primary <?php echo $ticketSelected ? '' : ''  ?>' id="ticket" name="ticket" data-link="#"><?php echo T_('Demande d’achat diverse pour les membres de l\'I2M'); ?></button>
-		    </div>
+                         <button class='btn btn-primary <?php echo $purchaseOrderSelected ? 'active' : ''  ?>' id="purchase-order" name="purchase-order" data-link="<?php echo $urlAction.'&type-form=purchase-order'.$urlTicket ?>"><?php echo T_('Demande d’achat diverse pour les membres de l\'I2M'); ?></button>
+<!--                        <button class='btn btn-primary --><?php //echo $ticketSelected ? '' : ''  ?><!--' id="ticket" name="ticket" data-link="#">--><?php //echo T_('Demande d’achat diverse pour les membres de l\'I2M'); ?><!--</button>-->
+		            </div>
 		</div>
             </div>
         </div>

@@ -398,11 +398,11 @@ class PurchaseOrder extends BaseRequest
         $query = "
             INSERT INTO `dpurchase_order` (
                 `id_owner`, `title`, `id_service`, `additional_ordering_information`, `budget_data`, `additional_budget_information`,
-                `supplier_contact`, `delivery_address`, `purchase_card`, `comment`, `status`
+                `supplier_contact`, `delivery_address`, `purchase_card`, `comment`, `status`, `incident_id`
             )
             VALUES (
                 :id_owner, :title, :id_service, :additional_ordering_information, :budget_data, :additional_budget_information,
-                :supplier_contact, :delivery_address, :purchase_card, :comment, :status
+                :supplier_contact, :delivery_address, :purchase_card, :comment, :status, :incident_id
             )
         ";
         $params = [
@@ -416,7 +416,8 @@ class PurchaseOrder extends BaseRequest
             'delivery_address' => $this->getDeliveryAddress(),
             'purchase_card' => $this->isPurchaseCard(),
             'comment' => $this->getComment(),
-            'status' => $this->getStatus()
+            'status' => $this->getStatus(),
+            'incident_id' => $this->getIncidentId(),
         ];
 
         $this->sql->query($query, $params, false, true);
@@ -440,7 +441,8 @@ class PurchaseOrder extends BaseRequest
                 `delivery_address`=:delivery_address,
                 `purchase_card`=:purchase_card,
                 `comment`=:comment,
-                `status`=:status
+                `status`=:status,
+                `incident_id`=:incident_id
             WHERE id=:id";
 
         $params = [
@@ -454,6 +456,7 @@ class PurchaseOrder extends BaseRequest
             'purchase_card' => $this->isPurchaseCard(),
             'comment' => $this->getComment(),
             'status' => $this->getStatus(),
+            'incident_id' => $this->getIncidentId(),
             'id' => $this->getId(),
         ];
 

@@ -279,7 +279,7 @@ if($_POST['duplicate'] && $rright['ticket_template'])
 								<select class="form-control" id="template" name="template">
 								';
 								$qry=$db->prepare("SELECT `incident`,`name` FROM `ttemplates` ORDER BY `name` ASC");
-								$qry->execute(array('id' => $_GET['id']));
+								$qry->execute();
 								while($row=$qry->fetch()) 
 								{
 									echo '<option value="'.$row['incident'].'">'.$row['name'].'</option>';
