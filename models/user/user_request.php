@@ -192,7 +192,7 @@ class UserRequest
 
         if (
             !$canSaveAddressDefault || (isset($save['saveBusinessAddress']) && $save['saveBusinessAddress']) || $datas[$from] == 'personal_address' ||
-            $this->isFreeAddress($datas[$from]) || !$datas[$from] || (isset($datas[$from.'-address-default']) && $this->getBusinessAddressDefault() == $datas[$from.'-address-default']) ||
+            $this->isFreeAddress($datas[$from]) || !isset($datas[$from]) || !$datas[$from] || (isset($datas[$from.'-address-default']) && $this->getBusinessAddressDefault() == $datas[$from.'-address-default']) ||
             ($this->getBusinessAddressDefault() && $this->isFreeAddress($datas[$target]))
         ) {
             // we cannot get datas for business address because:
