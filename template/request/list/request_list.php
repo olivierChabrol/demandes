@@ -323,7 +323,8 @@
                                         <a class="td" title="" href="<?php echo $viewRequest ?>">
                                         <?php 
 			    // OC
-                     $newDate = $request->getDateStart()->format('d/m/Y');			    
+                     if(!$request->isPurchaseOrder())
+                        $newDate = $request->getDateStart()->format('d/m/Y');
                      echo $newDate; ?>
                                         </a>
                                     </center>

@@ -19,6 +19,7 @@ require_once('models/tool/mailer.php');
 use Models\Tool\Sql;
 use Models\Tool\Mailer;
 
+
 //initialize variables
 if(!isset($guestid)) $guestid = 535;
 if(!isset($currentpage)) $currentpage = '';

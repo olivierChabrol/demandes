@@ -119,7 +119,6 @@ class MissionOrder extends BaseRequest
     private $amountMax;
     private $estimatedAmount;
     private $realAmount;
-    private $incidentId;
 
     public function __construct()
     {
@@ -437,17 +436,6 @@ class MissionOrder extends BaseRequest
     public function getMissionType(): int
     {
 	return $this->missionType;
-    }
-
-    public function getIncidentId(): ?int
-    {
-        return $this->incidentId;
-    }
-
-    public function setIncidentId(?int $id): self
-    {
-        $this->incidentId = $id;
-        return $this;
     }
 
     public function getPlaceStart(): ?string

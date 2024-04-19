@@ -69,7 +69,7 @@ class User
         return $this;
     }
 
-    public function getLabo(): string
+    public function getLabo(): ?string
     {
         return $this->labo;
     }

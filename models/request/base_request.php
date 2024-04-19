@@ -66,6 +66,9 @@ class BaseRequest
     /** @var int|null The identifier of the request. */
     private $id;
 
+    /** @var int The incident identifier associated to the request. */
+    private $incidentId;
+
     /** @var string The title of the request. */
     private $title;
 
@@ -309,11 +312,22 @@ class BaseRequest
         return $this->validators;
     }
 
+    public function getIncidentId(): ?int
+    {
+        return $this->incidentId;
+    }
+
+    public function setIncidentId(?int $id): self
+    {
+        $this->incidentId = $id;
+        return $this;
+    }
+
     /**
      * Set the validators of the request.
      *
      * @param User[] $validators The validators of the request.
-     * @return self
+     * @return self The request.
      */
     public function setValidators(array $validators): self
     {
