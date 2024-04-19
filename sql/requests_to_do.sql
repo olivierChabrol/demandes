@@ -10,6 +10,9 @@ ALTER TABLE `dmission_order` ADD `guest_birthdate` DATE NULL AFTER `guest_mail`;
 -- Add a new column 'guest_phone_number' to the 'dmission_order' table. The column will be placed after the 'guest_birthdate' column. The data type of the column is VARCHAR(15) and it can contain NULL values.
 ALTER TABLE `dmission_order` ADD `guest_phone_number` VARCHAR(15) NULL AFTER `guest_birthdate`;
 
+-- Add a new column 'date_start' to 'tincidents' table. The column will be placed after the 'availability_planned' column. The data type of the column is DATE and the default value is '2000-01-01'.
+ALTER TABLE `tincidents` ADD `date_start` DATE NOT NULL DEFAULT '2000-01-01' AFTER `availability_planned`; 
+
 -- Update the 'date_start' column in the 'tincidents' table with the date part of the 'date_start' column from the 'dmission_order' table where the 'id' of the 'tincidents' table matches the 'incident_id' of the 'dmission_order' table.
 UPDATE `tincidents`
     JOIN `dmission_order` ON `tincidents`.id = `dmission_order`.`incident_id`
