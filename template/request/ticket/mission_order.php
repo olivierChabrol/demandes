@@ -186,6 +186,7 @@ if($request->getGuestName()!=NULL){
     echo "</h2>
     </div>";
 
+    $guestBirthDate = $request->getGuestBirthDate()==null?null:$request->getGuestBirthDate()->format('d/m/Y');
     $rows = [];
     $rows[] = [
         "title" => 'Nom de l\'invité',
@@ -193,7 +194,7 @@ if($request->getGuestName()!=NULL){
     ];
     $rows[] = [
         "title" => 'Date de naissance de l\'invité',
-        "value" => $request->getGuestBirthDate()->format('d/m/Y')
+        "value" => $guestBirthDate
     ];
     $rows[] = [
         "title" => 'Mail de l\'invité',
