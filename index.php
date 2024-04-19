@@ -20,7 +20,7 @@ use Models\Tool\Sql;
 use Models\Tool\Mailer;
 
 //initialize variables
-if(!isset($guestid)) $guestid = 535;
+if(!isset($guestid)) $guestid = 1;
 if(!isset($currentpage)) $currentpage = '';
 if(!isset($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 if(!isset($_COOKIE['token'])) $_COOKIE['token'] = '';
