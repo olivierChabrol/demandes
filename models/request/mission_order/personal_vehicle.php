@@ -132,10 +132,12 @@ class PersonalVehicle
 
         $passengers = [];
 
-        foreach ($datas['personal-vehicle-passenger'] as $idPassenger) {
-            $passenger = new User();
-            $passenger->setId($idPassenger);
-            $passengers[] = $passenger;
+        if(isset($datas['personal-vehicle-passenger'])) {
+            foreach ($datas['personal-vehicle-passenger'] as $idPassenger) {
+                $passenger = new User();
+                $passenger->setId($idPassenger);
+                $passengers[] = $passenger;
+            }
         }
 
         $this->setPassengers($passengers);

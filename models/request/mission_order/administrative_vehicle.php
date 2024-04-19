@@ -61,8 +61,12 @@ class AdministrativeVehicle
 
     public function getDatas(array $datas): self
     {
-        return $this
-            ->setId($datas['transport-choice-administrative-vehicle']);
+        if (isset($datas['transport-choice-administrative-vehicle'])) {
+            return $this->setId($datas['transport-choice-administrative-vehicle']);
+        }
+        else {
+            return $this->setId(-1);
+        }
     }
 
     public static function getCollection(): array
