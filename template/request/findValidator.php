@@ -19,7 +19,7 @@
 	$retourJason=$retourJason." \"nbPoints\": [{\"nb\":\"$i\"} ]}";
 	$retourOK=str_replace(", ]","]",$retourJason);
 	echo $retourOK;
-	error_log($retourOK);
-	error_log("Ending Retour Jason - Loaded $i validators");
+	//error_log($retourOK);
+	//error_log("Ending Retour Jason - Loaded $i validators");
        // ----------------------------------------------------------------------
   ?>
