@@ -1,72 +1,69 @@
 <?php
 /**
- * This script is used to generate a CSV file for the dashboard.
- *
- * It first sets the filename for the CSV file and sends headers to the browser to initiate file download.
- * Then, it creates an array to hold the rows of the CSV file.
- * Depending on the user's profile and the current settings, it adds different columns to the CSV file.
- * Finally, it writes the constructed row to the CSV file and executes a SQL query to fetch data from the database.
- * The fetched data is then processed and written to the CSV file.
+ * This script generates an Excel file with data from a database query.
+ * The Excel file is then downloaded by the user.
  *
  */
-$filename = 'donnees.csv';
 
-// Indicate to the browser that the content is a CSV file to download
-header('Content-Type: text/csv');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+
+// Filename for the Excel file to be downloaded
+$filename = 'donnees.xlsx';
+
+// Set headers to indicate to the browser that the content is an Excel file to be downloaded
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 
-// Initialize an array to hold the rows of the CSV file
-$csvrow = array();
+// Initialize an array to hold the rows of the Excel file
+$excelRow = array();
 
-// Add columns to the CSV file based on user's profile and settings
-$csvrow[] = T_('Numéro');
+// Add columns to the Excel file based on user's profile and settings
+$excelRow[] = T_('Numéro');
 if ($_SESSION['profile_id'] != 0 || $_SESSION['profile_id'] != 4 || $_GET['userid'] == '%')
-    $csvrow[] = T_('Gestionnaire');
+    $excelRow[] = T_('Gestionnaire');
 if (($_SESSION['profile_id'] == 0 || $_SESSION['profile_id'] == 1 || $_SESSION['profile_id'] == 2 || $_SESSION['profile_id'] == 3 || $_SESSION['profile_id'] == 4) || ($rright['side_all'] && ($_GET['userid'] == '%' || $keywords != '')) || ($rparameters['user_company_view'] != 0 && $_GET['userid'] == '%' && ($rright['side_company'] || $keywords != '')))
-    $csvrow[] = T_('Demandeur');
+    $excelRow[] = T_('Demandeur');
 if ($rright['dashboard_col_user_service'])
-    $csvrow[] = T_('Service du demandeur');
+    $excelRow[] = T_('Service du demandeur');
 if ($rright['dashboard_col_type'])
-    $csvrow[] = T_('Type');
+    $excelRow[] = T_('Type');
 if ($rright['dashboard_col_category'])
-    $csvrow[] = T_('Catégorie');
+    $excelRow[] = T_('Catégorie');
 if ($rright['dashboard_col_subcat'])
-    $csvrow[] = T_('Financement');
+    $excelRow[] = T_('Financement');
 if ($rright['dashboard_col_asset'])
-    $csvrow[] = T_('Équipement');
+    $excelRow[] = T_('Équipement');
 if ($rparameters['ticket_places'] == 1)
-    $csvrow[] = T_('Lieu');
+    $excelRow[] = T_('Lieu');
 if ($rright['dashboard_col_service'])
-    $csvrow[] = T_('Service');
-$csvrow[] = T_('Intitulé de la demande');
+    $excelRow[] = T_('Service');
+$excelRow[] = T_('Intitulé de la demande');
 if ($rright['dashboard_col_date_create'])
-    $csvrow[] = T_('Date demande');
+    $excelRow[] = T_('Date demande');
 if ($rright['dashboard_col_date_hope'])
-    $csvrow[] = T_('Date de résolution estimée');
+    $excelRow[] = T_('Date de résolution estimée');
 if ($rright['dashboard_col_date_res'])
-    $csvrow[] = T_('Date de résolution');
+    $excelRow[] = T_('Date de résolution');
 if ($rright['dashboard_col_time'])
-    $csvrow[] = T_('Temps passé');
-$csvrow[] = T_('Date début');
-$csvrow[] = ($_GET['view'] == 'activity') ? T_('État actuel') : T_('État');
+    $excelRow[] = T_('Temps passé');
+$excelRow[] = T_('Date début');
+$excelRow[] = ($_GET['view'] == 'activity') ? T_('État actuel') : T_('État');
 if ($rright['dashboard_col_priority'])
-    $csvrow[] = T_('Priorité');
+    $excelRow[] = T_('Priorité');
 if ($rright['dashboard_col_criticality'])
-    $csvrow[] = T_('Criticité');
+    $excelRow[] = T_('Criticité');
 
-// Open a new CSV file for writing
-$fp = fopen('php://output', 'w');
-
-// Write the constructed row to the CSV file
-fputcsv($fp, $csvrow);
+$excelData= [$excelRow];
 
 // Execute a SQL query to fetch data from the database
 $masterquery = $db->query($_POST['query']);
 
-// Process the fetched data and write it to the CSV file
+// Process the fetched data and write it to the Excel file
 while ($row = $masterquery->fetch()) {
     //select name of states
-    $csvrow = array();
+    $excelRow = array();
     $qry = $db->prepare("SELECT `display`,`description`,`name` FROM `tstates` WHERE `id`=:id");
     $qry->execute(array('id' => $row['state']));
     $resultstate = $qry->fetch();
@@ -267,45 +264,72 @@ while ($row = $masterquery->fetch()) {
     }
 
 
-    $csvrow[] = $row['id'];
+    $excelRow[] = $row['id'];
     if ($_SESSION['profile_id'] != 0 || $_SESSION['profile_id'] != 4 || $_GET['userid'] == '%')
-        $csvrow[] = $resulttech['firstname'] . ' ' . $resulttech['lastname'];
+        $excelRow[] = $resulttech['firstname'] . ' ' . $resulttech['lastname'];
     if (($_SESSION['profile_id'] == 0 || $_SESSION['profile_id'] == 1 || $_SESSION['profile_id'] == 2 || $_SESSION['profile_id'] == 3 || $_SESSION['profile_id'] == 4) || ($rright['side_all'] && ($_GET['userid'] == '%' || $keywords != '')) || ($rparameters['user_company_view'] != 0 && $_GET['userid'] == '%' && ($rright['side_company'] || $keywords != '')))
-        $csvrow[] = $resultuser['firstname'] . ' ' . $resultuser['lastname'];
+        $excelRow[] = $resultuser['firstname'] . ' ' . $resultuser['lastname'];
     if ($rright['dashboard_col_user_service'])
-        $csvrow[] = T_($name_sender_service);
+        $excelRow[] = T_($name_sender_service);
     if ($rright['dashboard_col_type'])
-        $csvrow[] = T_($resulttype['name']);
+        $excelRow[] = T_($resulttype['name']);
     if ($rright['dashboard_col_category'])
-        $csvrow[] = $resultcat['name'];
+        $excelRow[] = $resultcat['name'];
     if ($rright['dashboard_col_subcat'])
-        $csvrow[] = $resultscat['name'];
+        $excelRow[] = $resultscat['name'];
     if ($rright['dashboard_col_asset'])
-        $csvrow[] = $resultasset['netbios'];
+        $excelRow[] = $resultasset['netbios'];
     if ($rparameters['ticket_places'])
-        $csvrow[] = T_($nameplace);
+        $excelRow[] = T_($nameplace);
     if ($rright['dashboard_col_service'])
-        $csvrow[] = T_($nameservice);
+        $excelRow[] = T_($nameservice);
     if ($rright['dashboard_col_agency'])
-        $csvrow[] = T_($nameagency);
-    $csvrow[] = $row['title'];
+        $excelRow[] = T_($nameagency);
+    $excelRow[] = $row['title'];
     if ($rright['dashboard_col_date_create'])
-        $csvrow[] = $rowdate_create;
-    $csvrow[] = $rowdate_start;
+        $excelRow[] = $rowdate_create;
+    $excelRow[] = $rowdate_start;
     if ($rright['dashboard_col_date_hope'])
-        $csvrow[] = $rowdate_hope;
+        $excelRow[] = $rowdate_hope;
     if ($rright['dashboard_col_date_res'])
-        $csvrow[] = $rowdate_res;
+        $excelRow[] = $rowdate_res;
     if ($rright['dashboard_col_time'])
-        $csvrow[] = MinToHour($row['time']);
-    $csvrow[] = T_($resultstate['name']);
+        $excelRow[] = MinToHour($row['time']);
+    $excelRow[] = T_($resultstate['name']);
     if ($rright['dashboard_col_priority'])
-        $csvrow[] = T_($resultpriority['name']);
+        $excelRow[] = T_($resultpriority['name']);
     if ($rright['dashboard_col_criticality'])
-        $csvrow[] = T_($resultcriticality['name']);
-    fputcsv($fp, $csvrow);
+        $excelRow[] = T_($resultcriticality['name']);
+    $excelData[] = $excelRow;
 }
 
-// Close the CSV file
-fclose($fp);
+// Create a new Excel spreadsheet
+$spreadSheet = new Spreadsheet();
+$spreadSheet->removeSheetByIndex(0);
+
+// Create a new worksheet and add it to the spreadsheet
+$worksheet = new Worksheet($spreadSheet,"Données");
+$spreadSheet->addSheet($worksheet,0);
+
+// Add the data to the worksheet
+$worksheet->fromArray($excelData);
+
+// Set the font of the first row to bold
+$worksheet->getStyle('1')->getFont()->setBold(true);
+
+// Calculate the width of the columns
+$worksheet->calculateColumnWidths();
+
+/**
+ * Set the width of each column to automatically adjust to the maximum length of the data in it.
+ * This is done using the getColumnDimension() method to get the column's dimension object,
+ * and then calling the setAutoSize() method on that object with a parameter of true.
+ */
+foreach ($worksheet->getColumnIterator() as $column) {
+    $worksheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
+}
+
+// Save the spreadsheet to the output
+$writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadSheet);
+$writer->save('php://output');
 ?>

@@ -1,0 +1,6 @@
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "1.29.0",
+        "monolog/monolog": "2.9.3"
+    }
+}
