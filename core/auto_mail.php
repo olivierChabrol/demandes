@@ -369,7 +369,8 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 	} else {
 		//get tech mail
 		//!\ OLD - $qry = $db->prepare("SELECT `id`,`mail` FROM tusers WHERE id=:id");
-		/*/!\ Modifier par nos soins */$qry = $db->prepare("SELECT * FROM tusers WHERE id=:id");
+		/*/!\ Modifier par nos soins */
+		$qry = $db->prepare("SELECT * FROM tusers WHERE id=:id");
 		$qry->execute(array('id' => $globalrow['technician']));
 		$techrow=$qry->fetch();
 		$qry->closeCursor();
