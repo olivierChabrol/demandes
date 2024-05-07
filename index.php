@@ -11,6 +11,7 @@
 ################################################################################
 
 //includes
+require 'vendor/autoload.php';
 require('core/init_get.php');
 require('core/functions.php');
 require_once('models/tool/sql.php');
@@ -21,7 +22,7 @@ use Models\Tool\Mailer;
 
 
 //initialize variables
-if(!isset($guestid)) $guestid = 1;
+if(!isset($guestid)) $guestid = 535;
 if(!isset($currentpage)) $currentpage = '';
 if(!isset($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 if(!isset($_COOKIE['token'])) $_COOKIE['token'] = '';

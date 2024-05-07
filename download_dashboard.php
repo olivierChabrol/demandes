@@ -49,6 +49,8 @@ if ($rright['dashboard_col_date_res'])
 if ($rright['dashboard_col_time'])
     $excelRow[] = T_('Temps passé');
 $excelRow[] = T_('Date début');
+$excelRow[] = T_('Date retour');
+$excelRow[] = T_('Durée (en jours)');
 $excelRow[] = ($_GET['view'] == 'activity') ? T_('État actuel') : T_('État');
 if ($rright['dashboard_col_priority'])
     $excelRow[] = T_('Priorité');
@@ -165,9 +167,7 @@ while ($row = $masterquery->fetch()) {
         $qry->execute(array('id' => $row['category']));
         $resultcat = $qry->fetch();
         $qry->closeCursor();
-        if ($row['om_for_guest']) {
-            $resultcat['name'] = T_('Invitation');
-        } elseif ($row['category'] == 0) {
+        if ($row['category'] == 0) {
             $resultcat['name'] = T_($resultcat['name']);
         }
         if (empty($resultcat['name'])) {
@@ -248,13 +248,18 @@ while ($row = $masterquery->fetch()) {
     $rowdate_hope = date_cnv($row['date_hope']);
     $rowdate_res = date_cnv($row['date_res']);
     // OC
-    $start_date_query = $db->prepare("SELECT date_start from dmission_order WHERE incident_id=" . $row['id']);
-    $start_date_query->execute();
-    $result_date_query = $start_date_query->fetch();
-    $start_date_query->closeCursor();
+    $dates_query = $db->prepare("SELECT date_start,date_return from dmission_order WHERE incident_id=" . $row['id']);
+    $dates_query->execute();
+    $result_date_query = $dates_query->fetch();
+    $dates_query->closeCursor();
 
-    $rowdate_start = date_create($result_date_query[0]);
+    $rowdate_start = date_create($result_date_query['date_start']);
+    $rowdate_return = date_create($result_date_query['date_return']);
+    $diff = date_diff($rowdate_start, $rowdate_return);
     $rowdate_start = date_format($rowdate_start, 'd/m/Y');
+    $rowdate_return = date_format($rowdate_return, 'd/m/Y');
+    $days_diff = $diff->days ?: 0;
+    error_log($days_diff);
     if ($rright['dashboard_col_date_create_hour']) //display hour in create date column
     {
         $rowdate_create = date_create($row['date_create']);
@@ -289,10 +294,13 @@ while ($row = $masterquery->fetch()) {
     if ($rright['dashboard_col_date_create'])
         $excelRow[] = $rowdate_create;
     $excelRow[] = $rowdate_start;
+    $excelRow[] = $rowdate_return;
+    $excelRow[] = strval($days_diff);
     if ($rright['dashboard_col_date_hope'])
         $excelRow[] = $rowdate_hope;
-    if ($rright['dashboard_col_date_res'])
+    if ($rright['dashboard_col_date_res']) {
         $excelRow[] = $rowdate_res;
+    }
     if ($rright['dashboard_col_time'])
         $excelRow[] = MinToHour($row['time']);
     $excelRow[] = T_($resultstate['name']);
