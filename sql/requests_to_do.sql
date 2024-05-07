@@ -26,3 +26,25 @@ UPDATE `tincidents`
 JOIN `dmission_order` ON `tincidents`.id = `dmission_order`.`incident_id`
 SET `tincidents`.`category` = 4
 WHERE `dmission_order`.`om_for_guest`=1;
+
+CREATE TABLE `demandes`.`tfillable_documents_by_category`
+( `id` INT NOT NULL AUTO_INCREMENT COMMENT 'ID du Document à remplir' ,
+  `category_id` INT NOT NULL COMMENT 'ID de la catégorie ticket pour lequel le document doit apparaître' ,
+  `title` VARCHAR(255) NOT NULL COMMENT 'Titre du document' ,
+  `path` VARCHAR(500) NOT NULL COMMENT 'Chemin du fichier' ,
+  PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `demandes`.`tfillable_documents_by_state` (
+    `id` INT NOT NULL AUTO_INCREMENT COMMENT 'ID du Document à remplir' ,
+    `state_id` INT NOT NULL COMMENT 'ID de l\'état du ticket pour lequel le document doit apparaître' ,
+    `title` VARCHAR(255) NOT NULL COMMENT 'Titre du document' ,
+    `path` VARCHAR(500) NOT NULL COMMENT 'Chemin du fichier' ,
+    PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+INSERT INTO `tfillable_documents_by_state`
+    (`state_id`, `title`, `path`) VALUES
+    ('9', 'Attestation sur l\'honneur d’engagement de frais à compléter', 'upload/attestation.pdf');
+
+INSERT INTO `tfillable_documents_by_category`
+    (`category_id`, `title`, `path`) VALUES
+    ('4', 'Demande de création de matricule SIFAC à compléter par l\'invité', 'upload/demande_de_creation_de_matricule_sifac.xlsx');
