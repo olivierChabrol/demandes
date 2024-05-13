@@ -350,6 +350,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 									';
 									if(!$rright['ticket_user_company']) {echo '<span id="user_company"></span>';}
 									echo '
+									<span id="user_employer"></span>
 									<span id="user_other_ticket"></span>
 									<span id="user_asset"></span>
 									<span id="user_ticket_remaining"></span>
@@ -1855,6 +1856,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						if(data.service) {$("#user_service").html('&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Service'); ?> '+data.service+'" class="fa fa-users text-info"></i></a> '+data.service);} else {$("#user_service").html('');}
 						if(data.agency) {$("#user_agency").html('&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Agence'); ?> '+data.agency+'" class="fa fa-globe text-info"></i></a> '+data.agency);} else {$("#user_agency").html('');}
 						if(data.company) {$("#user_company").html('&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Société'); ?> '+data.company+'" class="fa fa-building text-info"></i></a> '+data.company);} else {$("#user_company").html('');}
+						if(data.employer) {$("#user_employer").html('&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Employeur'); ?> '+data.employer+'" class="fa fa-building text-info"></i></a> '+data.employer);} else {$("#user_employer").html('');}
 						if(data.other_ticket) {$("#user_other_ticket").html('&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Autres tickets de cet utilisateur'); ?>" class="fa fa-ticket-alt text-info"></i></a>'+data.other_ticket);} else {$("#user_other_ticket").html('');}
 						if(data.asset_id) {$("#user_asset").html('&nbsp;&nbsp;&nbsp;<a target="_blank" href="./index.php?page=asset&id='+data.asset_id+'"><i title="<?php echo T_('Équipement associé'); ?>" class="fa fa-desktop text-info"></i></a> '+data.asset_netbios);} else {$("#user_asset").html('');}
 						if(data.ticket_remaining) {$("#user_ticket_remaining").html('&nbsp;&nbsp;&nbsp;<a href=""><i title="<?php echo T_('Tickets restants'); ?>" class="fa fa-tachometer-alt text-info"></i></a> '+data.ticket_remaining);} else {$("#user_ticket_remaining").html('');}

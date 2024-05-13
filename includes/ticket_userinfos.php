@@ -49,7 +49,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		}
 		
 		//get user data
-		$qry=$db->prepare("SELECT `phone`,`mobile`,`mail`,`function`,`company` FROM `tusers` WHERE id=:id");
+		$qry=$db->prepare("SELECT `phone`,`mobile`,`mail`,`function`,`company`,`employer` FROM `tusers` WHERE id=:id");
 		$qry->execute(array('id' => $_POST['user']));
 		$user=$qry->fetch();
 		$qry->closeCursor();
@@ -59,6 +59,12 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 		$company=$qry->fetch();
 		$qry->closeCursor();
 		if(empty($company['name'])) {$company['name']='';}
+		
+		$qry=$db->prepare("SELECT `name` FROM `duser_employer` WHERE id=:id");
+		$qry->execute(array('id' => $user['employer']));
+		$employer=$qry->fetch();
+		$qry->closeCursor();
+		if(empty($employer['name'])) {$employer['name']='';}
 		
 		$qry=$db->prepare("SELECT `name` FROM `tservices`,`tusers_services` WHERE `tservices`.`id`=`tusers_services`.`service_id` AND `tusers_services`.`user_id`=:user_id AND `tservices`.`disable`=0");
 		$qry->execute(array('user_id' => $_POST['user']));
@@ -160,6 +166,7 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 					"mail" => $user["mail"],
 					"function" => $user["function"],
 					"company" => $company["name"],
+					"employer" => $employer["name"],
 					"service" => $service,
 					"agency" => $agency,
 					"asset_id" => $asset['id'],
