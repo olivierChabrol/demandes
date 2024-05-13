@@ -55,6 +55,6 @@ CREATE TABLE `duser_employer` (
   `id` bigint NOT NULL,
   `name` VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+INSERT INTO `duser_employer` (`id`, `name`) VALUES (0, 'Non défini'), (1, 'AMU'), (2, 'CNRS'), (3, 'CENTRALE MARSEILLE');
 ALTER TABLE `duser_employer` ADD PRIMARY KEY (`id`);
-ALTER TABLE `duser_employer` MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+ALTER TABLE `duser_employer` MODIFY `id` bigint NOT NULL AUTO_INCREMENT,  AUTO_INCREMENT=4;
