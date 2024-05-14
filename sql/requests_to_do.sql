@@ -48,3 +48,13 @@ INSERT INTO `tfillable_documents_by_state`
 INSERT INTO `tfillable_documents_by_category`
     (`category_id`, `title`, `path`) VALUES
     ('4', 'Demande de création de matricule SIFAC à compléter par l\'invité', 'upload/demande_de_creation_de_matricule_sifac.xlsx');
+
+ALTER TABLE `tusers` ADD `employer` INT NOT NULL DEFAULT '0' AFTER `ldap_guid`; 
+
+CREATE TABLE `duser_employer` (
+  `id` bigint NOT NULL,
+  `name` VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+INSERT INTO `duser_employer` (`id`, `name`) VALUES (0, 'Non défini'), (1, 'AMU'), (2, 'CNRS'), (3, 'CENTRALE MARSEILLE');
+ALTER TABLE `duser_employer` ADD PRIMARY KEY (`id`);
+ALTER TABLE `duser_employer` MODIFY `id` bigint NOT NULL AUTO_INCREMENT,  AUTO_INCREMENT=4;

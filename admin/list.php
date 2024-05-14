@@ -482,6 +482,16 @@ if($_GET['action']=="add")
 				</li>
 				';
             }
+            if($rright['admin'])
+            {
+                echo '
+				<li class="nav-item brc-primary shadow-sm">
+					<a href="./index.php?page=admin&amp;subpage=list&amp;table=duser_employer" class="nav-link text-left py-3 '; if($_GET['table']=='duser_employer') {echo 'active';} echo '">
+						'.T_('Employeurs').'
+					</a>
+				</li>
+				';
+            }
 
 			if($rright['admin'])
 			{
