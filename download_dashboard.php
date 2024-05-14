@@ -60,7 +60,7 @@ if ($rright['dashboard_col_criticality'])
 $excelData= [$excelRow];
 
 // Execute a SQL query to fetch data from the database
-$masterquery = $db->query($_POST['query']);
+$masterquery = $db->query(base64_decode($_POST['query']));
 
 // Process the fetched data and write it to the Excel file
 while ($row = $masterquery->fetch()) {

@@ -2452,7 +2452,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 	echo "</form>"; //end form for task_checkbox
 	echo '
        <form action="/" method="post">
-               <input type="hidden" name="query" value="'.$queryForDownload.'">          
+               <input type="hidden" name="query" value="'.base64_encode($queryForDownload).'">          
                <button type="submit" class="btn btn-outline-success btn-sm mt-4" name="download" value="download">Télécharger</button>
        </form>
 </div> <!-- end row -->';

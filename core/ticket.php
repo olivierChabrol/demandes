@@ -151,7 +151,10 @@ if($_GET['unlock_thread'] && $rright['ticket_thread_private']!=0)
 }
 
 //master query
-$qry=$db->prepare("SELECT * FROM `tincidents` WHERE id=:id");
+$qry=$db->prepare("SELECT `tincidents`.*, dmission_order.om_for_guest, dmission_order.guest_name, dmission_order.guest_mail,dmission_order.guest_birthdate,dmission_order.guest_phone_number,dmission_order.guest_labo,dmission_order.guest_country
+	FROM `tincidents` 
+    LEFT JOIN `dmission_order` ON `tincidents`.`id`=`dmission_order`.`incident_id` 
+    WHERE `tincidents`.id=:id");
 $qry->execute(array('id' => $_GET['id']));
 $globalrow=$qry->fetch();
 $qry->closeCursor();
@@ -668,6 +671,19 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			'availability_planned' => $_POST['availability_planned'],
 			'id' => $_GET['id']
 			));
+		$qry=$db->prepare("UPDATE `dmission_order` 
+			SET `title`=:title,`guest_name`=:guest_name,`guest_mail`=:guest_mail,`guest_birthdate`=:guest_birthdate,`guest_phone_number`=:guest_phone_number,`guest_labo`=:guest_labo,`guest_country`=:guest_country
+			WHERE `incident_id`=:id");
+		$qry->execute(array(
+			'title' => $_POST['title'],
+			'guest_name' => $_POST['guest_name'],
+			'guest_mail'=> $_POST['guest_mail'],
+			'guest_birthdate'=> $_POST['guest_birthdate'],
+			'guest_phone_number'=> $_POST['guest_phone_number'],
+			'guest_labo'=> $_POST['guest_labo'],
+			'guest_country'=> $_POST['guest_country'],
+			'id' => $_GET['id']
+		));
 	}
 	//threads text generation
 	if(!$error && $_POST['resolution'] && ($_POST['resolution']!="'<br>'") && ($_POST['resolution']!='\'\''))

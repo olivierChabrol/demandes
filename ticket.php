@@ -100,8 +100,6 @@ $db_lock_thread=strip_tags($db->quote($_GET['lock_thread']));
 $db_unlock_thread=strip_tags($db->quote($_GET['unlock_thread']));
 $db_threadedit=strip_tags($db->quote($_GET['threadedit']));
 
-
-
 if(!isset($globalrow['technician'])) $globalrow['technician'] = '';
 if(!isset($globalrow['time'])) $globalrow['time'] = '';
 
@@ -1083,6 +1081,93 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 					</div>
 				</div>
 				<!-- END title part -->
+                <!-- START guest info part -->
+                <?php if($globalrow['om_for_guest']) { ?>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest_name"><?php echo T_('Nom de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" name="guest_name" id="guest_name" type="text" maxlength="100"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['title']) {echo htmlspecialchars($_POST['guest_name']);} else {echo htmlspecialchars($globalrow['guest_name']);} ?>"
+                                <?php
+                                if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';}
+                                ?>
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <?php echo '<i id="warning_empty_category" title="'.T_('Le champ Mail de l\'invité est requis').'" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
+                            <label class="mb-0" for="guest_mail"><?php echo T_('Mail de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" required="required" onchange="CheckMandatory();" name="guest_mail" id="guest_mail" type="email"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['guest_mail']) {echo htmlspecialchars($_POST['guest_mail']);} else {echo htmlspecialchars($globalrow['guest_mail']);} ?>"
+                                <?php if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';} ?>
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest_phone_number"><?php echo T_('Numéro de téléphone de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" name="guest_phone_number" id="guest_phone_number" type="tel"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['guest_phone_number']) {echo htmlspecialchars($_POST['guest_phone_number']);} else {echo htmlspecialchars($globalrow['guest_phone_number']);} ?>"
+                                <?php
+                                if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';}
+                                ?>
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest_birthdate"><?php echo T_('Date de naissance de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" name="guest_birthdate" id="guest_birthdate" type="date"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['guest_birthdate']) {echo htmlspecialchars($_POST['guest_birthdate']);} else {echo htmlspecialchars($globalrow['guest_birthdate']);} ?>"
+                                <?php
+                                if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';}
+                                ?>
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest_labo"><?php echo T_('Laboratoire de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" name="guest_labo" id="guest_labo" type="text"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['guest_labo']) {echo htmlspecialchars($_POST['guest_labo']);} else {echo htmlspecialchars($globalrow['guest_labo']);} ?>"
+                                <?php
+                                if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';}
+                                ?>
+                            />
+                        </div>
+                    </div>
+                    <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
+                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                            <label class="mb-0" for="guest_country"><?php echo T_('Pays de l\'invité');?> :</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control col-10" name="guest_country" id="guest_country" type="text"
+                                   size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
+                                   value="<?php if($_POST['guest_country']) {echo htmlspecialchars($_POST['guest_country']);} else {echo htmlspecialchars($globalrow['guest_country']);} ?>"
+                                <?php
+                                if($rright['guest_rights']==0 && $_GET['action']!='new') {echo ' readonly="readonly" ';}
+                                ?>
+                            />
+                        </div>
+                    </div>
+                <?php } ?>
+                <!-- END guest info part -->
 				<!-- START description part -->
 				<div class="form-group row <?php if($rright['ticket_description_disp']==0) {echo 'd-none';} ?>">
 					<div class="col-sm-2 col-form-label text-sm-right pr-0">

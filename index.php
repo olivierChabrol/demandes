@@ -22,7 +22,7 @@ use Models\Tool\Mailer;
 
 
 //initialize variables
-if(!isset($guestid)) $guestid = 535;
+if(!isset($guestid)) $guestid = 1;
 if(!isset($currentpage)) $currentpage = '';
 if(!isset($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 if(!isset($_COOKIE['token'])) $_COOKIE['token'] = '';
@@ -209,12 +209,12 @@ else {
             $missionData = $qry->fetch();
             $_GET['id'] = $missionData['incident_id'];
             $_SESSION['user_id'] = $guestid;
-            $hide_button = true;
-
             $qry = $db->prepare("SELECT * FROM `trights` WHERE profile=:profile");
             $qry->execute(array('profile' => 1));
             $rright = $qry->fetch();
             $rright['guest_rights'] = true;
+            $rright['ticket_close'] = false;
+            $rright['ticket_cancel'] = false;
             $qry->closeCursor();
             //set role of profile
             if ($_SESSION['profile_id'] == 0) {

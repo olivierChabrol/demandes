@@ -319,11 +319,12 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
                             <label class="mb-0" for="guest-mail">
+                                <?php echo '<i id="user_warning" title="' . T_('Le mail de l\'invité doit être renseigné') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
                                 <?php echo T_('Mail de l\'invité'); ?> :
                             </label>
                         </div>
                         <div class="col-sm-9 mt-2">
-                            <input id="guest-mail" type="text" name="guest-mail" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                            <input id="guest-mail" type="text" name="guest-mail" required value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                         </div>
                     </div>
                     <div class="form-group row">
