@@ -889,7 +889,7 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
 																<input '.$readonly.' size="10" name="limit_ticket_date_start" type="text" value="'; if($user1['limit_ticket_date_start']) echo "$user1[limit_ticket_date_start]"; else echo ""; echo'" />
 															';
 														}
-													$editable = $editable;	
+													$editable = (!$rright['admin_user_profile'] ? "readonly" : "");	
                     								echo'
                                             </div>
                                             <div id="infos" class="tab-pane'; if($_GET['tab']=='infos' || $_GET['tab']=='') echo 'active'; echo '">
