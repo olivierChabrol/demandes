@@ -893,26 +893,26 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
                                             </div>
                                             <div id="infos" class="tab-pane'; if($_GET['tab']=='infos' || $_GET['tab']=='') echo 'active'; echo '">
                                     			<label for="firstname">'.T_('Prénom').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="firstname" type="text" value="'.$user1['firstname'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="firstname" type="text" value="' .$user1['firstname'].'" />
                 								<div class="space-4"></div>
                 								<label for="lastname">'.T_('Nom').' :</label>
 												';if($mobile==1) {echo '<br />';} echo '
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="lastname" type="text" value="'.$user1['lastname'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="lastname" type="text" value="'.$user1['lastname'].'" />
                 								<div class="space-4"></div>
                                     			<label for="firstname">'.T_('Tutelle').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="guardianship" type="text" value="'.$user1['firstname_guardianship'].' '.$user1['lastname_guardianship'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="guardianship" type="text" value="'.$user1['firstname_guardianship'].' '.$user1['lastname_guardianship'].'" />
                 								<div class="space-4"></div>';
                 								//not display login field for users for security
                 								if($_SESSION['profile_id']==0 || $_SESSION['profile_id']==4) {$label_hide='';$input_type='type="text"';} else {$label_hide='hidden';$input_type='type="hidden"';}
                                                 echo '
                 								<label '.$label_hide.' for="login">'.T_('Identifiant').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" autocomplete="off"  name="login" '.$input_type.' value="'.$user1['login'].'"  />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" autocomplete="off"  name="login" '.$input_type.' value="'.$user1['login'].'"  />
                 								<div class="space-4"></div>
                 								<label for="password">'.T_('Mot de passe').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" autocomplete="new-password" name="password" type="password" value="" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" autocomplete="new-password" name="password" type="password" value="" />
 												<div class="space-4"></div>
                 								<label for="password2">'.T_('Confirmation mot de passe').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" autocomplete="new-password" name="password2" type="password" value="" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" autocomplete="new-password" name="password2" type="password" value="" />
                 								<div class="space-4"></div>
                 								';
                 								$laboratory = '';
@@ -925,23 +925,23 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
                                                 $qry->closeCursor();
                                                 echo '
                 								<label for="mail">'.T_('Laboratoire d\'origine').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$laboratory.'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$laboratory.'" />
                 								<div class="space-4"></div>
                 								<label for="mail">'.T_('Site de rattachement').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$user1['address1'].'" />                								
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$user1['address1'].'" />                								
                 								<div class="space-4"></div>
                 								<label for="mail">'.T_('Adresse mail').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$user1['mail'].'" />                								
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="mail" type="text" value="'.$user1['mail'].'" />                								
                 								<div class="space-4"></div>
                 								<label for="phone">'.T_('Téléphone fixe').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="phone" type="text" value="'.$user1['phone'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="phone" type="text" value="'.$user1['phone'].'" />
                 								<div class="space-4"></div>
 												<label for="mobile">'.T_('Téléphone portable').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="mobile" type="text" value="'.$user1['mobile'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="mobile" type="text" value="'.$user1['mobile'].'" />
                 								<div class="space-4"></div>
                 								<label for="fax">'.T_('Fax').' :</label>
 												';if($mobile) {echo '<br />';} echo '
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="fax" type="text" value="'.$user1['fax'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="fax" type="text" value="'.$user1['fax'].'" />
                 								<div class="space-4"></div>
                 								<label for="service">'.T_('Service').' :</label>
 												';
@@ -949,7 +949,7 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
 												//service add field
 												if($rright['user_profil_service'])
 												{
-													echo '<select style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="service">';
+													echo '<select style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="service">';
 													echo '<option disabled value=""></option>';
 														$qry = $db->prepare("SELECT `id`,`name` FROM `tservices` WHERE `id`!=0 AND `id` NOT IN (SELECT DISTINCT(`service_id`) FROM `tusers_services` WHERE `user_id`=:user_id)");
 														$qry->execute(array('user_id' => $_GET['userid']));
@@ -1030,7 +1030,7 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
 												echo '
                 								<div class="space-4"></div>
                 								<label for="function">'.T_('Fonction').' :</label>
-                								<input style="width:auto;" readonly class="form-control form-control-sm d-inline-block" name="function" size="25" type="text" value="'.$user1['function'].'" />
+                								<input style="width:auto;"'.(!$rright['admin_user_profile'] ? "readonly" : "").' class="form-control form-control-sm d-inline-block" name="function" size="25" type="text" value="'.$user1['function'].'" />
                 								';
                 								//display advanced user informations
                 								if($rparameters['user_advanced']!='0')

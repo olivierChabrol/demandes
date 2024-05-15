@@ -1092,9 +1092,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" name="guest_name" id="guest_name" type="text" maxlength="100"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['title']) {echo htmlspecialchars($_POST['guest_name']);} else {echo htmlspecialchars($globalrow['guest_name']);} ?>"
-                                <?php
-                                if($_GET['action']!='new') {echo ' readonly="readonly" ';}
-                                ?>
+
                             />
                         </div>
                     </div>
@@ -1107,7 +1105,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" required="required" onchange="CheckMandatory();" name="guest_mail" id="guest_mail" type="email"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['guest_mail']) {echo htmlspecialchars($_POST['guest_mail']);} else {echo htmlspecialchars($globalrow['guest_mail']);} ?>"
-                                <?php if($_GET['action']!='new') {echo ' readonly="readonly" ';} ?>
                             />
                         </div>
                     </div>
@@ -1119,9 +1116,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" name="guest_phone_number" id="guest_phone_number" type="tel"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['guest_phone_number']) {echo htmlspecialchars($_POST['guest_phone_number']);} else {echo htmlspecialchars($globalrow['guest_phone_number']);} ?>"
-                                <?php
-                                if($_GET['action']!='new') {echo ' readonly="readonly" ';}
-                                ?>
                             />
                         </div>
                     </div>
@@ -1133,9 +1127,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" name="guest_birthdate" id="guest_birthdate" type="date"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['guest_birthdate']) {echo htmlspecialchars($_POST['guest_birthdate']);} else {echo htmlspecialchars($globalrow['guest_birthdate']);} ?>"
-                                <?php
-                                if($_GET['action']!='new') {echo ' readonly="readonly" ';}
-                                ?>
                             />
                         </div>
                     </div>
@@ -1147,9 +1138,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" name="guest_labo" id="guest_labo" type="text"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['guest_labo']) {echo htmlspecialchars($_POST['guest_labo']);} else {echo htmlspecialchars($globalrow['guest_labo']);} ?>"
-                                <?php
-                                if($_GET['action']!='new') {echo ' readonly="readonly" ';}
-                                ?>
                             />
                         </div>
                     </div>
@@ -1161,9 +1149,6 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <input class="form-control col-10" name="guest_country" id="guest_country" type="text"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if($_POST['guest_country']) {echo htmlspecialchars($_POST['guest_country']);} else {echo htmlspecialchars($globalrow['guest_country']);} ?>"
-                                <?php
-                                if($_GET['action']!='new') {echo ' readonly="readonly" ';}
-                                ?>
                             />
                         </div>
                     </div>
