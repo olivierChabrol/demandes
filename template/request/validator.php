@@ -31,7 +31,7 @@ if($parameters->isFixedValidators()){
 
 		function findValidators(idSubCat) {
 			var url = '/template/request/findValidator.php?idSubCat='+idSubCat;
-			console.log ('Calling '+url);
+			console.log ('[findValidators] Calling '+url);
 			$.ajax({
 				url: url,
 				async: true,

@@ -324,7 +324,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                             </label>
                         </div>
                         <div class="col-sm-9 mt-2">
-                            <input id="guest-mail" type="text" name="guest-mail" required value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                            <input id="guest-mail" type="text" name="guest-mail" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                         </div>
                     </div>
                     <div class="form-group row">
@@ -1448,8 +1448,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 
                 <!-- START buttons -->
                 <div class="border-t-1 brc-secondary-l1 bgc-secondary-l3 py-3 text-center">
-                    <button title="CTRL+S" accesskey="s" name="modify-mo" id="modify-mo"
-                        value="modify" type="submit" class="btn btn-secondary btn-success"
+                    <button title="CTRL+S" accesskey="s" name="modify-mo" id="modify-mo" value="modify" type="submit" class="btn btn-secondary btn-success"
                         <?php echo ($disabled) ? 'disabled' : '' ?>
                     >
                         <i class="fa fa-save"></i>
