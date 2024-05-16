@@ -35,7 +35,9 @@ if($_FILES['file']['name'] && $_GET['id'])
 			} else {
 				$uid=md5(uniqid());
 				$qry=$db->prepare("INSERT INTO `tattachments` (`uid`,`ticket_id`,`storage_filename`,`real_filename`) VALUES (:uid,:ticket_id,:storage_filename,:real_filename)");
-				$qry->execute(array('uid' => $uid,'ticket_id' => $_GET['id'],'storage_filename' => $storage_filename,'real_filename' => $real_filename));
+				if($qry->execute(array('uid' => $uid,'ticket_id' => $_GET['id'],'storage_filename' => $storage_filename,'real_filename' => $real_filename))){
+					include "change_state_on_upload.php";
+				}
 			}
 		} else {
 			echo DisplayMessage('error',T_("Transfert impossible"));
