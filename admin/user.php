@@ -1033,6 +1033,19 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
                 								<label for="function">'.T_('Fonction').' :</label>
                 								<input style="width:auto;"'.$editable.' class="form-control form-control-sm d-inline-block" name="function" size="25" type="text" value="'.$user1['function'].'" />
                 								';
+												//display employer
+												echo '
+													<div class="space-4"></div>
+													<label for="employer">'.T_('Employeur').' :</label>
+													<select style="width:auto;" class="form-control form-control-sm d-inline-block" name="employer">
+													';
+												$qry = $db->prepare("SELECT `id`,`name` FROM `duser_employer`");
+												$qry->execute();
+												while ($agency=$qry->fetch())
+												{
+													echo '<option '.($user1['employer'] ==$agency['id'] ? 'selected="selected"' : '').' value="'.$agency['id'].'">'.$agency['name'].'</option>';
+												}
+												echo '</select>';
                 								//display advanced user informations
                 								if($rparameters['user_advanced']!='0')
                 								{
@@ -1077,7 +1090,7 @@ if(($_GET['action']=='edit') && (($_SESSION['user_id']==$_GET['userid']) || ($_S
                 									<div class="space-4"></div>
                 									<label for="custom2">'.T_('Champ personnalisé').' 2 :</label>
                 									<input style="width:auto;" class="form-control form-control-sm d-inline-block" name="custom2" type="text" value="'; if($user1['custom2']) echo "$user1[custom2]"; else echo ""; echo'" />
-                									<div class="space-4"></div>
+													<div class="space-4"></div>
                 								';
                 								}
                                             	echo '		
@@ -1116,7 +1129,6 @@ else if($_GET['action']=="add" && (($_SESSION['user_id']==$_GET['userid']) || ($
 	$_POST['mobile']=str_replace("'","",$_POST['mobile']);
 	$_POST['fax']=str_replace("'","",$_POST['fax']);
 	$_POST['function']=str_replace("'","",$_POST['function']);
-	
 	/////////////////////////////////////////////////////////////////////display add form///////////////////////////////////////////////////
 	echo '
 		<div class="col-12 cards-container">
