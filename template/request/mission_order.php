@@ -1915,6 +1915,12 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 	    }
 <?php
       }
+      else { ?>
+            if (!$('#guest-mail').val()){
+                sendError("<?php echo T_('Le champ Mail de l\'invité est requis'); ?>");
+                return false;
+            }
+<?php }
 ?>
             if(!checkColloquiums()) {
                 return false;
