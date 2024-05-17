@@ -684,6 +684,15 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			'guest_country'=> $_POST['guest_country'],
 			'id' => $_GET['id']
 		));
+		if($globalrow['guest_mail'] != $_POST['guest_mail']){
+			$qry = $db->prepare("SELECT `id` FROM `dmission_order` WHERE `incident_id`=:id");
+			$qry->execute(array('id' => $_GET['id']));
+			if($qry->rowCount()){
+				$row = $qry->fetch();
+				$missionOrder = new \Models\Request\MissionOrder\MissionOrder();
+				$missionOrder->setId($row['id'])->load()->sendNotificationToGuestIfItExists();
+			}
+		}
 	}
 	//threads text generation
 	if(!$error && $_POST['resolution'] && ($_POST['resolution']!="'<br>'") && ($_POST['resolution']!='\'\''))

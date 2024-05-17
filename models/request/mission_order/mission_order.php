@@ -1535,7 +1535,7 @@ class MissionOrder extends BaseRequest
      *
      * @return self The current instance of the MissionOrder object.
      */
-    private function sendNotificationToGuestIfItExists(): self
+    public function sendNotificationToGuestIfItExists(): self
     {
         if($this->getGuestMail()) {
             $toList = [$this->getGuestMail()];
