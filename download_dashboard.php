@@ -52,6 +52,9 @@ $excelRow[] = T_('Date début');
 $excelRow[] = T_('Date retour');
 $excelRow[] = T_('Durée (en jours)');
 $excelRow[] = ($_GET['view'] == 'activity') ? T_('État actuel') : T_('État');
+$excelRow[] = T_('Frais max');
+$excelRow[] = T_('Frais estimés');
+$excelRow[] = T_('Frais réels');
 if ($rright['dashboard_col_priority'])
     $excelRow[] = T_('Priorité');
 if ($rright['dashboard_col_criticality'])
@@ -248,13 +251,13 @@ while ($row = $masterquery->fetch()) {
     $rowdate_hope = date_cnv($row['date_hope']);
     $rowdate_res = date_cnv($row['date_res']);
     // OC
-    $dates_query = $db->prepare("SELECT date_start,date_return from dmission_order WHERE incident_id=" . $row['id']);
-    $dates_query->execute();
-    $result_date_query = $dates_query->fetch();
-    $dates_query->closeCursor();
+    $mission_order_query = $db->prepare("SELECT date_start,date_return,amount_max,amount_estimated,amount_real from dmission_order WHERE incident_id=" . $row['id']);
+    $mission_order_query->execute();
+    $result_mission_order_query = $mission_order_query->fetch();
+    $mission_order_query->closeCursor();
 
-    $rowdate_start = date_create($result_date_query['date_start']);
-    $rowdate_return = date_create($result_date_query['date_return']);
+    $rowdate_start = date_create($result_mission_order_query['date_start']);
+    $rowdate_return = date_create($result_mission_order_query['date_return']);
     $diff = date_diff($rowdate_start, $rowdate_return);
     $rowdate_start = date_format($rowdate_start, 'd/m/Y');
     $rowdate_return = date_format($rowdate_return, 'd/m/Y');
@@ -304,6 +307,9 @@ while ($row = $masterquery->fetch()) {
     if ($rright['dashboard_col_time'])
         $excelRow[] = MinToHour($row['time']);
     $excelRow[] = T_($resultstate['name']);
+    $excelRow[] = $result_mission_order_query['amount_max'];
+    $excelRow[] = $result_mission_order_query['amount_estimated'];
+    $excelRow[] = $result_mission_order_query['amount_real'];
     if ($rright['dashboard_col_priority'])
         $excelRow[] = T_($resultpriority['name']);
     if ($rright['dashboard_col_criticality'])
