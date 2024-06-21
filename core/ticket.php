@@ -650,7 +650,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			'sender_service' => $_POST['sender_service'],
 			'technician' => $_POST['technician'],
 			't_group' => $t_group,
-			'title' => $_POST['title'],
+			'title' => $rright['ticket_title']==0 ? $globalrow['title'] : $_POST['title'],
 			'description' => $_POST['description'],
 			'date_create' => $_POST['date_create'],
 			'date_hope' => $_POST['date_hope'],
@@ -675,7 +675,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			SET `title`=:title,`guest_name`=:guest_name,`guest_mail`=:guest_mail,`guest_birthdate`=:guest_birthdate,`guest_phone_number`=:guest_phone_number,`guest_labo`=:guest_labo,`guest_country`=:guest_country
 			WHERE `incident_id`=:id");
 		$qry->execute(array(
-			'title' => $_POST['title'],
+			'title' => $rright['ticket_title']==0 ? $globalrow['title'] : $_POST['title'],
 			'guest_name' => $_POST['guest_name'],
 			'guest_mail'=> $_POST['guest_mail'],
 			'guest_birthdate'=> $_POST['guest_birthdate'],
