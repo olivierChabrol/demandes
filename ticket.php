@@ -1104,7 +1104,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" required="required" onchange="CheckMandatory();" name="guest_mail" id="guest_mail" type="email"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['guest_mail']) {echo htmlspecialchars($_POST['guest_mail']);} else {echo htmlspecialchars($globalrow['guest_mail']);} ?>"
+                                   value="<?php if(isset($_POST['guest_mail'])) {echo htmlspecialchars($_POST['guest_mail']);} else {echo htmlspecialchars($globalrow['guest_mail']);} ?>"
                             />
                         </div>
                     </div>
@@ -1115,7 +1115,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_phone_number" id="guest_phone_number" type="tel"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['guest_phone_number']) {echo htmlspecialchars($_POST['guest_phone_number']);} else {echo htmlspecialchars($globalrow['guest_phone_number']);} ?>"
+                                   value="<?php if(isset($_POST['guest_phone_number'])) {echo htmlspecialchars($_POST['guest_phone_number']);} else {echo htmlspecialchars($globalrow['guest_phone_number']);} ?>"
                             />
                         </div>
                     </div>
@@ -1126,7 +1126,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_birthdate" id="guest_birthdate" type="date"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['guest_birthdate']) {echo htmlspecialchars($_POST['guest_birthdate']);} else {echo htmlspecialchars($globalrow['guest_birthdate']);} ?>"
+                                   value="<?php if(isset($_POST['guest_birthdate'])) {echo htmlspecialchars($_POST['guest_birthdate']);} else {echo htmlspecialchars($globalrow['guest_birthdate']);} ?>"
                             />
                         </div>
                     </div>
@@ -1137,7 +1137,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_labo" id="guest_labo" type="text"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['guest_labo']) {echo htmlspecialchars($_POST['guest_labo']);} else {echo htmlspecialchars($globalrow['guest_labo']);} ?>"
+                                   value="<?php if(isset($_POST['guest_labo'])) {echo htmlspecialchars($_POST['guest_labo']);} else {echo htmlspecialchars($globalrow['guest_labo']);} ?>"
                             />
                         </div>
                     </div>
@@ -1148,7 +1148,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_country" id="guest_country" type="text"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['guest_country']) {echo htmlspecialchars($_POST['guest_country']);} else {echo htmlspecialchars($globalrow['guest_country']);} ?>"
+                                   value="<?php if(isset($_POST['guest_country'])) {echo htmlspecialchars($_POST['guest_country']);} else {echo htmlspecialchars($globalrow['guest_country']);} ?>"
                             />
                         </div>
                     </div>
