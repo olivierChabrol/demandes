@@ -684,7 +684,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			'guest_country'=> $_POST['guest_country'],
 			'id' => $_GET['id']
 		));
-		if($globalrow['guest_mail'] != $_POST['guest_mail']){
+		if(isset($_POST['guest_mail']) && $globalrow['guest_mail'] != $_POST['guest_mail']){
 			$qry = $db->prepare("SELECT `id` FROM `dmission_order` WHERE `incident_id`=:id");
 			$qry->execute(array('id' => $_GET['id']));
 			if($qry->rowCount()){

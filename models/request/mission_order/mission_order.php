@@ -1180,6 +1180,10 @@ class MissionOrder extends BaseRequest
                 :status, :amount_max, :amount_estimated, :amount_real, :mission_type, :incident_id
             )";
 
+        $type_mission = $this->getTypeMission();
+        if($this->isOmForGuest()) {
+          $type_mission = self::TYPE_MISSION_WITH_FEES;
+	}
         $params = [
             'id_owner' => $this->getOwner()->getId(),
             'title' => $this->getTitle(),
@@ -1194,7 +1198,7 @@ class MissionOrder extends BaseRequest
             'guest_country' => $this->getGuestCountry(),//TEST
             'collective_mission' => $this->isCollectiveMission(),
             'list_people_involved_assignment' => $this->getListPeopleInvolvedAssignment(),
-            'type_mission' => $this->getTypeMission(),
+            'type_mission' => $type_mission,
             'care_organization' => $this->getCareOrganization(),
             'guardianship' => $this->getGuardianShip(),
             'budget_data' => $this->getBudgetData()->getId(),
@@ -1342,7 +1346,11 @@ class MissionOrder extends BaseRequest
 		`amount_estimated`= :amount_estimated,
 		`incident_id`= :incident_id,
                 `status`=:status
-            WHERE id=:id";
+	    WHERE id=:id";
+        $type_mission = $this->getTypeMission();
+        if($this->isOmForGuest()) {
+          $type_mission = self::TYPE_MISSION_WITH_FEES;
+        }
         $params = [
             'title' => $this->getTitle(),
             'id_service' => $this->getService()->getId(),
@@ -1356,7 +1364,7 @@ class MissionOrder extends BaseRequest
             'guest_country' => $this->getGuestCountry(),//TEST
             'collective_mission' => $this->isCollectiveMission(),
             'list_people_involved_assignment' => $this->getListPeopleInvolvedAssignment(),
-            'type_mission' => $this->getTypeMission(),
+            'type_mission' => $type_mission,
             'care_organization' => $this->getCareOrganization(),
             'guardianship' => $this->getGuardianShip(),
             'budget_data' => $this->getBudgetData()->getId(),
