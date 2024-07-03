@@ -2032,7 +2032,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								$resultscat=$qry->fetch();
 								$qry->closeCursor();
 								//if($row['subcat']==0) {$resultscat['name']=T_($resultscat['name']);}
-								if(empty($resultscat['name'])) {$resultscat['name']=T_('Aucune');}
+								if(empty($resultscat['name'])) {$resultscat['name']=T_('Aucune')."(".$row['subcat'].")";}
 							}
 							if($rright['dashboard_col_asset'])
 							{
