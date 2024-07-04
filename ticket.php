@@ -821,10 +821,24 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						<?php if(($rright['ticket_cat']==0 && $_GET['action']!='new') || ($rright['ticket_new_cat']==0 && $_GET['action']=='new'))  echo '<input type="hidden" name="category" value="'.$globalrow['category'].'" />'; //send data in disabled case ?>
 						<select <?php if($mobile) {echo 'style="max-width:105px;"';}else{echo 'style="width:auto;"';}?> class="form-control d-inline-block mb-1 mb-md-0" title="<?php echo T_('Sous-catégorie'); ?>" id="subcat" name="subcat" onchange="loadVal(); <?php if($rright['ticket_cat_mandatory']) {echo ' CheckMandatory(); ';} ?>" <?php if(($rright['ticket_cat']==0 && $_GET['action']!='new') || ($rright['ticket_new_cat']==0 && $_GET['action']=='new')) echo ' disabled="disabled" ';?> >
 						<?php
+							$sql ="";
 							if($_POST['category'])
-							{$query= $db->query("SELECT id,name FROM `tsubcat` WHERE cat LIKE '$_POST[category]' ORDER BY name ASC");}
+							{	
+								$post_category = $_POST['category'];
+								// if invitation load the same category as mission order
+								if ($post_category == 4) {
+									$post_category = 2;
+								}
+
+								$sql = "SELECT id,name FROM `tsubcat` WHERE cat LIKE '$post_category' ORDER BY name ASC";
+								$query= $db->query($sql);
+							}
 							else
-							{$query= $db->query("SELECT id,name FROM `tsubcat` WHERE cat LIKE '$globalrow[category]' ORDER BY name ASC");}
+							{
+								$sql = "SELECT id,name FROM `tsubcat` WHERE cat LIKE '$globalrow[category]' ORDER BY name ASC";
+								$query= $db->query($sql);
+								//$query= $db->query("SELECT id,name FROM `tsubcat` WHERE cat LIKE '$globalrow[category]' ORDER BY name ASC");
+							}
 							while ($row = $query->fetch())
 							{
 								if($row['id']==0) {$row['name']=T_($row['name']);}
@@ -842,6 +856,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						?>
 						</select>
 						<?php
+							//echo "SQL : ".$sql."<br/>";
 						//send data in disabled case
 						if(($rright['ticket_cat']==0 && $_GET['action']!='new') || ($rright['ticket_new_cat']==0 && $_GET['action']=='new'))  echo '<input type="hidden" name="subcat" value="'.$globalrow['subcat'].'" />';
 						//cat action buttons
