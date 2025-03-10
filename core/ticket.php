@@ -772,7 +772,6 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
     }
 
 	//auto send mail
-	echo DisplayMessage('success',T_('Avant send mail'));
 	if(!$error)
 	{
 		if(($rparameters['mail_auto_user_newticket']==1) || ($rparameters['survey']==1) || ($rparameters['mail_auto']==1) || ($rparameters['mail_auto_user_modify']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_auto_tech_attribution']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_newticket']==1) && ($_POST['upload']==''))
@@ -800,7 +799,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
             }
         }
 	}
-	exit(1);
+	//exit(1);
 
 	//display message
 	if(!$error)
