@@ -1984,6 +1984,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 							$qry->execute(array('id' => $row['u_group']));
 							$resultusergroup=$qry->fetch();
 							$qry->closeCursor();
+							if($resultusergroup === FALSE) { $resultusergroup= Array(); }
 							if(empty($resultusergroup['id'])) {$resultusergroup['id']=0;}
 							if(empty($resultusergroup['name'])) {$resultusergroup['name']='';}
 
@@ -2032,6 +2033,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								$resultscat=$qry->fetch();
 								$qry->closeCursor();
 								//if($row['subcat']==0) {$resultscat['name']=T_($resultscat['name']);}
+								if($resultscat === FALSE) { $resultscat= Array(); }
 								if(empty($resultscat['name'])) {$resultscat['name']=T_('Aucune')."(".$row['subcat'].")";}
 							}
 							if($rright['dashboard_col_asset'])

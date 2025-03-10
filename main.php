@@ -51,8 +51,7 @@ echo '
 						<span class="bars"></span>
 					</button><!-- sidebar toggler button -->
 				</div><!-- /.navbar-intro -->
-				<div class="navbar-content">
-					';
+				<div class="navbar-content">';
 					if(!$mobile)
 					{
 						//re-size logo if height superior 40px
@@ -413,6 +412,7 @@ echo '
 									$qry->execute(array('technician' => $_SESSION['user_id'],'id' => $_GET['id']));
 									$check_t_group=$qry->fetch();
 									$qry->closeCursor();
+									if($check_t_group === false) {$check_t_group = Array();}
 									if(empty($check_t_group['id'])) {$check_t_group['id']=0;}
 								} else {$check_t_group['id']=0; }
 							} else {

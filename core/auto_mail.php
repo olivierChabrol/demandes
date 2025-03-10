@@ -49,7 +49,6 @@ $mail_u_group=$qry->fetch();
 $qry->closeCursor();
 if($mail_u_group['u_group']!=0)
 {
-
 	//check if group members have mail
 	$qry = $db->prepare("SELECT `tusers`.mail FROM `tusers`,`tgroups_assoc` WHERE `tusers`.id=`tgroups_assoc`.user AND `tgroups_assoc`.group=:group AND `tusers`.disable='0'");
 	$qry->execute(array('group' => $mail_u_group['u_group']));
@@ -69,7 +68,7 @@ if($mail_u_group['u_group']!=0)
 	$qry->execute(array('id' => $_GET['id']));
 	$usermail=$qry->fetch();
 	$qry->closeCursor();
-	if($usermail && $rparameters['debug']) {echo "<b>AUTO MAIL SENDER:</b> user detected <br />";}
+	if($usermail && $rparameters['debug']) {echo "<b>AUTO MAIL SENDER:</b> user detected : <b>".$usermail['mail']."</b><br />"; }
 }
 
 //debug
@@ -140,8 +139,12 @@ if(($rparameters['mail_auto_tech_attribution']==1) && (($_POST['send'] || $_POST
 	} else {if($rparameters['debug']) {echo "technician mail is empty or no technician associated or tech group no change on this ticket";}}
 }
 
-//case send mail to user where ticket open by technician.
-if(isset($rparameters['mail_auto']) && ($rparameters['mail_auto']==1) && ((($mail_send['open']=='') && ($_POST['modify'] || $_POST['quit']) && ($_SESSION['profile_id']!=2 && $_SESSION['profile_id']!=3 && $_SESSION['profile_id']!=1)) || $autoclose==1) && !$_POST['private'])
+if($rparameters['debug']) {echo "<b>AUTO MAIL VAR:</b> rparameters['mail_auto']='$rparameters[mail_auto]' mail_send[open]='$mail_send[open]' _POST[modify]='$_POST[modify]' _POST[quit]='$_POST[quit]' _SESSION[profile_id]='$_SESSION[profile_id]' <br />";}
+if($rparameters['debug']) {echo "<b>AUTO MAIL VAR:</b> rparameters['mail_auto_tech_modify']=$rparameters[mail_auto_tech_modify] <br/>";}
+
+$mailAuto = isset($rparameters['mail_auto']) && ($rparameters['mail_auto']==1);
+
+if($mailAuto && ((($mail_send['open']=='') && ($_POST['modify'] || $_POST['quit']) && ($_SESSION['profile_id']!=2 && $_SESSION['profile_id']!=3 && $_SESSION['profile_id']!=1)) || $autoclose==1) && !$_POST['private'])
 {
 	if($usermail['mail'] || $rparameters['mail_cc'])
 	{
@@ -159,7 +162,7 @@ if(isset($rparameters['mail_auto']) && ($rparameters['mail_auto']==1) && ((($mai
 		if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b> FROM tech TO user (Reason: mail_auto enable, and open detect by technician.) but user have no mail and mail_cc empty message not sent<br />";}
 	}
 //case send mail to user where ticket close by technician.
-} elseif(($rparameters['mail_auto']==1) && ($_POST['state']=='3') && ($_POST['modify'] || $_POST['quit'] || $_POST['close']) && ($_SESSION['profile_id']==0 || $_SESSION['profile_id']==4))
+} elseif($mailAuto && ($_POST['state']=='3') && ($_POST['modify'] || $_POST['quit'] || $_POST['close']) && ($_SESSION['profile_id']==0 || $_SESSION['profile_id']==4))
 {
 	if($usermail['mail'] || $rparameters['mail_cc'])
 	{
@@ -261,7 +264,7 @@ elseif (($rparameters['mail_auto_user_modify']==1) && ($_POST['resolution']!='')
 elseif(($rparameters['mail_auto_user_modify']==1) && ($_POST['resolution']!='') && ($_POST['resolution']!='\'\'') &&  ($_POST['private']!=1) && $ticket->hasObserver($_SESSION['user_id']))
 {
 	//debug
-	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM observer TO user and tech (Reason: mail_auto_tech_modify enable and observer add thread in ticket.)<br> ";}
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM observer TO user and tech (Reason: mail_auto_user_modify enable and observer add thread in ticket.)<br> ";}
 	//find user name
 	//!\ OLD - $qry = $db->prepare("SELECT `mail` FROM tusers WHERE id=:id");
 	/*/!\ Modifier par nos soins */ $qry = $db->prepare("SELECT * FROM tusers WHERE id=:id");
@@ -334,19 +337,20 @@ elseif(($rparameters['mail_auto_user_modify']==1) && ($_POST['resolution']!='') 
 
 }
 //!\ FIN AJOUT
-//send mail to technician and observers where an user add thread in ticket
+//send mail to technician and observers where an TECHNICIAN add thread in ticket
 elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POST['quit'] || $_POST['upload']) && (($_POST['resolution']!='') && ($_POST['resolution']!='\'\'')))
 {
 	//debug
-	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM user TO tech  (Reason: mail_auto_tech_modify enable and user add thread in ticket.)<br> ";}
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM tech TO user  (Reason: mail_auto_tech_modify 1 enable and user add thread in ticket.)<br> ";}
 
 	//find user name
 	//!\ OLD - $qry = $db->prepare("SELECT `mail` FROM tusers WHERE id=:id");
 	/*/!\ Modifier par nos soins */ $qry = $db->prepare("SELECT * FROM tusers WHERE id=:id");
 	$qry->execute(array('id' => $uid));
-	$userrow=$qry->fetch();
+	$userrow = $qry->fetch();
 	$qry->closeCursor();
 
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT :: rparameters['mail_from_adr']:</b> ".$rparameters['mail_from_adr']."<br> ";}
 	//define from mail
 	if(!$rparameters['mail_from_adr'])
 	{
@@ -354,6 +358,9 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 	} else {
 		$from=$rparameters['mail_from_adr'];
 	}
+	//debug
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM tech TO user  :: FROM: ".$from."(uid: ".$uid." userrow['mail'] : ".$userrow['mail'].")<br> ";}
+
 
 
 	//check if it's technician or technician group
@@ -377,6 +384,13 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 		$to=$techrow['mail'];
 		if($techrow['id']!=$_SESSION['user_id']) {$send_it=1;}
 	}
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  globalrow['technician']: ".$globalrow['technician']."<br>";}
+
+	if($to) {
+		$send_it=1;
+		$to.=";".$from;
+	}
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM tech TO user  :: TO: ".$to." send_it:".$send_it."<br>";}
 
 	//check if tech have mail
 	if($to && $send_it)

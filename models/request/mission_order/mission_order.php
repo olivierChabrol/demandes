@@ -119,6 +119,7 @@ class MissionOrder extends BaseRequest
     private $amountMax;
     private $estimatedAmount;
     private $realAmount;
+    private $missionType;
 
     public function __construct()
     {
@@ -1037,7 +1038,7 @@ class MissionOrder extends BaseRequest
                 $this
                     ->getBudgetData()
                     ->setId($row['budget_data'])
-                    ->setName($row['name_budget_data'])
+                    ->setName($row['name_budget_data']==null?"":$row['name_budget_data'])
                     ->setCategory($row['category_budget_data']);
             }
 

@@ -772,16 +772,21 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
     }
 
 	//auto send mail
+	echo DisplayMessage('success',T_('Avant send mail'));
 	if(!$error)
 	{
-		if(($rparameters['mail_auto_user_newticket']==1) || ($rparameters['survey']==1) || ($rparameters['mail_auto']==1) || ($rparameters['mail_auto_user_modify']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_auto_tech_attribution']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_newticket']==1) && ($_POST['upload']=='')){
+		if(($rparameters['mail_auto_user_newticket']==1) || ($rparameters['survey']==1) || ($rparameters['mail_auto']==1) || ($rparameters['mail_auto_user_modify']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_auto_tech_attribution']==1) || ($rparameters['mail_auto_tech_modify']==1) || ($rparameters['mail_newticket']==1) && ($_POST['upload']==''))
+		{
 			if($rparameters['mail'] && $rparameters['mail_smtp'])
 			{
 				include('./core/auto_mail.php');
-			} else {
+			} 
+			else 
+			{
 				echo '<div class="alert alert-block alert-danger"><i class="fa fa-times red"></i> <b>'.T_('Erreur').' : </b> '.T_("Le connecteur SMTP n'est pas configuré.").'</div>';
 			}
-		} else if ($parameters->isNotificationEnable() && $parameters->getNotificationState() == $_POST['state']) {
+		} else if ($parameters->isNotificationEnable() && $parameters->getNotificationState() == $_POST['state']) 
+		{
             //case send mail to user where ticket reach final status
             //insert mail table
             $qry=$db->prepare("INSERT INTO `tmails` (`incident`,`open`,`close`) VALUES (:incident,'1','0')");
@@ -795,6 +800,7 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
             }
         }
 	}
+	exit(1);
 
 	//display message
 	if(!$error)
