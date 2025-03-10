@@ -296,7 +296,7 @@ if(file_exists($template_filename))
 	}
 	$mail_template=str_replace('#ticket_priority#', $priorityrow['name'], $mail_template);
 	$mail_template=str_replace('#ticket_criticality#', $criticalityrow['name'], $mail_template);
-	if($$placerow != null && isset($placerow['name'])) {
+	if($placerow != null && isset($placerow['name'])) {
 		$mail_template=str_replace('#ticket_place#', $placerow['name'], $mail_template);
 	}
 	$mail_template=str_replace('#ticket_date_create#', $date_create, $mail_template);

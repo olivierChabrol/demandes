@@ -80,18 +80,25 @@ if($_GET['action']!='new') //case for edit ticket not new ticket
 								$qry2->execute(array('id' => $row['author']));
 								$author=$qry2->fetch();
 								$qry2->closeCursor();
-								if(empty($author['id'])) {$author['id']=0;}
-								if(empty($author['firstname'])) {$author['firstname']='';}
-								if(empty($author['lastname'])) {$author['lastname']='';}
+								if($author === false) {
+								  $author = array();
+								  $author['firstname']='GestSup'; 
+								  $author['lastname']='';
+								}
+								else {
+  								  if(empty($author['id'])) {$author['id']=0;}
+								  if(empty($author['firstname'])) {$author['firstname']='';}
+								  if(empty($author['lastname'])) {$author['lastname']='';}
 								
-								//case system modification, remplace name
-								if($author['id']==0) {$author['firstname']='GestSup'; $author['lastname']='';}
-								
+								  //case system modification, remplace name
+								  if($author['id']==0) {$author['firstname']='GestSup'; $author['lastname']='';}
+							        }	
 								//state name
 								$qry2=$db->prepare("SELECT `name` FROM `tstates` WHERE id=:id");
 								$qry2->execute(array('id' => $row['state']));
 								$rstate=$qry2->fetch();
 								$qry2->closeCursor();
+								if($rstate === false) { $rstate = array(); }
 								if(empty($rstate['name'])) {$rstate['name']='';}
 								
 								//find author profile avatar

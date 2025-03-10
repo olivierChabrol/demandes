@@ -1103,7 +1103,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				</div>
 				<!-- END title part -->
                 <!-- START guest info part -->
-                <?php if($globalrow['om_for_guest']) { ?>
+                <?php if(isset($globalrow['om_for_guest']) && $globalrow['om_for_guest']) { ?>
                     <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
                             <label class="mb-0" for="guest_name"><?php echo T_('Nom de l\'invité');?> :</label>

@@ -14,6 +14,7 @@ class User
     private $email;
     private $custom1;
     private $sql;
+    private $labo;
 
     public function __construct()
     {
