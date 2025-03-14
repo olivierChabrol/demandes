@@ -384,11 +384,13 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 		$to=$techrow['mail'];
 		if($techrow['id']!=$_SESSION['user_id']) {$send_it=1;}
 	}
-	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  globalrow['technician']: ".$globalrow['technician']."<br>";}
-
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  globalrow['technician']: ".$globalrow['technician']." to: ".$to."<br>";}
+	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  usermail['mail']: ".$usermail['mail']."<br>";}
+	
 	if($to) {
 		$send_it=1;
-		$to.=";".$from;
+		//$to = $usermail['mail'].";".$from;
+		$to = $usermail['mail'];
 	}
 	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM tech TO user  :: TO: ".$to." send_it:".$send_it."<br>";}
 

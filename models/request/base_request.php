@@ -117,6 +117,8 @@ class BaseRequest
     /** @var Sql The database manager. */
     protected $sql;
 
+    private $currentUser;
+
     /**
      * Constructor of the BaseRequest class.
      */

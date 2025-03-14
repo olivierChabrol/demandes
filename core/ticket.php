@@ -459,8 +459,9 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 		$qry->execute(array('user' => $_POST['user']));
 		$row=$qry->fetch();
 		$qry->closeCursor();
-		if(empty($row['tech'])) {$row['tech']='';}
-        if($row['tech']) {
+		if ($row === false) {$row= array();}
+		if (empty($row['tech'])) {$row['tech']='';}
+        if ($row['tech']) {
 			if($rparameters['debug']) {echo '<br /><b>AUTO TECH CHANGE:</b> Auto assignment of this ticket, because technician attachment is detected.<br />';}
 			$_POST['technician']=$row['tech'];
 		}
