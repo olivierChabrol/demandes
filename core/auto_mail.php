@@ -390,7 +390,7 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 	if($to) {
 		$send_it=1;
 		//$to = $usermail['mail'].";".$from;
-		$to = $usermail['mail'];
+		$to = $usermail['mail'].";".$from;
 	}
 	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  FROM tech TO user  :: TO: ".$to." send_it:".$send_it."<br>";}
 
