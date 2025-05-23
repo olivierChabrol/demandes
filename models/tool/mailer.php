@@ -189,15 +189,44 @@ class Mailer
         return $this;
     }
 
+    public function utf8_to_iso8859_1(string $string): string {
+        $s = (string) $string;
+        $len = \strlen($s);
+    
+        for ($i = 0, $j = 0; $i < $len; ++$i, ++$j) {
+            switch ($s[$i] & "\xF0") {
+                case "\xC0":
+                case "\xD0":
+                    $c = (\ord($s[$i] & "\x1F") << 6) | \ord($s[++$i] & "\x3F");
+                    $s[$j] = $c < 256 ? \chr($c) : '?';
+                    break;
+    
+                case "\xF0":
+                    ++$i;
+                    // no break
+    
+                case "\xE0":
+                    $s[$j] = '?';
+                    $i += 2;
+                    break;
+    
+                default:
+                    $s[$j] = $s[$i];
+            }
+        }
+    
+        return substr($s, 0, $j);
+    }
+
     public function setSubject(string $subject): self
     {
-        $this->mailer->Subject = utf8_decode($subject);
+        $this->mailer->Subject = $this->utf8_to_iso8859_1($subject);
         return $this;
     }
 
     public function setBody(string $body): self
     {
-        $this->mailer->Body = utf8_decode($body);
+        $this->mailer->Body = $this->utf8_to_iso8859_1($body);
         return $this;
     }
 

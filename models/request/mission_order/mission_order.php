@@ -120,6 +120,7 @@ class MissionOrder extends BaseRequest
     private $estimatedAmount;
     private $realAmount;
     private $missionType;
+    private $invitation_token;
 
     public function __construct()
     {
@@ -960,10 +961,11 @@ class MissionOrder extends BaseRequest
         }
 
         $results = $this->sql->query($query, $params);
-
+        
         if (count($results) == 0) {
             $this->setId(null);
         }
+        //echo("<br><b>ID :</b> ".$this->getId());
 
         $validators = [];
 
@@ -1013,11 +1015,11 @@ class MissionOrder extends BaseRequest
                 ->setTransportMarketJustification($row['transport_market_justification'])
                 ->setOtherFees($row['other_fees'])
                 ->setGuardianShip($row['guardianship'])
-		->setComment($row['comment'])
-		->setAmountMax($row['amount_max'])
-	        ->setEstimatedAmount($row['amount_estimated'])
-		->setRealAmount($row['amount_real'])
-	        ->setMissionType($row['mission_type'])
+		        ->setComment($row['comment'])
+		        ->setAmountMax($row['amount_max'])
+	            ->setEstimatedAmount($row['amount_estimated'])
+		        ->setRealAmount($row['amount_real'])
+	            ->setMissionType($row['mission_type'])
                 ->setStatus($row['status']);
 
             $owner = new User();
@@ -1039,7 +1041,7 @@ class MissionOrder extends BaseRequest
                     ->getBudgetData()
                     ->setId($row['budget_data'])
                     ->setName($row['name_budget_data']==null?"":$row['name_budget_data'])
-                    ->setCategory($row['category_budget_data']);
+                    ->setCategory($row['category_budget_data']==null?"":$row['category_budget_data']);
             }
 
             $this
@@ -1070,10 +1072,7 @@ class MissionOrder extends BaseRequest
                 ->setMissionOrder($this);
         }
 
-        $this
-            ->setValidators($validators)
-            ->loadFiles()
-            ->loadTransportChoices();
+        $this->setValidators($validators)->loadFiles()->loadTransportChoices();
 
         return $this;
     }

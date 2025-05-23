@@ -31,9 +31,9 @@ use Models\User\UserRequest;
 
 /* Class */
 $purchaseOrder = new PurchaseOrder();
-$missionOrder = new MissionOrder();
-$userRequest = new UserRequest();
-$userOwner = new UserRequest();
+$missionOrder  = new MissionOrder();
+$userRequest   = new UserRequest();
+$userOwner     = new UserRequest();
 
 /* Variables */
 $budgetDatas = BudgetData::getCollection();

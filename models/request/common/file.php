@@ -256,6 +256,9 @@ class File
     {
         $files = [];
         $sql = Sql::getInstance();
+        if ($idMissionOrder === null && $idPurchaseOrder === null) {
+            return $files;
+        }
 
         $query = "SELECT `id`, `id_mission_order`,`name`,`path`,`type`
             FROM `dfiles`
