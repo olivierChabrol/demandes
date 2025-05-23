@@ -1540,7 +1540,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								if($rright['dashboard_col_type'])
 								{
 									echo '
-										<td align="center" >
+										<td align="center" id="type_filter">
 											<select class="form-control" style="width:92px" name="type" onchange="submit()">
 												<option value="%"></option>';
 												//display type list
