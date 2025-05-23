@@ -1563,7 +1563,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								if($rright['dashboard_col_category'])
 								{
 									echo '
-									<td align="center">
+									<td align="center" id="category_filter">
 										<select class="form-control" style="width:65px" name="category" onchange="submit()" >
 											<option value="%"></option>
 											';
