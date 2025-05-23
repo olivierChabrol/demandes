@@ -1401,7 +1401,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								if($_SESSION['profile_id']!=0 || $_SESSION['profile_id']!=4 || $_GET['userid']=='%')
 								{
 									echo '
-									<td align="center" >
+									<td align="center" id="technician_filter">
 										<select class="chosen-select" data-placeholder=" " style="width:100px;" name="technician" onchange="submit()" >
 											<option value="%"></option>
 											<option value="0">'.T_('Aucun').'</option>';
