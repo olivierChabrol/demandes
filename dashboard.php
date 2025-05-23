@@ -1467,10 +1467,10 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								}
                                                                 //*/
 								//display filter of user column
-								/*/!\ Ajout profile_id=2*/if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
+								/*/!\ Ajout profile_id=2*/
+								if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
 								{
-									echo '
-									<td align="center" >
+									echo '<td align="center" id="applicant_filter">
 										<select class="chosen-select" data-placeholder=" " style="width:100px;" name="user" onchange="submit()">
 											<option value="%"></option>
 											<option value="0">'.T_('Aucun').'</option>';
@@ -1485,29 +1485,27 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 											}
 											else
 											{/*/!\ AJOUT (tcompany)*/$query = $db->query("SELECT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tcompany ON tusers.company=tcompany.id WHERE disable='0' ORDER BY lastname");} //query for searchengine
-											while ($row=$query->fetch())
-											{
-												if(extension_loaded('mbstring')) {
-													$cutfname=mb_substr($row['firstname'], 0, 1);
-												} else {
-													$cutfname=substr($row['firstname'], 0, 1);
+												while ($row=$query->fetch())
+												{
+													if(extension_loaded('mbstring')) {
+														$cutfname=mb_substr($row['firstname'], 0, 1);
+													} else {
+														$cutfname=substr($row['firstname'], 0, 1);
+													}
+													if($_POST['user']==$row['id'])
+													{/*/!\ AJOUT (tcompany)*/echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
+													elseif($row['firstname']=='' && $row['lastname']=='') {}
+													else
+													{/*/!\ AJOUT (tcompany)*/echo '<option value="'.$row['id'].'">'.$row['lastname'].' '.$cutfname.'. ('.$row['name'].')</option>';}
 												}
-												if($_POST['user']==$row['id'])
-												{/*/!\ AJOUT (tcompany)*/echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
-												elseif($row['firstname']=='' && $row['lastname']=='') {}
-												else
-												{/*/!\ AJOUT (tcompany)*/echo '<option value="'.$row['id'].'">'.$row['lastname'].' '.$cutfname.'. ('.$row['name'].')</option>';}
+												//user group list
+												$query = $db->query("SELECT `id`,`name` FROM tgroups WHERE disable='0' AND type='0' ORDER BY name");
+												while ($row=$query->fetch())
+												{
+													if($u_group==$row['id'] || $_GET['u_group']==$row['id']) echo "<option selected value=\"G_$row[id]\">[G] $row[name]</option>"; else echo "<option value=\"G_$row[id]\">[G] $row[name]</option>";
+												}
+												echo '</select></td>';
 											}
-											//user group list
-											$query = $db->query("SELECT `id`,`name` FROM tgroups WHERE disable='0' AND type='0' ORDER BY name");
-											while ($row=$query->fetch())
-											{
-												if($u_group==$row['id'] || $_GET['u_group']==$row['id']) echo "<option selected value=\"G_$row[id]\">[G] $row[name]</option>"; else echo "<option value=\"G_$row[id]\">[G] $row[name]</option>";
-											}
-											echo '
-										</select>
-									</td>';
-								}
 								//display filter of user service column
 								if($rright['dashboard_col_user_service'])
 								{
@@ -2275,7 +2273,8 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 									//*/
 									//display user
 									//!\OLD - if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
-									/*/!\ AJOUTER PAR NOS SOINS */if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==1 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
+									/*/!\ AJOUTER PAR NOS SOINS */
+									if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==1 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
 									{
 										echo '<td onclick="document.location=\' '.$open_ticket_link.' \'"><center><a class="td" title="'.$resultuser['firstname'].' '.$resultuser['lastname'].' '.T_('Tel').': '.$resultuser['phone'].' " href="'.$open_ticket_link.'">'.T_(" $displayusername").'</a></center></td>';
                                     }
