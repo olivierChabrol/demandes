@@ -1466,12 +1466,12 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 									</td>';
 								}
                                                                 //*/
-
+								/*
 								echo '<td align="center" id="applicant_filter">
 								<select class="chosen-select" data-placeholder=" " style="width:100px;" name="user" onchange="submit()">
 									<option value="%"></option>
 									<option value="0">'.T_('Aucun').'</option>';
-									//display users list
+									// Display users list
 									if($join)
 									{
 										$query="SELECT DISTINCT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tincidents ON tusers.id=tincidents.user INNER JOIN tcompany ON tusers.company=tcompany.id LEFT JOIN tthreads ON tincidents.id=tthreads.ticket $join WHERE $where ORDER BY tusers.lastname";
@@ -1481,7 +1481,8 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 										$query = $db->query($query);
 									}
 									else
-									{/*/!\ AJOUT (tcompany)*/
+									{
+										// AJOUT (tcompany)
 										$query = $db->query("SELECT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tcompany ON tusers.company=tcompany.id WHERE disable='0' ORDER BY lastname"); //query for searchengine
 										while ($row=$query->fetch())
 										{
@@ -1494,14 +1495,16 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 												$cutfname=substr($row['firstname'], 0, 1);
 											}
 											if($_POST['user']==$row['id'])
-											{/*/!\ AJOUT (tcompany)*/echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
+											{// AJOUT (tcompany)
+												echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
 											elseif($row['firstname']=='' && $row['lastname']=='') {}
 											else
-											{/*/!\ AJOUT (tcompany)*/
+											{
+												// AJOUT (tcompany)
 												echo '<option value="'.$row['id'].'">'.$row['lastname'].' '.$cutfname.'. ('.$row['name'].')</option>';
 											}
 										}
-										//user group list
+										// User group list
 										$query = $db->query("SELECT `id`,`name` FROM tgroups WHERE disable='0' AND type='0' ORDER BY name");
 										while ($row=$query->fetch())
 										{
@@ -1509,6 +1512,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 										}
 									}
 								echo '</select></td>';
+								//*/
 								
 								//display filter of user column
 								/*/!\ Ajout profile_id=2*/
