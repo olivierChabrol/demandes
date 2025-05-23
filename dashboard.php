@@ -1510,7 +1510,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								if($rright['dashboard_col_user_service'])
 								{
 									echo'
-									<td align="center">
+									<td align="center" id="service_filter">
 										<select class="form-control" style="width:60px" name="sender_service" onchange="submit()">
 											<option value="%"></option>
 											';
