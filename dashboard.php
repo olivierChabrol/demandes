@@ -1516,7 +1516,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								//display filter of user column
 								/*/!\ Ajout profile_id=2*/
 								echo "PROFILE_ID: ".$_SESSION['profile_id']."<br />";
-								if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
+								if(($_SESSION['profile_id'] <= 4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
 								{
 									echo '<td align="center" id="applicant_filter">
 										<select class="chosen-select" data-placeholder=" " style="width:100px;" name="user" onchange="submit()">
