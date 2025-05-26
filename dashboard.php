@@ -1515,6 +1515,7 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 								//*/
 								//display filter of user column
 								/*/!\ Ajout profile_id=2*/
+								echo "PROFILE_ID: ".$_SESSION['profile_id']."<br />";
 								if(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==2 || $_SESSION['profile_id']==3 || $_SESSION['profile_id']==4) || ($rright['side_all'] && ($_GET['userid']=='%'|| $keywords!='')) || ($rparameters['user_company_view']!=0 && $_GET['userid']=='%' && ($rright['side_company'] || $keywords!='')))
 								{
 									echo '<td align="center" id="applicant_filter">
@@ -1522,37 +1523,37 @@ if($_POST['selectrow'] && $_POST['selectrow']!='selectall')
 											<option value="%"></option>
 											<option value="0">'.T_('Aucun').'</option>';
 											//display users list
-											if($join)
-											{
-												$query="SELECT DISTINCT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tincidents ON tusers.id=tincidents.user INNER JOIN tcompany ON tusers.company=tcompany.id LEFT JOIN tthreads ON tincidents.id=tthreads.ticket $join WHERE $where ORDER BY tusers.lastname";
-												if(preg_match('#FROM tusers#',$query)) {$query=str_replace("LEFT JOIN tusers ON tincidents.user=tusers.id","",$query);} //avoid company column pb
-												if(preg_match('#INNER JOIN tcompany#',$query)) {$query=str_replace("LEFT JOIN tcompany ON tusers.company=tcompany.id","",$query);} //avoid company column pb
-												if($rparameters['debug']) {echo $query;}
-												$query = $db->query($query);
+									if($join)
+									{
+										$query="SELECT DISTINCT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tincidents ON tusers.id=tincidents.user INNER JOIN tcompany ON tusers.company=tcompany.id LEFT JOIN tthreads ON tincidents.id=tthreads.ticket $join WHERE $where ORDER BY tusers.lastname";
+										if(preg_match('#FROM tusers#',$query)) {$query=str_replace("LEFT JOIN tusers ON tincidents.user=tusers.id","",$query);} //avoid company column pb
+										if(preg_match('#INNER JOIN tcompany#',$query)) {$query=str_replace("LEFT JOIN tcompany ON tusers.company=tcompany.id","",$query);} //avoid company column pb
+										if($rparameters['debug']) {echo $query;}
+										$query = $db->query($query);
+									}
+									else
+									{/*/!\ AJOUT (tcompany)*/$query = $db->query("SELECT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tcompany ON tusers.company=tcompany.id WHERE disable='0' ORDER BY lastname");} //query for searchengine
+										while ($row=$query->fetch())
+										{
+											if(extension_loaded('mbstring')) {
+												$cutfname=mb_substr($row['firstname'], 0, 1);
+											} else {
+												$cutfname=substr($row['firstname'], 0, 1);
 											}
+											if($_POST['user']==$row['id'])
+											{/*/!\ AJOUT (tcompany)*/echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
+											elseif($row['firstname']=='' && $row['lastname']=='') {}
 											else
-											{/*/!\ AJOUT (tcompany)*/$query = $db->query("SELECT tusers.id,tusers.firstname,tusers.lastname, tcompany.name FROM tusers INNER JOIN tcompany ON tusers.company=tcompany.id WHERE disable='0' ORDER BY lastname");} //query for searchengine
-												while ($row=$query->fetch())
-												{
-													if(extension_loaded('mbstring')) {
-														$cutfname=mb_substr($row['firstname'], 0, 1);
-													} else {
-														$cutfname=substr($row['firstname'], 0, 1);
-													}
-													if($_POST['user']==$row['id'])
-													{/*/!\ AJOUT (tcompany)*/echo '<option selected value="'.$row['id'].'">'.$cutfname.'. '.$row['lastname'].' ('.$row['name'].')</option>';}
-													elseif($row['firstname']=='' && $row['lastname']=='') {}
-													else
-													{/*/!\ AJOUT (tcompany)*/echo '<option value="'.$row['id'].'">'.$row['lastname'].' '.$cutfname.'. ('.$row['name'].')</option>';}
-												}
-												//user group list
-												$query = $db->query("SELECT `id`,`name` FROM tgroups WHERE disable='0' AND type='0' ORDER BY name");
-												while ($row=$query->fetch())
-												{
-													if($u_group==$row['id'] || $_GET['u_group']==$row['id']) echo "<option selected value=\"G_$row[id]\">[G] $row[name]</option>"; else echo "<option value=\"G_$row[id]\">[G] $row[name]</option>";
-												}
-												echo '</select></td>';
-											}
+											{/*/!\ AJOUT (tcompany)*/echo '<option value="'.$row['id'].'">'.$row['lastname'].' '.$cutfname.'. ('.$row['name'].')</option>';}
+										}
+										//user group list
+										$query = $db->query("SELECT `id`,`name` FROM tgroups WHERE disable='0' AND type='0' ORDER BY name");
+										while ($row=$query->fetch())
+										{
+											if($u_group==$row['id'] || $_GET['u_group']==$row['id']) echo "<option selected value=\"G_$row[id]\">[G] $row[name]</option>"; else echo "<option value=\"G_$row[id]\">[G] $row[name]</option>";
+										}
+									echo '</select></td>';
+								}
 								//display filter of user service column
 								if($rright['dashboard_col_user_service'])
 								{
