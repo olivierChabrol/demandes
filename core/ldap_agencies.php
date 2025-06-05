@@ -248,7 +248,8 @@ if ($ldapbind)
 			if(!isset($data2[$i2]['streetaddress'][0])) $data2[$i2]['streetaddress'][0] = '';
 			if(!isset($data2[$i2]['postalcode'][0])) $data2[$i2]['postalcode'][0] = '';
 			if(!isset($data2[$i2]['l'][0])) $data2[$i2]['l'][0] = '';
-			if(!isset($data2[$i2]['company'][0])) $data2[$i2]['company'][0] = '';
+			// OC 05052025 set default value for company to 1, to avoid mysql update later after a user creation
+			if(!isset($data2[$i2]['company'][0])) $data2[$i2]['company'][0] = '1';
 			if(!isset($data2[$i2]['facsimiletelephonenumber'][0])) $data2[$i2]['facsimiletelephonenumber'][0] = '';
 			if(!isset($data2[$i2]['title'][0])) $data2[$i2]['title'][0] = '';
 			//get data from table data to variables
@@ -412,8 +413,8 @@ if ($ldapbind)
 					echo '<i class="fa fa-plus-circle text-success"></i><font class="text-success"> '.T_("Utilisateur").': <b>'.$LDAP_user_samaccountname.'</b> '.T_("crée").' (<font size="1">'.T_("Raison: Le guid de l'utilisateur trouvé dans l'annuaire LDAP n'est pas présent dans GestSup").'</font>)</font><br />';	
 					//db insert
 					$qry=$db->prepare("
-					INSERT INTO `tusers` (`login`,`firstname`,`lastname`,`profile`,`mail`,`phone`,`address1`,`zip`,`city`,`fax`,`ldap_guid`) 
-					VALUES (:login,:firstname,:lastname,'2',:mail,:phone,:address1,:zip,:city,:fax,:ldap_guid)
+					INSERT INTO `tusers` (`login`,`firstname`,`lastname`,`profile`,`mail`,`phone`,`address1`,`zip`,`city`,`fax`,`ldap_guid`,`company`) 
+					VALUES (:login,:firstname,:lastname,'2',:mail,:phone,:address1,:zip,:city,:fax,:ldap_guid,:company)
 					");
 					$qry->execute(array(
 						'login' => $LDAP_user_samaccountname,
@@ -425,6 +426,7 @@ if ($ldapbind)
 						'zip' => $LDAP_user_postalcode,
 						'city' => $LDAP_user_l,
 						'fax' => $LDAP_user_fax,
+						'company' => $LDAP_user_company,
 						'ldap_guid' => $LDAP_user_guid
 						));
 					logit('ldap_agency','Create user '.$LDAP_user_samaccountname,'0');
