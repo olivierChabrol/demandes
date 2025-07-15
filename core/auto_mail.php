@@ -143,8 +143,13 @@ if($rparameters['debug']) {echo "<b>AUTO MAIL VAR:</b> rparameters['mail_auto']=
 if($rparameters['debug']) {echo "<b>AUTO MAIL VAR:</b> rparameters['mail_auto_tech_modify']=$rparameters[mail_auto_tech_modify] <br/>";}
 
 $mailAuto = isset($rparameters['mail_auto']) && ($rparameters['mail_auto']==1);
+$mailOpen = !isset($mail_send['open']) || ($mail_send['open'] =='');
+$modifyOrQuit = isset($_POST['modify']) || isset($_POST['quit']);
+$postPrivate = isset($_POST['private']) && ($_POST['private'] == 1);
+$session = isset($_SESSION['profile_id']) && !in_array($_SESSION['profile_id'], [2, 3, 1]);
 
-if($mailAuto && ((($mail_send['open']=='') && ($_POST['modify'] || $_POST['quit']) && ($_SESSION['profile_id']!=2 && $_SESSION['profile_id']!=3 && $_SESSION['profile_id']!=1)) || $autoclose==1) && !$_POST['private'])
+// if($mailAuto && ((($mail_send['open']=='') && ($_POST['modify'] || $_POST['quit']) && ($_SESSION['profile_id']!=2 && $_SESSION['profile_id']!=3 && $_SESSION['profile_id']!=1)) || $autoclose==1) && !$_POST['private'])
+if($mailAuto && (($mailOpen && $modifyOrQuit && $session) || $autoclose==1) && !$postPrivate)
 {
 	if($usermail['mail'] || $rparameters['mail_cc'])
 	{
