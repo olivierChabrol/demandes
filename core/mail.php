@@ -353,7 +353,7 @@ if($rparameters['mail_txt_end'])
 	{
 		$link=', '.T_('ou consultez votre ticket sur ce lien').' : <a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
 	} else $link=".";
-	if(($techrow['lastname']!='Aucun') && ($techrow['phone']!='')) //case technician phone
+	if((isset($techrow['lastname']) && $techrow['lastname'] != 'Aucun') && isset($techrow['phone']) &&($techrow['phone']!='')) //case technician phone
 	{$mail_text_end=T_('Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre').' '.$techrow['firstname'].' '.$techrow['lastname'].' '.T_('au').' '.$techrow['phone'].' '.$link;}
 	elseif($rparameters['mail_link']==1) //case technician no phone
 	{$mail_text_end=T_("Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien : ").'<a href="https://'.$_SERVER['SERVER_NAME'] .'/index.php?page=ticket&id='.$_GET['id'].'">https://'.$_SERVER['SERVER_NAME'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';}
@@ -373,7 +373,7 @@ if(file_exists($template_filename))
 	//translate none values
 	if($userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
 	if($userrow['lastname']=='Aucun') {$userrow['lastname']=T_('Aucun');}
-	if($techrow['firstname']=='Aucun') {$techrow['firstname']=T_('Aucun');}
+	if(!isset($techrow['firstname']) || $techrow['firstname']=='Aucun') {$techrow['firstname']=T_('Aucun');}
 	if($techrow['lastname']=='Aucun') {$techrow['lastname']=T_('Aucun');}
 	if($catrow['name']=='Aucune') {$catrow['name']=T_('Aucune');}
 	//if($subcatrow['name']=='Aucune') {$subcatrow['name']=T_('Aucune');}
