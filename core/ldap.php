@@ -257,13 +257,15 @@ if($rparameters['ldap'])
 						$mail=$data[$i]['mail'][0];
 						/* /!\ origin *///$company=$data[$i]['company'][0];
 						/* /!\ new*/
-						$company=$data[$i]['supannaffectation'][0];
+						$company=1;//$data[$i]['supannaffectation'][0];
+						/*
 						foreach ($data[$i]['supannaffectation'] as $laboratory) {
 							$server_url = explode('.', (parse_url($rparameters['server_url'], PHP_URL_HOST)));
 							if (in_array(strtolower($laboratory), $server_url)) {
 								$company = $laboratory;
 							}
 						}
+						//*/
 						$fax=$data[$i]['facsimiletelephonenumber'][0];
 						$title=$data[$i]['title'][0];
 						/* /!\ origin *///$department=$data[$i]['department'][0];
