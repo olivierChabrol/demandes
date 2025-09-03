@@ -352,6 +352,7 @@ if($rparameters['ldap'])
 						}
 						$qry->closeCursor();
 						if($rparameters['debug']) echo "<b>|</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
+						echo "<b>l355 |</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
 						if($find_guid!='')
 						{
 							////update exist account
