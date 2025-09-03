@@ -244,7 +244,13 @@ if($rparameters['ldap'])
 						$telephonenumber=$data[$i]['telephonenumber'][0];
 						$mobile=$data[$i]['mobile'][0];
 						/* /!\ origin *///$streetaddress=$data[$i]['streetaddress'][0];
-						/* /!\ new */$streetaddress= ($data[$i]['departmentnumber']['count'] == 1) ? $data[$i]['departmentnumber'][0] : '';
+						if (isset($data[$i]['departmentnumber']['count']) && $data[$i]['departmentnumber']['count'] == 1) {
+							$streetaddress=$data[$i]['departmentnumber'][0];
+						}
+						else {
+							$streetaddress = '';
+						}
+						///* /!\ new */$streetaddress= ($data[$i]['departmentnumber']['count'] == 1) ? $data[$i]['departmentnumber'][0] : '';
 						/* /!\ origin *///$postalcode=$data[$i]['postalcode'][0];
 						/* /!\ new */$postalcode=substr($data[$i]['postalcode'][0],0,5);
 						$l=$data[$i]['l'][0];
