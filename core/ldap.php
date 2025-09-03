@@ -202,6 +202,16 @@ if($rparameters['ldap'])
 					print_r($data);
 					echo '</pre>';
 					*/
+					
+					$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
+					$qry->execute();
+					$row_user_db=$qry->fetch();
+					while($row=$qry->fetch())
+					{
+						$row_user_db[] = $row;
+					}
+
+					$qry->closeCursor();
 
 					//for each LDAP user
 					for ($i=0; $i < $cnt_ldap; $i++)
@@ -319,6 +329,42 @@ if($rparameters['ldap'])
 						////check if account not exist in GestSup user database
 						//1st check login
 						$find_guid=0;
+
+						foreach($row_user_db as $row) 
+						{
+							if(strtolower($LDAP_login)==strtolower($row['login']) && !$row['ldap_guid'] && $ldap_guid)
+							{
+									$qry2=$db->prepare("UPDATE `tusers` SET `ldap_guid`=:ldap_guid WHERE `id`=:id");
+									$qry2->execute(array('ldap_guid' => $ldap_guid,'id' => $row['id']));
+									$g_guid=$ldap_guid;
+							} 
+							else 
+							{
+								$g_guid=$row['ldap_guid'];
+							}
+							//echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
+							if($ldap_guid==$g_guid)
+							{
+								//get user data from GS db
+								$g_login=$row['login'];
+								$g_firstname=$row['firstname'];
+								$g_lastname=$row['lastname'];
+								$g_disable=$row['disable'];
+								$g_mail=$row['mail'];
+								$g_telephonenumber=$row['phone'];
+								$g_mobile=$row['mobile'];
+								$g_streetaddress=$row['address1'];
+								$g_postalcode=$row['zip'];
+								$g_l=$row['city'];
+								$g_company=$row['company'];
+								$g_fax=$row['fax'];
+								$g_title=$row['function'];
+								$g_guardianShip=$row['custom1'];
+
+								$find_guid=$ldap_guid;
+							}
+						}
+						/*
 						$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
 						$qry->execute();
 						while($row=$qry->fetch())
@@ -353,6 +399,7 @@ if($rparameters['ldap'])
 							}
 						}
 						$qry->closeCursor();
+						//*/
 						if($rparameters['debug']) echo "<b>|</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
 						echo "<b>l355 |</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
 						if($find_guid!='')
