@@ -289,6 +289,8 @@ if($rparameters['ldap'])
 							$ldap_guid=$entryuuid;
 						}
 
+						echo "<b>L292</b> - [DEBUG MODE] - sn=<b>$sn</b> givenname=<b>$givenname</b> GUID=<b>$GUID</b> ldap_guid=<b>$ldap_guid</b> <br/>";
+
 						//remove special characters
 						$UPN=str_replace(array('�','','','�ַ','M틣','˃','`'), '', $UPN);
 						$UAC=str_replace(array('�','','','�ַ','M틣','˃','`'), '', $UAC);
@@ -328,7 +330,7 @@ if($rparameters['ldap'])
 									$qry2->execute(array('ldap_guid' => $ldap_guid,'id' => $row['id']));
 									$g_guid=$ldap_guid;
 							} else {$g_guid=$row['ldap_guid'];}
-							echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
+							//echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
 							if($ldap_guid==$g_guid)
 							{
 								//get user data from GS db
