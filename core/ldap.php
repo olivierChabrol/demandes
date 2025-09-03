@@ -313,7 +313,7 @@ if($rparameters['ldap'])
 						//define login field
 						if($rparameters['ldap_login_field']=='UserPrincipalName' && $UPN){$LDAP_login=$UPN;} else {$LDAP_login=$samaccountname;}
 						if($rparameters['debug']) echo "[DEBUG MODE] - LDAP_SamAccountName=$samaccountname LDAP_UPN=$UPN LDAP_login=$LDAP_login ldap_guid=$ldap_guid LDAP_UAC=$UAC LDAP_company=$company LDAP_department=$departments[0]";
-
+						echo "<b>L316</b> - [DEBUG MODE] - LDAP_SamAccountName=$samaccountname LDAP_UPN=$UPN LDAP_login=$LDAP_login ldap_guid=$ldap_guid LDAP_UAC=$UAC LDAP_company=$company LDAP_department=$departments[0]";
 						////check if account not exist in GestSup user database
 						//1st check login
 						$find_guid=0;
