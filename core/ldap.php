@@ -110,7 +110,8 @@ if($rparameters['ldap'])
 	if(($_GET['action']=='simul') || ($_GET['action']=='run') || ($_GET['ldaptest']==1) || ($_GET['ldap']==1) || ($ldap_auth==1))
 	{
 		//LDAP connect
-		$ldap = ldap_connect($hostname,$rparameters['ldap_port']) or die("Unable to connect to LDAP server");
+		//$ldap = ldap_connect($hostname,$rparameters['ldap_port']) or die("Unable to connect to LDAP server");
+		$ldap = ldap_connect($hostname) or die("Unable to connect to LDAP server");
 		ldap_start_tls($ldap);
 		ldap_set_option($ldap, LDAP_OPT_NETWORK_TIMEOUT, 1);
 		ldap_set_option($ldap, LDAP_OPT_PROTOCOL_VERSION, 3);
