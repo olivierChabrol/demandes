@@ -594,6 +594,8 @@ if($rparameters['ldap'])
 													//create association
 													if($_GET['action']=='run')
 													{
+														echo "[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
+														echo "[DEBUG MODE] - SQL : INSERT INTO tusers_services (user_id,service_id) VALUES ((SELECT MAX(id) FROM tusers WHERE ldap_guid=:ldap_guid),:service_id)<br />[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
 														//create new association
 														$qry=$db->prepare("INSERT INTO tusers_services (user_id,service_id) VALUES ((SELECT MAX(id) FROM tusers WHERE ldap_guid=:ldap_guid),:service_id)");
 														$qry->execute(array('ldap_guid' => $find_guid,'service_id' => $row['id']));
