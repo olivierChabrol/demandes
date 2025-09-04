@@ -364,7 +364,7 @@ if($rparameters['ldap'])
 								$find_guid=$ldap_guid;
 							}
 						}
-						echo "<b>L367</b> - [DEBUG MODE] - g_login=$g_login g_company=$g_company find_guid=$find_guid <br />"
+						echo "<b>L367</b> - [DEBUG MODE] - g_login=$g_login g_company=$g_company find_guid=$find_guid <br />";
 						/*
 						//old code
 						$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
