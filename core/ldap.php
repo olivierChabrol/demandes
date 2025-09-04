@@ -206,19 +206,11 @@ if($rparameters['ldap'])
 					
 					$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
 					$qry->execute();
-					$row_user_db=$qry->fetch();
 					while($row=$qry->fetch())
 					{
 						$row_user_db[] = $row;
 					}
-
 					$qry->closeCursor();
-					
-					foreach($row_user_db as $row) 
-					{
-						//echo "<b>L360</b> - [DEBUG MODE] - Checking user in DB : login=<b>$row[login]</b> ldap_guid=<b>$row[ldap_guid]</b> <br/>";
-						var_dump($row);
-					}
 
 					//for each LDAP user
 					for ($i=0; $i < $cnt_ldap; $i++)
