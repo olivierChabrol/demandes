@@ -181,6 +181,11 @@ if($rparameters['ldap'])
 					$qry->execute();
 					$cnt_gestsup=$qry->fetch();
 					$qry->closeCursor();
+					
+					foreach($row_user_db as $row) 
+					{
+						echo "<b>L360</b> - [DEBUG MODE] - Checking user in DB : login=<b>$row[login]</b> ldap_guid=<b>$row[ldap_guid]</b> <br/>";
+					}
 
 					$sync_date=date('d/m/Y H:i:s');
 
