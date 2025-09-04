@@ -206,9 +206,12 @@ if($rparameters['ldap'])
 					
 					$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
 					$qry->execute();
+					$row_user_db = array();
 					while($row=$qry->fetch())
 					{
-						$row_user_db[] = $row;
+						if(isset($row['login']) && isset($row['ldap_guid']) && isset($row['login']) != '' && isset($row['ldap_guid']) != '') {
+							$row_user_db[] = $row;
+						}
 					}
 					$qry->closeCursor();
 
