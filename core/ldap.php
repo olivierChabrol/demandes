@@ -340,14 +340,17 @@ if($rparameters['ldap'])
 									$qry2=$db->prepare("UPDATE `tusers` SET `ldap_guid`=:ldap_guid WHERE `id`=:id");
 									$qry2->execute(array('ldap_guid' => $ldap_guid,'id' => $row['id']));
 									$g_guid=$ldap_guid;
+									echo "<b>L343</b> - [DEBUG MODE] - strtolower(LDAP_login)==strtolower(row['login']) && !row['ldap_guid'] && ldap_guid<br/>";
 							} 
 							else 
 							{
 								$g_guid=$row['ldap_guid'];
+									echo "<b>L348</b> - [DEBUG MODE] - else<br/>";
 							}
 							//echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
 							if($ldap_guid==$g_guid)
 							{
+								echo "<b>L353</b> - [DEBUG MODE] - ldap_guid==g_uid==$g_guid<br/>";
 								//get user data from GS db
 								$g_login=$row['login'];
 								$g_firstname=$row['firstname'];
