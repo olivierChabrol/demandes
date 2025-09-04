@@ -335,18 +335,31 @@ if($rparameters['ldap'])
 						foreach($row_user_db as $row) 
 						{
 							//echo "<b>L360</b> - [DEBUG MODE] - Checking user in DB : login=<b>$row[login]</b> ldap_guid=<b>$row[ldap_guid]</b> <br/>";
+							/*
 							if(strtolower($LDAP_login)==strtolower($row['login']) && !$row['ldap_guid'] && $ldap_guid)
 							{
 									$qry2=$db->prepare("UPDATE `tusers` SET `ldap_guid`=:ldap_guid WHERE `id`=:id");
 									$qry2->execute(array('ldap_guid' => $ldap_guid,'id' => $row['id']));
 									$g_guid=$ldap_guid;
-									echo "<b>L343</b> - [DEBUG MODE] - strtolower(LDAP_login)==strtolower(row['login']) && !row['ldap_guid'] && ldap_guid<br/>";
 							} 
 							else 
 							{
 								$g_guid=$row['ldap_guid'];
-									echo "<b>L348</b> - [DEBUG MODE] - else<br/>";
 							}
+							//*/
+							if(strtolower($LDAP_login)==strtolower($row['login'])) {
+								if( !$row['ldap_guid'] && $ldap_guid)
+								{
+										$qry2=$db->prepare("UPDATE `tusers` SET `ldap_guid`=:ldap_guid WHERE `id`=:id");
+										$qry2->execute(array('ldap_guid' => $ldap_guid,'id' => $row['id']));
+										$g_guid=$ldap_guid;
+								} 
+								else 
+								{
+									$g_guid=$row['ldap_guid'];
+								}
+							} 
+
 							//echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
 							if($ldap_guid==$g_guid)
 							{
