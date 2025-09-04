@@ -299,7 +299,7 @@ if($rparameters['ldap'])
 							$ldap_guid=$entryuuid;
 						}
 
-						echo "<b>L292</b> - [DEBUG MODE] - sn=<b>$sn</b> givenname=<b>$givenname</b> GUID=<b>$GUID</b> ldap_guid=<b>$ldap_guid</b> <br/>";
+						echo "<b>L302</b> - [DEBUG MODE] - sn=<b>$sn</b> givenname=<b>$givenname</b> GUID=<b>$GUID</b> ldap_guid=<b>$ldap_guid</b> <br/>";
 
 						//remove special characters
 						$UPN=str_replace(array('�','','','�ַ','M틣','˃','`'), '', $UPN);
@@ -325,7 +325,7 @@ if($rparameters['ldap'])
 						//define login field
 						if($rparameters['ldap_login_field']=='UserPrincipalName' && $UPN){$LDAP_login=$UPN;} else {$LDAP_login=$samaccountname;}
 						if($rparameters['debug']) echo "[DEBUG MODE] - LDAP_SamAccountName=$samaccountname LDAP_UPN=$UPN LDAP_login=$LDAP_login ldap_guid=$ldap_guid LDAP_UAC=$UAC LDAP_company=$company LDAP_department=$departments[0]";
-						echo "<b>L316</b> - [DEBUG MODE] - LDAP_SamAccountName=<b>$samaccountname</b> LDAP_UPN=$UPN LDAP_login=<b>$LDAP_login</b> ldap_guid=<b>$ldap_guid</b> LDAP_UAC=$UAC LDAP_company=$company LDAP_department=$departments[0]<br/>";
+						echo "<b>L328</b> - [DEBUG MODE] - LDAP_SamAccountName=<b>$samaccountname</b> LDAP_UPN=$UPN LDAP_login=<b>$LDAP_login</b> ldap_guid=<b>$ldap_guid</b> LDAP_UAC=$UAC LDAP_company=$company LDAP_department=$departments[0]<br/>";
 						////check if account not exist in GestSup user database
 						//1st check login
 						$find_guid=0;
@@ -364,7 +364,9 @@ if($rparameters['ldap'])
 								$find_guid=$ldap_guid;
 							}
 						}
+						echo "<b>L367</b> - [DEBUG MODE] - g_login=$g_login g_company=$g_company find_guid=$find_guid <br />"
 						/*
+						//old code
 						$qry=$db->prepare("SELECT `id`,`login`,`firstname`,`lastname`, `disable`,`mail`, `phone`,`mobile`,`mobile`,`address1`,`zip`,`city`,`company`,`fax`,`function`,`custom1`,`ldap_guid` FROM `tusers`");
 						$qry->execute();
 						while($row=$qry->fetch())
@@ -401,7 +403,7 @@ if($rparameters['ldap'])
 						$qry->closeCursor();
 						//*/
 						if($rparameters['debug']) echo "<b>|</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
-						echo "<b>l355 |</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
+						echo "<b>L405</b> - [DEBUG MODE] | GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
 						if($find_guid!='')
 						{
 							////update exist account
