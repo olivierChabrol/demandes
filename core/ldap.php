@@ -425,7 +425,7 @@ if($rparameters['ldap'])
 						//*/
 						if($rparameters['debug']) echo "<b>|</b> GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
 						echo "<b>L405</b> - [DEBUG MODE] | GS_login=$g_login GS_company=$g_company find_guid=$find_guid <br />";
-						if($find_guid!='')
+						if($find_guid!='' && $find_guid!=0)
 						{
 							////update exist account
 							/* /!\ origin *///if(($UAC=='66050' || $UAC=='514' || $UAC=='546' || $UAC=='66082') && ($g_disable==0)) //66050=Disabled Password Doesn't Expire, 514=Disabled Account, 546=Disabled Password Not Require, 66082=Disabled Password Doesn't Expire & Not Require
