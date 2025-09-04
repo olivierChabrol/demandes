@@ -209,7 +209,7 @@ if($rparameters['ldap'])
 					$row_user_db = array();
 					while($row=$qry->fetch())
 					{
-						if(isset($row['login']) && isset($row['ldap_guid']) && isset($row['login']) != '' && isset($row['ldap_guid']) != '') {
+						if(isset($row['login']) && isset($row['ldap_guid']) && $row['login'] != '' && $row['ldap_guid'] != '') {
 							$row_user_db[] = $row;
 						}
 					}
