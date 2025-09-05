@@ -365,7 +365,7 @@ if($rparameters['ldap'])
 							//echo "<b>L331</b> - [DEBUG MODE] - ldap_guid=<b>$ldap_guid</b> g_guid=<b>$g_guid</b> <br/>";
 							if($ldap_guid==$g_guid)
 							{
-								echo "<b>L353</b> - [DEBUG MODE] - ldap_guid==g_uid==$g_guid<br/>";
+								//echo "<b>L353</b> - [DEBUG MODE] - ldap_guid==g_uid==$g_guid<br/>";
 								//get user data from GS db
 								$g_login=$row['login'];
 								$g_firstname=$row['firstname'];
@@ -667,8 +667,8 @@ if($rparameters['ldap'])
 													//create association
 													if($_GET['action']=='run')
 													{
-														echo "[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
-														echo "[DEBUG MODE] - SQL : INSERT INTO tusers_services (user_id,service_id) VALUES ((SELECT MAX(id) FROM tusers WHERE ldap_guid=:ldap_guid),:service_id)<br />[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
+														//echo "[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
+														//echo "[DEBUG MODE] - SQL : INSERT INTO tusers_services (user_id,service_id) VALUES ((SELECT MAX(id) FROM tusers WHERE ldap_guid=:ldap_guid),:service_id)<br />[DEBUG MODE] - ldap_guid=$find_guid service_id=".$row['id']."<br />";
 														//create new association
 														$qry=$db->prepare("INSERT INTO tusers_services (user_id,service_id) VALUES ((SELECT MAX(id) FROM tusers WHERE ldap_guid=:ldap_guid),:service_id)");
 														$qry->execute(array('ldap_guid' => $find_guid,'service_id' => $row['id']));

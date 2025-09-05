@@ -16,6 +16,7 @@ if(!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) $_SERVER['HTTP_ACCEPT_LANGUAGE'] = 
 if($_SESSION['user_id'])
 {
 	//get language from user profile 
+	if(!isset($ruser['language'])) { $ruser['language'] = 'fr_FR'; }
 	$_GET['lang']=$ruser['language'];
 } else {
 	//get language from browser 

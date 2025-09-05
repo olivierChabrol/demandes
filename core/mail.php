@@ -371,14 +371,14 @@ if(file_exists($template_filename))
 	$mail_template=file_get_contents($template_filename);
 
 	//translate none values
-	if($userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
-	if($userrow['lastname']=='Aucun') {$userrow['lastname']=T_('Aucun');}
+	if(!isset($userrow['firstname']) || $userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
+	if(!isset($userrow['lastname']) || $userrow['lastname']=='Aucun') {$userrow['lastname']=T_('Aucun');}
 	if(!isset($techrow['firstname']) || $techrow['firstname']=='Aucun') {$techrow['firstname']=T_('Aucun');}
-	if($techrow['lastname']=='Aucun') {$techrow['lastname']=T_('Aucun');}
-	if($catrow['name']=='Aucune') {$catrow['name']=T_('Aucune');}
+	if(!isset($techrow['lastname']) || $techrow['lastname']=='Aucun') {$techrow['lastname']=T_('Aucun');}
+	if(!isset($catrow['name']) || $catrow['name']=='Aucune') {$catrow['name']=T_('Aucune');}
 	//if($subcatrow['name']=='Aucune') {$subcatrow['name']=T_('Aucune');}
 	//if($subcatrow['name']==0) {$subcatrow['name']=T_('Aucune');}
-	if($subcatrow['name']) {$subcatrow['name']=T_('Aucune');}
+	if(!isset($subcatrow['name']) || $subcatrow['name']) {$subcatrow['name']=T_('Aucune');}
 
 	//replace mail tag
 	$mail_template=str_replace('#mail_color_title#', $rparameters['mail_color_title'], $mail_template);

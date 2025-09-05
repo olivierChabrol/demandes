@@ -20,6 +20,11 @@ require_once('models/tool/mailer.php');
 use Models\Tool\Sql;
 use Models\Tool\Mailer;
 
+const PROFILE_ID_TECHNICIAN = 0;
+const PROFILE_ID_USER = 1;
+const PROFILE_ID_ADMIN = 2;
+const PROFILE_ID_GUEST = 3;
+const PROFILE_ID_SUPER_ADMIN = 4;
 
 //initialize variables
 if(!isset($guestid)) $guestid = 1;

@@ -149,7 +149,7 @@ class UserRequest
 
         if (
             !isset($datas[$from.'-address-save']) &&
-            (isset($save['savePersonalAddress']) && $save['savePersonalAddress']) || $datas[$from] != 'personal_address' ||
+            (isset($save['savePersonalAddress']) && $save['savePersonalAddress']) || (isset($datas[$from]) && $datas[$from] != 'personal_address') ||
             (isset($datas[$from.'-address-default']) && $this->getPersonalAddressDefault() == $datas[$from.'-address-default']) ||
             ($this->getPersonalAddressDefault() && $this->isFreeAddress($datas[$target]))
         ) {

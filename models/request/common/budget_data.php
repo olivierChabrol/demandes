@@ -35,9 +35,14 @@ class BudgetData
         return $this->name;
     }
 
+    /**
+     * @param string $name
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
