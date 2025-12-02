@@ -1393,40 +1393,55 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     </div>
                     <div class="col-sm-9">
                     <input id="amount_estimated" class="form-control col-5" type="text" name="amount_estimated" value="<?php echo $missionOrder->getEstimatedAmount() ?>">
-<script>
-document.getElementById('amount_estimated').addEventListener('input', function (e) {
-    let value = e.target.value;
+                    <script>
+                        document.getElementById('amount_estimated').addEventListener('input', function (e) {
+                            let value = e.target.value;
 
-    // Remplace la virgule par un point
-    value = value.replace(',', '.');
+                            // Remplace la virgule par un point
+                            value = value.replace(',', '.');
 
-    // Supprime tout caractère non numérique ou point
-    value = value.replace(/[^0-9.]/g, '');
+                            // Supprime tout caractère non numérique ou point
+                            value = value.replace(/[^0-9.]/g, '');
 
-    // Empêche plusieurs points
-    const parts = value.split('.');
-    if (parts.length > 2) {
-        value = parts[0] + '.' + parts.slice(1).join('');
-    }
+                            // Empêche plusieurs points
+                            const parts = value.split('.');
+                            if (parts.length > 2) {
+                                value = parts[0] + '.' + parts.slice(1).join('');
+                            }
 
-    // Limite à deux décimales
-    if (parts.length === 2) {
-        parts[1] = parts[1].slice(0, 2); // garde seulement 2 chiffres après la virgule
-        value = parts[0] + '.' + parts[1];
-    }
+                            // Limite à deux décimales
+                            if (parts.length === 2) {
+                                parts[1] = parts[1].slice(0, 2); // garde seulement 2 chiffres après la virgule
+                                value = parts[0] + '.' + parts[1];
+                            }
 
-    e.target.value = value;
-});
+                            e.target.value = value;
+                        });
 
-// Validation avant soumission
-document.querySelector('form').addEventListener('submit', function (e) {
-    const input = document.getElementById('amount_estimated').value;
-    if (isNaN(parseFloat(input))) {
-        e.preventDefault();
-        alert('Veuillez saisir un nombre valide.');
-    }
-});
-</script>
+                        // Formatage automatique au blur + valeur par défaut si vide
+                        input.addEventListener('blur', function (e) {
+                            if (!e.target.value) {
+                                e.target.value = '0.00';
+                            } else {
+                                e.target.value = parseFloat(e.target.value).toFixed(2);
+                            }
+                        });
+
+
+                        // Validation avant soumission
+                        document.querySelector('form').addEventListener('submit', function (e) {
+                            const input = document.getElementById('amount_estimated').value;
+
+                            if (!input.value) {
+                                input.value = '0.00'; // Défaut si vide
+                            }
+
+                            if (isNaN(parseFloat(input))) {
+                                e.preventDefault();
+                                alert('Veuillez saisir un nombre valide.');
+                            }
+                        });
+                    </script>
 
                     </div>
                 </div>
