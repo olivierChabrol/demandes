@@ -2505,17 +2505,17 @@ class Style
             $value = trim($value);
             $prop = "";
             if (strtolower($value) === "inherit") {
-                $this->__set("border_${side}_color", "inherit");
-                $this->__set("border_${side}_style", "inherit");
-                $this->__set("border_${side}_width", "inherit");
+                $this->__set("border_{$side}_color", "inherit");
+                $this->__set("border_{$side}_style", "inherit");
+                $this->__set("border_{$side}_width", "inherit");
                 continue;
             } elseif (in_array($value, self::$BORDER_STYLES)) {
-                $prop = "border_${side}_style";
+                $prop = "border_{$side}_style";
             } elseif ($value === "0" || preg_match("/[.0-9]+(?:px|pt|pc|em|ex|%|in|mm|cm)|(?:thin|medium|thick)/", $value)) {
-                $prop = "border_${side}_width";
+                $prop = "border_{$side}_width";
             } else {
                 // must be color
-                $prop = "border_${side}_color";
+                $prop = "border_{$side}_color";
             }
 
             if ($important) {

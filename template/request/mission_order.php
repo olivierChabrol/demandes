@@ -1392,7 +1392,42 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         </label>
                     </div>
                     <div class="col-sm-9">
-              <input id="amount_estimated" class="form-control col-5" type="text" name="amount_estimated" value="<?php echo $missionOrder->getEstimatedAmount() ?>">
+                    <input id="amount_estimated" class="form-control col-5" type="text" name="amount_estimated" value="<?php echo $missionOrder->getEstimatedAmount() ?>">
+<script>
+document.getElementById('amount_estimated').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Remplace la virgule par un point
+    value = value.replace(',', '.');
+
+    // Supprime tout caractère non numérique ou point
+    value = value.replace(/[^0-9.]/g, '');
+
+    // Empêche plusieurs points
+    const parts = value.split('.');
+    if (parts.length > 2) {
+        value = parts[0] + '.' + parts.slice(1).join('');
+    }
+
+    // Limite à deux décimales
+    if (parts.length === 2) {
+        parts[1] = parts[1].slice(0, 2); // garde seulement 2 chiffres après la virgule
+        value = parts[0] + '.' + parts[1];
+    }
+
+    e.target.value = value;
+});
+
+// Validation avant soumission
+document.querySelector('form').addEventListener('submit', function (e) {
+    const input = document.getElementById('amount_estimated').value;
+    if (isNaN(parseFloat(input))) {
+        e.preventDefault();
+        alert('Veuillez saisir un nombre valide.');
+    }
+});
+</script>
+
                     </div>
                 </div>
 
