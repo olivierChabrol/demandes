@@ -153,8 +153,16 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					$filter="(uid=$login)";
 					$res = ldap_search($ldap, $basedn, $filter);
 					$first = ldap_first_entry($ldap, $res);
-					$dn = ldap_get_dn($ldap, $first);
-					$ldapbind = @ldap_bind($ldap, $dn, $pass);
+					// On s'assure qu'une entrée a bien été trouvée (l'utilisateur existe)
+        			if ($first !== false) {
+						$dn       = ldap_get_dn($ldap, $first);
+						$ldapbind = @ldap_bind($ldap, $dn, $pass);
+					} else {
+						// Gérer le cas où l'utilisateur n'existe vraiment pas
+						// Par exemple : définir un message d'erreur ou refuser la connexion
+						$ldapbind = false;
+					}
+					
 					if(!$ldapbind)
 					{
 						if($rparameters['debug']) {echo DisplayMessage('error',"Unable to bind on OpenLDAP Server (dn: $dn filter: cn=$login basedn: $basedn)");}
