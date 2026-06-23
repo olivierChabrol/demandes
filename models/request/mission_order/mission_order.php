@@ -655,23 +655,23 @@ class MissionOrder extends BaseRequest
     public function checkForm(array &$datas, array $files): bool
     {
 	$invitation = (isset($datas['om-for-guest'])) ? True : False;
-        if (!parent::checkForm($datas, $files)) {
-            return false;
-        }
-        if (!$this->checkCollectiveMission($datas)) {
-            return false;
-        }
-        if (!$this->checkTypeMission($datas)) {
-            return false;
-        }
-        if (!($datas['reason-for-mission'])) {
-            echo DisplayMessage('error',T_("Le champ Motif de la mission est requis"));
-            return false;
-        }
-        if (!$datas['date-start']) {
-            echo DisplayMessage('error',T_("Le champ Date et heure de départ est requis"));
-            return false;
-	}
+    if (!parent::checkForm($datas, $files)) {
+        return false;
+    }
+    if (!$this->checkCollectiveMission($datas)) {
+        return false;
+    }
+    if (!$this->checkTypeMission($datas)) {
+        return false;
+    }
+    if (!($datas['reason-for-mission'])) {
+        echo DisplayMessage('error',T_("Le champ Motif de la mission est requis"));
+        return false;
+    }
+    if (!$datas['date-start']) {
+        echo DisplayMessage('error',T_("Le champ Date et heure de départ est requis"));
+        return false;
+    }
 	if (!$invitation) {
           if (!$datas['place-start-input']) {
               echo DisplayMessage('error',T_("Le champ Lieu de départ est requis"));

@@ -299,6 +299,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
                             <label class="mb-0" for="guest-birthdate">
+                                <?php echo '<i id="user_warning" title="' . T_('La date de naissance de l\'invité doit être renseignée') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
                                 <?php echo T_('Date de naissance de l\'invité'); ?> :
                             </label>
                         </div>
@@ -1557,8 +1558,8 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
 <script>
     $(document).ready(function () {
         var typeMissionCopy = $("input[name='type-mission']:checked").val();
-	var formDisabled = $('#form-disabled').val();
-	var budgetValidator = {
+	    var formDisabled = $('#form-disabled').val();
+	    var budgetValidator = {
 <?php
         foreach(MissionOrder::getBudgetValidator() as $key=>$value) {
           echo '"'.$key.'":"'.$value.'",';
@@ -1967,20 +1968,31 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 <?php
       }
       else { ?>
+            $got_errors = false;
+            if (!$('#guest-birthdate').val()){
+                sendError("<?php echo T_('Le champ Date de naissance de l\'invité est requis'); ?>");
+                $got_errors = true;
+            }
+            
             if (!$('#guest-mail').val()){
                 sendError("<?php echo T_('Le champ Mail de l\'invité est requis'); ?>");
-                return false;
+                $got_errors = true;
             }
 <?php }
 ?>
             if(!checkColloquiums()) {
-                return false;
+                $got_errors = true;
             }
 
-            //on re-enable le champs valideur si il a été disabled (dans le cas on a utilisé les valideurs fixes)
-            $('#validators').attr('disabled',false);
+            if ($got_errors) {
+                return false;
+            }
+            else {
+                //on re-enable le champs valideur si il a été disabled (dans le cas on a utilisé les valideurs fixes)
+                $('#validators').attr('disabled',false);
 
-            return true;
+                return true;
+            }
         }
 
         function initAddressDefault(from, target) {
