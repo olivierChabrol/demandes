@@ -285,72 +285,75 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 		</div>
 -->
 
-                <div id="guest-group" class="d-none">
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest">
-                                <?php echo T_('Prénom et Nom de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <input id="guest-name" type="text" name="guest-name" value="<?php echo $missionOrder->getGuestName() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest-birthdate">
-                                <?php echo '<i id="user_warning" title="' . T_('La date de naissance de l\'invité doit être renseignée') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
-                                <?php echo T_('Date de naissance de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <input id="guest-birthdate" type="date" name="guest-birthdate" value="<?php if ($missionOrder->getGuestBirthDate()) echo $missionOrder->getGuestBirthDate()->format('Y-m-d') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest-phonenumber">
-                                <?php echo T_('Numéro de téléphone de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <input id="guest-phonenumber" type="tel" name="guest-phonenumber" value="<?php echo $missionOrder->getGuestPhoneNumber() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest-mail">
-                                <?php echo '<i id="user_warning" title="' . T_('Le mail de l\'invité doit être renseigné') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
-                                <?php echo T_('Mail de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <input id="guest-mail" type="text" name="guest-mail" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest">
-                                <?php echo T_('Nom et adresse du laboratoire de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <textarea type="text" class="form-control mt-2 col-12" id="guest-labo" name="guest-labo" value="" <?php echo ($disabled) ? 'disabled' : '' ?>/><?php echo $missionOrder->getGuestLabo() ?></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                            <label class="mb-0" for="guest">
-                                <?php echo T_('Pays du laboratoire de l\'invité'); ?> :
-                            </label>
-                        </div>
-                        <div class="col-sm-9 mt-2">
-                            <input id="guest-country" type="text" name="guest-country" value="<?php echo $missionOrder->getGuestCountry() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-                        </div>
-                    </div>
-                    
-                </div>
-                
+<div id="guest-group" class="d-none">
+    
+    <hr class="my-4 border-secondary">
+    <h4 class="mb-4 text-primary">
+        <i class="fa fa-user mr-2"></i><?php echo T_('Informations relatives à l\'invité'); ?>
+    </h4>
+
+    <div class="form-group row">
+        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+            <label class="mb-0" for="guest-name">
+                <?php echo T_('Prénom et Nom de l\'invité'); ?> :
+            </label>
+        </div>
+        <div class="col-sm-5 mt-2">
+            <input id="guest-name" type="text" name="guest-name" class="form-control" value="<?php echo $missionOrder->getGuestName() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+        </div>
+    </div>
+
+    <div class="form-group row align-items-center">
+        <div class="col-md-4 form-group mb-0">
+            <label class="mb-2" for="guest-birthdate">
+                <?php echo '<i title="' . T_('La date de naissance de l\'invité doit être renseignée') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130 mr-1"></i>'; ?>
+                <?php echo T_('Date de naissance de l\'invité'); ?> :
+            </label>
+            <input id="guest-birthdate" type="date" name="guest-birthdate" class="form-control" value="<?php if ($missionOrder->getGuestBirthDate()) echo $missionOrder->getGuestBirthDate()->format('Y-m-d') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+        </div>
+
+        <div class="col-md-4 form-group mb-0">
+            <label class="mb-2" for="guest-phonenumber">
+                <i class="fa fa-exclamation-triangle text-danger-m2 text-130 mr-1" title="<?php echo T_('Le numéro de téléphone de l\'invité doit être renseigné'); ?>"></i>
+                <?php echo T_('Numéro de téléphone de l\'invité'); ?> :
+            </label>
+            <input id="guest-phonenumber" type="tel" name="guest-phonenumber" class="form-control" value="<?php echo $missionOrder->getGuestPhoneNumber() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+        </div>
+
+        <div class="col-md-4 form-group mb-0">
+            <label class="mb-2" for="guest-mail">
+                <i class="fa fa-exclamation-triangle text-danger-m2 text-130 mr-1" title="<?php echo T_('Le mail de l\'invité doit être renseigné'); ?>"></i>
+                <?php echo T_('Mail de l\'invité'); ?> :
+            </label>
+            <input id="guest-mail" type="email" name="guest-mail" class="form-control" value="<?php echo $missionOrder->getGuestMail() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+        </div>
+    </div>
+
+    <div class="form-group row mt-3">
+        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+            <label class="mb-0" for="guest-labo">
+                <?php echo T_('Nom et adresse du laboratoire de l\'invité'); ?> :
+            </label>
+        </div>
+        <div class="col-sm-9 mt-2">
+            <textarea class="form-control col-12" id="guest-labo" name="guest-labo" rows="2" <?php echo ($disabled) ? 'disabled' : '' ?>><?php echo $missionOrder->getGuestLabo() ?></textarea>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-2 col-form-label text-sm-right pr-0">
+            <label class="mb-0" for="guest-country">
+                <?php echo T_('Pays du laboratoire de l\'invité'); ?> :
+            </label>
+        </div>
+        <div class="col-sm-4 mt-2">
+            <input id="guest-country" type="text" name="guest-country" class="form-control" value="<?php echo $missionOrder->getGuestCountry() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+        </div>
+    </div>
+
+    <hr class="my-4 border-secondary">
+    
+</div>
 <!--
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
@@ -1969,6 +1972,12 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
       }
       else { ?>
             $got_errors = false;
+
+            if (!$('#guest-phonenumber').val()){
+                sendError("<?php echo T_('Le champ Numéro de téléphone de l\'invité est requis'); ?>");
+                $got_errors = true;
+            }
+
             if (!$('#guest-birthdate').val()){
                 sendError("<?php echo T_('Le champ Date de naissance de l\'invité est requis'); ?>");
                 $got_errors = true;
