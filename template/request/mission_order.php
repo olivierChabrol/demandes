@@ -1944,6 +1944,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 sendError("<?php echo T_('Le champ Motif de la mission est requis'); ?>");
                 return false;
 	    }
+        var got_errors = false;
 <?php
       if($invitation == 0) {
 ?>
@@ -1971,29 +1972,28 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 <?php
       }
       else { ?>
-            $got_errors = false;
 
             if (!$('#guest-phonenumber').val()){
                 sendError("<?php echo T_('Le champ Numéro de téléphone de l\'invité est requis'); ?>");
-                $got_errors = true;
+                got_errors = true;
             }
 
             if (!$('#guest-birthdate').val()){
                 sendError("<?php echo T_('Le champ Date de naissance de l\'invité est requis'); ?>");
-                $got_errors = true;
+                got_errors = true;
             }
             
             if (!$('#guest-mail').val()){
                 sendError("<?php echo T_('Le champ Mail de l\'invité est requis'); ?>");
-                $got_errors = true;
+                got_errors = true;
             }
 <?php }
 ?>
             if(!checkColloquiums()) {
-                $got_errors = true;
+                got_errors = true;
             }
 
-            if ($got_errors) {
+            if (got_errors) {
                 return false;
             }
             else {
