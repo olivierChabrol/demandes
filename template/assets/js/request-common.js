@@ -69,9 +69,11 @@ $(document).ready(function() {
       });
     }
 
-    $("#add_thread_secret_btn").on('click', function(event) {
-      $("#add_thread_secret_user_only").val("1");
-    });
+    if($('#add_thread_secret_btn').length > 0) {
+      $("#add_thread_secret_btn").on('click', function(event) {
+        $("#add_thread_secret_user_only").val("1");
+      });
+    }
 
     $(".files-to-upload-group").on('click', '.fa-trash', function(event) {
       if(confirm('Êtes-vous sur de vouloir supprimer ce fichier ?'))

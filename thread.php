@@ -382,8 +382,9 @@ if($rright['ticket_thread_add'])
 				echo '<button class="btn btn-sm btn-success ml-2" title="'.$button.'" name="modify" value="modify" type="submit" id="add_thread_btn"><i class="pr-1 fa fa-plus"></i>'.$button.'</button>';
 				
 				
-				//add button for private message
-				if($context->isLabUser()){
+				//add button for private message for labuser only, case if is an invitation
+				// if(isset($globalrow['om_for_guest']) && $globalrow['om_for_guest']) {
+				if($context->isLabUser() && isset($globalrow['om_for_guest']) && $globalrow['om_for_guest']){
 					echo '<button class="btn btn-sm btn-warning ml-2" title="'.T_('Ajouter un commentaire visible que par le gestionaire').'" name="modify" value="modify" type="submit" id="add_thread_secret_btn"><i class="pr-1 fa fa-plus"></i>'.$buttonPrivate.'</button>';
 					echo '<input type="hidden" id="add_thread_secret_user_only" name="userOnly" value="0" />';
 				}
