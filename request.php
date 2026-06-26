@@ -157,16 +157,19 @@ if (isset($_POST['type-form'])) {
         /* Save Purchase Order */
             $request = $purchaseOrder;
     } else if ($_POST['type-form'] == 'mission-order') {
-	if ($_POST['om-for-guest'] == 0) { 
-	  if ($userRequest->checkForm($_POST)) {
-            /* Save Mission Order */
-	    $request = $missionOrder;
-	  }
-	}
-	// if invitation dont check userForm
-	else {
-		$request = $missionOrder;
-	}
+
+        //if ($_POST['om-for-guest'] == 0 || $_POST['om-for-guest'] == '') { 
+        if ($_POST['om-for-guest'] == 0 ) { 
+
+            if ($userRequest->checkForm($_POST)) {
+                    /* Save Mission Order */
+                $request = $missionOrder;
+            }
+        }
+        // if invitation dont check userForm
+        else {
+            $request = $missionOrder;
+        }
     }
 
     if ($request && $request->checkForm($_POST, $_FILES)) {
@@ -191,8 +194,6 @@ if (isset($_POST['type-form'])) {
             ? $request->setStatus(BaseRequest::STATUS_VALID)
             : $request->setStatus(BaseRequest::STATUS_WAITING_VALIDATION, true);
 
-
-
         if ($request->isMissionOrder()) {
             $guardianShip = '';
 
@@ -209,6 +210,7 @@ if (isset($_POST['type-form'])) {
         }
 
         $request->save();
+        
         //TODO-supprimer la ligne ci-dessous qui est l'ancienne methode
         //File::upload($request, $_FILES);
         if(file_exists($_POST['uploaddir']))
@@ -229,9 +231,9 @@ if (isset($_POST['type-form'])) {
             }
 
             $request->canNotification();
-	}
-	$request->save();
-
+	    }
+        // 26/06/2024 - Olivier - On commente la ligne ci-dessous pour ne pas sauvegarder la demande si elle est invalide à verifier
+        //$request->save();
     }
 }
 

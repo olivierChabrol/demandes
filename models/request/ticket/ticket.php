@@ -248,8 +248,8 @@ class Ticket extends BaseRequest
             ->setDescription($html)
             ->setDateStart($missionOrder->getDateStart())
 	    ->insert();
-	$missionOrder->setIncidentId($this->getId());
-	$missionOrder->save();
+	    $missionOrder->setIncidentId($this->getId());
+	    $missionOrder->save();
 
 
         $pdf = $this->buildPdfMissionOrder($missionOrder, $html);

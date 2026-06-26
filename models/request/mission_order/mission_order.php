@@ -381,7 +381,16 @@ class MissionOrder extends BaseRequest
 
     public function setDateStart(string $dateStart, string $format = 'Y-m-d H:i:s'): self
     {
-        $this->dateStart = \DateTime::createFromFormat($format, $dateStart);
+        $dateFormatted = str_replace('/', '-', $dateStart);
+        //$this->dateStart = \DateTime::createFromFormat($format, $dateStart);
+        try {
+            // Le constructeur gère tout seul la présence ou l'absence des secondes
+            $this->dateStart = new \DateTime($dateFormatted);
+        } catch (\Exception $e) {
+
+            // Utile pour lever une erreur propre si la chaîne n'est vraiment pas une date
+            throw new \InvalidArgumentException("Format de date invalide : " . $dateStart);
+        }
         return $this;
     }
 
@@ -458,7 +467,16 @@ class MissionOrder extends BaseRequest
 
     public function setDateReturn(string $dateReturn, string $format = 'Y-m-d H:i:s'): self
     {
-        $this->dateReturn = \DateTime::createFromFormat($format, $dateReturn);
+        $dateFormatted = str_replace('/', '-', $dateReturn);
+        //$this->dateStart = \DateTime::createFromFormat($format, $dateStart);
+        try {
+            // Le constructeur gère tout seul la présence ou l'absence des secondes
+            $this->dateReturn = new \DateTime($dateFormatted);
+        } catch (\Exception $e) {
+
+            // Utile pour lever une erreur propre si la chaîne n'est vraiment pas une date
+            throw new \InvalidArgumentException("Format de date invalide : " . $dateReturn);
+        }
         return $this;
     }
 
@@ -802,7 +820,7 @@ class MissionOrder extends BaseRequest
         $offMarketAccommodation = (isset($datas['off-market-accommodation'])) ? $datas['off-market-accommodation'] : null;
         $advanceRequest = (isset($datas['advance-request'])) ? $datas['advance-request'] : null;
         $transportMarket = (isset($datas['transport-market'])) ? $datas['transport-market'] : null;
-
+        
         $this
             ->setFirstMissionRequest($firstMissionRequest)
             ->setOmForGuest($omForGuest)
@@ -823,11 +841,12 @@ class MissionOrder extends BaseRequest
             ->setAmountMax($datas['amount_max'])
             ->setEstimatedAmount($datas['amount_estimated'])
             ->setRealAmount($datas['amount_real']);
-	if ($omForGuest == null) {
-		$this->setPlaceStart($datas['place-start-input'])
+        
+	    if ($omForGuest == null) {
+		    $this->setPlaceStart($datas['place-start-input'])
                 ->setPlaceReturnDifferent($placeReturnDifferent)
                 ->setPlaceReturn($datas['place-return-input'])
-		->setCityStay($datas['city-stay'])
+		        ->setCityStay($datas['city-stay'])
                 ->setCountryStay($datas['country-stay'])
                 ->setOffMarketAccomodation($offMarketAccommodation)
                 ->setAdvanceRequest($advanceRequest)
@@ -1105,12 +1124,13 @@ class MissionOrder extends BaseRequest
 
     public function save(): self
     {
+        //die('Script atteint save 0<br/>');
         if ($this->getId() && !$this->getIsModel()) {
             $this->update();
         } else {
             $this->insert();
         }
-
+        
         $this
             ->deleteValidators()
             ->updateValidators()
@@ -1164,7 +1184,8 @@ class MissionOrder extends BaseRequest
                 :personal_vehicle_numberplate, :personal_vehicle_horsepower, :personal_vehicle_trip_mileage, :other_fees, :colloquiums, :colloquiums_registration_fees, :colloquiums_purchasing_card, :comment,
                 :status
             )";*/
-            /*TEST*/$query = "
+            /*TEST*/
+            $query = "
                 INSERT INTO `dmission_order` (
                 `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `guest_name`, `guest_mail`,`guest_birthdate`, `guest_phone_number`, `guest_labo`, `guest_country`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
                 `date_start`, `place_start`, `date_return`, `place_return_different`, `place_return`, `city_stay`, `country_stay`, `private_stay`, `private_stay_date_begin`, `private_stay_date_end`,
@@ -1182,8 +1203,8 @@ class MissionOrder extends BaseRequest
 
         $type_mission = $this->getTypeMission();
         if($this->isOmForGuest()) {
-          $type_mission = self::TYPE_MISSION_WITH_FEES;
-	}
+            $type_mission = self::TYPE_MISSION_WITH_FEES;
+	    }
         $params = [
             'id_owner' => $this->getOwner()->getId(),
             'title' => $this->getTitle(),
@@ -1235,7 +1256,7 @@ class MissionOrder extends BaseRequest
 	        'incident_id' => $this->getIncidentId(),
             'status' => $this->getStatus()
         ];
-
+        
         $this->sql->query($query, $params, false, true);
 
         $this->setId($this->sql->getLastInsertId());

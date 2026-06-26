@@ -144,7 +144,7 @@ class Mailer
 
     public function setIsHtml(bool $isHtml): self
     {
-        $this->mailer->IsHTML = $isHtml;
+        $this->mailer->isHTML($isHtml);
         return $this;
     }
 
