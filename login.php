@@ -394,7 +394,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 														echo '
 														
 														<div class="form-group col-md-6 offset-md-3">
-															<button type="submit" onclick="submit()" name="submit" class="btn btn-primary btn-block px-4 btn-bold mt-2 mb-4">
+															<button type="submit" name="submit" id="btn-login" class="btn btn-primary btn-block px-4 btn-bold mt-2 mb-4">
 																<i class="fa fa-sign-in-alt"></i>
 																'.T_('Connexion').'
 															</button>
@@ -415,7 +415,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 															</div>
 														</div>
 														<div class="form-group col-md-4 offset-md-4">
-															<button type="submit" class="btn btn-primary btn-block px-4 btn-bold mt-2 mb-2">
+															<button type="submit" id="btn-login-token" name="btn-login-token" class="btn btn-primary btn-block px-4 btn-bold mt-2 mb-2">
 																<i class="fa fa-door-open"></i>
 																'.T_('Valider').'
 															</button>
