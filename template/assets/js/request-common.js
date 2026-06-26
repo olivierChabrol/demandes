@@ -43,6 +43,35 @@ $(document).ready(function() {
         //$(this).parent().children('.files-to-upload-group').html(htmlFileToUpload);
     });
 
+    
+    if($('#date-start').length > 0) {
+      $('#date-start').datetimepicker({
+          // Définit la date du jour avec l'heure fixée à 08:00:00
+          defaultDate: moment().hours(8).minutes(0).seconds(0),
+      });
+
+      // Écoute le changement de date sur le champ de départ
+      $('#date-start').on('change.datetimepicker', function (e) {
+          // On vérifie qu'une date a bien été sélectionnée (pour éviter les erreurs si on vide le champ)
+          if (e.date) {
+              // 1. On clone la date de départ pour ne pas la modifier par erreur
+              // 2. On fixe l'heure à 23h00 (heures: 23, minutes: 0, secondes: 0)
+              var returnDate = e.date.clone().hours(23).minutes(0).seconds(0);
+              
+              // On assigne cette nouvelle date au champ de retour
+              $('#date-return').datetimepicker('date', returnDate);
+          }
+      });
+
+      $('#date-return').datetimepicker({
+          // Définit la date du jour avec l'heure fixée à 08:00:00
+          defaultDate: moment().hours(23).minutes(0).seconds(0),
+      });
+    }
+
+    $("#add_thread_secret_btn").on('click', function(event) {
+      $("#add_thread_secret_user_only").val("1");
+    });
 
     $(".files-to-upload-group").on('click', '.fa-trash', function(event) {
       if(confirm('Êtes-vous sur de vouloir supprimer ce fichier ?'))

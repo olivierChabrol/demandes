@@ -60,6 +60,7 @@ $firstMissionRequest = $request->isFirstMissionRequest() ? T_('Oui') : T_('Non')
 $omForGuest = $request->isOmForGuest() ? T_('Oui') : T_('Non');
 $collectiveMission = $request->isCollectiveMission() ? T_('Oui') : T_('Non');
 $typeMission = '';
+$withoutFees = FALSE;
 
 switch ($request->getTypeMission()) {
     case MissionOrder::TYPE_MISSION_WITH_FEES:
@@ -67,6 +68,7 @@ switch ($request->getTypeMission()) {
         break;
     case MissionOrder::TYPE_MISSION_WITHOUT_FEES:
         $typeMission = T_('Sans frais');
+        $withoutFees = TRUE;
         break;
     case MissionOrder::TYPE_MISSION_STANDING_MISSION_ORDER:
         $typeMission = T_('Ordre de mission permanent');
@@ -86,18 +88,7 @@ $rows[] = [
     "title" => 'OM pour un invité',
     "value" => $omForGuest
 ];
-/*
-$rows[] = [
-    "title" => 'Mission collective',
-    "value" => $collectiveMission
-];
-if ($request->isCollectiveMission()) {
-    $rows[] = [
-        "title" => 'Liste des personnes concernées pour la mission',
-        "value" => $request->getListPeopleInvolvedAssignment()
-    ];
-}
-//*/
+
 $rows[] = [
     "title" => 'Type de mission',
     "value" => $typeMission
@@ -186,7 +177,7 @@ if($request->getGuestName()!=NULL){
     echo "</h2>
     </div>";
 
-    $guestBirthDate = $request->getGuestBirthDate()==null?null:$request->getGuestBirthDate()->format('d/m/Y');
+    $guestBirthDate = $request->getGuestBirthDate()==null?"":$request->getGuestBirthDate()->format('d/m/Y');
     $rows = [];
     $rows[] = [
         "title" => 'Nom de l\'invité',
@@ -228,11 +219,8 @@ if($request->getGuestName()!=NULL){
     }
 
     echo '</table>';
-} 
-
-
+}
 ?>
-
 
 <div class="display: block; clear: both; width: 100%">
     <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
@@ -241,10 +229,8 @@ if($request->getGuestName()!=NULL){
 </div>
 
 <?php
-$privateStay = $request->getPrivateStay()->getIsPrivateStay() ? 'Oui' : 'Non';
-$placeReturn = $request->isPlaceReturnDifferent()
-    ? $request->getPlaceReturn()
-    : $request->getPlaceStart();
+    $privateStay = $request->getPrivateStay()->getIsPrivateStay() ? 'Oui' : 'Non';
+    $placeReturn = $request->isPlaceReturnDifferent() ? $request->getPlaceReturn() : $request->getPlaceStart();
 
 $rows = [];
 $rows[] = [

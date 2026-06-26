@@ -294,6 +294,9 @@ if(file_exists($template_filename))
 	if(!$staterow) {
   	  $mail_template=str_replace('#ticket_state#', T_($staterow['name']), $mail_template);
 	}
+	else {
+  	  $mail_template=str_replace('#ticket_state#', "NaN", $mail_template);
+	}
 	$mail_template=str_replace('#ticket_priority#', $priorityrow['name'], $mail_template);
 	$mail_template=str_replace('#ticket_criticality#', $criticalityrow['name'], $mail_template);
 	if($placerow != null && isset($placerow['name'])) {

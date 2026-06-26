@@ -73,26 +73,6 @@
                                 </a>
                             </center>
                         </th>
-<!--
-                        <th>
-                            <center>
-                                <a class="text-primary-m2" title="Date depot" href="<?php echo $urlAction . '&order-value=status&order-direction='.$orderDirectionNext ?>">
-                                    <i class="fa fa-adjust text-primary-m2"></i><br>
-                                    <?php echo T_("Date de dépôt") ?>
-                                </a>
-                            </center>
-			</th>
--->
-<!--
-                        <th>
-                            <center>
-                                <a class="text-primary-m2" title="Date alerte" href="<?php echo $urlAction . '&order-value=status&order-direction='.$orderDirectionNext ?>">
-                                    <i class="fa fa-adjust text-primary-m2"></i><br>
-                                    <?php echo T_("Date de dernière notification") ?>
-                                </a>
-                            </center>
-			</th>
--->
                         <th>
                             <center>
                                 <a class="text-primary-m2" title="Date depart" href="<?php echo $urlAction . '&order-value=status&order-direction='.$orderDirectionNext ?>">

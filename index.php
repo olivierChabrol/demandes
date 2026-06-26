@@ -14,9 +14,11 @@
 require 'vendor/autoload.php';
 require('core/init_get.php');
 require('core/functions.php');
+require_once('models/tool/AppContext.php');
 require_once('models/tool/sql.php');
 require_once('models/tool/mailer.php');
 
+use Models\Tool\AppContext;
 use Models\Tool\Sql;
 use Models\Tool\Mailer;
 
@@ -28,6 +30,7 @@ const PROFILE_ID_SUPER_ADMIN = 4;
 
 //initialize variables
 if(!isset($guestid)) $guestid = 1;
+if(!isset($context)) $context = new AppContext();
 if(!isset($currentpage)) $currentpage = '';
 if(!isset($_SERVER['HTTP_USER_AGENT'])) $_SERVER['HTTP_USER_AGENT'] = '';
 if(!isset($_COOKIE['token'])) $_COOKIE['token'] = '';
@@ -214,6 +217,8 @@ else {
             $missionData = $qry->fetch();
             $_GET['id'] = $missionData['incident_id'];
             $_SESSION['user_id'] = $guestid;
+			
+			$context->setGuestToken($_GET["token"]);
             $qry = $db->prepare("SELECT * FROM `trights` WHERE profile=:profile");
             $qry->execute(array('profile' => 1));
             $rright = $qry->fetch();
@@ -355,6 +360,7 @@ if($_SESSION['user_id'] && isset($_POST['query'])){
 
 		<!-- JQuery script -->
 		<script type="text/javascript" src="./components/jquery/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script>
 
         <link rel="stylesheet" href="./components/jquery-ui/jquery-ui.css">
         <script src="./components/jquery-ui/jquery-ui.js"></script>

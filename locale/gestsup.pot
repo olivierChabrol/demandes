@@ -6646,6 +6646,15 @@ msgstr ""
 msgid "Ajouter "
 msgstr ""
 
+#: thread.php:336
+msgid "Ajouter en privé"
+msgstr ""
+
+
+#: thread.php:336
+msgid "Ajouter un commentaire visible que par le gestionaire"
+msgstr ""
+
 #: thread.php:347
 msgid "Permet de masquer cet élément pour le demandeur, sur le ticket et dans les mails"
 msgstr ""

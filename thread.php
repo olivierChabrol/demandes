@@ -113,63 +113,80 @@ if($_GET['action']!='new') //case for edit ticket not new ticket
 									//check if user have right to read thread case of private message
 									if($rright['ticket_thread_private'] || !$row['private'])
 									{
-										echo '
-										<div class="row pos-rel my-0">
-											<div class="pb-3 pt-2 d-flex '; if(!$mobile) {echo 'flex-grow-1';} echo '">
-												<div class="mr-3 align-self-start align-self-sm-center mt-2 mt-sm-0 pos-rel">
-													<img src="images/avatar/'.$ruserprofile['img'].'" class="radius-round border-2 p-1px brc-primary-m1 bgc-white w-5 h-5">
-												</div>
-												<div class="media-body py-2 px-3 radius-1 flex-grow-1 bgc-primary-l5 brc-primary-l2 border-1">
-													<div class="d-flex justify-content-between">
-														<span class="pb-2 text-blue-d1 text-95">
-															<i class="fa fa-user text-info mr-1"></i><b>'.$author['firstname'].' '.$author['lastname'].'</b>&nbsp;
-															';
-															if(!$mobile){echo '<i class="fa fa-clock text-grey-m2 mr-1"></i><span class="text-grey-m2 text-90">'.$date_thread.'</span>';}
-															echo '
-														</span>
-														<span class="text-90">
-															';
-															//private thread button
-															if($rright['ticket_thread_private']) {
-																if($row['private'])
-																{
-																	echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&unlock_thread='.$row['id'].'#down"><i title="'.T_('Message non visible pour le demandeur').'" class="mr-1 fa fa-eye-slash text-130 text-danger"></i></a>&nbsp;';
-																}else{
-																	echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&lock_thread='.$row['id'].'#down"><i title="'.T_('Message visible pour le demandeur').'" class="mr-1 fa fa-eye text-130 text-success"></i></a>&nbsp;';																			
-																}
-															} 
-															//edit thread button
-															if($row['author']==$_SESSION['user_id']) 
-															{
-																if($rright['ticket_thread_edit']) {
-																	$href = isset($_GET['token']) ?
-																	"./index.php?token=".$_GET['token']."&threadedit=".$row['id'] :
-																	"./index.php?page=ticket&id=".$_GET['id']."&threadedit=".$row['id']."&userid=".$_GET['userid']."&state=".$_GET['state']."&category=".$_GET['category']."&subcat=".$_GET['subcat']."&viewid=".$_GET['viewid']."#down";
-																	echo '<a href="'.$href.'"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';
-																}
-															}else{
-																if($rright['ticket_thread_edit_all']) {echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&threadedit='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';}
-															}
-															//delete thread button
-															if($rright['ticket_thread_delete']) {echo '<a onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer ce texte ?').'\');" href="./index.php?page=ticket&id='.$_GET['id'].'&threaddelete='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Supprimer').'" class="fa fa-trash text-danger text-120"></i></a>';}
-															echo '
-														</span>
+										$defaultBackgoundColor = 'bgc-primary-l5';
+										$defaultStrokeColor = 'brc-primary-l2';
+										$defaultTextColor = 'text-blue-d1';
+										if($row['userOnly'] == 1) {
+											$defaultBackgoundColor = 'bgc-warning-l5';
+											$defaultStrokeColor = 'brc-warning-l2';
+											$defaultTextColor = 'text-orange-d1';
+										}
+										if($row['userOnly'] == 0 || $context->isLabUser())
+										{
+											echo '
+											<div class="row pos-rel my-0">
+												<div class="pb-3 pt-2 d-flex '; if(!$mobile) {echo 'flex-grow-1';} echo '">
+													<div class="mr-3 align-self-start align-self-sm-center mt-2 mt-sm-0 pos-rel">
+														<img src="images/avatar/'.$ruserprofile['img'].'" class="radius-round border-2 p-1px brc-primary-m1 bgc-white w-5 h-5">
 													</div>
-													<div '; if($mobile) {echo 'style="width:210px"';} else {echo 'style="max-width:1200px"';} echo ' class="text-dark-m2 text-90">
-														';
-														//insert html link if http is detected in text
-														if((preg_match('#http://#',$row['text']) || preg_match('#https://#',$row['text'])) && !preg_match('#href#',$row['text']))
-														{
-															$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i'; 
-															$row['text'] = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $row['text']);
-														}
-														echo $row['text'];
-														echo '
+													<div class="media-body py-2 px-3 radius-1 flex-grow-1 '.$defaultBackgoundColor.' '.$defaultStrokeColor.' border-1">
+														<div class="d-flex justify-content-between">
+															<span class="pb-2 '.$defaultTextColor.' text-95">
+																<i class="fa fa-user text-info mr-1"></i><b>'.$author['firstname'].' '.$author['lastname'].'"</b>&nbsp;
+																';
+																if($row['userOnly'] == 1) {
+																echo '
+																<!-- Ajout de l icône d information avec le message au survol -->
+																<i class="fa fa-info-circle text-warning-d1 mr-1" title="Ce message est en orange car il s\'agit d\'un message non visible par l\'invitée."></i>';
+																}
+
+																if(!$mobile){echo '<i class="fa fa-clock text-grey-m2 mr-1"></i><span class="text-grey-m2 text-90">'.$date_thread.'</span>';}
+																echo '
+															</span>
+															<span class="text-90">
+																';
+																//private thread button
+																if($rright['ticket_thread_private']) {
+																	if($row['private'])
+																	{
+																		echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&unlock_thread='.$row['id'].'#down"><i title="'.T_('Message non visible pour le demandeur').'" class="mr-1 fa fa-eye-slash text-130 text-danger"></i></a>&nbsp;';
+																	}else{
+																		echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&lock_thread='.$row['id'].'#down"><i title="'.T_('Message visible pour le demandeur').'" class="mr-1 fa fa-eye text-130 text-success"></i></a>&nbsp;';																			
+																	}
+																} 
+																//edit thread button
+																if($row['author']==$_SESSION['user_id']) 
+																{
+																	if($rright['ticket_thread_edit']) {
+																		$href = isset($_GET['token']) ?
+																		"./index.php?token=".$_GET['token']."&threadedit=".$row['id'] :
+																		"./index.php?page=ticket&id=".$_GET['id']."&threadedit=".$row['id']."&userid=".$_GET['userid']."&state=".$_GET['state']."&category=".$_GET['category']."&subcat=".$_GET['subcat']."&viewid=".$_GET['viewid']."#down";
+																		echo '<a href="'.$href.'"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';
+																	}
+																}else{
+																	if($rright['ticket_thread_edit_all']) {echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&threadedit='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Modifier').'" class="mr-1 fa fa-pencil-alt text-warning text-120"></i></a>&nbsp;';}
+																}
+																//delete thread button
+																if($rright['ticket_thread_delete']) {echo '<a onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer ce texte ?').'\');" href="./index.php?page=ticket&id='.$_GET['id'].'&threaddelete='.$row['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&category='.$_GET['category'].'&subcat='.$_GET['subcat'].'&viewid='.$_GET['viewid'].'#down"><i title="'.T_('Supprimer').'" class="fa fa-trash text-danger text-120"></i></a>';}
+																echo '
+															</span>
+														</div>
+														<div '; if($mobile) {echo 'style="width:210px"';} else {echo 'style="max-width:1200px"';} echo ' class="text-dark-m2 text-90">
+															';
+															//insert html link if http is detected in text
+															if((preg_match('#http://#',$row['text']) || preg_match('#https://#',$row['text'])) && !preg_match('#href#',$row['text']))
+															{
+																$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i'; 
+																$row['text'] = preg_replace($url, '<a href="$0" target="_blank" title="$0">$0</a>', $row['text']);
+															}
+															echo $row['text'];
+															echo '
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-										';
+											';
+										}
 									}
 									
 								}
@@ -333,6 +350,7 @@ if($rright['ticket_thread_add'])
 	} else {$thread_text='';}
 	//button name
 	if(!$mobile){$button=T_('Ajouter ');} else {$button='';}
+	if(!$mobile){$buttonPrivate=T_('Ajouter en privé');} else {$buttonPrivate='';}
 	//detect <br> for wysiwyg transition from 2.9 to 3.0
 	$findbr=stripos($thread_text, '<br>');
 	if($findbr===false) {$text=nl2br($thread_text);} else {$text=$row[0];}
@@ -361,8 +379,15 @@ if($rright['ticket_thread_add'])
 					if($rparameters['mail_auto_user_modify']!=0) {echo '<i class="pl-1 fa fa-question-circle text-info" title="'.T_('Le demandeur ne recevra pas de mail concernant ce message').'."></i>';}
 					echo '<br><br>';
 				}
+				echo '<button class="btn btn-sm btn-success ml-2" title="'.$button.'" name="modify" value="modify" type="submit" id="add_thread_btn"><i class="pr-1 fa fa-plus"></i>'.$button.'</button>';
+				
+				
+				//add button for private message
+				if($context->isLabUser()){
+					echo '<button class="btn btn-sm btn-warning ml-2" title="'.T_('Ajouter un commentaire visible que par le gestionaire').'" name="modify" value="modify" type="submit" id="add_thread_secret_btn"><i class="pr-1 fa fa-plus"></i>'.$buttonPrivate.'</button>';
+					echo '<input type="hidden" id="add_thread_secret_user_only" name="userOnly" value="0" />';
+				}
 				echo '
-				<button class="btn btn-sm btn-success ml-2" title="'.$button.'" name="modify" value="modify" type="submit" id="add_thread_btn"><i class="pr-1 fa fa-plus"></i>'.$button.'</button>
 			</td>
 		</tr>
 	</table>

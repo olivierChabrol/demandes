@@ -1141,10 +1141,11 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                     </div>
                     <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
+							<?php echo '<i id="warning_empty_category" title="'.T_('Le champ Date de naissance de l\'invité est requis').'" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
                             <label class="mb-0" for="guest_birthdate"><?php echo T_('Date de naissance de l\'invité');?> :</label>
                         </div>
                         <div class="col-sm-5">
-                            <input class="form-control col-10" name="guest_birthdate" id="guest_birthdate" type="date"
+                            <input class="form-control col-10" required="required" onchange="CheckMandatory();" name="guest_birthdate" id="guest_birthdate" type="date"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
                                    value="<?php if(isset($_POST['guest_birthdate'])) {echo htmlspecialchars($_POST['guest_birthdate']);} else {echo htmlspecialchars($globalrow['guest_birthdate']);} ?>"
                             />
@@ -1810,8 +1811,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 <!-- datetime picker scripts  -->
 <script type="text/javascript" src="./components/moment/min/moment.min.js"></script>
 <?php
-	if(isset($ruser['language'])) {
-		
+	if(isset($ruser['language'])) {		
 		if($ruser['language']=='fr_FR') {echo '<script src="./components/moment/locale/fr.js" charset="UTF-8"></script>';}
 		if($ruser['language']=='de_DE') {echo '<script src="./components/moment/locale/de.js" charset="UTF-8"></script>';}
 		if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/es.js" charset="UTF-8"></script>';}

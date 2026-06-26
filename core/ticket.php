@@ -726,10 +726,13 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 					$qry->execute(array('text' => $_POST['resolution'],'id' => $_GET['threadedit']));
 				}
 			}
-		}elseif($_POST['resolution']) {
+		}
+		// Ajout d'un nouveau commentaire au ticket
+		elseif($_POST['resolution']) {
 			//generate new thread for this ticket
-			$qry=$db->prepare("INSERT INTO `tthreads` (`ticket`,`date`,`author`,`text`,`type`,`private`) VALUES (:ticket,:date,:author,:text,'0',:private)");
-			$qry->execute(array('ticket' => $_GET['id'],'date' => $datetime,'author' => $_SESSION['user_id'],'text' => $_POST['resolution'],'private' => $_POST['private']));
+			$privateComment = isset($_POST['userOnly']) && $_POST['userOnly'] == 1 ? 1 : 0;
+			$qry=$db->prepare("INSERT INTO `tthreads` (`ticket`,`date`,`author`,`text`,`type`,`private`,`userOnly`) VALUES (:ticket,:date,:author,:text,'0',:private,:privateComment)");
+			$qry->execute(array('ticket' => $_GET['id'],'date' => $datetime,'author' => $_SESSION['user_id'],'text' => $_POST['resolution'],'private' => $_POST['private'],'privateComment' => $privateComment));
 			//unread for user if technician add comment
 			if($_POST['technician']==$_SESSION['user_id'])
 			{

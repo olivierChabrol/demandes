@@ -16,6 +16,7 @@ if(!isset($userid)) $userid = '';
 if(!isset($techread)) $techread = '';
 if(!isset($find_login)) $find_login = '';
 if(!isset($profile)) $profile = '';
+
 if(!isset($newpassword)) $newpassword = '';
 if(!isset($salt)) $salt= '';
 if(!isset($dcgen)) $dcgen= '';
