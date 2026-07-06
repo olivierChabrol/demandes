@@ -4,12 +4,14 @@
 /*************************************/
 
 // Fonction pour écrire dans le fichier de log
-function debugLog($message) {
-    $logFile = __DIR__ . '/debug_upload.log';
-    $date = date('Y-m-d H:i:s');
-    // print_r avec "true" permet de formater les tableaux (comme $_FILES) en texte
-    $text = "[$date] " . print_r($message, true) . "\n";
-    file_put_contents($logFile, $text, FILE_APPEND);
+function debugLog($message, $trace = false) {
+    if ($trace) {
+      $logFile = __DIR__ . '/debug_upload.log';
+      $date = date('Y-m-d H:i:s');
+      // print_r avec "true" permet de formater les tableaux (comme $_FILES) en texte
+      $text = "[$date] " . print_r($message, true) . "\n";
+      file_put_contents($logFile, $text, FILE_APPEND);
+    }
 }
 
 // 1. Initialisation de la réponse (évite le crash du json_encode à la fin)
