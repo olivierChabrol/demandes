@@ -98,6 +98,28 @@ class UserRequest
         return $this;
     }
 
+public function checkForm(array &$datas): bool
+{
+    if (
+        !$this->isFreeAddress($datas['place-start'] ?? null) && !$this->isFreeAddress($datas['place-return'] ?? null) && isset($datas['place-return-different']) &&
+        isset($datas['place-start-address-default']) && $datas['place-start-address-default'] && isset($datas['place-return-address-default'])
+    ) {
+        if (($datas['place-start-input'] ?? null) !== ($datas['place-return-input'] ?? null)) {
+            echo DisplayMessage('error',T_("Vous avez sélectionné deux adresses par défaut différentes"));
+            return false;
+        }
+    }
+    if (!isset($datas['place-return-different'])) {
+        $datas['place-return-input'] = null;
+        $datas['place-return-address-save'] = null;
+        $datas['place-return-address-default'] = null;
+        $datas['place-return'] = null;
+    }
+
+    return true;
+}
+
+/*
     public function checkForm(array &$datas): bool
     {
         if (
@@ -118,6 +140,7 @@ class UserRequest
 
         return true;
     }
+    //*/
 
     public function getDatas(array $datas): self
     {
@@ -137,6 +160,83 @@ class UserRequest
         );
     }
 
+    private function getDatasPersonalAddress(array $datas, string $from, string $target, array $save): bool
+    {
+        $canSaveAddressDefault = $this->canSaveAddressDefault($datas, $from, $target);
+        $savePersonalAddress = false;
+
+        if (isset($datas[$from.'-address-save']) && $datas[$from.'-address-save']) {
+            // address save is set, we get data to personal address
+            $this->setPersonalAddress($datas[$from.'-input'] ?? null);
+        }
+
+        if (
+            !isset($datas[$from.'-address-save']) &&
+            (isset($save['savePersonalAddress']) && $save['savePersonalAddress']) || (isset($datas[$from]) && $datas[$from] != 'personal_address') ||
+            (isset($datas[$from.'-address-default']) && $this->getPersonalAddressDefault() == $datas[$from.'-address-default']) ||
+            ($this->getPersonalAddressDefault() && $this->isFreeAddress($datas[$target] ?? null))
+        ) {
+            // we cannot get datas for personnal address because:
+            // - address is free address
+            // - address was saved previously
+            // - address is business address
+            // - address to save is the same as now
+            // - adress save is not set
+            return false;
+        }
+
+        if (
+            $this->getPersonalAddressDefault() &&
+            !isset($datas[$from.'-address-default']) &&
+            !isset($datas[$target.'-address-default'])
+        ) {
+            // we cannot save default address because we have a personnal address set and address start and address return is not set
+            $canSaveAddressDefault = false;
+        }
+
+        if ($canSaveAddressDefault && !$this->getPersonalAddressDefault() && isset($datas[$from.'-address-default'])) {
+            // we set personal address by default
+            $this->setPersonalAddressDefault(true);
+            $this->setBusinessAddressDefault(null);
+            $savePersonalAddress = true;
+        } else if ($canSaveAddressDefault && $this->getPersonalAddressDefault()) {
+            // we have already a personnal address by default
+            $this->setPersonalAddressDefault(false);
+            $savePersonalAddress = true;
+        }
+
+        return $savePersonalAddress;
+    }
+    private function getDatasBusinessAddress(array $datas, string $from, string $target, array $save): bool
+    {
+        $canSaveAddressDefault = $this->canSaveAddressDefault($datas, $from, $target);
+        $saveBusinessAddress = false;
+
+        if (
+            !$canSaveAddressDefault || (isset($save['saveBusinessAddress']) && $save['saveBusinessAddress']) || ($datas[$from] ?? null) == 'personal_address' ||
+            $this->isFreeAddress($datas[$from] ?? null) || !isset($datas[$from]) || !$datas[$from] || (isset($datas[$from.'-address-default']) && $this->getBusinessAddressDefault() == $datas[$from.'-address-default']) ||
+            ($this->getBusinessAddressDefault() && $this->isFreeAddress($datas[$target] ?? null))
+        ) {
+            // we cannot get datas for business address because:
+            // - address is free address
+            // - address was saved previously
+            // - address is personal address
+            // - address to save is the same as now
+            // - adress save is not set
+            return false;
+        }
+
+        if (isset($datas[$from.'-address-default'])) {
+            // we set business address by default
+            $this->setBusinessAddressDefault($datas[$from.'-address-default']);
+            $this->setPersonalAddressDefault(false);
+            $saveBusinessAddress = true;
+        }
+
+        return $saveBusinessAddress;
+    }
+
+    /*
     private function getDatasPersonalAddress(array $datas, string $from, string $target, array $save): bool
     {
         $canSaveAddressDefault = $this->canSaveAddressDefault($datas, $from, $target);
@@ -213,6 +313,7 @@ class UserRequest
 
         return $saveBusinessAddress;
     }
+//*/
 
     private function canSaveAddressDefault(array $datas, string $from, string $target): bool
     {

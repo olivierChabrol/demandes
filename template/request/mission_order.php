@@ -125,7 +125,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         </label>
                     </div>
                     <div class="col-sm-9">
-                        <input id="title" type="text" name="title" value="<?php echo $missionOrder->getTitle() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+                        <input id="title" type="text" name="title" value="<?php echo htmlspecialchars($missionOrder->getTitle(), ENT_QUOTES, 'UTF-8') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                     </div>
 		</div>
                 <div class="form-group row">
@@ -152,7 +152,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 <!-- <div id="reason-for-mission-editor" contenteditable style="min-height:100px; max-width:775px"> -->
                                     </div>
                                     <input id="reason-for-mission" type="hidden" name="reason-for-mission"
-                                        value="<?php echo $missionOrder->getReasonForMission() ?>"/>
+                                        value="<?php echo htmlspecialchars($missionOrder->getReasonForMission(), ENT_QUOTES, 'UTF-8') ?>"/>
                                 </td>
                             </tr>
                         </table>
@@ -560,7 +560,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                         <div id="additional-budget-information-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
                                         </div>
                                         <input id="additional-budget-information" type="hidden" name="additional-budget-information"
-                                               value="<?php echo $missionOrder->getAdditionalBudgetInformation() ?>"
+                                               value="<?php echo htmlspecialchars($missionOrder->getAdditionalBudgetInformation(), ENT_QUOTES, 'UTF-8') ?>"
                                         />
                                     </td>
                                 </tr>
@@ -583,7 +583,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                 echo 'col-7';
                             } else {
                                 echo 'col-5';
-                            } ?>" id="care-organization" name="care-organization" value="<?php echo $missionOrder->getCareOrganization() ?>"
+                            } ?>" id="care-organization" name="care-organization" value="<?php echo htmlspecialchars($missionOrder->getCareOrganization(), ENT_QUOTES, 'UTF-8') ?>"
                                 <?php echo ($disabled) ? 'disabled' : '' ?>
                             />
                         </div>
@@ -625,7 +625,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                          style="min-height:100px; max-width:775px">
                                     </div>
                                     <input id="reason-for-mission" type="hidden" name="reason-for-mission"
-                                        value="<?php echo $missionOrder->getReasonForMission() ?>"/>
+                                        value="<?php echo htmlspecialchars($missionOrder->getReasonForMission(), ENT_QUOTES, 'UTF-8') ?>"/>
                                 </td>
                             </tr>
                         </table>
@@ -675,14 +675,14 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         </label>
                     </div>
                     <div class="col-sm-6">
-                        <?php
+<?php
                         $businessAddressSelected = null;
-			$personalAddressSelected = $userOwner->isPersonalAddress($missionOrder->getPlaceStart());
+			            $personalAddressSelected = $userOwner->isPersonalAddress($missionOrder->getPlaceStart());
                         $personalAddress = $userRequest->getPersonalAddress(); 
-			if ($userRequest->getId() != $userRequest->getPersonalAddress()) {
-				$personalAddressSelected = $userOwner->getPersonalAddress() == $missionOrder->getPlaceStart();
-				$personalAddress = $userOwner->getPersonalAddress();
-			}
+                        if ($userRequest->getId() != $userRequest->getPersonalAddress()) {
+                            $personalAddressSelected = $userOwner->getPersonalAddress() == $missionOrder->getPlaceStart();
+                            $personalAddress = $userOwner->getPersonalAddress();
+                        }
 //			echo "<br> moi ID : ".$missionOrder->getOwner()->getId();
 //echo "<br> userRequest ID : ".$userRequest->getId();
 //echo "<br> Adresse utilisateur identifie : ".$userRequest->getPersonalAddress();
@@ -700,7 +700,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         ?>
                         <select autofocus class="form-control chosen-select" id="place-start" name="place-start" <?php echo ($disabled) ? 'disabled' : '' ?>>
                             <option value="<?php if ($freeAddress) { echo 'free_address'; } ?>"><?php if ($freeAddress) { echo $missionOrder->getPlaceStart(); } ?></option>
-                            <option data-address="<?php echo $personalAddress; ?>" value="personal_address" <?php if ($personalAddressSelected || (!$missionOrder->getPlaceStart() && $userRequest->getPersonalAddressDefault())) {
+                            <option data-address="<?php echo htmlspecialchars($personalAddress, ENT_QUOTES, 'UTF-8'); ?>" value="personal_address" <?php if ($personalAddressSelected || (!$missionOrder->getPlaceStart() && $userRequest->getPersonalAddressDefault())) {
                                 echo 'selected';
                             } ?>><?php echo T_('Adresse personnelle'); ?></option>
                             <?php
@@ -821,7 +821,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         ?>
                         <select autofocus class="form-control chosen-select" id="place-return" name="place-return" <?php echo ($disabled) ? 'disabled' : '' ?>>
                             <option value="<?php if ($freeAddress) { echo 'free_address'; } ?>"><?php if ($freeAddress) { echo $missionOrder->getPlaceReturn(); } ?></option>
-                            <option data-address="<?php echo $userRequest->getPersonalAddress(); ?>" value="personal_address" <?php if ($personalAddressSelected || (!$missionOrder->getPlaceReturn() && $userRequest->getPersonalAddressDefault())) {
+                            <option data-address="<?php echo htmlspecialchars($userRequest->getPersonalAddress(), ENT_QUOTES, 'UTF-8'); ?>" value="personal_address" <?php if ($personalAddressSelected || (!$missionOrder->getPlaceReturn() && $userRequest->getPersonalAddressDefault())) {
                                 echo 'selected';
                             } ?>><?php echo T_('Adresse personnelle'); ?></option>
                             <?php
@@ -875,7 +875,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                 echo 'col-7';
                             } else {
                                 echo 'col-5';
-                            } ?>" id="city-stay" name="city-stay" value="<?php echo $missionOrder->getCityStay() ?>"
+                            } ?>" id="city-stay" name="city-stay" value="<?php echo htmlspecialchars($missionOrder->getCityStay(), ENT_QUOTES, 'UTF-8'); ?>" placeholder="<?php echo $missionOrder->getCityStay() ?>"
                             <?php echo ($disabled) ? 'disabled' : '' ?>
                         />
                     </div>
@@ -896,7 +896,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                 echo 'col-5';
                             } ?>" id="country-stay" name="country-stay"
                             <?php echo ($disabled) ? 'disabled' : '' ?>
-                            value="<?php echo $missionOrder->getCountryStay() ?>"/>
+                            value="<?php echo htmlspecialchars($missionOrder->getCountryStay(), ENT_QUOTES, 'UTF-8'); ?>" placeholder="<?php echo $missionOrder->getCountryStay() ?>"/>
                     </div>
                 </div>
 
@@ -1001,7 +1001,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
                         <label class="mb-0" for="user">
-                            <?php echo T_('Prise en charge de l\'hébergement'); ?> :
+                            <?php echo T_('Demande de prise en charge de l’hébergement'); ?> :
                         </label>
                     </div>
                     <div class="col-sm-9 mt-2">
@@ -1254,7 +1254,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                          style="min-height:100px; max-width:775px">
                                     </div>
                                     <input id="other-fees" type="hidden" name="other-fees"
-                                        value="<?php echo $missionOrder->getOtherFees() ?>"
+                                        value="<?php echo htmlspecialchars($missionOrder->getOtherFees(), ENT_QUOTES, 'UTF-8'); ?>"
                                         <?php echo ($disabled) ? 'disabled' : '' ?>
                                     />
                                 </td>
@@ -1376,7 +1376,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                 <td style="padding:5px">
                                     <div id="comment-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
                                     </div>
-                                    <input id="comment" type="hidden" name="comment" value="<?php echo $missionOrder->getComment() ?>" />
+                                    <input id="comment" type="hidden" name="comment" value="<?php echo htmlspecialchars($missionOrder->getComment(), ENT_QUOTES, 'UTF-8'); ?>" />
                                 </td>
                             </tr>
                         </table>
@@ -1921,32 +1921,32 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
         }
 
         function canSubmit() {
+            var got_errors = false;
             if (!$('#title').val()) {
                 sendError("<?php echo T_('Le champ Titre est requis'); ?>");
-                return false;
+                got_errors = true;
             }
             if (!$('#service').val()) {
                 sendError("<?php echo T_('Le champ Service est requis'); ?>");
-                return false;
+                got_errors = true;
             }
             //if ($('#collective-mission').is(':checked') && !$('#list-people-involved-assignment').val()) {
             //    sendError("<?php echo T_('Le champ Liste des personnes concernées pour la mission est requis'); ?>");
             //    return false;
             // }
             if (!checkTypeMission()) {
-                return false;
+                got_errors = true;
             }
             if ($('#validators').val().length == 0) {
                 sendError("<?php echo T_('Le champ Responsable des crédits est requis'); ?>");
-                return false;
+                got_errors = true;
             }
             if (!$('#reason-for-mission').val()) {
                 sendError("<?php echo T_('Le champ Motif de la mission est requis'); ?>");
-                return false;
-	    }
-        var got_errors = false;
+                got_errors = true;
+	        }
 <?php
-      if($invitation == 0) {
+            if($invitation == 0) {
 ?>
             if (!checkPlace()) {
                 return false;
@@ -1968,10 +1968,9 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             }
             if (!checkTransportChoice()) {
                 return false;
-	    }
+            }
 <?php
-      }
-      else { ?>
+            } else { ?>
 
             if (!$('#guest-phonenumber').val()){
                 sendError("<?php echo T_('Le champ Numéro de téléphone de l\'invité est requis'); ?>");
