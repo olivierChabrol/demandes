@@ -1133,9 +1133,17 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             <label class="mb-0" for="guest_phone_number"><?php echo T_('Numéro de téléphone de l\'invité');?> :</label>
                         </div>
                         <div class="col-sm-5">
+							<?php
+							    $guest_phone_number = isset($_POST['guest_phone_number']) ? $_POST['guest_phone_number'] : $globalrow['guest_phone_number'];
+							    if (!empty($guest_phone_number)) {
+							        $guest_phone_number = htmlspecialchars($guest_phone_number);
+							    } else {
+							        $guest_phone_number = '';
+							    }
+							?>
                             <input class="form-control col-10" name="guest_phone_number" id="guest_phone_number" type="tel"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if(isset($_POST['guest_phone_number'])) {echo htmlspecialchars($_POST['guest_phone_number']);} else {echo htmlspecialchars($globalrow['guest_phone_number']);} ?>"
+                                   value="<?php echo $guest_phone_number; ?>"
                             />
                         </div>
                     </div>

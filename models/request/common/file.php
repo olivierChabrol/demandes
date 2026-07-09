@@ -11,8 +11,8 @@ class File
     const TYPE_RIB_AND_SUPPLEMENTARY_SHEET = 'rib-and-supplementary-sheet';
     const TYPE_COLLOQUIUMS_PROGRAM = 'colloquiums-program';
     const TYPE_QUOTE = 'quote';
-    const TARGET_FILE_MISSION_ORDER = './upload/mission-order';
-    const TARGET_FILE_PURCHASE_ORDER = './upload/purchase-order';
+    const TARGET_FILE_MISSION_ORDER = 'upload/mission-order';
+    const TARGET_FILE_PURCHASE_ORDER = 'upload/purchase-order';
     const TARGET_FILE_TICKET = './upload/ticket';
 
     private $id;
@@ -88,6 +88,17 @@ class File
         return $this->type;
     }
 
+
+/**
+ * This code snippet is a static method named moveUploadedFile
+ * in a PHP class. It takes two parameters: $object, which is an object of type object, and $uploadDir, which is a string representing the directory where the uploaded file should be moved.
+ * The method first calls a static method getTargetFileByObject to get the target file path based on the $object. It then initializes a variable $origdir with the value of $uploadDir.
+ * Next, it uses the scandir function to get an array of file names in the $origdir directory. It then iterates over the file names and checks if each file name is neither
+ * '.' nor '..'. If it's not, it tries to rename the file from the original directory to the target directory using the rename function.
+ * If the target directory already exists, it renames all the files in the original directory to the target directory. If the target directory does not exist, it renames the original directory to the
+ * target directory and then renames all the files in the original directory to the target directory.
+ * After the files have been moved, it creates a new File object and sets its properties    
+ */
     public function setType(string $type): self
     {
         $this->type = $type;
@@ -96,55 +107,42 @@ class File
 
     public static function moveUploadedFile(object $object, string $uploadDir)
     {
-
-      $targetFile = self::getTargetFileByObject($object);
-      $origdir =$uploadDir;
-      $filesorig=scandir($origdir);//contient les noms des fichiers pour la BDD
-      //on copie les fichiers vers le dossier définitif
-      if(file_exists($targetFile))
-      {
-        foreach($filesorig as $fi)
-        {
-          if($fi!='.' && $fi!='..')
-          {
-            if(rename($origdir."/".$fi,$targetFile."/".$fi)){
-              $file = new File();
-              $file
-                  ->setName($fi)
-                  ->setPath($targetFile."/".$fi)
-                  ->setType($object->getType());
-
-              $object->uploaded($file);
-            }
-          }
+        $targetFile = self::getTargetFileByObject($object);
+        $origdir = $uploadDir;
+        
+        // Sécurité : si le dossier d'origine n'existe pas, on abandonne
+        if (!is_dir($origdir)) {
+            return;
         }
+
+        $filesorig = scandir($origdir); // contient les noms des fichiers pour la BDD
+
+        // On vérifie si le dossier de destination global existe, sinon on le crée
+        if (!is_dir($targetFile)) {
+            mkdir($targetFile, 0777, true);
+        }
+
+        // On parcourt les fichiers du dossier temporaire
+        foreach ($filesorig as $fi) {
+            if ($fi != '.' && $fi != '..') {
+                $sourcePath = $origdir . "/" . $fi;
+                $destPath = $targetFile . "/" . $fi;
+
+                // On déplace le fichier individuellement
+                if (rename($sourcePath, $destPath)) {
+                    $file = new File();
+                    $file
+                        ->setName($fi)
+                        ->setPath($destPath)
+                        ->setType($object->getType());
+
+                    $object->uploaded($file);
+                }
+            }
+        }
+        
+        // On purge le dossier temporaire maintenant qu'il est vidé de ses fichiers
         rmdir($origdir);
-      }
-      else {
-        if(rename($origdir,$targetFile)){
-          //print_r($filesorig);
-          //print_r($targetFile);
-
-          foreach($filesorig as $fi)
-          {
-            if($fi!='.' && $fi!='..')
-            {
-              $file = new File();
-              $file
-                  ->setName($fi)
-                  ->setPath($targetFile."/".$fi)
-                  ->setType($object->getType());
-
-              $object->uploaded($file);
-            }
-
-          }
-
-        }
-      }
-
-
-
     }
 
     //TODO - enlever l'ancienne methode en dessous

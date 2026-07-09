@@ -1,4 +1,7 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 /*************************************/
 /* Permet de gerer l'upload des fichiers en amont de la validation du formulaire des demandes
 /*************************************/
@@ -30,7 +33,8 @@ if (isset($_FILES['files']['name']) && is_array($_FILES['files']['name'])) {
 }
 
 // 3. Sécurisation du dossier de destination (empêche les failles Directory Traversal style "../")
-$uploadDir = isset($_POST['dir']) ? preg_replace('/[^a-zA-Z0-9_\-]/', '', $_POST['dir']) : 'temp';
+//$uploadDir = isset($_POST['dir']) ? preg_replace('/[^a-zA-Z0-9_\-]/', '', $_POST['dir']) : 'temp';
+$uploadDir = isset($_POST['dir']) ? $_POST['dir'] : 'temp';
 $path = dirname(__FILE__)."/".$uploadDir."/";
 
 if(!file_exists($path)) {
@@ -38,6 +42,7 @@ if(!file_exists($path)) {
 }
 
 // Avant la création du dossier
+debugLog("uploadDir : " . $uploadDir);
 debugLog("Dossier cible : " . $path);
 
 // Avant la boucle

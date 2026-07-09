@@ -50,6 +50,18 @@ $purchaseOrderSelected = false;
 $missionOrderSelected = false;
 $ticketSelected = false;
 
+
+// Fonction de log pour le débugging
+function debugLog($message, $trace = false) {
+    if ($trace) {
+      $logFile = __DIR__ . '/debug_request.log';
+      $date = date('Y-m-d H:i:s');
+      $text = "[$date] " . print_r($message, true) . "\n";
+      file_put_contents($logFile, $text, FILE_APPEND);
+    }
+}
+    //*/
+
 /* Load */
 /* Load User Request */
 $userRequest
@@ -57,6 +69,7 @@ $userRequest
     ->load();
 
 if (isset($_GET['type-form'])) {
+    debugLog("Type de formulaire : " . $_GET['type-form']);
     if ($_GET['type-form'] == 'purchase-order') {
         $purchaseOrderSelected = true;
 
@@ -96,6 +109,7 @@ if (isset($_GET['type-form'])) {
                 ->setIsModel(true);
         }
     } else if ($_GET['type-form'] == 'mission-order') {
+        debugLog("mission-order ");
         $missionOrderSelected = true;
 
         if ($_GET['id']) {
@@ -147,6 +161,7 @@ if ($_GET['action'] == 'delete-file' && $_GET['id-file'] && $_GET['type-file']) 
 
 /* Forms */
 if (isset($_POST['type-form'])) {
+    debugLog("Type de formulaire POST : " . $_POST['type-form']);
 
     $request = null;
 
@@ -173,6 +188,7 @@ if (isset($_POST['type-form'])) {
     }
 
     if ($request && $request->checkForm($_POST, $_FILES)) {
+        debugLog("Formulaire valide pour le type : " . $_POST['type-form']);
         // new request if request has no id or request is a model
         $isNewRequest = (!$request->getId() || $request->getIsModel()) ;
 
@@ -210,12 +226,18 @@ if (isset($_POST['type-form'])) {
         }
 
         $request->save();
+        debugLog("Requête sauvegardée avec succès.");
         
         //TODO-supprimer la ligne ci-dessous qui est l'ancienne methode
         //File::upload($request, $_FILES);
         if(file_exists($_POST['uploaddir']))
         {
+            debugLog("file exists");
           File::moveUploadedFile($request,$_POST['uploaddir']);
+        }
+        else
+        {
+            debugLog("file not exists");
         }
 
         if ($isNewRequest || $request->getStatusOld() == BaseRequest::STATUS_MODIFY) {
@@ -235,6 +257,7 @@ if (isset($_POST['type-form'])) {
         // 26/06/2024 - Olivier - On commente la ligne ci-dessous pour ne pas sauvegarder la demande si elle est invalide à verifier
         //$request->save();
     }
+    debugLog("Fin du traitement du formulaire pour le type : " . $_POST['type-form']);
 }
 
 /* Delete request */
