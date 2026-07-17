@@ -52,6 +52,12 @@ class MissionOrder extends BaseRequest
     /** @var string $guestName The name of the guest.*/
     private $guestName;
 
+    /** @var string $guestFirstName The first name of the guest.*/
+    private $guestFirstName;
+
+    /** @var string $guestLastName The last name of the guest.*/
+    private $guestLastName;
+
     /** @var string $guestMail The mail of the guest.*/
     private $guestMail;
 
@@ -183,14 +189,42 @@ class MissionOrder extends BaseRequest
         return $this;
     }
 
-    public function getGuestName(): ?string//TEST
+    public function getGuestFirstName(): ?string//TEST
     {
-        return $this->guestName;
+        return $this->guestFirstName;
     }
 
-    public function setGuestName(?string $guestName): self//TEST
+    public function setGuestFirstName(?string $firstName): self//TEST
     {
-        $this->guestName = $guestName;
+        $this->guestFirstName = $firstName;
+        return $this;
+    }
+
+    public function getGuestLastName(): ?string//TEST
+    {
+        return $this->guestLastName;
+    }
+
+    public function setGuestLastName(?string $lastName): self//TEST
+    {
+        $this->guestLastName = $lastName;
+        return $this;
+    }
+
+    public function getGuestName(): ?string//TEST
+    {
+        if ($this->guestFirstName && $this->guestLastName) {
+            return $this->guestFirstName . ' ' . $this->guestLastName;
+        }
+        return null;
+    }
+
+    /**
+     * Sets the guest name. If the provided name is null, it concatenates the first and last names.
+     */
+    public function setGuestName(?string $guestName = null): self//TEST
+    {
+        $this->guestName = $this->guestFirstName . ' ' . $this->guestLastName;
         return $this;
     }
 
@@ -824,7 +858,9 @@ class MissionOrder extends BaseRequest
         $this
             ->setFirstMissionRequest($firstMissionRequest)
             ->setOmForGuest($omForGuest)
-            ->setGuestName($datas['guest-name'])
+
+            ->setGuestFirstName($datas['guest-firstname'])
+            ->setGuestLastName($datas['guest-lastname'])
             ->setGuestMail($datas['guest-mail'])
             ->setGuestBirthDate($datas['guest-birthdate'])
             ->setGuestPhoneNumber($datas['guest-phonenumber'])
@@ -917,6 +953,7 @@ class MissionOrder extends BaseRequest
 
     public function load(): self
     {
+        //echo("<br><b>[load] ID :</b> \"" . $this->getId() . "\"<br>");
         /*$query = "
             SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`,
                 dm.`care_organization`, dm.`guardianship`, dm.`budget_data`, dm.additional_budget_information, dm.`reason_for_mission`,
@@ -938,7 +975,7 @@ class MissionOrder extends BaseRequest
 
             WHERE dm.id=:id";*/
             /*TEST*/$query = "
-            SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`guest_name`, dm.`guest_mail`, dm.`guest_birthdate`, dm.`guest_phone_number`, dm.`guest_labo`, dm.`guest_country`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`, dm.`amount_max`, dm.`incident_id`, dm.`amount_real`, dm.`amount_estimated`, dm.`mission_type`,
+            SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`guest_firstname`, dm.`guest_lastname`, dm.`guest_mail`, dm.`guest_birthdate`, dm.`guest_phone_number`, dm.`guest_labo`, dm.`guest_country`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`, dm.`amount_max`, dm.`incident_id`, dm.`amount_real`, dm.`amount_estimated`, dm.`mission_type`,
                 dm.`care_organization`, dm.`guardianship`, dm.`budget_data`, dm.additional_budget_information, dm.`reason_for_mission`,
                 dm.`date_start`, dm.`place_start`, dm.`date_return`, dm.`place_return_different`, dm.`place_return`, dm.`city_stay`, dm.`country_stay`, dm.`private_stay`,
                 dm.`private_stay_date_begin`, dm.`private_stay_date_end`, dm.`private_stay_place`, dm.`off_market_accomodation`, dm.`advance_request`, dm.`transport_market`,
@@ -960,31 +997,33 @@ class MissionOrder extends BaseRequest
 
         if($_SESSION['profile_id']!=4)//si l'utilisateur n'est pas admin alors on check si il est owner ou validator pour afficher la demande
         {
-              $query.="
-              AND (
-                  dm.id_owner=:id_owner OR
-                  dmv.id_validator=:id_validator
-              )";
-              if ($this->getCurrentUser() == null) {
-	      }
-              $params = [
-                  'id' => $this->getId(),
-                  'id_owner' => $this->getCurrentUser(),
-                  'id_validator' => $this->getCurrentUser()
-              ];
+            //echo("<br><b>[load] profile_id != 4 ID :</b> \"" . $this->getId() . "\"<br>");
+            //echo("<br><b>[load] profile_id :</b> \"" . $_SESSION['profile_id'] . "\"<br>");
+            $query.="
+            AND (
+                dm.id_owner=:id_owner OR
+                dmv.id_validator=:id_validator
+            )";
+            if ($this->getCurrentUser() == null) {}
+            $params = [
+                'id' => $this->getId(),
+                'id_owner' => $this->getCurrentUser(),
+                'id_validator' => $this->getCurrentUser()
+            ];
         }
         else {
               $params = [
                   'id' => $this->getId()
               ];
         }
-
+        //var_dump($query);
+        //var_dump($params);
         $results = $this->sql->query($query, $params);
         
         if (count($results) == 0) {
             $this->setId(null);
         }
-        //echo("<br><b>ID :</b> ".$this->getId());
+        //echo("<br><b>ID :</b> \"" . $this->getId() . "\"<br>");
 
         $validators = [];
 
@@ -1008,7 +1047,152 @@ class MissionOrder extends BaseRequest
                 ->setTitle($row['title'])
                 ->setFirstMissionRequest($row['first_mission_request'])
                 ->setOmForGuest($row['om_for_guest'])
-                ->setGuestName($row['guest_name'])//TEST
+                ->setGuestFirstName($row['guest_firstname'])
+                ->setGuestLastName($row['guest_lastname'])
+                ->setGuestMail($row['guest_mail'])//TEST
+                ->setGuestBirthDate($row['guest_birthdate'])
+                ->setGuestPhoneNumber($row['guest_phone_number'])
+                ->setGuestLabo($row['guest_labo'])//TEST
+                ->setGuestCountry($row['guest_country'])//TEST
+                ->setInvitationToken($row['invitation_token'])
+                ->setCollectiveMission($row['collective_mission'])
+                ->setListPeopleInvolvedAssignment($row['list_people_involved_assignment'])
+                ->setTypeMission($row['type_mission'])
+                ->setAdditionalBudgetInformation($row['additional_budget_information'])
+                ->setCareOrganization($row['care_organization'])
+                ->setReasonForMission($row['reason_for_mission'])
+                ->setDateStart($row['date_start'])
+                ->setPlaceStart($row['place_start'])
+                ->setDateReturn($row['date_return'])
+                ->setPlaceReturnDifferent($row['place_return_different'])
+                ->setPlaceReturn($row['place_return'])
+                ->setCityStay($row['city_stay'])
+                ->setCountryStay($row['country_stay'])
+                ->setOffMarketAccomodation($row['off_market_accomodation'])
+                ->setAdvanceRequest($row['advance_request'])
+                ->setTransportMarket($row['transport_market'])
+                ->setTransportMarketJustification($row['transport_market_justification'])
+                ->setOtherFees($row['other_fees'])
+                ->setGuardianShip($row['guardianship'])
+		        ->setComment($row['comment'])
+		        ->setAmountMax($row['amount_max'])
+	            ->setEstimatedAmount($row['amount_estimated'])
+		        ->setRealAmount($row['amount_real'])
+	            ->setMissionType($row['mission_type'])
+                ->setStatus($row['status']);
+
+            $owner = new User();
+            $owner
+                ->setId($row['id_owner'])
+                ->setFirstName($row['firstname_owner'])
+                ->setLastName($row['lastname_owner'])
+                ->setEmail($row['mail_owner'])
+                ->setCustom1($row['custom1_owner']);
+            $this->setOwner($owner);
+
+            $this
+                ->getService()
+                ->setId($row['id_service'])
+                ->setName($row['name_service']);
+
+            if ($this->getTypeMission() == self::TYPE_MISSION_WITH_FEES) {
+                $this
+                    ->getBudgetData()
+                    ->setId($row['budget_data'])
+                    ->setName($row['name_budget_data']==null?"":$row['name_budget_data'])
+                    ->setCategory($row['category_budget_data']==null?"":$row['category_budget_data']);
+            }
+
+            $this
+                ->getPrivateStay()
+                ->setIsPrivateStay($row['private_stay'])
+                ->setDateBegin($row['private_stay_date_begin'])
+                ->setDateEnd($row['private_stay_date_end'])
+                ->setPlace($row['private_stay_place']);
+
+            $this
+                ->getAdministrativeVehicle()
+                ->setId($row['id_administrative_vehicle'])
+                ->setName($row['name_administrative_vehicle'])
+                ->setNumberplate($row['numberplate_administrative_vehicle']);
+
+            $this
+                ->getPersonalVehicle()
+                ->setNumberplate($row['personal_vehicle_numberplate'])
+                ->setHorsepower($row['personal_vehicle_horsepower'])
+                ->setTripMileage($row['personal_vehicle_trip_mileage'])
+                ->loadPassengers($this);
+
+            $this
+                ->getColloquiums()
+                ->setIsColloquiums($row['colloquiums'])
+                ->setRegistrationFees($row['colloquiums_registration_fees'])
+                ->setPurchasingCard($row['colloquiums_purchasing_card'])
+                ->setMissionOrder($this);
+        }
+
+        $this->setValidators($validators)->loadFiles()->loadTransportChoices();
+
+        return $this;
+    }
+
+    public function load_no_security(): self
+    {
+        $query = "
+            SELECT dm.`id_owner`, dm.`title`, dm.`id_service`, dm.`first_mission_request`, dm.`om_for_guest`, dm.`guest_firstname`, dm.`guest_lastname`, dm.`guest_mail`, dm.`guest_birthdate`, dm.`guest_phone_number`, dm.`guest_labo`, dm.`guest_country`, dm.`collective_mission`, dm.`list_people_involved_assignment`, dm.`type_mission`, dm.`amount_max`, dm.`incident_id`, dm.`amount_real`, dm.`amount_estimated`, dm.`mission_type`,
+                dm.`care_organization`, dm.`guardianship`, dm.`budget_data`, dm.additional_budget_information, dm.`reason_for_mission`,
+                dm.`date_start`, dm.`place_start`, dm.`date_return`, dm.`place_return_different`, dm.`place_return`, dm.`city_stay`, dm.`country_stay`, dm.`private_stay`,
+                dm.`private_stay_date_begin`, dm.`private_stay_date_end`, dm.`private_stay_place`, dm.`off_market_accomodation`, dm.`advance_request`, dm.`transport_market`,
+                dm.`transport_market_justification`, dm.`id_administrative_vehicle`, dm.`personal_vehicle_numberplate`, dm.`personal_vehicle_horsepower`, dm.`personal_vehicle_trip_mileage`, dm.`other_fees`, dm.`colloquiums`,
+                dm.`colloquiums_registration_fees`, dm.`colloquiums_purchasing_card`, dm.`comment`, dm.`status`,
+                ts.`name` as name_service, tscat.`name` as name_budget_data, tscat.`cat` as category_budget_data,
+                dav.`name` as name_administrative_vehicle, dav.`numberplate` as numberplate_administrative_vehicle,
+                dm.`id_owner`, tu1.`firstname` as firstname_owner, tu1.`lastname` as lastname_owner, tu1.`mail` as mail_owner, tu1.`custom1` as custom1_owner,
+                dmv.`id_validator`, tu2.`firstname` as firstname_validator, tu2.`lastname` as lastname_validator, tu2.`mail` as email_validator, dm.`invitation_token` as invitation_token
+            FROM `dmission_order` dm
+            LEFT JOIN `dmission_order_validators` dmv ON dm.id = dmv.id_mission_order
+            LEFT JOIN `tservices` ts ON ts.id = dm.id_service
+            LEFT JOIN `tsubcat` tscat ON tscat.id = dm.budget_data
+            LEFT JOIN `dadministrative_vehicle` dav ON dav.id = dm.id_administrative_vehicle
+            LEFT JOIN `tusers` tu1 ON tu1.id = dm.id_owner
+            LEFT JOIN `tusers` tu2 ON tu2.id = dmv.id_validator
+
+            WHERE dm.id=:id";
+
+        
+        $params = [
+            'id' => $this->getId()
+        ];
+        $results = $this->sql->query($query, $params);
+        
+        if (count($results) == 0) {
+            $this->setId(null);
+        }
+
+        $validators = [];
+
+        foreach ($results as $id => $row) {
+            // add new validator to Mission Order
+            $validator = new User();
+            $validator
+                ->setId($row['id_validator'])
+                ->setFirstName($row['firstname_validator'])
+                ->setLastName($row['lastname_validator'])
+                ->setEmail($row['email_validator']);
+            $validators[] = $validator;
+
+            if ($id > 0) {
+                // we have yet loaded Mission Order so we pass to next row
+                continue;
+            }
+
+            // load Mission Order
+            $this
+                ->setTitle($row['title'])
+                ->setFirstMissionRequest($row['first_mission_request'])
+                ->setOmForGuest($row['om_for_guest'])
+                ->setGuestFirstName($row['guest_firstname'])
+                ->setGuestLastName($row['guest_lastname'])
                 ->setGuestMail($row['guest_mail'])//TEST
                 ->setGuestBirthDate($row['guest_birthdate'])
                 ->setGuestPhoneNumber($row['guest_phone_number'])
@@ -1124,7 +1308,6 @@ class MissionOrder extends BaseRequest
 
     public function save(): self
     {
-        //die('Script atteint save 0<br/>');
         if ($this->getId() && !$this->getIsModel()) {
             $this->update();
         } else {
@@ -1169,37 +1352,21 @@ class MissionOrder extends BaseRequest
 
     public function insert(): self
     {
-        /*$query = "
-                INSERT INTO `dmission_order` (
-                `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
-                `date_start`, `place_start`, `date_return`, `place_return_different`, `place_return`, `city_stay`, `country_stay`, `private_stay`, `private_stay_date_begin`, `private_stay_date_end`,
-                `private_stay_place`, `off_market_accomodation`, `advance_request`, `transport_market`, `transport_market_justification`, `id_administrative_vehicle`,
-                `personal_vehicle_numberplate`, `personal_vehicle_horsepower`, `personal_vehicle_trip_mileage`, `other_fees`,
-                `colloquiums`, `colloquiums_registration_fees`, `colloquiums_purchasing_card`, `comment`, `status`
-            )
-            VALUES (
-                :id_owner, :title, :id_service, :first_mission_request, :om_for_guest, :collective_mission, :list_people_involved_assignment, :type_mission, :care_organization, :guardianship, :budget_data, :additional_budget_information, :reason_for_mission, :date_start, :place_start,
-                :date_return, :place_return_different, :place_return, :city_stay, :country_stay, :private_stay, :private_stay_date_begin, :private_stay_date_end, :private_stay_place,
-                :off_market_accomodation, :advance_request, :transport_market, :transport_market_justification, :id_administrative_vehicle,
-                :personal_vehicle_numberplate, :personal_vehicle_horsepower, :personal_vehicle_trip_mileage, :other_fees, :colloquiums, :colloquiums_registration_fees, :colloquiums_purchasing_card, :comment,
-                :status
-            )";*/
-            /*TEST*/
-            $query = "
-                INSERT INTO `dmission_order` (
-                `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `guest_name`, `guest_mail`,`guest_birthdate`, `guest_phone_number`, `guest_labo`, `guest_country`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
-                `date_start`, `place_start`, `date_return`, `place_return_different`, `place_return`, `city_stay`, `country_stay`, `private_stay`, `private_stay_date_begin`, `private_stay_date_end`,
-                `private_stay_place`, `off_market_accomodation`, `advance_request`, `transport_market`, `transport_market_justification`, `id_administrative_vehicle`,
-                `personal_vehicle_numberplate`, `personal_vehicle_horsepower`, `personal_vehicle_trip_mileage`, `other_fees`,
-                `colloquiums`, `colloquiums_registration_fees`, `colloquiums_purchasing_card`, `comment`, `status`, `amount_max`, `amount_estimated`, `amount_real`, `mission_type`, `incident_id`
-            )
-            VALUES (
-                :id_owner, :title, :id_service, :first_mission_request, :om_for_guest, :guest_name, :guest_mail, :guest_birthdate, :guest_phonenumber, :guest_labo, :guest_country, :collective_mission, :list_people_involved_assignment, :type_mission, :care_organization, :guardianship, :budget_data, :additional_budget_information, :reason_for_mission, :date_start, :place_start,
-                :date_return, :place_return_different, :place_return, :city_stay, :country_stay, :private_stay, :private_stay_date_begin, :private_stay_date_end, :private_stay_place,
-                :off_market_accomodation, :advance_request, :transport_market, :transport_market_justification, :id_administrative_vehicle,
-                :personal_vehicle_numberplate, :personal_vehicle_horsepower, :personal_vehicle_trip_mileage, :other_fees, :colloquiums, :colloquiums_registration_fees, :colloquiums_purchasing_card, :comment,
-                :status, :amount_max, :amount_estimated, :amount_real, :mission_type, :incident_id
-            )";
+        $query = "
+            INSERT INTO `dmission_order` (
+            `id_owner`, `title`, `id_service`, `first_mission_request`, `om_for_guest`, `guest_firstname`, `guest_lastname`, `guest_mail`,`guest_birthdate`, `guest_phone_number`, `guest_labo`, `guest_country`, `collective_mission`, `list_people_involved_assignment`, `type_mission`, `care_organization`, `guardianship`, `budget_data`, `additional_budget_information`, `reason_for_mission`,
+            `date_start`, `place_start`, `date_return`, `place_return_different`, `place_return`, `city_stay`, `country_stay`, `private_stay`, `private_stay_date_begin`, `private_stay_date_end`,
+            `private_stay_place`, `off_market_accomodation`, `advance_request`, `transport_market`, `transport_market_justification`, `id_administrative_vehicle`,
+            `personal_vehicle_numberplate`, `personal_vehicle_horsepower`, `personal_vehicle_trip_mileage`, `other_fees`,
+            `colloquiums`, `colloquiums_registration_fees`, `colloquiums_purchasing_card`, `comment`, `status`, `amount_max`, `amount_estimated`, `amount_real`, `mission_type`, `incident_id`
+        )
+        VALUES (
+            :id_owner, :title, :id_service, :first_mission_request, :om_for_guest, :guest_firstname, :guest_lastname, :guest_mail, :guest_birthdate, :guest_phonenumber, :guest_labo, :guest_country, :collective_mission, :list_people_involved_assignment, :type_mission, :care_organization, :guardianship, :budget_data, :additional_budget_information, :reason_for_mission, :date_start, :place_start,
+            :date_return, :place_return_different, :place_return, :city_stay, :country_stay, :private_stay, :private_stay_date_begin, :private_stay_date_end, :private_stay_place,
+            :off_market_accomodation, :advance_request, :transport_market, :transport_market_justification, :id_administrative_vehicle,
+            :personal_vehicle_numberplate, :personal_vehicle_horsepower, :personal_vehicle_trip_mileage, :other_fees, :colloquiums, :colloquiums_registration_fees, :colloquiums_purchasing_card, :comment,
+            :status, :amount_max, :amount_estimated, :amount_real, :mission_type, :incident_id
+        )";
 
         $type_mission = $this->getTypeMission();
         if($this->isOmForGuest()) {
@@ -1211,7 +1378,8 @@ class MissionOrder extends BaseRequest
             'id_service' => $this->getService()->getId(),
             'first_mission_request' => $this->isFirstMissionRequest(),
             'om_for_guest' => $this->isOmForGuest(),
-            'guest_name' => $this->getGuestName(),//TEST
+            'guest_firstname' => $this->getGuestFirstName(),
+            'guest_lastname' => $this->getGuestLastName(),
             'guest_mail' => $this->getGuestMail(),//TEST
             'guest_birthdate' => ($this->getGuestBirthDate()==null?null:$this->getGuestBirthDate()->format('Y-m-d')),
             'guest_phonenumber' => $this->getGuestPhoneNumber(),
@@ -1325,7 +1493,7 @@ class MissionOrder extends BaseRequest
                 `id_service`=:id_service,
                 `first_mission_request`=:first_mission_request,
                 `om_for_guest`=:om_for_guest,
-                `guest_name`=:guest_name,
+                `guest_firstname`=:guest_firstname, `guest_lastname`=:guest_lastname,
                 `guest_mail`=:guest_mail,
                 `guest_phone_number`=:guest_phonenumber,
                 `guest_labo`=:guest_labo,
@@ -1377,7 +1545,8 @@ class MissionOrder extends BaseRequest
             'id_service' => $this->getService()->getId(),
             'first_mission_request' => $this->isFirstMissionRequest(),
             'om_for_guest' => $this->isOmForGuest(),
-            'guest_name' => $this->getGuestName(),//TEST
+            'guest_firstname' => $this->getGuestFirstName(),
+            'guest_lastname' => $this->getGuestLastName(),
             'guest_mail' => $this->getGuestMail(),//TEST
             'guest_phonenumber' => $this->getGuestPhoneNumber(),
             'guest_birthdate' => ($this->getGuestBirthDate()==null?null:$this->getGuestBirthDate()->format('Y-m-d')),

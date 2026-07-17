@@ -69,7 +69,7 @@ $userRequest
     ->load();
 
 if (isset($_GET['type-form'])) {
-    debugLog("Type de formulaire : " . $_GET['type-form']);
+    debugLog("Type de formulaire : " . $_GET['type-form'], true);
     if ($_GET['type-form'] == 'purchase-order') {
         $purchaseOrderSelected = true;
 
@@ -109,7 +109,7 @@ if (isset($_GET['type-form'])) {
                 ->setIsModel(true);
         }
     } else if ($_GET['type-form'] == 'mission-order') {
-        debugLog("mission-order ");
+        debugLog("mission-order ", true);
         $missionOrderSelected = true;
 
         if ($_GET['id']) {
@@ -161,7 +161,7 @@ if ($_GET['action'] == 'delete-file' && $_GET['id-file'] && $_GET['type-file']) 
 
 /* Forms */
 if (isset($_POST['type-form'])) {
-    debugLog("Type de formulaire POST : " . $_POST['type-form']);
+    debugLog("Type de formulaire POST : " . $_POST['type-form'], true);
 
     $request = null;
 
@@ -188,7 +188,7 @@ if (isset($_POST['type-form'])) {
     }
 
     if ($request && $request->checkForm($_POST, $_FILES)) {
-        debugLog("Formulaire valide pour le type : " . $_POST['type-form']);
+        debugLog("Formulaire valide pour le type : " . $_POST['type-form'], true);
         // new request if request has no id or request is a model
         $isNewRequest = (!$request->getId() || $request->getIsModel()) ;
 
@@ -226,18 +226,18 @@ if (isset($_POST['type-form'])) {
         }
 
         $request->save();
-        debugLog("Requête sauvegardée avec succès.");
+        debugLog("Requête sauvegardée avec succès.", true);
         
         //TODO-supprimer la ligne ci-dessous qui est l'ancienne methode
         //File::upload($request, $_FILES);
         if(file_exists($_POST['uploaddir']))
         {
-            debugLog("file exists");
+            debugLog("file exists", true);
           File::moveUploadedFile($request,$_POST['uploaddir']);
         }
         else
         {
-            debugLog("file not exists");
+            debugLog("file not exists", true);
         }
 
         if ($isNewRequest || $request->getStatusOld() == BaseRequest::STATUS_MODIFY) {

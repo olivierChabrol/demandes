@@ -322,7 +322,8 @@ $qry=$db->prepare("SELECT `mail_object` FROM `tstates` WHERE id=:id");
 $qry->execute(array('id' => $globalrow['state']));
 $robject=$qry->fetch();
 $qry->closeCursor();
-$object=T_($robject['mail_object']).' '.T_('pour le ticket').' n°'.$db_id.' : '.$globalrow['title'];
+$robject_name = ($robject !== false) ? T_($robject['mail_object']) : T_('Ticket');
+$object = $robject_name . ' ' . T_('pour le ticket') . ' n°' . $db_id . ' : ' . ($globalrow['title'] ?? '');
 
 //recipient user mail
 $recipient=$userrow['mail'];
@@ -371,14 +372,35 @@ if(file_exists($template_filename))
 	$mail_template=file_get_contents($template_filename);
 
 	//translate none values
-	if(!isset($userrow['firstname']) || $userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
-	if(!isset($userrow['lastname']) || $userrow['lastname']=='Aucun') {$userrow['lastname']=T_('Aucun');}
-	if(!isset($techrow['firstname']) || $techrow['firstname']=='Aucun') {$techrow['firstname']=T_('Aucun');}
-	if(!isset($techrow['lastname']) || $techrow['lastname']=='Aucun') {$techrow['lastname']=T_('Aucun');}
-	if(!isset($catrow['name']) || $catrow['name']=='Aucune') {$catrow['name']=T_('Aucune');}
-	//if($subcatrow['name']=='Aucune') {$subcatrow['name']=T_('Aucune');}
-	//if($subcatrow['name']==0) {$subcatrow['name']=T_('Aucune');}
-	if(!isset($subcatrow['name']) || $subcatrow['name']) {$subcatrow['name']=T_('Aucune');}
+	if(!is_array($userrow)) $userrow = [];
+    if(!is_array($techrow)) $techrow = [];
+    if(!is_array($catrow)) $catrow = [];
+    if(!is_array($subcatrow)) $subcatrow = [];
+    if(!is_array($companyrow)) $companyrow = [];
+    if(!is_array($priorityrow)) $priorityrow = [];
+    if(!is_array($criticalityrow)) $criticalityrow = [];
+    if(!isset($placerow) || !is_array($placerow)) $placerow = [];
+    if(!isset($groupuser) || !is_array($groupuser)) $groupuser = [];
+    if(!isset($grouptech) || !is_array($grouptech)) $grouptech = [];
+    if(!is_array($staterow)) $staterow = [];
+
+    //translate none values
+    if(empty($userrow['firstname']) || $userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
+    if(empty($userrow['lastname']) || $userrow['lastname']=='Aucun') {$userrow['lastname']=T_('Aucun');}
+    if(empty($techrow['firstname']) || $techrow['firstname']=='Aucun') {$techrow['firstname']=T_('Aucun');}
+    if(empty($techrow['lastname']) || $techrow['lastname']=='Aucun') {$techrow['lastname']=T_('Aucun');}
+    if(empty($catrow['name']) || $catrow['name']=='Aucune') {$catrow['name']=T_('Aucune');}
+    if(empty($subcatrow['name'])) {$subcatrow['name']=T_('Aucune');}
+
+	// Initialisation pour éviter les undefined array keys dans le str_replace
+    if(!isset($staterow['name'])) {$staterow['name']='';}
+    if(!isset($priorityrow['name'])) {$priorityrow['name']='';}
+    if(!isset($criticalityrow['name'])) {$criticalityrow['name']='';}
+    if(!isset($placerow['name'])) {$placerow['name']='';}
+    if(!isset($companyrow['name'])) {$companyrow['name']='';}
+    if(!isset($groupuser['name'])) {$groupuser['name']='';}
+    if(!isset($grouptech['name'])) {$grouptech['name']='';}
+    if(!isset($userrow['id'])) {$userrow['id']=0;}
 
 	//replace mail tag
 	$mail_template=str_replace('#mail_color_title#', $rparameters['mail_color_title'], $mail_template);
@@ -504,6 +526,45 @@ if($send==1)
 		}
 
 		//add user agency mail if user have no mail and agency parameter is enable
+		if($rparameters['user_agency'] && !empty($_POST['u_agency']) && $_GET['page']!='preview_mail') {
+            //get agency mail
+            $qry=$db->prepare("SELECT `mail` FROM `tagencies` WHERE id=:id");
+            $qry->execute(array('id' => $_POST['u_agency']));
+            $row=$qry->fetch();
+            $qry->closeCursor();
+            if($row !== false && !empty($row['mail']))
+            {
+                if(!empty($userrow['mail'])){$mail->AddCC("$row[mail]"); $dest_mail=1;} else {$mail->AddAddress("$row[mail]"); $dest_mail=1;}
+            }
+        }
+
+        //add user agency mail if user have no mail and agency parameter is enable
+        if($rparameters['user_agency']) {
+            //send mail to agency on agency field if exist
+            if(!empty($_POST['u_agency']) && $_GET['page']!='preview_mail')
+            {
+                //get agency mail
+                $qry=$db->prepare("SELECT `mail` FROM `tagencies` WHERE id=:id");
+                $qry->execute(array('id' => $_POST['u_agency']));
+                $row=$qry->fetch();
+                $qry->closeCursor();
+                if($row !== false && !empty($row['mail']))
+                {
+                    if(!empty($userrow['mail'])){$mail->AddCC("$row[mail]"); $dest_mail=1;} else {$mail->AddAddress("$row[mail]"); $dest_mail=1;}
+                }
+            } else {
+                //get agency mail of user
+                $qry=$db->prepare("SELECT `mail` FROM `tagencies` WHERE id IN (SELECT agency_id FROM tusers_agencies WHERE user_id=:user_id)");
+                $qry->execute(array('user_id' => $userrow['id'] ?? 0));
+                $row=$qry->fetch();
+                $qry->closeCursor();
+                if($row !== false && !empty($row['mail']))
+                {
+                    if(!empty($userrow['mail'])){$mail->AddCC("$row[mail]"); $dest_mail=1;} else {$mail->AddAddress("$row[mail]"); $dest_mail=1;}
+                }
+            }
+        }
+		/*
 		if($rparameters['user_agency']) {
 			//send mail to agency on agency field if exist
 			if(!empty($_POST['u_agency']) && $_GET['page']!='preview_mail')
@@ -529,6 +590,7 @@ if($send==1)
 				}
 			}
 		}
+		//*/
 
 		$mail->CharSet = 'UTF-8'; //ISO-8859-1 possible if string problems
 		if($rparameters['mail_smtp_class']=='IsSendMail()') {$mail->IsSendMail();} else {$mail->IsSMTP();}

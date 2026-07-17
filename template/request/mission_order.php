@@ -292,16 +292,25 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
         <i class="fa fa-user mr-2"></i><?php echo T_('Informations relatives à l\'invité'); ?>
     </h4>
 
-    <div class="form-group row">
-        <div class="col-sm-2 col-form-label text-sm-right pr-0">
-            <label class="mb-0" for="guest-name">
-                <?php echo T_('Prénom et Nom de l\'invité'); ?> :
-            </label>
-        </div>
-        <div class="col-sm-5 mt-2">
-            <input id="guest-name" type="text" name="guest-name" class="form-control" value="<?php echo $missionOrder->getGuestName() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
-        </div>
+    <div class="row align-items-center mb-3">
+
+    <!-- Nom de l'invité -->
+    <div class="col-md-6 form-group mb-0">
+        <label class="mb-2" for="guest-lastname">
+            <?php echo T_('Nom de l\'invité'); ?> :
+        </label>
+        <input id="guest-lastname" type="text" name="guest-lastname" class="form-control" value="<?php echo $missionOrder->getGuestLastName() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
     </div>
+
+    <!-- Prénom de l'invité -->
+    <div class="col-md-6 form-group mb-0">
+        <label class="mb-2" for="guest-firstname">
+            <?php echo T_('Prénom de l\'invité'); ?> :
+        </label>
+        <input id="guest-firstname" type="text" name="guest-firstname" class="form-control" value="<?php echo $missionOrder->getGuestFirstName() ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
+    </div>
+</div>
+
 
     <div class="form-group row align-items-center">
         <div class="col-md-4 form-group mb-0">
@@ -560,7 +569,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                         <div id="additional-budget-information-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
                                         </div>
                                         <input id="additional-budget-information" type="hidden" name="additional-budget-information"
-                                               value="<?php echo htmlspecialchars($missionOrder->getAdditionalBudgetInformation(), ENT_QUOTES, 'UTF-8') ?>"
+                                               value="<?php echo htmlspecialchars($missionOrder->getAdditionalBudgetInformation() ? $missionOrder->getAdditionalBudgetInformation() : '', ENT_QUOTES, 'UTF-8') ?>"
                                         />
                                     </td>
                                 </tr>
@@ -1376,7 +1385,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                 <td style="padding:5px">
                                     <div id="comment-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
                                     </div>
-                                    <input id="comment" type="hidden" name="comment" value="<?php echo htmlspecialchars($missionOrder->getComment(), ENT_QUOTES, 'UTF-8'); ?>" />
+                                    <input id="comment" type="hidden" name="comment" value="<?php echo htmlspecialchars($missionOrder->getComment() ? $missionOrder->getComment() : '', ENT_QUOTES, 'UTF-8'); ?>" />
                                 </td>
                             </tr>
                         </table>

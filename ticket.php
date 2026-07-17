@@ -24,9 +24,7 @@ use Models\Request\Ticket\Ticket;
 $owner = $_SESSION['user_id'];
 $users = User::getCollection();
 $ticket = new Ticket();
-$ticket
-    ->setId((int) $_GET['id'])
-    ->loadObservers();
+$ticket->setId((int) $_GET['id'])->loadObservers();
 
 //initialize variables
 if(!isset($userreg)) $userreg = '';
@@ -615,7 +613,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						<!-- onchange="submit();" -->
 						<select class="form-control col-5 d-inline-block" id="technician" name="technician" onchange="loadVal();  <?php if($rright['ticket_tech_mandatory']) {echo ' CheckMandatory(); ';}?>" <?php if($rright['ticket_tech']==0 || $lock_tech==1) {echo ' disabled="disabled" ';}?> >
 							<?php
-							//add service filter to technician list
+							//add service filter to modify list
 							if($rparameters['user_limit_service']==1 && $rright['dashboard_service_only']!=0) //case for user who open ticket to auto-select categories of the service
 							{
 								if($_POST['u_service']) {$where_service=$_POST['u_service'];} else {$where_service=$globalrow['u_service'];}
@@ -1111,7 +1109,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_name" id="guest_name" type="text" maxlength="100"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['title']) {echo htmlspecialchars($_POST['guest_name']);} else {echo htmlspecialchars($globalrow['guest_name']);} ?>"
+                                   value="<?php if($_POST['title']) {echo htmlspecialchars($_POST['guest_firstname'].' '.$_POST['guest_lastname']);} else {echo htmlspecialchars($globalrow['guest_firstname'].' '.$globalrow['guest_lastname']);} ?>"
 
                             />
                         </div>
@@ -1579,7 +1577,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						$qry->execute(array('id' => $check_id));
 						$row=$qry->fetch();
 						$qry->closeCursor();
-						if($row['name']) {echo '&nbsp;<i title="'.T_($row['name']).'" class="fa fa-bullhorn text-130" style="color:'.$row['color'].'" ></i>';}
+						if($row !== false && $row['name']) {echo '&nbsp;<i title="'.T_($row['name']).'" class="fa fa-bullhorn text-130" style="color:'.$row['color'].'" ></i>';}
 						?>
 					</div>
 				</div>
@@ -1642,11 +1640,10 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                             $qry->execute(array('id' => $globalrow['state']));
                             $row = $qry->fetch();
                             $qry->closeCursor();
-                            if (!$row) {
-
-                            } else {
-                                echo '&nbsp;<span class="' . $row['display'] . '" title="' . T_($row['description']) . '">&nbsp;</span>';
-                            }
+                            // Ajout de la vérification ici pour éviter le warning
+							if ($row !== false) {
+								echo '&nbsp;<span class="' . ($row['display'] ?? '') . '" title="' . T_($row['description'] ?? '') . '">&nbsp;</span>';
+							}
                             ?>
                         </div>
                     </div>

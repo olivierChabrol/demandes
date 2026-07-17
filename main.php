@@ -9,6 +9,7 @@
 # @Version : 3.2.2 p4
 ################################################################################
 //!\ AJOUTER PAR NOS SOINS
+	
 require_once('models/request/ticket/ticket.php');
 use Models\Request\Ticket\Ticket;
 //!\ FIN AJOUT
@@ -393,8 +394,8 @@ echo '
 							}
             }
             //!\FIN AJOUT
-						else {$msg_error=T_("Vous n'avez pas les droits d'accès à cette page, contacter votre administrateur");}
-					} else	{
+			else {$msg_error=T_("Vous n'avez pas les droits d'accès à cette page, contacter votre administrateur");}
+		} else	{
 						//check rights page before display
 						if($_GET['page']=='ticket' && $_GET['id']) //check if ticket is deleted
 						{

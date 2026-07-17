@@ -2,6 +2,7 @@
 
 namespace Models\Request\Ticket;
 
+require_once('core/gen_file.php');
 require_once('models/request/base_request.php');
 require_once('models/request/purchase_order/purchase_order.php');
 require_once('models/request/mission_order/mission_order.php');
@@ -181,12 +182,14 @@ class Ticket extends BaseRequest
             ->setObservers($request->getValidators());
 
         if ($request->isPurchaseOrder()) {
-		$this->createByPurchaseOrder($request);
-		$request->setIncidentId($this->getId());
-        } else if ($request->isMissionOrder()) {
-                $this->createByMissionOrder($request);
-		$request->setIncidentId($this->getId());
-	}
+		    $this->createByPurchaseOrder($request);
+		    $request->setIncidentId($this->getId());
+        } 
+        else if ($request->isMissionOrder()) 
+        {
+            $this->createByMissionOrder($request);
+		    $request->setIncidentId($this->getId());
+	    }
 
 	
 
@@ -227,6 +230,7 @@ class Ticket extends BaseRequest
         }
     }
 
+
     private function createByMissionOrder(MissionOrder $missionOrder)
     {
         // init an empty subcategory in case of mission whitout fees
@@ -240,14 +244,17 @@ class Ticket extends BaseRequest
         $html = $this->buildHtml($missionOrder);
 
         if($missionOrder->isOmForGuest())
+        {
             $this->setCategory(self::CATEGORY_INVITATION);
+        }
         else
             $this->setCategory(self::CATEGORY_MISSION_ORDER);
-        $this
-            ->setSubCategory($subCategory)
-            ->setDescription($html)
-            ->setDateStart($missionOrder->getDateStart())
-	    ->insert();
+
+        $this->setSubCategory($subCategory)
+             ->setDescription($html)
+             ->setDateStart($missionOrder->getDateStart())
+	         ->insert();
+
 	    $missionOrder->setIncidentId($this->getId());
 	    $missionOrder->save();
 
@@ -309,12 +316,33 @@ class Ticket extends BaseRequest
 
         $pdfString = $dompdf->output();
         $date = new \DateTime();
-        $filename = 'recap_'.$missionOrder->getOwner()->getFullName('_').'_'.$missionOrder->getId().'_'.$date->format('YmdHi').'.pdf';
-        $path = File::TARGET_FILE_TICKET.'/'.$filename;
+        //$filename = 'recap_'.$missionOrder->getOwner()->getFullName('_').'_'.$missionOrder->getId().'_'.$date->format('YmdHi').'.pdf';
+        $filename = $this->generateFileName('recap', $missionOrder->getOwner()->getFullName('_'), $missionOrder->getId(), null, 'pdf');
+        //$path = File::TARGET_FILE_TICKET.'/'.$filename;
+        $path = $filename;
 
         file_put_contents($path, $pdfString);
 
         return $filename;
+    }
+
+
+    public function generateFileName(string $prefix, string $ownerName, string $missionId, ?string $path, string $extension): string
+    {
+        $date = new \DateTime();
+        if (!str_starts_with($extension, '.')) {
+            $extension = '.'.$extension;
+        }
+
+        $filename = $prefix.'_'.$ownerName.'_'.$missionId.'_'.$date->format('YmdHi').$extension;
+        if ($path === null) {
+            $fullPath = $filename;
+        }
+        else {
+            $fullPath = $path.'/'.$filename;
+        }
+
+        return $fullPath;
     }
 
     public function loadObservers(): self

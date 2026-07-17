@@ -237,26 +237,30 @@ if($_GET['action']!='new') //case for edit ticket not new ticket
 									$qry2->execute(array('id' => $row['group1']));
 									$rgroup1=$qry2->fetch();
 									$qry2->closeCursor();
-									if(empty($rgroup1['name'])) {$rgroup1['name']='';}
-									
-									$qry2=$db->prepare("SELECT `name` FROM `tgroups` WHERE id=:id");
-									$qry2->execute(array('id' => $row['group2']));
-									$rgroup2=$qry2->fetch();
-									$qry2->closeCursor();
-									if(empty($rgroup2['name'])) {$rgroup2['name']='';}
+									if($rgroup1 === false) { $rgroup1 = array(); } // Correction ici
+                                    if(empty($rgroup1['name'])) {$rgroup1['name']='';}
+                                    
+                                    $qry2=$db->prepare("SELECT `name` FROM `tgroups` WHERE id=:id");
+                                    $qry2->execute(array('id' => $row['group2']));
+                                    $rgroup2=$qry2->fetch();
+                                    $qry2->closeCursor();
+                                    if($rgroup2 === false) { $rgroup2 = array(); } // Correction ici
+                                    if(empty($rgroup2['name'])) {$rgroup2['name']='';}
 									
 									//find technicians name
 									$qry2=$db->prepare("SELECT CONCAT_WS('. ', left(tusers.firstname, 1),  tusers.lastname) AS name FROM tusers WHERE id=:id AND id!='0'");
 									$qry2->execute(array('id' => $row['tech1']));
 									$rtech1=$qry2->fetch();
 									$qry2->closeCursor();
-									if(empty($rtech1['name'])) {$rtech1['name']='';}
-									
-									$qry2=$db->prepare("SELECT CONCAT_WS('. ', left(tusers.firstname, 1),  tusers.lastname) AS name FROM tusers WHERE id=:id AND id!='0'");
-									$qry2->execute(array('id' => $row['tech2']));
-									$rtech2=$qry2->fetch();
-									$qry2->closeCursor();
-									if(empty($rtech2['name'])) {$rtech2['name']='';}
+									if($rtech1 === false) { $rtech1 = array(); } // Correction ici
+                                    if(empty($rtech1['name'])) {$rtech1['name']='';}
+                                    
+                                    $qry2=$db->prepare("SELECT CONCAT_WS('. ', left(tusers.firstname, 1),  tusers.lastname) AS name FROM tusers WHERE id=:id AND id!='0'");
+                                    $qry2->execute(array('id' => $row['tech2']));
+                                    $rtech2=$qry2->fetch();
+                                    $qry2->closeCursor();
+                                    if($rtech2 === false) { $rtech2 = array(); } // Correction ici
+                                    if(empty($rtech2['name'])) {$rtech2['name']='';}
 									
 									if($rtech1['name']) {$source=$rtech1['name'];} else {$source=$rgroup1['name'];}
 									if($rtech2['name']) {$destination=$rtech2['name'];} else {$destination=$rgroup2['name'];}

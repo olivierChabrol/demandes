@@ -293,7 +293,9 @@ if($_SESSION['user_id'] && isset($_POST['query'])){
 		<meta name="theme-color" content="#4aa0df">
 		<?php
 		if($_SESSION['user_id'] && $rparameters['auto_refresh'] && $_GET['page']=='dashboard' && !$_POST['keywords'])
-		{echo '<meta http-equiv="Refresh" content="'.$rparameters['auto_refresh'].';">'; }
+		{
+
+			echo '<meta http-equiv="Refresh" content="'.$rparameters['auto_refresh'].';">'; }
 		?>
 		<title>SIGED | <?php echo T_('Gestion des demandes administratives'); ?></title>
 		<link rel="shortcut icon" type="image/png" href="./images/

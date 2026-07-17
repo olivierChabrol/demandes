@@ -12,10 +12,13 @@
 //!\Modifier par nos soins
 
 require_once('models/request/ticket/ticket.php');
+require_once('models/request/mission_order/mission_order.php');
 require_once('models/user/user.php');
 require_once('models/tool/parameters.php');
 
+use Models\Request\Common\File;
 use Models\Request\Ticket\Ticket;
+use Models\Request\MissionOrder\MissionOrder;
 use Models\User\User;
 use Models\Tool\Parameters;
 
@@ -151,7 +154,7 @@ if($_GET['unlock_thread'] && $rright['ticket_thread_private']!=0)
 }
 
 //master query
-$qry=$db->prepare("SELECT `tincidents`.*, dmission_order.om_for_guest, dmission_order.guest_name, dmission_order.guest_mail,dmission_order.guest_birthdate,dmission_order.guest_phone_number,dmission_order.guest_labo,dmission_order.guest_country
+$qry=$db->prepare("SELECT `tincidents`.*, dmission_order.om_for_guest, dmission_order.guest_firstname, dmission_order.guest_lastname, dmission_order.guest_mail,dmission_order.guest_birthdate,dmission_order.guest_phone_number,dmission_order.guest_labo,dmission_order.guest_country
 	FROM `tincidents` 
     LEFT JOIN `dmission_order` ON `tincidents`.`id`=`dmission_order`.`incident_id` 
     WHERE `tincidents`.id=:id");
@@ -565,7 +568,10 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 			'end_availability' => $end_availability,
 			'availability_planned' => $_POST['availability_planned']
 			));
-	}elseif(!$error) {
+	}
+	elseif(!$error) 
+	{
+
 		//modify read state
 		if($_POST['technician']==$_SESSION['user_id']) {$techread=1; $techread_date=date("Y-m-d H:i:s");} //read ticket
 
@@ -576,6 +582,53 @@ if($_POST['addcalendar']||$_POST['addevent']||$_POST['modify']||$_POST['quit']||
 		$qry->closeCursor();
 		if(!$rright['ticket_tech']) {if($row['technician']!=$_POST['technician']) {$_POST['technician']=$row['technician'];}}
 		if(!$rright['ticket_state']) {if($row['state']!=$_POST['state']) {$_POST['state']=$row['state'];}}
+
+		if($rparameters['debug']) {echo "<br /><b>TECHNICIAN :</b><br />". $row['technician']." => ".$_POST['technician']."<br />";}
+		
+		if($row['technician'] == 0 && $_POST['technician'] != 0)
+		{
+			$qry=$db->prepare("SELECT id FROM `dmission_order` WHERE incident_id=:incident_id");
+			$qry->execute(array('incident_id' => $_GET['id']));
+			$missionOrderId=$qry->fetch();
+			$qry->closeCursor();
+ 
+
+			if($missionOrderId && $missionOrderId['id'] != 0) {
+				if($rparameters['debug']) {echo "<br /><b>missionOrder :</b> ".$missionOrderId['id']."<br />";}
+				$missionOrder = new MissionOrder();
+				$missionOrder->setId((int) $missionOrderId['id']);
+				//if($rparameters['debug']) {echo "<br /><b>missionOrder get ID :</b> ".$missionOrder->getId()."<br />";}
+				$missionOrder->setCurrentUser($_SESSION['user_id']);
+				$missionOrder->load_no_security();
+
+				//var_dump($missionOrder);
+				
+				$qry=$db->prepare("SELECT `firstname`,`lastname` FROM `tusers` WHERE id=:id");
+				$qry->execute(array('id' => $_SESSION['user_id']));
+				$current_user=$qry->fetch();
+				$qry->closeCursor();
+
+				$administratorName = $current_user['firstname'].' '.strtoupper($current_user['lastname']);
+
+				$fileName = genererFicheSifac(
+					$missionOrder->getGuestFirstName(),
+					$missionOrder->getGuestLastName(),
+					$missionOrder->getGuestBirthdate(),
+					$missionOrder->getGuestPhonenumber(),
+					$missionOrder->getGuestMail(),
+					$administratorName,
+					File::TARGET_FILE_TICKET.'/'
+				);
+			
+				$file = new File();
+        		$file->setName($fileName)->setPath($fileName);
+				$ticket = new Ticket();
+				$ticket->setId((int) $_GET['id']);
+				//$ticket->load();
+				$ticket->addFile($file);
+				$ticket->insertFiles();
+			}
+		}
 
 		//update ticket
 		$query = "UPDATE tincidents SET

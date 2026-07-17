@@ -59,12 +59,12 @@ class User
         return $this->firstName.$separator.strtoupper($this->lastName);
     }
 
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
         return $this;

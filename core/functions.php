@@ -143,10 +143,10 @@ function DisplayMessage($type, $message)
 				</button>
 			</div>
 			';
-		}
-		if($type=='info')
-		{
-			return '
+	}
+	if($type=='info')
+	{
+		return '
 			<div role="alert" class="alert alert-lg bgc-info-l3 border-0 border-l-4 brc-info-m1 mt-4 mb-3 pr-3 d-flex">
 				<div class="flex-grow-1">
 					<i class="fas fa-info-circle mr-1 text-120 text-info-m1"></i>
@@ -157,6 +157,6 @@ function DisplayMessage($type, $message)
 				</button>
 			</div>
 			';
-		}
 	}
+}
 ?>
