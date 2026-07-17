@@ -505,7 +505,7 @@ $upload_size=round(((folderSize('upload')/1024)/1024),2).'MB';
 							$qry->execute();
 							$admin_pwd=$qry->fetch();
 							$qry->closeCursor();
-							if($admin_pwd['last_pwd_chg']=='0000-00-00')
+							if($admin_pwd !== false && $admin_pwd['last_pwd_chg']=='0000-00-00')
 							{
 								echo '<i class="fa fa-times-circle text-danger"></i> <b>'.T_('Mot de passe administrateur').' : </b>'.T_('Pas encore modifié').' <i>('.T_("Changer le mot de passe du compte ayant l'identifiant admin").').</i><br />';
 							} else {
