@@ -1605,8 +1605,18 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                                     $qry->execute(array('id' => $_POST['state']));
                                     $row = $qry->fetch();
                                     $qry->closeCursor();
-                                    echo '<option value="' . $_POST['state'] . '" selected >' . T_($row['name']) . '</option>';
-                                    $selected_state = $_POST['state'];
+                                    if ($row !== false) {
+										$stateName = $row['name'];
+									} else {
+										// Optionnel : Enregistre l'erreur dans les logs pour ton suivi
+										error_log("GestSup Warning : Ticket #" . $_GET['id'] . " pointe vers un état inexistant (ID: " . $_POST['state'] . ")");
+										
+										// Affiche un message explicite au lieu de planter
+										$stateName = "État inconnu (ID: " . $_POST['state'] . ")";
+									}
+									
+									echo '<option value="' . $_POST['state'] . '" selected >' . T_($stateName) . '</option>';
+									$selected_state = $_POST['state'];
                                 } else {
                                     $qry = $db->prepare("SELECT `name` FROM `tstates` WHERE `id`=:id");
                                     $qry->execute(array('id' => $globalrow['state']));
