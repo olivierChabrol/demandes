@@ -537,32 +537,6 @@ if($send==1)
 				}
 			}
 		}
-
-		if($rparameters['user_agency'] && !empty($_POST['u_agency']) && $_GET['page']!='preview_mail') {
-			//get agency mail
-			$qry=$db->prepare("SELECT `mail` FROM `tagencies` WHERE id=:id");
-			$qry->execute(array('id' => $_POST['u_agency']));
-			$row=$qry->fetch();
-			$qry->closeCursor();
-			if($row['mail'])
-			{
-				if($userrow['mail']){$mail->AddCC("$row[mail]"); $dest_mail=1;} else {$mail->AddAddress("$row[mail]"); $dest_mail=1;}
-			}
-		}
-
-		//add user agency mail if user have no mail and agency parameter is enable
-		if($rparameters['user_agency'] && !empty($_POST['u_agency']) && $_GET['page']!='preview_mail') {
-            //get agency mail
-            $qry=$db->prepare("SELECT `mail` FROM `tagencies` WHERE id=:id");
-            $qry->execute(array('id' => $_POST['u_agency']));
-            $row=$qry->fetch();
-            $qry->closeCursor();
-            if($row !== false && !empty($row['mail']))
-            {
-                if(!empty($userrow['mail'])){$mail->AddCC("$row[mail]"); $dest_mail=1;} else {$mail->AddAddress("$row[mail]"); $dest_mail=1;}
-            }
-        }
-
         //add user agency mail if user have no mail and agency parameter is enable
         if($rparameters['user_agency']) {
             //send mail to agency on agency field if exist
