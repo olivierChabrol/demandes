@@ -29,11 +29,11 @@ if(!isset($_POST['usercopy6_cci'])) $_POST['usercopy6_cci'] = '';
 if(!isset($_POST['manual_address_cci'])) $_POST['manual_address_cci'] = '';
 if(!isset($_POST['receiver'])) $_POST['receiver'] = '';
 if(!isset($_POST['withattachment'])) $_POST['withattachment'] = '';
-if(!isset($_GET['state'])) $_POST['state'] = '';
-if(!isset($_GET['userid'])) $_POST['userid'] = '';
-if(!isset($_GET['view'])) $_POST['view'] = '';
-if(!isset($_GET['date_start'])) $_POST['date_start'] = '';
-if(!isset($_GET['date_end'])) $_POST['date_end'] = '';
+if(!isset($_POST['state'])) $_POST['state'] = '';
+if(!isset($_POST['userid'])) $_POST['userid'] = '';
+if(!isset($_POST['view'])) $_POST['view'] = '';
+if(!isset($_POST['date_start'])) $_POST['date_start'] = '';
+if(!isset($_POST['date_end'])) $_POST['date_end'] = '';
 if(!isset($fname11)) $fname11 = '';
 if(!isset($fname21)) $fname21 = '';
 if(!isset($fname31)) $fname31 = '';
@@ -60,13 +60,26 @@ $dest_mail=0;
 //database queries to find values for create mail
 $qry=$db->prepare("SELECT * FROM `tincidents` WHERE `id`=:id");
 $qry->execute(array('id' => $db_id));
-$globalrow=$qry->fetch();
+$globalrow=$qry->fetch(PDO::FETCH_ASSOC);
 $qry->closeCursor();
+
+if ($globalrow === false) {
+    echo DisplayMessage('error', T_('Ticket introuvable'));
+    return;
+}
 
 $qry=$db->prepare("SELECT `id`,`mail`,`firstname`,`lastname`,`company` FROM `tusers` WHERE `id`=:id");
 $qry->execute(array('id' => $globalrow['user']));
-$userrow=$qry->fetch();
+$userrow=$qry->fetch(PDO::FETCH_ASSOC);
 $qry->closeCursor();
+
+$userrow = array_merge([
+    'id'        => 0,
+    'mail'      => '',
+    'firstname' => '',
+    'lastname'  => '',
+    'company'   => 0,
+], is_array($userrow) ? $userrow : []);
 
 //!\ AJOUTER PAR NOS SOINS
 $obsmails=[];
@@ -76,10 +89,22 @@ while($row=$qry->fetch()) {$obsmails[]=$row['mail'];}
 $qry->closeCursor();
 //!\FIN AJOUT
 
+$technicianId = (int) ($globalrow['technician'] ?? 0);
 $qry=$db->prepare("SELECT `id`,`mail`,`firstname`,`lastname`,`phone`,`mobile`,`custom1`,`custom2`,`function` FROM `tusers` WHERE id=:id");
-$qry->execute(array('id' => $globalrow['technician']));
-$techrow=$qry->fetch();
+$qry->execute(array('id' => $technicianId));
+$techrow=$qry->fetch(PDO::FETCH_ASSOC);
 $qry->closeCursor();
+$techrow = array_merge([
+    'id'        => 0,
+    'mail'      => '',
+    'firstname' => '',
+    'lastname'  => '',
+    'phone'     => '',
+    'mobile'    => '',
+    'custom1'   => '',
+    'custom2'   => '',
+    'function'  => '',
+], is_array($techrow) ? $techrow : []);
 
 $technician_services='';
 $qry=$db->prepare("SELECT `name` FROM `tservices`,`tusers_services` WHERE `tservices`.`id`=`tusers_services`.`service_id` AND `tusers_services`.`user_id`=:user_id");

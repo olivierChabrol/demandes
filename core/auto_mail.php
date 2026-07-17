@@ -382,12 +382,38 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 		//get tech mail
 		//!\ OLD - $qry = $db->prepare("SELECT `id`,`mail` FROM tusers WHERE id=:id");
 		/*/!\ Modifier par nos soins */
-		$qry = $db->prepare("SELECT * FROM tusers WHERE id=:id");
-		$qry->execute(array('id' => $globalrow['technician']));
-		$techrow=$qry->fetch();
-		$qry->closeCursor();
-		$to=$techrow['mail'];
-		if($techrow['id']!=$_SESSION['user_id']) {$send_it=1;}
+		$technicianId = (int) ($globalrow['technician'] ?? 0);
+
+		$techrow = false;
+
+		if ($technicianId > 0) {
+			$qry = $db->prepare("SELECT `id`, `mail` FROM `tusers` WHERE `id` = :id LIMIT 1");
+
+			$qry->execute([
+				'id' => $technicianId,
+			]);
+
+			$techrow = $qry->fetch(PDO::FETCH_ASSOC);
+			$qry->closeCursor();
+		}
+
+		if ($techrow !== false) {
+			$to = $techrow['mail'] ?? '';
+
+			if (
+				(int) ($techrow['id'] ?? 0) !==
+				(int) ($_SESSION['user_id'] ?? 0)
+			) {
+				$send_it = 1;
+			}
+		} else {
+			$to = '';
+			$send_it = 0;
+
+			if (!empty($rparameters['debug'])) {
+				echo '<b>AUTO MAIL :</b> aucun technicien valide trouvé pour le ticket.<br>';
+			}
+		}
 	}
 	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  globalrow['technician']: ".$globalrow['technician']." to: ".$to."<br>";}
 	if($rparameters['debug']) {echo "<b>AUTO MAIL DETECT:</b>  usermail['mail']: ".$usermail['mail']."<br>";}
