@@ -302,10 +302,17 @@
                                     <center>
                                         <a class="td" title="" href="<?php echo $viewRequest ?>">
                                         <?php 
-			    // OC
-                     if(!$request->isPurchaseOrder())
-                        $newDate = $request->getDateStart()->format('d/m/Y');
-                     echo $newDate; ?>
+			        // OC
+                    $newDate = '';
+                    if (!$request->isPurchaseOrder()) {
+                        $dateStart = $request->getDateStart();
+
+                        if ($dateStart instanceof \DateTimeInterface) {
+                            $newDate = $dateStart->format('d/m/Y');
+                        }
+                    }
+                    echo $newDate; 
+                                        ?>
                                         </a>
                                     </center>
                                 </td>
