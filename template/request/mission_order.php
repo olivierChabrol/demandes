@@ -127,7 +127,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     <div class="col-sm-9">
                         <input id="title" type="text" name="title" value="<?php echo htmlspecialchars($missionOrder->getTitle(), ENT_QUOTES, 'UTF-8') ?>" <?php echo ($disabled) ? 'disabled' : '' ?> />
                     </div>
-		</div>
+		        </div>
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
                         <label class="mb-0" for="reason-for-mission">
@@ -142,22 +142,18 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                             echo '285';
                         } ?>" style="border: 1px solid #D8D8D8;">
                             <tr>
-				<td style="padding:5px">
-
+				                <td style="padding:5px">
                                     <div id="reason-for-mission-editor"
-                                         class="bootstrap-wysiwyg-editor pl-2 pt-1 editor"
-                                         style="min-height:100px; max-width:775px">
-				    </div>
-
-<!-- <div id="reason-for-mission-editor" contenteditable style="min-height:100px; max-width:775px"> -->
+                                            class="bootstrap-wysiwyg-editor pl-2 pt-1 editor"
+                                            style="min-height:100px; max-width:775px">
                                     </div>
                                     <input id="reason-for-mission" type="hidden" name="reason-for-mission"
                                         value="<?php echo htmlspecialchars($missionOrder->getReasonForMission(), ENT_QUOTES, 'UTF-8') ?>"/>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-		</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
 			<label class="mb-0" for="title">
@@ -1400,6 +1396,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 ?>
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
+                        <?php echo '<i id="amount_estimated_warning" title="' . T_('Montant Estimé  ') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i> &nbsp;'; ?>
                         <label class="mb-0" for="comment">
                             <?php echo T_('Montant Estimé'); ?> :
                         </label>
@@ -1579,7 +1576,6 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
 ?>
         };
 
-
         // init select2
         $('.select2').select2();
         $('#model-list-mo').select2({
@@ -1625,13 +1621,10 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 <?php
  }
 ?>
-
-        // init om for guest input
-        initOmForGuest();
-
-        // init collective mission
-        initCollectiveMission();
-
+    // init om for guest input
+    initOmForGuest();
+    // init collective mission
+    initCollectiveMission();
 	// init place start and place return
 <?php
       if($invitation == 0) {
@@ -1661,11 +1654,11 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 
             //$('#list-people-involved-assignment').val($('#list-people-involved-assignment-editor').html().trim());
             $('#additional-budget-information').val($('#additional-budget-information-editor').html().trim());
-	    $('#reason-for-mission').val($('#reason-for-mission-editor').html().trim());
+	        $('#reason-for-mission').val($('#reason-for-mission-editor').html().trim());
 <?php
       if($invitation == 0) {
 ?>
-	    $('#other-fees').val($('#other-fees-editor').html().trim());
+	        $('#other-fees').val($('#other-fees-editor').html().trim());
             $('#transport-market-justification').val($('#transport-market-justification-editor').html().trim());
             $('#colloquiums-registration-fees').val($('#colloquiums-registration-fees-editor').html().trim());
 <?php
@@ -1760,63 +1753,67 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             }
 	});
 
-        $("#budget-data").change(function () {
-		console.log(budgetValidator[$(this).val()]);
-		//$('#validators').val(udgetValidator[$(this).val()]);
-		//$('#validators').trigger('change');
-        });
+    $("#budget-data").change(function () {
+    console.log(budgetValidator[$(this).val()]);
+    //$('#validators').val(udgetValidator[$(this).val()]);
+    //$('#validators').trigger('change');
+    });
 
-	function initOmForGuest() {
-            console.log("[initOmForGuest]");
-            console.log("[initOmForGuest] $('#om-for-guest').attr('checked') : " + $('#om-for-guest').attr('checked'));
-            if ($('#om-for-guest').attr('checked')) {
-                typeMissionCopy = $("input[name='type-mission']:checked").val();
-                $('input[name="type-mission"]').attr('disabled', true);
-                $('#guest-group').removeClass('d-none');
-                $('#with-fees').prop('checked', true);
-                $('input[name="guest-name"]').attr('hidden',false);
-            } else {
-                $('input[name="type-mission"]').attr('disabled', false);
-                $('#with-fees').prop('checked', (typeMissionCopy == 1));
-                $('#without-fees').prop('checked', (typeMissionCopy == 2));
-                $('#standing-mission-order').prop('checked', (typeMissionCopy == 3));
-                $('#guest-group').addClass('d-none');
+    function initOmForGuest() {
+        if ($('#om-for-guest').attr('checked')) {
+            typeMissionCopy = $("input[name='type-mission']:checked").val();
+            $('input[name="type-mission"]').attr('disabled', true);
+            $('#guest-group').removeClass('d-none');
+            $('#with-fees').prop('checked', true);
+            $('input[name="guest-name"]').attr('hidden',false);
+        } else {
+            $('input[name="type-mission"]').attr('disabled', false);
+            $('#with-fees').prop('checked', (typeMissionCopy == 1));
+            $('#without-fees').prop('checked', (typeMissionCopy == 2));
+            $('#standing-mission-order').prop('checked', (typeMissionCopy == 3));
+            $('#guest-group').addClass('d-none');
 
-            }
-            initTypeMission();
         }
+        initTypeMission();
+    }
 
-        function initCollectiveMission() {
-            toggleElement('#collective-mission-group', $("#collective-mission:checked").val());
-        }
+    function initCollectiveMission() {
+        toggleElement('#collective-mission-group', $("#collective-mission:checked").val());
+    }
 
 	function initTypeMission() {
 	    console.log("[initTypeMission] input[name='type-mission']:checked : " + $("input[name='type-mission']:checked").val());
-            if ($("input[name='type-mission']:checked").val() == 1) {
-                $('#with-fees-group').removeClass('d-none');
-            } else {
-                $('#with-fees-group').addClass('d-none');
-            }
-            if ($("input[name='type-mission']:checked").val() == 2) {
-                $('#without-fees-group').removeClass('d-none');
-                $('#validators').val('<?php echo $_SESSION["user_id"]?>').trigger('change');
-                $('#resp-cred').addClass('d-none');
-	    } else {
-                $('#without-fees-group').addClass('d-none');
-                $('#resp-cred').removeClass('d-none');
-                //$('#validators').val(null).trigger('change');
-            }
-            if ($("input[name='type-mission']:checked").val() == 3) {
-                $('#validators').val('<?php echo $_SESSION["user_id"]?>').trigger('change');
-                $('#resp-cred').addClass('d-none');
-            }
-
-
-            if (formDisabled) {
-                $('input[name="type-mission"]').attr('disabled', true);
-            }
-
+        // mission with fees
+        if ($("input[name='type-mission']:checked").val() == 1) 
+        {
+            $('#with-fees-group').removeClass('d-none');
+            $('#amount_estimated_warning').removeClass('d-none'); //amount_estimated_warning
+        } 
+        else 
+        {
+            $('#with-fees-group').addClass('d-none');
+            $('#amount_estimated_warning').addClass('d-none'); //amount_estimated_warning
         }
+
+        if ($("input[name='type-mission']:checked").val() == 2) {
+            $('#without-fees-group').removeClass('d-none');
+            $('#validators').val('<?php echo $_SESSION["user_id"]?>').trigger('change');
+            $('#resp-cred').addClass('d-none');
+	    } else {
+            $('#without-fees-group').addClass('d-none');
+            $('#resp-cred').removeClass('d-none');
+            //$('#validators').val(null).trigger('change');
+        }
+
+        if ($("input[name='type-mission']:checked").val() == 3) {
+            $('#validators').val('<?php echo $_SESSION["user_id"]?>').trigger('change');
+            $('#resp-cred').addClass('d-none');
+        }
+
+        if (formDisabled) {
+            $('input[name="type-mission"]').attr('disabled', true);
+        }
+    }
 
 	function initChoosePlace(target) {
 		console.log("[initChoosePlace(" + target + ")]");
@@ -1946,6 +1943,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             if (!checkTypeMission()) {
                 got_errors = true;
             }
+
             if ($('#validators').val().length == 0) {
                 sendError("<?php echo T_('Le champ Responsable des crédits est requis'); ?>");
                 got_errors = true;
@@ -1954,6 +1952,11 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 sendError("<?php echo T_('Le champ Motif de la mission est requis'); ?>");
                 got_errors = true;
 	        }
+
+            if(($("#amount_estimated").val() == "" || $("#amount_estimated").val() == 0) && $('#with-fees').is(':checked')) {
+                sendError("<?php echo T_('Le champ Montant estimé est requis'); ?>");
+                got_errors = true;
+            }
 <?php
             if($invitation == 0) {
 ?>
@@ -1980,6 +1983,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             }
 <?php
             } else { ?>
+
 
             if (!$('#guest-phonenumber').val()){
                 sendError("<?php echo T_('Le champ Numéro de téléphone de l\'invité est requis'); ?>");
