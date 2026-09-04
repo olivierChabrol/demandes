@@ -20,8 +20,14 @@ if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
 //initialize variables
 if(!isset($_FILES['file']['name'])) {$_FILES['file']['name']='';}
 
+// 1. Sécurisation stricte de l'ID du ticket
+$ticket_id = (int)$_GET['id'];
+if ($ticket_id <= 0) {
+    exit("ID de ticket invalide.");
+}
+
 //create ticket directory if not exist
-if(!is_dir("./upload/ticket"))  {mkdir('./upload/ticket', 0777, true);}
+if(!is_dir("./upload/ticket"))  {mkdir('./upload/ticket', 0755, true);}
 
 if($_FILES['file']['name'] && $_GET['id'])
 {
@@ -38,23 +44,22 @@ if($_FILES['file']['name'] && $_GET['id'])
 			exit("Type de fichier non autorisé.");
 		}
 
+		// 4. Contrôle du contenu AVANT le déplacement sur le disque
+        $file_content = file_get_contents($_FILES['file']['tmp_name']);
+        if(preg_match('{\<\?php}i', $file_content) || preg_match('/system\(/i', $file_content)) {
+            exit(DisplayMessage('error',T_("Fichier interdit")));
+        }
+
 		//create upload folder if not exist
         $target_folder='./upload/ticket/';
 		//generate storage filename
 		$storage_filename=$_GET['id'].'_'.md5(uniqid().'_'.$real_filename);
 		if(move_uploaded_file($_FILES['file']['tmp_name'], $target_folder.$storage_filename))
 		{
-			//content check
-			$file_content = file_get_contents($target_folder.$storage_filename, true);
-			if(preg_match('{\<\?php}',$file_content) || preg_match('/system\(/',$file_content)) {
-				unlink($target_folder.$storage_filename); //remove file
-				echo DisplayMessage('error',T_("Fichier interdit"));
-			} else {
-				$uid=md5(uniqid());
-				$qry=$db->prepare("INSERT INTO `tattachments` (`uid`,`ticket_id`,`storage_filename`,`real_filename`) VALUES (:uid,:ticket_id,:storage_filename,:real_filename)");
-				if($qry->execute(array('uid' => $uid,'ticket_id' => $_GET['id'],'storage_filename' => $storage_filename,'real_filename' => $real_filename))){
-					include "change_state_on_upload.php";
-				}
+			$uid=md5(uniqid());
+			$qry=$db->prepare("INSERT INTO `tattachments` (`uid`,`ticket_id`,`storage_filename`,`real_filename`) VALUES (:uid,:ticket_id,:storage_filename,:real_filename)");
+			if($qry->execute(array('uid' => $uid,'ticket_id' => $_GET['id'],'storage_filename' => $storage_filename,'real_filename' => $real_filename))){
+				include "change_state_on_upload.php";
 			}
 		} else {
 			echo DisplayMessage('error',T_("Transfert impossible"));
