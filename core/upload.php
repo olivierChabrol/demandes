@@ -10,6 +10,13 @@
 # @Version : 3.2.2
 ################################################################################
 
+session_start();
+if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
+    // Redirection ou refus d'accès
+    header("HTTP/1.1 403 Forbidden");
+    exit("Accès non autorisé.");
+}
+
 //initialize variables
 if(!isset($_FILES['file']['name'])) {$_FILES['file']['name']='';}
 
@@ -21,6 +28,16 @@ if($_FILES['file']['name'] && $_GET['id'])
 	$real_filename=preg_replace("/[^A-Za-z0-9\_\-\.\s+]/", '', $_FILES['file']['name']);
 	//$real_filename=$_FILES['file']['name'];
     if(CheckFileExtension($real_filename)==true) {
+
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mimeType = finfo_file($finfo, $_FILES['file']['tmp_name']);
+
+		// Autoriser uniquement une liste blanche (ex: PDF et images basiques)
+		$allowedMimes = ['application/pdf', 'image/jpeg', 'image/png'];
+		if (!in_array($mimeType, $allowedMimes)) {
+			exit("Type de fichier non autorisé.");
+		}
+
 		//create upload folder if not exist
         $target_folder='./upload/ticket/';
 		//generate storage filename

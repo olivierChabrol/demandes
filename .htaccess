@@ -1,0 +1,18 @@
+# 1. Désactiver le listage du contenu des répertoires
+Options -Indexes
+
+# 2. Masquer la signature et la version d'Apache
+ServerSignature Off
+
+# 3. Bloquer l'accès au dossier .git, aux fichiers .env et .ht
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# 4. En-têtes de sécurité stricts (HSTS et anti-MIME sniffing)
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
