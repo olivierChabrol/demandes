@@ -50,8 +50,14 @@ if($_GET['page']!='ticket' && $_GET['page']!='admin' && $_GET['page'] && $_GET['
     if(!empty($_POST) OR !empty($_FILES))
     {
         $_SESSION['bkp_post'] = $_POST;
-        if(!empty($_SERVER['QUERY_STRING'])){ $currentpage .= '?' . $_SERVER['QUERY_STRING'];}
-        header('Location: ' . $currentpage);
+        if(!empty($_SERVER['QUERY_STRING']))
+		{ 
+			$safe_query = filter_var($_SERVER['QUERY_STRING'], FILTER_SANITIZE_URL);
+			$currentpage .= '?' . $safe_query;
+			header('Location: ' . $currentpage);
+			//$currentpage .= '?' . $_SERVER['QUERY_STRING'];
+		}
+        //header('Location: ' . $currentpage);
         exit;
     }
     if(isset($_SESSION['bkp_post']))
@@ -201,7 +207,8 @@ if($_SESSION['user_id'])
 	if(!$_COOKIE['token'])
 	{
 		$token = uniqid(32);
-		setcookie('token', $token, time()+1800);
+		// Ajout du chemin '/', du domaine '', et des booléens true (Secure) et true (HttpOnly)
+		setcookie('token', $token, time()+1800, '/', '', true, true);
 		$_COOKIE['token']=$token;
 	}
 
@@ -275,7 +282,11 @@ if($_POST['procedurekeywords']||$_GET['procedurekeywords']) {
 } else {$procedurekeywords='';}
 
 //download backup file
-if($_GET['download_backup'] && $rright['admin'] && $_SESSION['user_id']) {header("location: ./backup/$_GET[download_backup]");}
+//if($_GET['download_backup'] && $rright['admin'] && $_SESSION['user_id']) {header("location: ./backup/$_GET[download_backup]");}
+if($_GET['download_backup'] && $rright['admin'] && $_SESSION['user_id']) {
+    $file = basename($_GET['download_backup']);
+    header("location: ./backup/" . $file);
+}
 
 //download attachment file
 if($_GET['download'] && $_SESSION['user_id']) {require('core/download.php'); exit;}

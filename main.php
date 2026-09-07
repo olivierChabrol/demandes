@@ -12,6 +12,39 @@
 	
 require_once('models/request/ticket/ticket.php');
 use Models\Request\Ticket\Ticket;
+
+function getSafePage($page) {
+    // Liste exhaustive de toutes les pages autorisées par l'application
+    $allowed_pages = [
+        'dashboard',
+        'ticket',
+        'procedure',
+        'request',
+        'request_list',
+        'asset_list',
+        'asset',
+        'asset_stock',
+        'calendar',
+        'stat',
+        'admin',
+        'admin/user',
+        'changelog',
+        'preview_mail',
+        'plugins/availability/index'
+        // À compléter avec toute autre page requise par ton arborescence
+    ];
+
+    // Vérification stricte : si la page demandée est dans le tableau, on la retourne
+    if (in_array($page, $allowed_pages, true)) {
+        return $page;
+    }
+    
+    // Fallback de sécurité : redirection silencieuse vers le tableau de bord
+    return 'dashboard';
+}
+
+$safe_page = getSafePage($_GET['page']);
+
 //!\ FIN AJOUT
 //skin generation
 if($ruser['skin']=='skin-8') {$navbar='navbar-burlywood'; $sidebar='sidebar-gradient5'; $bgc="bgc-white";} //green and purple
@@ -293,17 +326,17 @@ echo '
 						} else {$check_ticket_disable=0;}
 						if($check_ticket_disable==1) {$msg_error=T_("Ce ticket a été supprimé");}
 						//allow display pages from availability function
-						elseif($_GET['page']=='plugins/availability/index' && $rright['availability']!=0 && $rparameters['availability']==1){include("$_GET[page].php");}
+						elseif($_GET['page']=='plugins/availability/index' && $rright['availability']!=0 && $rparameters['availability']==1){include($safe_page . ".php");}
 						//allow display pages from asset function
-						elseif($_GET['page']=='asset_list' && $rright['asset']!=0 && $rparameters['asset']==1) {include("$_GET[page].php");}
+						elseif($_GET['page']=='asset_list' && $rright['asset']!=0 && $rparameters['asset']==1) {include($safe_page . ".php");}
 						//allow display pages from template function
-						elseif($_GET['page']=='ticket' && $rright['ticket_template']!=0 && $_GET['action']=='template') {include("$_GET[page].php");}
+						elseif($_GET['page']=='ticket' && $rright['ticket_template']!=0 && $_GET['action']=='template') {include($safe_page . ".php");}
 						//allow open new ticket
-						elseif($_GET['page']=='ticket' && $_GET['action']=='new' && $rright['side_open_ticket']!=0) {include("$_GET[page].php");}
+						elseif($_GET['page']=='ticket' && $_GET['action']=='new' && $rright['side_open_ticket']!=0) {include($safe_page . ".php");}
 						//allow display all ticket for user with display all service, if rights are enable
-						elseif($_GET['page']=='dashboard' && $rright['side_all_service_disp']!=0) {include("$_GET[page].php");}
+						elseif($_GET['page']=='dashboard' && $rright['side_all_service_disp']!=0) {include($safe_page . ".php");}
 						//allow display all tickets for user with display all agency, if rights are enable
-						elseif($_GET['page']=='dashboard' && $rright['side_all_agency_disp']!=0) {include("$_GET[page].php");}
+						elseif($_GET['page']=='dashboard' && $rright['side_all_agency_disp']!=0) {include($safe_page . ".php");}
 						//allow modify ticket for user with same service service, if rights are enable (cnt_agency for case user have service and agency to allow edit)
 						elseif($_GET['page']=='ticket' && $_GET['action']!='new' && $rright['side_all_service_edit']!=0 && $cnt_service!=0) {
 							//check if open ticket is associated to the same service as the current user services
@@ -313,7 +346,7 @@ echo '
 							$qry->closeCursor();
 							$service_check=0;
 							foreach($user_services as $value) {if($check_ticket_service[0]==$value){$service_check=1;}}
-							if($service_check) {include("$_GET[page].php");}
+							if($service_check) {include($safe_page . ".php");}
 							else {
 								//check if current user is sender
 								$qry=$db->prepare("SELECT `user` FROM `tincidents` WHERE id=:id");
@@ -331,10 +364,10 @@ echo '
 									foreach($user_services as $value) {
 										if($check_ticket_service[0]==$value){$service_check=1;}
 									}
-									if($service_check==1) {include("$_GET[page].php");}
+									if($service_check==1) {include($safe_page . ".php");}
 									else {$msg_error=T_("Vous n'avez pas les droits d'accès pour modifier le ticket de ce service, contacter votre administrateur");}
 								} else {
-									include("$_GET[page].php");
+									include($safe_page . ".php");
 								}
 							}
 						}
@@ -352,7 +385,7 @@ echo '
 									$agency_check=1;
 								}
 							}
-							if($agency_check==1) {include("$_GET[page].php");}
+							if($agency_check==1) {include($safe_page . ".php");}
 							else {$msg_error=T_("Vous n'avez pas les droits d'accès pour modifier le ticket de cette agence, contacter votre administrateur");}
 						}
 						//allow display pages to company view
@@ -371,11 +404,11 @@ echo '
 								$qry->closeCursor();
 								if(($check_ticket_company['company']==$ruser['company']) && ($ruser['company']!=0))
 								{
-									include("$_GET[page].php");
+									include($safe_page . ".php");
 								} else {
 									$msg_error=T_("Vous n'avez pas les droits de consulter ce ticket, contacter votre administrateur");
 								}
-							} elseif($_GET['page']=='dashboard' || $_GET['action']=='template') {include("$_GET[page].php");}
+							} elseif($_GET['page']=='dashboard' || $_GET['action']=='template') {include($safe_page . ".php");}
 						}
             //!\ AJOUTER PAR NOS SOINS
             //allow display ticket to observers
@@ -387,7 +420,7 @@ echo '
                   ->loadObservers();
               if($ticket->hasObserver($_SESSION['user_id']))
               {
-									include("$_GET[page].php");
+									include($safe_page . ".php");
 							}
               else {
 									$msg_error=T_("Vous n'avez pas les droits de consulter ce ticket, contacter votre administrateur");
@@ -450,9 +483,9 @@ echo '
 								$qry->execute(array('id' => $_GET['id']));
 								$check_ticket_tech_sender=$qry->fetch();
 								$qry->closeCursor();
-								if($check_ticket_tech_sender[0]!=$_SESSION['user_id'] && $check_ticket_tech_sender[1]!=$_SESSION['user_id']) {$msg_error=T_("Vous n'avez pas les droits de consulter le ticket de ce service, contacter votre administrateur");} else {include("$_GET[page].php");}
+								if($check_ticket_tech_sender[0]!=$_SESSION['user_id'] && $check_ticket_tech_sender[1]!=$_SESSION['user_id']) {$msg_error=T_("Vous n'avez pas les droits de consulter le ticket de ce service, contacter votre administrateur");} else {include($safe_page . ".php");}
 							} else {
-								include("$_GET[page].php");
+								include($safe_page . ".php");
 							}
 						}
 						elseif($_GET['page']=='asset' && $rright['asset_list_company_only']!=0 && $_GET['action']!='new') // restrict user access to asset of our company only
@@ -465,13 +498,13 @@ echo '
 
 							if($check_asset_company['company']!=$ruser['company'])
 							{$msg_error=T_("Vous n'avez pas les droits d'accès à la fiche de cet équipement, contacter votre administrateur");}
-							else {include("$_GET[page].php");}
+							else {include($safe_page . ".php");}
 						}
 						elseif($_GET['page']=='dashboard' && !$rright['side_all'] && $_GET['userid']!=$_SESSION['user_id'] && $_GET['userid']) //check user URL
 						{
 							$msg_error=T_("Vous n'avez pas les droits de consulter le ticket de cet utilisateur, contacter votre administrateur");
 						}
-						else{include("$_GET[page].php");}
+						else{include($safe_page . ".php");}
 					}
 					if($msg_error){echo DisplayMessage('error',$msg_error);}
 					echo '
