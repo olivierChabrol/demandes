@@ -221,7 +221,8 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 					{
 						echo '<button type="button" style="width:31px; height:27px; padding-left:6px;  padding-top:5px;" class="btn btn-xs btn-info" title="'.T_('Planifier une intervention dans le calendrier').'" data-toggle="modal" data-target="#add_planification" ><i class="fa fa-calendar text-120"></i></button>&nbsp;';
 					}
-					if($rright['ticket_delete'] && $_GET['action']!='new')
+					// Autorise la suppression uniquement si l'utilisateur est Admin/Tech ou s'il est le créateur
+					if($rright['ticket_delete'] && $_GET['action']!='new' && ($_SESSION['profile_id'] == 0 || $_SESSION['profile_id'] == 4 || $_SESSION['user_id'] == $globalrow['creator']))
 					{
 						echo '<a style="width:31px; height:27px; padding-top:5px;" class="btn btn-xs btn-danger" onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer ce ticket ? les données et les pièces jointes seront définitivement supprimées').'\');" href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&action=delete"  title="'.T_('Supprimer ce ticket').'" ><i class="fa fa-trash text-120"></i></a>&nbsp;';
 					}
