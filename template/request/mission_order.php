@@ -264,22 +264,6 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                             echo ' value="1" ';
                             echo 'checked="1"';
                         } ?> <?php //echo ($disabled) ? 'disabled' : '' ?> >
-<!--
-		<div class="form-group row">
-                    <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="user">
-                            <?php echo T_('OM pour un invité'); ?> :
-                        </label>
-		    </div>
-
-                    <div class="col-sm-9 mt-2">
-                        <input id="om-for-guest" name="om-for-guest" type="hidden"
-                               value="1" <?php if ($missionOrder->isOmForGuest() || $invitation == 1) {
-                            echo 'checked="1"';
-                        } ?> <?php echo ($disabled) ? 'disabled' : '' ?> >
-                    </div>
-		</div>
--->
 
 <div id="guest-group" class="d-none">
     
@@ -359,43 +343,6 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
     <hr class="my-4 border-secondary">
     
 </div>
-<!--
-                <div class="form-group row">
-                    <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="collective-mission">
-                            <?php echo T_('Mission collective'); ?> :
-                        </label>
-                    </div>
-                    <div class="col-sm-9 mt-2">
-                        <input id="collective-mission" name="collective-mission" type="checkbox"
-                               value="1" <?php if ($missionOrder->isCollectiveMission()) {
-                            echo 'checked';
-                        } ?> <?php echo ($disabled) ? 'disabled' : '' ?> >
-                    </div>
-                </div>
-
-                <div id="collective-mission-group" class="form-group row d-none">
-                    <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="list-people-involved-assignment">
-                            <?php echo '<i id="user_warning" title="' . T_('Le champ Liste des personnes concernées pour la mission doit être renseigné') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
-                            <?php echo T_('Liste des personnes concernées pour la mission'); ?> :
-                        </label>
-                    </div>
-                    <div class="col-sm-9">
-                        <table border="1" width="<?php if($mobile==0) {echo '780';} else {echo '285';}?>" style="border: 1px solid #D8D8D8;" >
-                            <tr>
-                                <td style="padding:5px">
-                                    <div id="list-people-involved-assignment-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
-                                    </div>
-                                    <input id="list-people-involved-assignment" type="hidden" name="list-people-involved-assignment"
-                                           value="<?php echo $missionOrder->getListPeopleInvolvedAssignment() ?>"
-                                    />
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-		</div>
--->
 
                 <div class="p-3">
                     <div class="form-group row">
@@ -412,13 +359,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                                         <input type="hidden" name="MAX_FILE_SIZE" value="100000000">
                                         <input style="color:transparent; width:160px;" id="rib-and-supplementary-sheet" class="file-to-upload ajax"
                                                type="file" name="rib-and-supplementary-sheet[]" multiple <?php echo ($disabled) ? 'disabled' : '' ?> > &nbsp;
-                                        <!--<button class="btn btn-sm btn-success"
-                                                title="Enregistrer l'ordre de mission et charger le fichier"
-                                                onclick="check_size();" name="upload" value="upload" type="submit"
-                                                id="upload-mo" <?php //echo ($disabled) ? 'disabled' : '' ?>
-                                        >
-                                            <i class="fa fa-upload"></i>
-                                        </button>-->
+                                        
                                         <div class="files-to-upload-group"></div>
                                         <?php
                                         //utile pour le multifile ajax
@@ -551,9 +492,6 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
                             <label class="mb-0" for="additional-budget-information">
                                 <?php
-                                if(strpos($_SERVER['HTTP_HOST'], 'imbe.fr') !== false){
-                                  echo '<i id="user_warning" title="'.T_('Le champs informations de budget supplémentaires est requis').'" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;';
-                                }
                                 echo T_('Informations de budget supplémentaires')."<br>".T_('(ligne budgétaire, informations particulières, ...)');
                                 ?> :
                             </label>
@@ -1402,7 +1340,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         </label>
                     </div>
                     <div class="col-sm-9">
-                        <input id="amount_estimated" class="form-control col-5" type="text" name="amount_estimated" value="<?php echo $missionOrder->getEstimatedAmount() ?>">
+                        <input id="amount_estimated" class="form-control col-5" type="text" name="amount_estimated" value="<?php echo htmlspecialchars($missionOrder->getEstimatedAmount(), ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
                 </div>
 
@@ -1417,11 +1355,11 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
       if (!$disable_amount_max_field) {
 ?>
 	      <input id="amount_max_display" class="form-control col-5" type="text" name="amount_max_display" value="<?php echo $missionOrder->getAmountMax() ?>" disabled>
-              <input id="amount_max" type="hidden" name="amount_max" value="<?php echo $missionOrder->getAmountMax() ?>">
+              <input id="amount_max" type="hidden" name="amount_max" value="<?php echo htmlspecialchars($missionOrder->getAmountMax(), ENT_QUOTES, 'UTF-8'); ?>">
 <?php
       } else {
 ?>
-              <input id="amount_max" class="form-control col-5" type="text" name="amount_max" value="<?php echo $missionOrder->getAmountMax() ?>">
+              <input id="amount_max" class="form-control col-5" type="text" name="amount_max" value="<?php echo htmlspecialchars($missionOrder->getAmountMax(), ENT_QUOTES, 'UTF-8'); ?>" value="<?php echo $missionOrder->getAmountMax() ?>">
 <?php
       }
 ?>
@@ -1755,7 +1693,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 
     $("#budget-data").change(function () {
     console.log(budgetValidator[$(this).val()]);
-    //$('#validators').val(udgetValidator[$(this).val()]);
+    //$('#validators').val(budgetValidator[$(this).val()]);
     //$('#validators').trigger('change');
     });
 
@@ -1782,7 +1720,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
     }
 
 	function initTypeMission() {
-	    console.log("[initTypeMission] input[name='type-mission']:checked : " + $("input[name='type-mission']:checked").val());
+	    //console.log("[initTypeMission] input[name='type-mission']:checked : " + $("input[name='type-mission']:checked").val());
         // mission with fees
         if ($("input[name='type-mission']:checked").val() == 1) 
         {
@@ -2171,6 +2109,8 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
         }
     });
 
+    // @TODO: check size already defined before, remove this function if not used anymore
+    /*
     function check_size() {
         $('form').submit(function (e) {
             if (!($('#rib')[0].files[0].size < 73400320)) {
@@ -2180,6 +2120,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             }
         });
     }
+    //*/
 
     jQuery(function ($) {
         //CTRL+S to save ticket

@@ -201,7 +201,7 @@ if($globalrow['date_recycle']=='0000-00-00' || $globalrow['date_recycle']=='') {
 								if($wol_mac) {echo '<a style="width:31px; height:29px; padding:5px 0px 0px 0px;" class="btn btn-xs btn-warning" href="./index.php?page=asset&id='.$globalrow['id'].'&action=wol&mac='.$wol_mac.'&'.$url_get_parameters.'"><i title="'.T_("Allumer cet équipement avec l'adresse MAC:").' '.$wol_mac.' " style="color:#FFF;" class="fa fa-power-off text-130"></i></a>&nbsp;&nbsp;';}
 							}
 							if($rright['asset_delete']!=0) {
-								if($_GET['action']!='new') {echo '<a style="width:31px; height:29px; padding:5px 0px 0px 0px;" class="btn btn-xs btn-danger" title="'.T_('Supprimer').'" onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer cet équipement ?').'\');" href="./index.php?page=asset&id='.$_GET['id'].'&action=delete&'.$url_get_parameters.'"><i class="fa fa-trash text-130"></i></a>&nbsp;&nbsp;';}
+								if($_GET['action']!='new') {echo '<a style="width:31px; height:29px; padding:5px 0px 0px 0px;" class="btn btn-xs btn-danger" title="'.T_('Supprimer').'" onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer cet équipement ?').'\');" href="./index.php?page=asset&id='.$_GET['id'].'&action=delete&token='.$_COOKIE['token'].'&'.$url_get_parameters.'"><i class="fa fa-trash text-130"></i></a>&nbsp;&nbsp;';}
 								echo '<button class="btn btn-xs btn-success" title="'.T_('Sauvegarder').'" name="modify" value="modify" type="submit" id="modify2"><i class="fa fa-save text-130"></i></button>&nbsp;&nbsp;';
 								echo '<button class="btn btn-xs btn-purple" title="'.T_('Sauvegarder et quitter').'" name="quit" value="quit" type="submit" id="quit"><i class="fa fa-save text-130"></i></button>';
 							}
