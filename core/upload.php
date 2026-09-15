@@ -9,8 +9,10 @@
 # @Update : 28/05/2020
 # @Version : 3.2.2
 ################################################################################
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-session_start();
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Redirection ou refus d'accès
     header("HTTP/1.1 403 Forbidden");
