@@ -1,0 +1,13 @@
+# Désactiver l'exploration des dossiers (au cas où)
+Options -Indexes
+
+# Bloquer totalement l'accès web direct pour Apache 2.4+
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+# Rétrocompatibilité pour les très vieilles versions d'Apache (2.2)
+<IfModule !mod_authz_core.c>
+    Order Deny,Allow
+    Deny from all
+</IfModule>
