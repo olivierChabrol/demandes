@@ -81,16 +81,25 @@ if($_GET['action']=='new')
 	$_GET['id'] =$row_id[0]+1;
 }
 
+
+$id = (int)$_GET['id']; // Sécurisation stricte de l'ID de l'équipement
+
 //action delete asset
 if(($_GET['action']=="delete") && ($rright['asset_delete']!=0) && $_GET['id'])
 {
+	// Vérification du jeton anti-CSRF (transmis dans l'URL vs celui de la session/cookie)
+    // Assure-toi que le lien de suppression dans asset.php inclut bien &token='.$_COOKIE['token'].'
+    if (!isset($_GET['token']) || $_GET['token'] !== $_COOKIE['token']) {
+        die(DisplayMessage('error', T_('Erreur de sécurité : Jeton CSRF invalide.')));
+    }
+
 	//disable asset
 	$qry=$db->prepare("UPDATE `tassets` SET `disable`='1' WHERE `id`=:id");
-	$qry->execute(array('id' => $_GET['id']));
+	$qry->execute(array('id' => $id));
 	
 	//disable iface
 	$qry=$db->prepare("UPDATE `tassets_iface` SET `disable`='1' WHERE `asset_id`=:id");
-	$qry->execute(array('id' => $_GET['id']));
+	$qry->execute(array('id' => $id));
 
 	//display delete message
 	echo DisplayMessage('success',T_('Équipement supprimé'));
@@ -109,12 +118,13 @@ if(($_GET['action']=="delete") && ($rright['asset_delete']!=0) && $_GET['id'])
 //action for enable or disable network scan
 if($rright['asset_net_scan']!=0 && $_GET['scan']!='') {
 	$qry=$db->prepare("UPDATE `tassets` SET `net_scan`=:net_scan WHERE `id`=:id");
-	$qry->execute(array('net_scan' => $_GET['scan'],'id' => $_GET['id']));
+	$qry->execute(array('net_scan' => $_GET['scan'],'id' => $id));
 }
+
 
 //master query
 $qry = $db->prepare("SELECT * FROM `tassets` WHERE `id`=:id");
-$qry->execute(array('id' => $_GET['id']));
+$qry->execute(array('id' => $id));
 $globalrow=$qry->fetch();
 $qry->closeCursor();
 
@@ -215,12 +225,12 @@ if($_GET['findip'] && $_GET['iface']) {
 if($_POST['modify']||$_POST['quit']||$_POST['action']) 
 {
 	//secure string
-	$_POST['netbios']=strip_tags($_POST['netbios']);
-	$_POST['sn_internal']=strip_tags($_POST['sn_internal']);
-	$_POST['sn_manufacturer']=strip_tags($_POST['sn_manufacturer']);
-	$_POST['description']=strip_tags($_POST['description']);
-	$_POST['sn_indent']=strip_tags($_POST['sn_indent']);
-	$_POST['socket']=strip_tags($_POST['socket']);
+	$_POST['netbios']        =htmlspecialchars(strip_tags($_POST['netbios']));
+	$_POST['sn_internal']    =htmlspecialchars(strip_tags($_POST['sn_internal']));
+	$_POST['sn_manufacturer']=htmlspecialchars(strip_tags($_POST['sn_manufacturer']));
+	$_POST['description']    =htmlspecialchars(strip_tags($_POST['description']));
+	$_POST['sn_indent']      =htmlspecialchars(strip_tags($_POST['sn_indent']));
+	$_POST['socket']         =htmlspecialchars(strip_tags($_POST['socket']));
 	$globalrow['sn_internal']=strip_tags($globalrow['sn_internal']);  //avoid database simple quote
 	
 	//auto insert date if change state on editing ticket
@@ -233,7 +243,7 @@ if($_POST['modify']||$_POST['quit']||$_POST['action'])
 
 	//check duplicate sn_internal
 	$qry = $db->prepare("SELECT `id` FROM `tassets` WHERE sn_internal=:sn_internal AND sn_internal!='' AND state!='4' AND id!=:id AND disable='0'");
-	$qry->execute(array('sn_internal' => $_POST['sn_internal'],'id' => $_GET['id']));
+	$qry->execute(array('sn_internal' => $_POST['sn_internal'],'id' => $id));
 	$row=$qry->fetch();
 	$qry->closeCursor();
 	if(empty($row['id'])) {$row['id']='';}
@@ -241,7 +251,7 @@ if($_POST['modify']||$_POST['quit']||$_POST['action'])
 
 	//check duplicate manufacturer
 	$qry = $db->prepare("SELECT `id` FROM `tassets` WHERE `sn_manufacturer`=:sn_manufacturer AND sn_manufacturer!='' AND state!='4' AND id!=:id AND disable='0'");
-	$qry->execute(array('sn_manufacturer' => $_POST['sn_manufacturer'],'id' => $_GET['id']));
+	$qry->execute(array('sn_manufacturer' => $_POST['sn_manufacturer'],'id' => $id));
 	$row=$qry->fetch();
 	$qry->closeCursor();
 	if(empty($row['id'])) {$row['id']='';}
@@ -251,7 +261,7 @@ if($_POST['modify']||$_POST['quit']||$_POST['action'])
 	{
 		//iface existing treatment
 		$qry = $db->prepare("SELECT * FROM `tassets_iface` WHERE `asset_id`=:asset_id AND `disable`='0'");
-		$qry->execute(array('asset_id' => $_GET['id']));
+		$qry->execute(array('asset_id' => $id));
 		while ($row = $qry->fetch()) 
 		{
 			//init post values
@@ -553,7 +563,7 @@ if($_POST['modify']||$_POST['quit']||$_POST['action'])
 			'socket' => $_POST['socket'],
 			'technician' => $_POST['technician'],
 			'maintenance' => $_POST['maintenance'],
-			'id' =>$_GET['id']
+			'id' => $id
 			));
 		if($rparameters['debug']) {echo "UPDATE ASSET<br />";}
 	}

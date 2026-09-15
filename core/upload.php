@@ -14,6 +14,8 @@ session_start();
 if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) {
     // Redirection ou refus d'accès
     header("HTTP/1.1 403 Forbidden");
+	// 2. Écrire le marqueur silencieux dans le log d'erreur Apache
+    error_log("[GestSup-Ban] upload without valid session from IP : " . $_SERVER['REMOTE_ADDR']);
     exit("Accès non autorisé.");
 }
 
@@ -23,6 +25,7 @@ if(!isset($_FILES['file']['name'])) {$_FILES['file']['name']='';}
 // 1. Sécurisation stricte de l'ID du ticket
 $ticket_id = (int)$_GET['id'];
 if ($ticket_id <= 0) {
+    error_log("[GestSup-Ban] invalid ticket ID : " . $ticket_id . " from IP : " . $_SERVER['REMOTE_ADDR']);
     exit("ID de ticket invalide.");
 }
 
@@ -41,6 +44,7 @@ if($_FILES['file']['name'] && $_GET['id'])
 		// Autoriser uniquement une liste blanche (ex: PDF et images basiques)
 		$allowedMimes = ['application/pdf', 'image/jpeg', 'image/png'];
 		if (!in_array($mimeType, $allowedMimes)) {
+    		error_log("[GestSup-Ban] invalid mimes type : " . $mimeType . " from IP : " . $_SERVER['REMOTE_ADDR']);
 			exit("Type de fichier non autorisé.");
 		}
 

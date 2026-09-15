@@ -68,9 +68,24 @@ if($_GET['action']=='new')
 		$db_id=$new_ticket_id[0];
 	}
 }
+// Vérification de sécurité : Autoriser uniquement Tech (0), Admin (4) ou Créateur
+$allow_delete = false;
+if(($_GET['action']=="delete") && $_GET['id']) {
+    $qry_sec = $db->prepare("SELECT `creator` FROM `tincidents` WHERE id=:id");
+    $qry_sec->execute(array('id' => $_GET['id']));
+    $ticket_sec = $qry_sec->fetch();
+    $qry_sec->closeCursor();
+    
+    if($_SESSION['profile_id'] == 0 || $_SESSION['profile_id'] == 4 || $_SESSION['user_id'] == $ticket_sec['creator']) {
+        $allow_delete = true;
+    } else {
+        $error = "Vous n'avez pas les droits pour supprimer ce ticket.";
+        $_GET['action'] = ''; // Annule l'action de suppression
+    }
+}
 
 //action delete ticket
-if(($_GET['action']=="delete") && ($rright['ticket_delete']!=0) && $_GET['id'])
+if(($_GET['action']=="delete") && ($rright['ticket_delete']!=0) && $_GET['id'] && $allow_delete)
 {
 	$qry=$db->prepare("DELETE FROM `tincidents` WHERE id=:id"); //delete ticket
 	$qry->execute(array('id' => $_GET['id']));

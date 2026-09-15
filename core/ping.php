@@ -148,8 +148,14 @@ if ($argv[1]=='globalping')
 			//check if ipv4 is well formed
 			$error='';
 			$cnt=0;
-			if(!preg_match('#\.#', $test_ip)) {$error='error no point detected';}
-			foreach (explode('.',$test_ip) as $val) {$cnt++;if (!is_numeric($val)) { $error='not numeric value'; break;} if($val>254) { $error='error bloc more than 255'; break;}}
+			//if(!preg_match('#\.#', $test_ip)) {$error='error no point detected';}
+			//foreach (explode('.',$test_ip) as $val) {$cnt++;if (!is_numeric($val)) { $error='not numeric value'; break;} if($val>254) { $error='error bloc more than 255'; break;}}
+			// Au lieu des lignes 142 à 146, utilise simplement :
+			if (filter_var($test_ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+				// L'IP est valide, tu peux lancer exec()
+			} else {
+				$error = 'Invalid IPv4 format';
+			}
 			if(!$error) {if ($cnt!=4) {$error='error not 4 blocs';}}
 			
 			if(!$error)

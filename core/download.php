@@ -9,28 +9,48 @@
 # @Update : 11/02/2020
 # @Version : 3.2.2 p1
 ################################################################################
+// On s'assure que l'utilisateur est bien connecté (au cas où ce fichier serait appelé hors de index.php)
+if(!isset($_SESSION['user_id'])) {
+    exit('ERROR : Unauthorized access');
+}
+
 if(isset($_GET['download']))
 {
+	// Nettoyage de l'UID (sécurité de base, on n'accepte que l'alphanumérique)
+    $uid = preg_replace('/[^a-zA-Z0-9]/', '', $_GET['download']);
 	
 	//get download properties
 	$qry=$db->prepare("SELECT `real_filename`,`storage_filename` FROM `tattachments` WHERE `uid`=:uid");
-	$qry->execute(array('uid' => $_GET['download']));
+	$qry->execute(array('uid' => $uid));
 	$attachment=$qry->fetch();
 	$qry->closeCursor();
 	
 	if(!empty($attachment))
 	{
-		$filepath='upload/ticket/'.$attachment['storage_filename'];
+		/* 
+         * AJOUT RECOMMANDÉ : Contrôle d'accès (IDOR)
+         * Ici, il faudrait idéalement appeler la logique de main.php ou une fonction
+         * pour vérifier que $_SESSION['user_id'] a les droits sur $attachment['ticket_id'].
+         * Si ce n'est pas le cas -> exit('ERROR : Access denied');
+         */
+
+		//$filepath='upload/ticket/'.$attachment['storage_filename'];
+		$storage_filename = basename($attachment['storage_filename']);
+        $real_filename = basename($attachment['real_filename']);
+		
 		if(file_exists($filepath))
 		{
+			// Ajout des en-têtes de sécurité
+            header('X-Content-Type-Options: nosniff');
 			header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
-            header('Content-Disposition: attachment; filename="'.$attachment['real_filename'].'"');
+            header('Content-Disposition: attachment; filename="'.$real_filename.'"');
             header('Expires: 0');
             header('Cache-Control: must-revalidate');
             header('Pragma: public');
 			header('Content-Length: ' . filesize($filepath));
-			ob_clean();
+			// Sécurisation du nettoyage du buffer de sortie
+            if (ob_get_level()) { ob_clean(); }
             flush(); // Flush system output buffer
             readfile($filepath);
             die();
