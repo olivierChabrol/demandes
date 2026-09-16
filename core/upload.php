@@ -44,7 +44,17 @@ if($_FILES['file']['name'] && $_GET['id'])
 		$mimeType = finfo_file($finfo, $_FILES['file']['tmp_name']);
 
 		// Autoriser uniquement une liste blanche (ex: PDF et images basiques)
-		$allowedMimes = ['application/pdf', 'image/jpeg', 'image/png'];
+		$allowedMimes = [
+			'application/pdf', 
+			'image/jpeg', 
+			'image/png',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // Fichiers Excel (.xlsx)
+			'application/vnd.ms-excel', // Fichiers Excel (.xls)
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // Fichiers Word (.docx)
+			'application/msword', // Fichiers Word (.doc)
+			'text/plain' // Fichiers texte classiques (.txt)
+		];
+
 		if (!in_array($mimeType, $allowedMimes)) {
     		error_log("[GestSup-Ban] invalid mimes type : " . $mimeType . " from IP : " . $_SERVER['REMOTE_ADDR']);
 			exit("Type de fichier non autorisé.");
