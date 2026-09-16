@@ -4,6 +4,11 @@ Options -Indexes
 # 2. Masquer la signature et la version d'Apache
 ServerSignature Off
 
+# Interdire l'accès au dossier .git et à tous les fichiers cachés (comme .env)
+<DirectoryMatch "/\.git">
+    Require all denied
+</DirectoryMatch>
+
 # 3. Bloquer l'accès au dossier .git, aux fichiers .env et .ht
 <FilesMatch "^\.">
     Require all denied
