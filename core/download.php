@@ -37,6 +37,7 @@ if(isset($_GET['download']))
 		//$filepath='upload/ticket/'.$attachment['storage_filename'];
 		$storage_filename = basename($attachment['storage_filename']);
         $real_filename = basename($attachment['real_filename']);
+		$filepath = 'upload/ticket/' . $storage_filename;
 		
 		if(file_exists($filepath))
 		{
