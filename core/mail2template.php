@@ -222,6 +222,15 @@ if($date_create=='00/00/0000') {$date_create='';}
 if($date_hope=='00/00/0000') {$date_hope='';}
 if($date_res=='00/00/0000') {$date_res='';}
 
+// Sécurisation du tableau $techrow pour éviter les avertissements PHP
+if (!is_array($techrow)) {
+    $techrow = [];
+}
+$keys_to_check = ['firstname', 'lastname', 'phone', 'mobile', 'mail', 'function', 'custom1', 'custom2'];
+foreach ($keys_to_check as $key) {
+    $techrow[$key] = $techrow[$key] ?? '';
+}
+
     //display custom end text mail, else auto generate
     if($rparameters['mail_txt_end'])
     {
@@ -237,6 +246,7 @@ if($date_res=='00/00/0000') {$date_res='';}
         {
             $link=', '.T_('ou consultez votre ticket sur ce lien').' : <a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
         } else $link=".";
+		
         if(($techrow['lastname']!='Aucun') && ($techrow['phone']!='')) //case technician phone
         {$mail_text_end=T_('Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre').' '.$techrow['firstname'].' '.$techrow['lastname'].' '.T_('au').' '.$techrow['phone'].' '.$link;}
         elseif($rparameters['mail_link']==1) //case technician no phone
@@ -250,6 +260,8 @@ if(file_exists($template_filename))
 {
 	//load template
 	$mail_template=file_get_contents($template_filename);
+
+
 
 	//translate none values
 	if($userrow['firstname']=='Aucun') {$userrow['firstname']=T_('Aucun');}
@@ -310,12 +322,12 @@ if(file_exists($template_filename))
 	$mail_template=str_replace('#ticket_date_res#', $date_res, $mail_template);
 	$mail_template=str_replace('#ticket_company#', $companyrow['name'], $mail_template);
 	$mail_template=str_replace('#company_logo#', "$rparameters[server_url]/upload/logo/$rparameters[logo]", $mail_template);
-	$mail_template=str_replace('#ticket_technician_phone#', $techrow['phone'], $mail_template);
-	$mail_template=str_replace('#ticket_technician_mobile#', $techrow['mobile'], $mail_template);
-	$mail_template=str_replace('#ticket_technician_custom1#', $techrow['custom1'], $mail_template);
-	$mail_template=str_replace('#ticket_technician_custom2#', $techrow['custom2'], $mail_template);
-	$mail_template=str_replace('#ticket_technician_mail#', $techrow['mail'], $mail_template);
-	$mail_template=str_replace('#ticket_technician_function#', $techrow['function'], $mail_template);
+	$mail_template=str_replace('#ticket_technician_phone#', $techrow['phone']??'', $mail_template);
+	$mail_template=str_replace('#ticket_technician_mobile#', $techrow['mobile']??'', $mail_template);
+	$mail_template=str_replace('#ticket_technician_custom1#', $techrow['custom1']??'', $mail_template);
+	$mail_template=str_replace('#ticket_technician_custom2#', $techrow['custom2']??'', $mail_template);
+	$mail_template=str_replace('#ticket_technician_mail#', $techrow['mail']??'', $mail_template);
+	$mail_template=str_replace('#ticket_technician_function#', $techrow['function']??'', $mail_template);
 	$mail_template=str_replace('#ticket_technician_services#', $technician_services, $mail_template);
 	$mail_template=str_replace('#ticket_technician_service#', $technician_service, $mail_template);
 
