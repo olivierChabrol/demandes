@@ -1,5 +1,23 @@
 <?php
 
+// Sécurisation globale pour éviter les avertissements PHP (Undefined array key)
+if (!isset($techrow) || !is_array($techrow)) {
+    $techrow = [];
+}
+if (!isset($userrow) || !is_array($userrow)) {
+    $userrow = [];
+}
+
+$tech_keys = ['firstname', 'lastname', 'phone', 'mobile', 'mail', 'function', 'custom1', 'custom2'];
+foreach ($tech_keys as $key) {
+    $techrow[$key] = $techrow[$key] ?? '';
+}
+
+$user_keys = ['firstname', 'lastname', 'company'];
+foreach ($user_keys as $key) {
+    $userrow[$key] = $userrow[$key] ?? '';
+}
+
 $db_id=strip_tags($_GET['id']);
 
 $qry=$db->prepare("SELECT * FROM `tincidents` WHERE `id`=:id");
@@ -222,36 +240,27 @@ if($date_create=='00/00/0000') {$date_create='';}
 if($date_hope=='00/00/0000') {$date_hope='';}
 if($date_res=='00/00/0000') {$date_res='';}
 
-// Sécurisation du tableau $techrow pour éviter les avertissements PHP
-if (!is_array($techrow)) {
-    $techrow = [];
+//display custom end text mail, else auto generate
+if($rparameters['mail_txt_end'])
+{
+	//generate mail end text
+	$mail_text_end=str_replace("[tech_name]", "$techrow[firstname] $techrow[lastname]", $rparameters['mail_txt_end']);
+	$mail_text_end=str_replace("[tech_phone]", "$techrow[phone]", $mail_text_end);
+	if($rparameters['mail_link'] && $rparameters['server_url']) {
+		$link='<a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
+		$mail_text_end=str_replace("[link]", "$link", $mail_text_end);
+	}
+} else { //auto end mail
+	if($rparameters['mail_link'] && $rparameters['server_url']) //integer link parameter
+	{
+		$link=', '.T_('ou consultez votre ticket sur ce lien').' : <a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
+	} else $link=".";
+	
+	if(($techrow['lastname']!='Aucun') && ($techrow['phone']!='')) //case technician phone
+	{$mail_text_end=T_('Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre').' '.$techrow['firstname'].' '.$techrow['lastname'].' '.T_('au').' '.$techrow['phone'].' '.$link;}
+	elseif($rparameters['mail_link']==1) //case technician no phone
+	{$mail_text_end=T_("Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien : ").'<a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';}
 }
-$keys_to_check = ['firstname', 'lastname', 'phone', 'mobile', 'mail', 'function', 'custom1', 'custom2'];
-foreach ($keys_to_check as $key) {
-    $techrow[$key] = $techrow[$key] ?? '';
-}
-
-    //display custom end text mail, else auto generate
-    if($rparameters['mail_txt_end'])
-    {
-        //generate mail end text
-        $mail_text_end=str_replace("[tech_name]", "$techrow[firstname] $techrow[lastname]", $rparameters['mail_txt_end']);
-        $mail_text_end=str_replace("[tech_phone]", "$techrow[phone]", $mail_text_end);
-        if($rparameters['mail_link'] && $rparameters['server_url']) {
-            $link='<a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
-            $mail_text_end=str_replace("[link]", "$link", $mail_text_end);
-        }
-    } else { //auto end mail
-        if($rparameters['mail_link'] && $rparameters['server_url']) //integer link parameter
-        {
-            $link=', '.T_('ou consultez votre ticket sur ce lien').' : <a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';
-        } else $link=".";
-		
-        if(($techrow['lastname']!='Aucun') && ($techrow['phone']!='')) //case technician phone
-        {$mail_text_end=T_('Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre').' '.$techrow['firstname'].' '.$techrow['lastname'].' '.T_('au').' '.$techrow['phone'].' '.$link;}
-        elseif($rparameters['mail_link']==1) //case technician no phone
-        {$mail_text_end=T_("Vous pouvez suivre l'état d'avancement de votre ticket sur ce lien : ").'<a href="'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'">'.$rparameters['server_url'].'/index.php?page=ticket&id='.$_GET['id'].'</a>';}
-    }
 
 #template filename definition
 $template_filename=__DIR__.'/../'.'template/mail/'.$rparameters['mail_template'];
