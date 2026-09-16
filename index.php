@@ -221,15 +221,16 @@ if($_SESSION['user_id'])
 }
 // user not connected
 else {
-    if ($_GET['token']) {
+    if (isset($_GET['token']) && $_GET['token'] != '') {
+		$safe_token = preg_replace('/[^a-zA-Z0-9]/', '', $_GET['token']);
         $qry = $db->prepare("SELECT `incident_id` FROM `dmission_order` WHERE `invitation_token` =:token");
-        $qry->execute(array('token' => $_GET["token"]));
+        $qry->execute(array('token' => $safe_token));
         if ($qry->rowCount()) {
             $missionData = $qry->fetch();
             $_GET['id'] = $missionData['incident_id'];
             $_SESSION['user_id'] = $guestid;
 			
-			$context->setGuestToken($_GET["token"]);
+			$context->setGuestToken($safe_token);
             $qry = $db->prepare("SELECT * FROM `trights` WHERE profile=:profile");
             $qry->execute(array('profile' => 1));
             $rright = $qry->fetch();
@@ -253,6 +254,9 @@ else {
             require "invitation.php";
             exit;
         }
+		else {
+			error_log("[GestSup-Auth] Invalid token ".$safe_token." from IP : " . $_SERVER['REMOTE_ADDR']);
+		}
     }
 }
 

@@ -29,38 +29,38 @@ if($_GET['state']=='') $_GET['state'] = '%';
 	//actions on submit
 	if(isset($_POST['submit']))
 	{
-		$login=(isset($_POST['login'])) ? $_POST['login'] : '';
-		$pass=(isset($_POST['pass'])) ? $_POST['pass']  : '';
-		
-		$qry=$db->prepare("SELECT `id`,`login`,`password`,`salt`,`profile`,`disable` FROM `tusers`");
-		$qry->execute();
-		while ($row = $qry->fetch()) 
-		{
-			//uppercase login converter to compare
-			$login=strtoupper($login);
-			$db_login=strtoupper($row['login']);
-			
-			if($login && $pass && ($db_login == $login) && $row['password']!='' && $row['disable']==0) //check existing login
-			{
-				if(strlen($row['password'])>33) //hash detection
-				{
-					if(password_verify($pass, $row['password'])) {
-						$find_login=$row['login'];
-						$user_id=$row['id'];
-						$profile=$row['profile'];
-					}
-				}elseif($row['password']==md5($row['salt'] . md5($pass))) //md5 has detect allow and convert hash, using for hash transition
-				{ 
-					$find_login=$row['login'];
-					$user_id=$row['id'];
-					$profile=$row['profile'];
-					//update hash
-					$hash=password_hash($pass, PASSWORD_DEFAULT);
-					$qry2=$db->prepare("UPDATE `tusers` SET `password`=:password WHERE `id`=:id");
-					$qry2->execute(array('password' => $hash,'id' => $row['id']));
-				}
-			}	
+		$login = (isset($_POST['login'])) ? trim($_POST['login']) : '';
+        $pass = (isset($_POST['pass'])) ? $_POST['pass'] : '';
+
+		if ($login && $pass) {
+			// Requête ciblée : on ne cherche que l'utilisateur précis, sans charger toute la table
+            $qry = $db->prepare("SELECT `id`,`login`,`password`,`salt`,`profile`,`disable` FROM `tusers` WHERE `login` = :login");
+            $qry->execute(array('login' => $login));
+            $row = $qry->fetch();
+            $qry->closeCursor();
+
+            // Si l'utilisateur est trouvé et n'est pas désactivé
+            if ($row && $row['disable'] == 0 && $row['password'] != '') {
+                // Vérification stricte du hachage
+                if (strlen($row['password']) > 33) { // Nouveau format bcrypt
+                    if (password_verify($pass, $row['password'])) {
+                        $find_login = $row['login'];
+                        $user_id = $row['id'];
+                        $profile = $row['profile'];
+                    }
+                } elseif ($row['password'] == md5($row['salt'] . md5($pass))) { // Ancien format MD5 (transition)
+                    $find_login = $row['login'];
+                    $user_id = $row['id'];
+                    $profile = $row['profile'];
+                    
+                    // Mise à jour immédiate vers le hachage fort
+                    $hash = password_hash($pass, PASSWORD_DEFAULT);
+                    $qry2 = $db->prepare("UPDATE `tusers` SET `password`=:password WHERE `id`=:id");
+                    $qry2->execute(array('password' => $hash, 'id' => $row['id']));
+                }
+            }
 		}
+		
 		$qry->closeCursor();
 		if($find_login) 
 		{	
@@ -151,8 +151,11 @@ if($_GET['state']=='') $_GET['state'] = '%';
 				{
 					//if user not in base dn search it in sub ou to get user dn
 					$basedn=$rparameters['ldap_url'].$dcgen;
-					$filter="(uid=$login)";
+					// Échappement des caractères spéciaux LDAP (*, (, ), \, NUL)
+					$safe_login = str_replace(array('*', '(', ')', '\\', chr(0)), array('\2a', '\28', '\29', '\5c', '\00'), $login);
+					$filter="(uid=$safe_login)";
 					$res = ldap_search($ldap, $basedn, $filter);
+					
 					$first = ldap_first_entry($ldap, $res);
 					// On s'assure qu'une entrée a bien été trouvée (l'utilisateur existe)
         			if ($first !== false) {
@@ -246,6 +249,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 			} else {
 				// if error with login or password 
 				$error=T_('Identifiant ou mot de passe invalide');
+				error_log("[GestSup-Auth] Login failed for user ".$login." from IP : " . $_SERVER['REMOTE_ADDR']);
 				session_destroy();
 				//web redirection to login page
 				echo "<SCRIPT LANGUAGE='JavaScript'>
