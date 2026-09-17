@@ -1105,6 +1105,18 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                 <?php if(isset($globalrow['om_for_guest']) && $globalrow['om_for_guest']) { 
 					$guest_fn = $globalrow['guest_firstname'] ?? '';
 					$guest_ln = $globalrow['guest_lastname'] ?? '';
+
+					if (!empty($_POST['guest_name'])) {
+						$guest_name = htmlspecialchars($_POST['guest_name']);
+					} elseif (!empty($_POST['guest_firstname']) || !empty($_POST['guest_lastname'])) {
+						$guest_fn = $_POST['guest_firstname'] ?? '';
+						$guest_ln = $_POST['guest_lastname'] ?? '';
+						$guest_name = htmlspecialchars(trim($guest_fn . ' ' . $guest_ln));
+					} else {
+						$guest_name = htmlspecialchars(trim($guest_fn . ' ' . $guest_ln));
+					}
+					
+
 					//echo $guest_fn . ' ' . $guest_ln;
 					?>
                     <div class="form-group row <?php if($rright['ticket_title_disp']==0) {echo 'd-none';} ?>">
@@ -1114,7 +1126,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                         <div class="col-sm-5">
                             <input class="form-control col-10" name="guest_name" id="guest_name" type="text" maxlength="100"
                                    size="<?php if(!$mobile) {echo '50';} else {echo '30';}?>"
-                                   value="<?php if($_POST['title']) {echo htmlspecialchars($_POST['guest_firstname'].' '.$_POST['guest_lastname']);} else {echo htmlspecialchars($guest_fn . ' ' . $guest_ln);} ?>"
+                                   value="<?php echo $guest_name; ?>"
 
                             />
                         </div>
