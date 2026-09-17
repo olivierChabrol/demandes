@@ -131,8 +131,10 @@ if(!isset($globalrow['asset_id'])) $globalrow['asset_id'] = '';
 if(!isset($globalrow['u_agency'])) $globalrow['u_agency'] = '0';
 if(!isset($globalrow['sender_service'])) $globalrow['sender_service'] = '0';
 
+$profile_id = $_SESSION['profile_id'] ?? 3;
+
 //default values for tech and admin and super
-if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profile_id']==3)
+if($profile_id==4 || $profile_id==0 || $profile_id ==3)
 {
 	if($globalrow['technician']==0 && $_GET['action']=='new') {$globalrow['technician']=$_SESSION['user_id'];} //auto select current technician on new tickets
 	if(!isset($globalrow['user'])) $globalrow['user']=0;
@@ -222,7 +224,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 						echo '<button type="button" style="width:31px; height:27px; padding-left:6px;  padding-top:5px;" class="btn btn-xs btn-info" title="'.T_('Planifier une intervention dans le calendrier').'" data-toggle="modal" data-target="#add_planification" ><i class="fa fa-calendar text-120"></i></button>&nbsp;';
 					}
 					// Autorise la suppression uniquement si l'utilisateur est Admin/Tech ou s'il est le créateur
-					if($rright['ticket_delete'] && $_GET['action']!='new' && ($_SESSION['profile_id'] == 0 || $_SESSION['profile_id'] == 4 || $_SESSION['user_id'] == $globalrow['creator']))
+					if($rright['ticket_delete'] && $_GET['action']!='new' && ($profile_id == 0 || $profile_id == 4 || $_SESSION['user_id'] == $globalrow['creator']))
 					{
 						echo '<a style="width:31px; height:27px; padding-top:5px;" class="btn btn-xs btn-danger" onClick="javascript: return confirm(\''.T_('Êtes-vous sur de vouloir supprimer ce ticket ? les données et les pièces jointes seront définitivement supprimées').'\');" href="./index.php?page=ticket&id='.$_GET['id'].'&userid='.$_GET['userid'].'&state='.$_GET['state'].'&action=delete"  title="'.T_('Supprimer ce ticket').'" ><i class="fa fa-trash text-120"></i></a>&nbsp;';
 					}
@@ -582,7 +584,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				//lock technician field if technician open ticket for another service and limit service is enable
 				if($rparameters['user_limit_service']==1 && $rright['ticket_tech_service_lock']!=0)
 				{
-					if($_SESSION['profile_id']==0 || $_SESSION['profile_id']==3) //for technician and supervisor
+					if($profile_id==0 || $profile_id==3) //for technician and supervisor
 					{
 						//check if current technician or supervisor is member of selected service
 						if(($_POST['u_service'] && $_POST['u_service']!=0 && $_GET['action']=='new') || ($_GET['action']!='new' && $globalrow['u_service']!=0) && $user_services)
@@ -719,7 +721,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 											$row2=$qry2->fetch();
 											$qry2->closeCursor();
 											echo '<option value="'.$row2['id'].'" selected >'.T_($row2['netbios']).'</option>';
-											if(($globalrow['asset_id'] && $globalrow['user']) || ($_SESSION['profile_id']==3 || $_SESSION['profile_id']==2))
+											if(($globalrow['asset_id'] && $globalrow['user']) || ($profile_id==3 || $profile_id==2))
 											{
 												$qry2=$db->prepare("SELECT `id`,`netbios` FROM `tassets` WHERE netbios!='' AND disable='0' AND user=:user ORDER BY id!=0, netbios");
 												$qry2->execute(array('user' => $globalrow['user']));
@@ -748,7 +750,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 												echo '<option value="'.$row2['id'].'" selected>'.$row2['netbios'].'</option>';
 											}
 											//user restricted list
-											if($_SESSION['profile_id']==3 || $_SESSION['profile_id']==2)
+											if($profile_id==3 || $profile_id==2)
 											{
 												$query2 = $db->query("SELECT id,netbios FROM `tassets` WHERE id!='$globalrow[asset_id]' AND netbios!='' AND disable='0' AND user='$_SESSION[user_id]' ORDER BY id!=0, netbios");
 											} elseif($_POST['user']) {
@@ -912,11 +914,11 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 					$qry2->execute(array('user_id' => $_SESSION['user_id']));
 					$row2=$qry2->fetch();
 					$qry2->closeCursor();
-					if(($row2[0]==0 && ($_SESSION['profile_id']==1 || $_SESSION['profile_id']==2) || $rright['ticket_agency']==0)) //case no agency for current user
+					if(($row2[0]==0 && ($profile_id==1 || $profile_id==2) || $rright['ticket_agency']==0)) //case no agency for current user
 					{
 						echo '<input type="hidden" name="u_agency" value="'.$globalrow['u_agency'].'" />'; //send data without display
 					}
-					elseif($row2[0]==1 && ($_SESSION['profile_id']==1 || $_SESSION['profile_id']==2)) //case one agency for current user hide field and transmit data
+					elseif($row2[0]==1 && ($profile_id==1 || $profile_id==2)) //case one agency for current user hide field and transmit data
 					{
 						$qry3=$db->prepare("SELECT `agency_id` FROM `tusers_agencies` WHERE user_id=:user_id");
 						$qry3->execute(array('user_id' => $_SESSION['user_id']));
@@ -937,12 +939,12 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 								<select class="form-control col-5" id="u_agency" name="u_agency" '; if($rright['ticket_agency_mandatory']) {echo ' onchange="CheckMandatory();" ';}echo' >
 									';
 									$find_agency_id=0;
-									if($_SESSION['profile_id']==1 || $_SESSION['profile_id']==2) //display list of agency of current user if it's a user or poweruser
+									if($profile_id==1 || $profile_id==2) //display list of agency of current user if it's a user or poweruser
 									{
 										$query3=$db->query("SELECT agency_id FROM `tusers_agencies` WHERE user_id='$_SESSION[user_id]' AND agency_id IN (SELECT id AS agency_id FROM `tagencies` WHERE disable=0)");
-									} elseif(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==3) && $_POST['user']) { //case display only user agencies for technician or supervisor profile
+									} elseif(($profile_id==0 || $profile_id==3) && $_POST['user']) { //case display only user agencies for technician or supervisor profile
 										$query3=$db->query("SELECT agency_id FROM `tusers_agencies` WHERE user_id='$_POST[user]' AND agency_id IN (SELECT id AS agency_id FROM `tagencies` WHERE disable=0)");
-									} elseif(($_SESSION['profile_id']==0 || $_SESSION['profile_id']==3) && $globalrow['user']) {
+									} elseif(($profile_id==0 || $profile_id==3) && $globalrow['user']) {
 										$query3=$db->query("SELECT agency_id FROM `tusers_agencies` WHERE user_id='$globalrow[user]' AND agency_id IN (SELECT id AS agency_id FROM `tagencies` WHERE disable=0)");
 									} else {
 										$query3=$db->query("SELECT id AS agency_id FROM `tagencies` WHERE disable=0 ORDER BY name");
@@ -975,7 +977,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 
 				<!-- START sender service part -->
 				<?php
-					if($rright['ticket_sender_service_disp']!=0 && ($_SESSION['profile_id']=='0' || $_SESSION['profile_id']=='3' || $_SESSION['profile_id']=='4'))
+					if($rright['ticket_sender_service_disp']!=0 && ($profile_id=='0' || $profile_id=='3' || $profile_id=='4'))
 					{
 						//get service of selected sender
 						if($_POST['user']) {
@@ -1602,7 +1604,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
 				<!-- END criticality part -->
 				<!-- START edit state part -->
                 <?php
-                if ($_SESSION['profile_id'] == 1 || $_SESSION['profile_id'] == 2) {
+                if ($profile_id == 1 || $profile_id == 2) {
                 } else { ?>
                     <div class="form-group row <?php if ($rright['ticket_state_disp'] == 0) echo 'd-none'; ?>">
                         <div class="col-sm-2 col-form-label text-sm-right pr-0">
@@ -1647,7 +1649,7 @@ if($_SESSION['profile_id']==4 || $_SESSION['profile_id']==0 || $_SESSION['profil
                                 $qry = $db->prepare("SELECT `id`,`name` FROM `tstates` WHERE `id`!=:id1 AND `id`!=:id2 ORDER BY `number`");
                                 $qry->execute(array('id1' => $_POST['state'], 'id2' => $globalrow['state']));
                                 while ($row = $qry->fetch()) {
-                                    if ($_SESSION['profile_id'] == 2 && $row['id'] == 3) {
+                                    if ($profile_id == 2 && $row['id'] == 3) {
                                     }  //special case to hide resolve state for user only
                                     else {
                                         echo '<option value="' . $row['id'] . '">' . T_($row['name']) . '</option>';

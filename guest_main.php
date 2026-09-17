@@ -76,8 +76,11 @@ echo '
 					<span class="pos-rel">
 						<img class="border-2 brc-white-tp1 radius-round" width="36" src="images/avatar/
 							';
+							// Sécurisation de la variable de session (retourne 0 si elle n'existe pas)
+                            $profile_id = $_SESSION['profile_id'] ?? 3;
+
 							$qry=$db->prepare("SELECT `img` FROM `tprofiles` WHERE level=:level");
-							$qry->execute(array('level' => $_SESSION['profile_id']));
+							$qry->execute(array('level' => $profile_id));
 							$rprofile_img=$qry->fetch();
 							$qry->closeCursor();
 							echo $rprofile_img['img'];
