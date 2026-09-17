@@ -319,7 +319,7 @@ class Ticket extends BaseRequest
         //$filename = 'recap_'.$missionOrder->getOwner()->getFullName('_').'_'.$missionOrder->getId().'_'.$date->format('YmdHi').'.pdf';
         $filename = $this->generateFileName('recap', $missionOrder->getOwner()->getFullName('_'), $missionOrder->getId(), null, 'pdf');
         //$path = File::TARGET_FILE_TICKET.'/'.$filename;
-        $path = $filename;
+        $path = File::TARGET_FILE_TICKET . '/' . $filename;
 
         file_put_contents($path, $pdfString);
 
