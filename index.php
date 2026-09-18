@@ -221,6 +221,7 @@ if($_SESSION['user_id'])
 }
 // user not connected
 else {
+	// if guest access with token
     if (isset($_GET['token']) && $_GET['token'] != '') {
 		$safe_token = preg_replace('/[^a-zA-Z0-9]/', '', $_GET['token']);
         $qry = $db->prepare("SELECT `incident_id` FROM `dmission_order` WHERE `invitation_token` =:token");
@@ -238,18 +239,10 @@ else {
             $rright['ticket_close'] = false;
             $rright['ticket_cancel'] = false;
             $qry->closeCursor();
-            //set role of profile
-            if ($_SESSION['profile_id'] == 0) {
-                $profile = "technician";
-            } elseif ($_SESSION['profile_id'] == 1) {
-                $profile = "user";
-            } elseif ($_SESSION['profile_id'] == 4) {
-                $profile = "technician";
-            } elseif ($_SESSION['profile_id'] == 3) {
-                $profile = "user";
-            } else {
-                $profile = "user";
-            }
+			
+            //set profile id of guest user
+			$profile = "user";
+			$_SESSION['profile_id'] = 1;
 
             require "invitation.php";
             exit;
