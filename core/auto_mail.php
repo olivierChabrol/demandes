@@ -40,12 +40,14 @@ $db_id=strip_tags($db->quote($_GET['id']));
 $qry = $db->prepare("SELECT `open`,`close` FROM `tmails` WHERE incident=:id");
 $qry->execute(array('id' => $_GET['id']));
 $mail_send=$qry->fetch();
+if ($mail_send === false) { $mail_send = array('open' => '', 'close' => ''); }
 $qry->closeCursor();
 
 //check user group defined as sender on ticket
 $qry = $db->prepare("SELECT u_group FROM `tincidents` WHERE tincidents.id=:id");
 $qry->execute(array('id' => $_GET['id']));
 $mail_u_group=$qry->fetch();
+if ($mail_u_group === false) { $mail_u_group = array('u_group' => 0); }
 $qry->closeCursor();
 if($mail_u_group['u_group']!=0)
 {
@@ -53,6 +55,7 @@ if($mail_u_group['u_group']!=0)
 	$qry = $db->prepare("SELECT `tusers`.mail FROM `tusers`,`tgroups_assoc` WHERE `tusers`.id=`tgroups_assoc`.user AND `tgroups_assoc`.group=:group AND `tusers`.disable='0'");
 	$qry->execute(array('group' => $mail_u_group['u_group']));
 	$mail_u_group_members=$qry->fetch();
+	if ($mail_u_group_members === false) { $mail_u_group_members = array(); }
 	$qry->closeCursor();
 	if($mail_u_group_members)
 	{
@@ -67,6 +70,7 @@ if($mail_u_group['u_group']!=0)
 	$qry = $db->prepare("SELECT tusers.mail FROM `tusers`,`tincidents` WHERE tincidents.user=tusers.id AND tincidents.id=:id");
 	$qry->execute(array('id' => $_GET['id']));
 	$usermail=$qry->fetch();
+	if ($usermail === false) { $usermail = array('mail' => ''); }
 	$qry->closeCursor();
 	if($usermail && $rparameters['debug']) {echo "<b>AUTO MAIL SENDER:</b> user detected : <b>".$usermail['mail']."</b><br />"; }
 }
@@ -389,9 +393,7 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 		if ($technicianId > 0) {
 			$qry = $db->prepare("SELECT `id`, `mail` FROM `tusers` WHERE `id` = :id LIMIT 1");
 
-			$qry->execute([
-				'id' => $technicianId,
-			]);
+			$qry->execute(['id' => $technicianId,]);
 
 			$techrow = $qry->fetch(PDO::FETCH_ASSOC);
 			$qry->closeCursor();
@@ -400,10 +402,7 @@ elseif (($rparameters['mail_auto_tech_modify']==1) && ($_POST['modify'] || $_POS
 		if ($techrow !== false) {
 			$to = $techrow['mail'] ?? '';
 
-			if (
-				(int) ($techrow['id'] ?? 0) !==
-				(int) ($_SESSION['user_id'] ?? 0)
-			) {
+			if ((int) ($techrow['id'] ?? 0) !== (int) ($_SESSION['user_id'] ?? 0)) {
 				$send_it = 1;
 			}
 		} else {
