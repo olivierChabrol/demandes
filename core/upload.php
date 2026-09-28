@@ -34,8 +34,19 @@ if ($ticket_id <= 0) {
 //create ticket directory if not exist
 if(!is_dir("./upload/ticket"))  {mkdir('./upload/ticket', 0755, true);}
 
-if($_FILES['file']['name'] && $_GET['id'])
+if($_FILES['file']['name'] && $ticket_id > 0)
 {
+	// Vérification des erreurs d'upload PHP (ex: fichier trop lourd)
+    if (!isset($_FILES['file']['error']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK || empty($_FILES['file']['tmp_name']) || !is_uploaded_file($_FILES['file']['tmp_name'])) {
+        $errorCode =$_FILES['file']['error'] ?? 'inconnu';
+        if ($errorCode === UPLOAD_ERR_INI_SIZE || $errorCode === UPLOAD_ERR_FORM_SIZE) {
+            echo DisplayMessage('error', T_("Le fichier est trop volumineux pour le serveur."));
+        } else {
+            echo DisplayMessage('error', T_("Erreur lors du transfert du fichier (code: $errorCode)."));
+        }
+        exit;
+    }
+
 	$real_filename=preg_replace("/[^A-Za-z0-9\_\-\.\s+]/", '', $_FILES['file']['name']);
 	//$real_filename=$_FILES['file']['name'];
     if(CheckFileExtension($real_filename)==true) {
