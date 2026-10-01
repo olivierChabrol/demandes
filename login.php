@@ -9,6 +9,11 @@
 # @Update : 10/09/2020
 # @Version : 3.2.4 p5
 ################################################################################
+require_once('models/user/user_groups.php');
+require_once('models/tool/wp_info.php');
+
+use Models\User\User_Groups;
+use Models\Tool\WP_Info;
 
 //initialize variables 
 if(!isset($state)) $state = ''; 
@@ -34,7 +39,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 
 		if ($login && $pass) {
 			// Requête ciblée : on ne cherche que l'utilisateur précis, sans charger toute la table
-            $qry = $db->prepare("SELECT `id`,`login`,`password`,`salt`,`profile`,`disable` FROM `tusers` WHERE `login` = :login");
+            $qry = $db->prepare("SELECT `id`,`login`,`password`,`salt`,`profile`,`disable`,`mail` FROM `tusers` WHERE `login` = :login");
             $qry->execute(array('login' => $login));
             $row = $qry->fetch();
             $qry->closeCursor();
@@ -47,11 +52,13 @@ if($_GET['state']=='') $_GET['state'] = '%';
                         $find_login = $row['login'];
                         $user_id = $row['id'];
                         $profile = $row['profile'];
+                        $mail = $row['mail'];
                     }
                 } elseif ($row['password'] == md5($row['salt'] . md5($pass))) { // Ancien format MD5 (transition)
                     $find_login = $row['login'];
                     $user_id = $row['id'];
                     $profile = $row['profile'];
+                    $mail = $row['mail'];
                     
                     // Mise à jour immédiate vers le hachage fort
                     $hash = password_hash($pass, PASSWORD_DEFAULT);
@@ -64,6 +71,55 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		$qry->closeCursor();
 		if($find_login) 
 		{	
+			$query = $db->prepare("SELECT * FROM `dwp_user_id` WHERE `id`=:id");
+			$query->execute(array('id' => $user_id));
+			$row=$query->fetch();			
+			$query->closeCursor();
+			if(empty($row))
+			{
+				$wp_info = new WP_Info();
+				$wp_user_id = $wp_info->get_user_id_by_email($mail);
+
+				if($wp_user_id != null) 
+				{
+					//echo 'Utilisateur trouvé dans WordPress avec l\'ID : ' . $wp_user_id;
+					$query = $db->prepare("INSERT INTO `dwp_user_id` (`id`,`wp_user_id`) VALUES (:id,:wp_user_id)");
+					$query->execute(array('id' => $user_id, 'wp_user_id' => $wp_user_id));
+					$query->closeCursor();
+
+					$groups = $wp_info->get_user_groups_by_wp_user_id($wp_user_id);
+					foreach($groups as $group)
+					{
+						//print_r($group);
+						$group_id = $group['group_id'];
+						$query = $db->prepare("SELECT * from `dwp_scientist_group` WHERE `id`=:id");
+						$query->execute(array('id' => $group_id));
+						$row=$query->fetch();
+						$query->closeCursor();
+						// TODO delete this log after testing
+						error_log("Vérification de l'existence du groupe avec l'ID $group_id (" . $group['name'] . ") dans la table dwp_scientist_group");
+						if(empty($row))
+						{
+							$group_name = $group['group_name'];
+							$query = $db->prepare("INSERT INTO `dwp_scientist_group` (`id`,`name`) VALUES (:id,:name)");
+							$query->execute(array('id' => $group_id, 'name' => $group_name));
+							$query->closeCursor();	
+						// TODO delete this log after testing
+							error_log("Ajout du groupe $group_name avec l'ID $group_id dans la table dwp_scientist_group");
+						}
+						else
+						{
+						// TODO delete this log after testing
+							error_log("Le groupe avec l'ID $group_id existe déjà dans la table dwp_scientist_group");
+						}
+
+						// TODO add the relation between user and group in dwp_user_group table
+						$user_groups = new User_Groups();
+						$user_groups->add_group($group_id, $user_id);	
+					}
+				}
+			}
+
 			$_SESSION['login']=$find_login;
 			$_SESSION['user_id']=$user_id;
 			//reset attempt counter
