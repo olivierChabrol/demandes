@@ -305,7 +305,7 @@ if($_SESSION['user_id'] && isset($_POST['query'])){
 
 			echo '<meta http-equiv="Refresh" content="'.$rparameters['auto_refresh'].';">'; }
 		?>
-		<title>SIGED | <?php echo T_('Gestion des demandes administratives'); ?></title>
+		<title>I2M | <?php echo T_('Gestion des demandes administratives'); ?></title>
 		<link rel="shortcut icon" type="image/png" href="./images/
 		<?php
 		if($_GET['page']=='asset_list' || $_GET['page']=='asset' || $_GET['page']=='asset_stock') {echo 'favicon_asset.png';}

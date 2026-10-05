@@ -48,7 +48,7 @@ if($_POST['procedurekeywords']||$_GET['procedurekeywords']) {
 		<?php
 		echo '<meta http-equiv="Refresh" content="'.$rparameters['auto_refresh'].';">'; 
 		?>
-		<title>SIGED | <?php echo T_('Gestion des demandes administratives'); ?></title>
+		<title>I2M | <?php echo T_('Gestion des demandes administratives'); ?></title>
 		<link rel="shortcut icon" type="image/png" href="./images/
 		<?php
 		echo 'favicon_ticket.png';
