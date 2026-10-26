@@ -1317,7 +1317,7 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                         <table border="1" width="<?php if($mobile==0) {echo '780';} else {echo '285';}?>" style="border: 1px solid #D8D8D8;" >
                             <tr>
                                 <td style="padding:5px">
-                                    <div id="comment-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px">
+                                    <div id="comment-editor" class="bootstrap-wysiwyg-editor pl-2 pt-1 editor" style="min-height:100px; max-width:775px" data-placeholder="Indiquer ici ce que vous souhaitez comme date et heure de départ idéal">
                                     </div>
                                     <input id="comment" type="hidden" name="comment" value="<?php echo htmlspecialchars($missionOrder->getComment() ? $missionOrder->getComment() : '', ENT_QUOTES, 'UTF-8'); ?>" />
                                 </td>
@@ -1538,6 +1538,16 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
         $('#transport-market-justification-editor').html($('#transport-market-justification').val());
         $('#colloquiums-registration-fees-editor').html($('#colloquiums-registration-fees').val());
         $('#comment-editor').html($('#comment').val());
+
+        // Placeholder for comment-editor (contenteditable div)
+        $('<style>')
+            .text('#comment-editor[data-placeholder]:empty:not(:focus)::before { content: attr(data-placeholder); color: #999; pointer-events: none; display: block; }')
+            .appendTo('head');
+        $('#comment-editor').on('focus blur input', function () {
+            if ($(this).html().trim() === '' || $(this).html().trim() === '<br>') {
+                $(this).html('');
+            }
+        });
 
         if (formDisabled) {
             // disabled wysiwig

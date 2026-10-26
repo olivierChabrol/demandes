@@ -116,6 +116,8 @@ if($_GET['state']=='') $_GET['state'] = '%';
 						// TODO add the relation between user and group in dwp_user_group table
 						$user_groups = new User_Groups();
 						$user_groups->add_group($group_id, $user_id);	
+
+						
 					}
 				}
 			}
