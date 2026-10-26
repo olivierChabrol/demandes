@@ -57,6 +57,9 @@ if($ruser['skin']=='skin-2') {$navbar='navbar-plum'; $sidebar='sidebar-plum'; $b
 if($ruser['skin']=='skin-1') {$navbar='navbar-dark'; $sidebar='sidebar-dark'; $bgc="bgc-white";} //black
 if(!$ruser['skin']) {$navbar='navbar-skyblue'; $sidebar='sidebar-darkblue'; $bgc="bgc-white";}
 
+// Override navbar color in dev environment
+if(defined('APP_ENV') && APP_ENV === 'dev') { $navbar = 'navbar-orange'; }
+
 $previewMode = '';
 
 if (isset($_GET['preview-mode']) && $_GET['preview-mode']) {
@@ -64,7 +67,21 @@ if (isset($_GET['preview-mode']) && $_GET['preview-mode']) {
 }
 
 echo '
-<body class="'.$bgc.'">
+<body class="'.$bgc.'">';
+
+// Dev banner
+if(defined('APP_ENV') && APP_ENV === 'dev') {
+    echo '<div style="
+        position:fixed; top:0; left:0; width:100%; z-index:99999;
+        background:#e53935; color:#fff; text-align:center;
+        font-weight:bold; font-size:14px; padding:6px 0; letter-spacing:0.5px;
+        box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+        ⚠️&nbsp; ENVIRONNEMENT DE TEST &mdash; les donn&eacute;es saisies ici ne sont pas en production &nbsp;⚠️
+    </div>
+    <div style="height:34px;"></div>';
+}
+
+echo '
 	<div style="body-container" class="'.$previewMode.'" >
 		<nav class="navbar navbar-expand-lg navbar-fixed '.$navbar.'">
 			<div class="navbar-inner">
