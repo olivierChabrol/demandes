@@ -1,5 +1,11 @@
 <?php
 use Models\Request\MissionOrder\MissionOrder;
+$dev = defined('APP_ENV') && APP_ENV === 'dev';
+$bgcolor = $dev ? '#ff0000' : '#0da1dc';
+if ($dev) {
+
+    echo '<h1 style="background-color: #ff0000; color: #000000; text-align: center; font-size: 20px;"> ATTENTION ENVIRRONEMENT DE TEST </div>';
+}
 ?>
 
 <h1 style="text-align: center; font-size: 20px;">
@@ -50,7 +56,7 @@ switch($request->getMissionType()) {
 <br>
 
 <div class="display: block; clear: both; width: 100%">
-    <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
+    <h2 style="background-color: <?php echo $bgcolor; ?>; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
         <?php echo T_('PRISE EN CHARGE') ?>
     </h2>
 </div>
@@ -172,7 +178,7 @@ $rows[] = [
 <?php 
 if($request->getGuestName()!=NULL){
     echo '<div class="display: block; clear: both; width: 100%">
-        <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">';
+        <h2 style="background-color: '.$bgcolor.'; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">';
     echo T_('COORDONEES DE L\'INVITE');
     echo "</h2>
     </div>";
@@ -223,7 +229,7 @@ if($request->getGuestName()!=NULL){
 ?>
 
 <div class="display: block; clear: both; width: 100%">
-    <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
+    <h2 style="background-color: <?php echo $bgcolor ?>; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
         <?php echo T_('RENSEIGNEMENTS CONCERNANT LA MISSION') ?>
     </h2>
 </div>
@@ -305,7 +311,7 @@ if ($request->getComment()) {
 </table>
 
 <div class="display: block; clear: both; width: 100%">
-    <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
+    <h2 style="background-color: <?php echo $bgcolor ?>; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
         <?php echo T_('VOYAGE') ?>
     </h2>
 </div>
@@ -358,7 +364,7 @@ if (!$request->isTransportMarket()) {
 </table>
 
 <div class="display: block; clear: both; width: 100%">
-    <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
+    <h2 style="background-color: <?php echo $bgcolor ?>; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
         <?php echo T_('MOYEN DE TRANSPORT') ?>
     </h2>
 </div>
@@ -427,7 +433,7 @@ if ($request->getOtherFees()) {
 if ($request->getColloquiums()->getIsColloquiums()) {
 ?>
     <div class="display: block; clear: both; width: 100%">
-        <h2 style="background-color: #00c8f561; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
+        <h2 style="background-color: <?php echo $bgcolor ?>; color: #000000; text-align: center; font-size: 15px; padding: 5px; width: 100%">
             <?php echo T_('COLLOQUES') ?>
         </h2>
     </div>
