@@ -58,6 +58,7 @@ if($ruser['skin']=='skin-1') {$navbar='navbar-dark'; $sidebar='sidebar-dark'; $b
 if(!$ruser['skin']) {$navbar='navbar-skyblue'; $sidebar='sidebar-darkblue'; $bgc="bgc-white";}
 
 // Override navbar color in dev environment
+
 if(defined('APP_ENV') && APP_ENV === 'dev') { $navbar = 'navbar-orange'; }
 
 $previewMode = '';
