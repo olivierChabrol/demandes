@@ -943,8 +943,13 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="user">
-                            <?php echo T_('Demande de prise en charge de l’hébergement'); ?> :
+                        <label id="off-market-accommodation-label" class="mb-0" for="off-market-accommodation">
+                            <?php echo T_("Demande de prise en charge de l'hébergement"); ?> :
+                            <span data-toggle="tooltip" data-placement="top"
+                                  title="Cocher cette case indique que l’I2M prenne à sa charge l’hébergement dans le cas d’une invitation à un congrès où le déplacement serait pris en charge par l’accueillant mais pas l’hébergement."
+                                  style="cursor:pointer; color:#6c757d;">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
                         </label>
                     </div>
                     <div class="col-sm-9 mt-2">
@@ -1208,8 +1213,13 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 
                 <div class="form-group row">
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
-                        <label class="mb-0" for="user">
+                        <label class="mb-0" for="colloquiums" id="colloquiums-label">
                             <?php echo T_('Colloques'); ?> :
+                            <span data-toggle="tooltip" data-placement="top"
+                                  title="Si cette case est cochée, il faut impérativement ajouter le montant des frais d'inscription, ainsi qu'un PDF descriptif du colloque ou à défaut son invitation."
+                                  style="cursor:pointer; color:#6c757d;">
+                                <i class="fas fa-info-circle"></i>
+                            </span>
                         </label>
                     </div>
                     <div class="col-sm-9 mt-2">
@@ -1513,6 +1523,9 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
         }
 ?>
         };
+
+        // init tooltips
+        $('[data-toggle="tooltip"]').tooltip();
 
         // init select2
         $('.select2').select2();
