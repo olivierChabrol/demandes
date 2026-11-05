@@ -1249,7 +1249,6 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
                     </div>
                     <div class="col-sm-2 col-form-label text-sm-right pr-0">
                         <label class="mb-0" for="colloquiums-purchasing-card">
-                            <?php echo '<i id="user_warning" title="' . T_('Carte achat') . '" class="fa fa-exclamation-triangle text-danger-m2 text-130"></i>&nbsp;'; ?>
                             <?php echo T_('Carte achat'); ?> :
                         </label>
                     </div>
@@ -1495,8 +1494,8 @@ if ($missionOrder->getOwner()->getId() && $missionOrder->getOwner()->getId() != 
 
 <!-- datetime picker scripts  -->
 <script type="text/javascript" src="./components/moment/min/moment.min.js"></script>
+<script src="./components/moment/locale/fr.js" charset="UTF-8"></script>
 <?php
-if($ruser['language']=='fr_FR') {echo '<script src="./components/moment/locale/fr.js" charset="UTF-8"></script>';}
 if($ruser['language']=='de_DE') {echo '<script src="./components/moment/locale/de.js" charset="UTF-8"></script>';}
 if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/es.js" charset="UTF-8"></script>';}
 ?>
@@ -1506,6 +1505,9 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
     $(document).ready(function () {
         var typeMissionCopy = $("input[name='type-mission']:checked").val();
 	    var formDisabled = $('#form-disabled').val();
+
+
+
 	    var budgetValidator = {
 <?php
         foreach(MissionOrder::getBudgetValidator() as $key=>$value) {
@@ -1519,6 +1521,9 @@ if($ruser['language']=='es_ES') {echo '<script src="./components/moment/locale/e
         $('#model-list-mo').select2({
             templateResult: initSelectModel
         });
+
+        // Forcer locale fr pour les datepickers
+        moment.locale('fr');
 
         // init datetime picker
         var date = moment($('#date-start').val(), 'DD-MM-YYYY hh:mm:ss').toDate();
@@ -1618,6 +1623,32 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             if (!canSubmit()) {
                 $(document).scrollTop(0);
                 return false;
+            }
+
+            // Validation du format des dates avant soumission réelle
+            var dateRegex = /^\d{2}\/(0[1-9]|1[0-2])\/\d{4} \d{2}:\d{2}(:\d{2})?$/;
+            var dateFields = [
+                { id: '#date-start',  label: 'Date de départ' },
+                { id: '#date-return', label: 'Date de retour' }
+            ];
+            var dateErrors = [];
+            $.each(dateFields, function(_, f) {
+                var val = $(f.id).val().trim();
+                if (val && !dateRegex.test(val)) {
+                    dateErrors.push(f.label + ' : format invalide (ex : 24/04/2027 14:00). Valeur reçue : ' + val);
+                }
+            });
+            if (dateErrors.length > 0) {
+                var html = '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="date-format-error">';
+                html += '<strong><i class="fa fa-exclamation-triangle"></i> Format de date invalide</strong><br>';
+                html += dateErrors.join('<br>');
+                html += '<br><small>Utilisez le sélecteur de date pour saisir les dates.</small>';
+                html += '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
+                html += '</div>';
+                $('#date-format-error').remove();
+                $('#mission-order-form .card-header').after(html);
+                $('html, body').animate({ scrollTop: $('#date-format-error').offset().top - 80 }, 400);
+                return; // bloquer la soumission native
             }
 
             evt.currentTarget.submit();
@@ -2147,6 +2178,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
             }
             return true;
         });
+
     });
 
     //datetimepicker icon default

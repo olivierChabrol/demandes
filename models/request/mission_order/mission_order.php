@@ -413,18 +413,15 @@ class MissionOrder extends BaseRequest
         return $this->dateStart;
     }
 
-    public function setDateStart(string $dateStart, string $format = 'Y-m-d H:i:s'): self
+    public function setDateStart(string $dateStart, string $format = 'd/m/Y H:i:s'): self
     {
-        $dateFormatted = str_replace('/', '-', $dateStart);
-        //$this->dateStart = \DateTime::createFromFormat($format, $dateStart);
-        try {
-            // Le constructeur gère tout seul la présence ou l'absence des secondes
-            $this->dateStart = new \DateTime($dateFormatted);
-        } catch (\Exception $e) {
-
-            // Utile pour lever une erreur propre si la chaîne n'est vraiment pas une date
+        // Essayer le format explicite d'abord (avec ou sans secondes)
+        $date = \DateTime::createFromFormat($format, $dateStart)
+             ?: \DateTime::createFromFormat(rtrim($format, ':s'), $dateStart);
+        if ($date === false) {
             throw new \InvalidArgumentException("Format de date invalide : " . $dateStart);
         }
+        $this->dateStart = $date;
         return $this;
     }
 
@@ -499,18 +496,15 @@ class MissionOrder extends BaseRequest
         return $this->dateReturn;
     }
 
-    public function setDateReturn(string $dateReturn, string $format = 'Y-m-d H:i:s'): self
+    public function setDateReturn(string $dateReturn, string $format = 'd/m/Y H:i:s'): self
     {
-        $dateFormatted = str_replace('/', '-', $dateReturn);
-        //$this->dateStart = \DateTime::createFromFormat($format, $dateStart);
-        try {
-            // Le constructeur gère tout seul la présence ou l'absence des secondes
-            $this->dateReturn = new \DateTime($dateFormatted);
-        } catch (\Exception $e) {
-
-            // Utile pour lever une erreur propre si la chaîne n'est vraiment pas une date
+        // Essayer le format explicite d'abord (avec ou sans secondes)
+        $date = \DateTime::createFromFormat($format, $dateReturn)
+             ?: \DateTime::createFromFormat(rtrim($format, ':s'), $dateReturn);
+        if ($date === false) {
             throw new \InvalidArgumentException("Format de date invalide : " . $dateReturn);
         }
+        $this->dateReturn = $date;
         return $this;
     }
 
