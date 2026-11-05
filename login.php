@@ -214,14 +214,16 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					$filter="(uid=$safe_login)";
 					$res = ldap_search($ldap, $basedn, $filter);
 					
-					$first = ldap_first_entry($ldap, $res);
-					// On s'assure qu'une entrée a bien été trouvée (l'utilisateur existe)
-        			if ($first !== false) {
-						$dn       = ldap_get_dn($ldap, $first);
-						$ldapbind = @ldap_bind($ldap, $dn, $pass);
+					// Vérifier que ldap_search a réussi avant d'appeler ldap_first_entry
+					if ($res !== false) {
+						$first = ldap_first_entry($ldap, $res);
+						if ($first !== false) {
+							$dn       = ldap_get_dn($ldap, $first);
+							$ldapbind = @ldap_bind($ldap, $dn, $pass);
+						} else {
+							$ldapbind = false;
+						}
 					} else {
-						// Gérer le cas où l'utilisateur n'existe vraiment pas
-						// Par exemple : définir un message d'erreur ou refuser la connexion
 						$ldapbind = false;
 					}
 					
