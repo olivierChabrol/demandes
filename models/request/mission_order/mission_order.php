@@ -415,10 +415,14 @@ class MissionOrder extends BaseRequest
 
     public function setDateStart(string $dateStart, string $format = 'd/m/Y H:i:s'): self
     {
-        // Essayer le format explicite d'abord (avec ou sans secondes)
-        $date = \DateTime::createFromFormat($format, $dateStart)
-             ?: \DateTime::createFromFormat(rtrim($format, ':s'), $dateStart);
-        if ($date === false) {
+        // Essayer plusieurs formats : celui fourni, sans secondes, puis formats SQL (chargement BDD)
+        $formats = [$format, rtrim($format, ':s'), 'Y-m-d H:i:s', 'Y-m-d H:i'];
+        $date = null;
+        foreach ($formats as $fmt) {
+            $d = \DateTime::createFromFormat($fmt, $dateStart);
+            if ($d !== false) { $date = $d; break; }
+        }
+        if ($date === null) {
             throw new \InvalidArgumentException("Format de date invalide : " . $dateStart);
         }
         $this->dateStart = $date;
@@ -498,10 +502,14 @@ class MissionOrder extends BaseRequest
 
     public function setDateReturn(string $dateReturn, string $format = 'd/m/Y H:i:s'): self
     {
-        // Essayer le format explicite d'abord (avec ou sans secondes)
-        $date = \DateTime::createFromFormat($format, $dateReturn)
-             ?: \DateTime::createFromFormat(rtrim($format, ':s'), $dateReturn);
-        if ($date === false) {
+        // Essayer plusieurs formats : celui fourni, sans secondes, puis formats SQL (chargement BDD)
+        $formats = [$format, rtrim($format, ':s'), 'Y-m-d H:i:s', 'Y-m-d H:i'];
+        $date = null;
+        foreach ($formats as $fmt) {
+            $d = \DateTime::createFromFormat($fmt, $dateReturn);
+            if ($d !== false) { $date = $d; break; }
+        }
+        if ($date === null) {
             throw new \InvalidArgumentException("Format de date invalide : " . $dateReturn);
         }
         $this->dateReturn = $date;
