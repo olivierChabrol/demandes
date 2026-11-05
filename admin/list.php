@@ -60,6 +60,7 @@ if($rparameters['debug']) {
 //retrieve selected table description
 $qry = $db->prepare("DESC $db_table");
 $qry->execute();
+$nbchamp=0;
 while($row=$qry->fetch()) {
 	${'champ' . $nbchamp} =$row[0];
 	$nbchamp++;
@@ -162,6 +163,29 @@ if($_GET['action']=="update")
 		}
 
 		/*Fin ajout par nous*/
+		/* I2M */
+		$missions_id = array();
+		
+		foreach ($_POST['valideur'] as $key => $valideur) {
+			$valideur = strip_tags($valideur);
+			echo $valideur;
+		}
+		$qry=$db->prepare("SELECT `id` FROM `dmission_order` WHERE `budget_data`=:subcatid");
+		$qry->execute(array('subcatid' => $_GET['id']));
+		while($row=$qry->fetch()) {
+			$missions_id[] = $row['id'];
+		}
+
+		foreach ($_POST['valideur'] as $key => $valideur) {
+			foreach ($missions_id as $key => $missions_id) {
+				//on commence par purger tous les liens subcat/user
+				$qry=$db->prepare("DELETE FROM `dmission_order_validators` WHERE (`id_validator`= :id_tuser AND `id_mission_order` = :id_mission_order)");
+				$qry->execute(array('id_tuser' => $valideur, 'id_mission_order' => $missions_id));
+				$qry=$db->prepare("INSERT INTO `dmission_order_validators` (`id_validator`,`id_mission_order`) VALUES (:id_tuser,:id_mission_order)");
+				$qry->execute(array('id_tuser' => $valideur, 'id_mission_order' => $missions_id));
+			}
+		}
+		/* FIN I2M */
 	}
 	elseif($_GET['table']=='tassets_model') //special case  asset model
 	{
@@ -211,7 +235,7 @@ if($_GET['action']=="update")
 	{
 		for ($i=0; $i <= $nbchamp; $i++)
 		{
-			$reqchamp="${'champ' . $i}";
+			$reqchamp="{${'champ' . $i}}";
 			if(!isset($_POST[$reqchamp])) $_POST[$reqchamp] = '';
 			$_POST[$reqchamp] = strip_tags($db->quote($_POST[$reqchamp]));
 			if($i=='1') $set="`$reqchamp`=$_POST[$reqchamp]"; else $set="$set, `$reqchamp`=$_POST[$reqchamp]";
@@ -300,12 +324,12 @@ if($_GET['action']=="add")
 		//generate sql row name for selected table
 		for ($i=1; $i <= $nbchamp; $i++)
 		{
-			if($i!="1") {$reqchamp="$reqchamp,${'champ' . $i}";} else {$reqchamp="`${'champ' . $i}`";}
+			if($i!="1") {$reqchamp="$reqchamp,{${'champ' . $i}}";} else {$reqchamp="`{${'champ' . $i}}`";}
 		}
 		//generate sql value for selected table
 		for ($i=1; $i <= $nbchamp; $i++)
 		{
-			$nomchamp="${'champ' . $i}";
+			$nomchamp="{${'champ' . $i}}";
 			if(!isset($_POST[$nomchamp])) $_POST[$nomchamp] = '';
 			$_POST[$nomchamp] = strip_tags($db->quote($_POST[$nomchamp]));
 			if($i!="1") {$reqvalue="$reqvalue,$_POST[$nomchamp]";} else {$reqvalue="$_POST[$nomchamp]";}
@@ -848,17 +872,17 @@ if($_GET['action']=="add")
 												<div class=\"space-4\"></div>';
 											}elseif($_GET['table']=='tsubcat')
 											{
-													//find value
-													$qry=$db->prepare("SELECT `id`,`name`,`cat`,`technician`,`technician_group` FROM `tsubcat` WHERE `id`=:id");
-													$qry->execute(array('id' => $_GET['id']));
-													$row=$qry->fetch();
-													$qry->closeCursor();
+												//find value
+												$qry=$db->prepare("SELECT `id`,`name`,`cat`,`technician`,`technician_group` FROM `tsubcat` WHERE `id`=:id");
+												$qry->execute(array('id' => $_GET['id']));
+												$row=$qry->fetch();
+												$qry->closeCursor();
 
-													//find category name
-													$qry=$db->prepare("SELECT `id` FROM `tcategory` WHERE `id`=:id");
-													$qry->execute(array('id' => $row['cat']));
-													$rowcatfind=$qry->fetch();
-													$qry->closeCursor();
+												//find category name
+												$qry=$db->prepare("SELECT `id` FROM `tcategory` WHERE `id`=:id");
+												$qry->execute(array('id' => $row['cat']));
+												$rowcatfind=$qry->fetch();
+												$qry->closeCursor();
 
 													echo '
 														<fieldset>
@@ -1048,7 +1072,7 @@ if($_GET['action']=="add")
 											{
 												for ($i=1; $i <= $nbchamp; $i++)
 												{
-													$query2 = $db->query("SELECT `${'champ' . $i}` FROM $db_table WHERE id=$db_id");
+													$query2 = $db->query("SELECT `{${'champ' . $i}}` FROM $db_table WHERE id=$db_id");
 													$req = $query2->fetch();
 													$query2->closeCursor();
 
@@ -1102,8 +1126,8 @@ if($_GET['action']=="add")
 													} else {
 														echo "
 														<fieldset>
-															<label for=\"${'champ' . $i}\">$label_name</label>
-																<input style=\"width:auto\" class=\"form-control form-control-sm d-inline-block\"  name=\"${'champ' . $i}\" type=\"text\" value=\"$req[0]\" />
+															<label for=\"{${'champ' . $i}}\">$label_name</label>
+																<input style=\"width:auto\" class=\"form-control form-control-sm d-inline-block\"  name=\"{${'champ' . $i}}\" type=\"text\" value=\"$req[0]\" />
 														</fieldset>
 														<div class=\"space-4\"></div>
 														";
@@ -1597,8 +1621,8 @@ if($_GET['action']=="add")
 													{
 													} else {
 														echo "
-														<label for=\"${'champ' . $i}\">$label_name</label>
-														<input style=\"width:auto\" class=\"form-control form-control-sm d-inline-block\" name=\"${'champ' . $i}\" type=\"text\" value=\"\" />
+														<label for=\"{${'champ' . $i}}\">$label_name</label>
+														<input style=\"width:auto\" class=\"form-control form-control-sm d-inline-block\" name=\"{${'champ' . $i}}\" type=\"text\" value=\"\" />
 														<div class=\"space-4\"></div>
 														";
 													}
