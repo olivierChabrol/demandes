@@ -1625,31 +1625,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 return false;
             }
 
-            // Validation du format des dates avant soumission réelle
-            var dateRegex = /^\d{2}\/(0[1-9]|1[0-2])\/\d{4} \d{2}:\d{2}(:\d{2})?$/;
-            var dateFields = [
-                { id: '#date-start',  label: 'Date de départ' },
-                { id: '#date-return', label: 'Date de retour' }
-            ];
-            var dateErrors = [];
-            $.each(dateFields, function(_, f) {
-                var val = $(f.id).val().trim();
-                if (val && !dateRegex.test(val)) {
-                    dateErrors.push(f.label + ' : format invalide (ex : 24/04/2027 14:00). Valeur reçue : ' + val);
-                }
-            });
-            if (dateErrors.length > 0) {
-                var html = '<div class="alert alert-danger alert-dismissible fade show" role="alert" id="date-format-error">';
-                html += '<strong><i class="fa fa-exclamation-triangle"></i> Format de date invalide</strong><br>';
-                html += dateErrors.join('<br>');
-                html += '<br><small>Utilisez le sélecteur de date pour saisir les dates.</small>';
-                html += '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
-                html += '</div>';
-                $('#date-format-error').remove();
-                $('#mission-order-form .card-header').after(html);
-                $('html, body').animate({ scrollTop: $('#date-format-error').offset().top - 80 }, 400);
-                return; // bloquer la soumission native
-            }
+           
 
             evt.currentTarget.submit();
         });
@@ -1923,6 +1899,10 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 got_errors = true;
             }
 
+            if(!checkDateFormat()) {
+                got_errors = true;
+            }
+
             if ($('#validators').val().length == 0) {
                 sendError("<?php echo T_('Le champ Responsable des crédits est requis'); ?>");
                 got_errors = true;
@@ -1937,7 +1917,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 got_errors = true;
             }
 <?php
-            if($invitation == 0) {
+    if($invitation == 0) {
 ?>
             if (!checkPlace()) {
                 return false;
@@ -1961,7 +1941,7 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 return false;
             }
 <?php
-            } else { ?>
+    } else { ?>
 
 
             if (!$('#guest-phonenumber').val()){
@@ -1978,11 +1958,13 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
                 sendError("<?php echo T_('Le champ Mail de l\'invité est requis'); ?>");
                 got_errors = true;
             }
-<?php }
+<?php 
+    } // end else 1940
 ?>
             if(!checkColloquiums()) {
                 got_errors = true;
             }
+
 
             if (got_errors) {
                 return false;
@@ -1993,6 +1975,30 @@ $disable_amount_max_field = $missionOrder->getId() && $missionOrder->hasValidato
 
                 return true;
             }
+        }
+
+        function checkDateFormat() {
+            console.log("[checkDateFormat]");
+             // Validation du format des dates avant soumission réelle
+            var dateRegex = /^\d{2}\/(0[1-9]|1[0-2])\/\d{4} \d{2}:\d{2}(:\d{2})?$/;
+            var dateFields = [
+                { id: '#date-start',  label: 'Date de départ' },
+                { id: '#date-return', label: 'Date de retour' }
+            ];
+            var dateErrors = [];
+            $.each(dateFields, function(_, f) {
+                var val = $(f.id).val().trim();
+                console.log('Validating ' + f.label + ': ' + val);
+                if (val && !dateRegex.test(val)) {
+                    dateErrors.push(f.label + ' : format invalide (ex : 24/04/2027 14:00). Valeur reçue : ' + val);
+                    sendError(f.label + ' : format invalide (ex : 24/04/2027 14:00). Valeur reçue : ' + val);
+                }
+            });
+            console.log(dateErrors);
+            if (dateErrors.length > 0) {
+                return false; // bloquer la soumission native
+            }
+            return true;
         }
 
         function initAddressDefault(from, target) {
